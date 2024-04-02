@@ -13,8 +13,55 @@ class Performance
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $personnalRecord = null;
+
+    #[ORM\ManyToOne(inversedBy: 'performances')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $userPerforming = null;
+
+    #[ORM\ManyToOne(inversedBy: 'performances')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Exercice $exerciceMesured = null;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getPersonnalRecord(): ?string
+    {
+        return $this->personnalRecord;
+    }
+
+    public function setPersonnalRecord(string $personnalRecord): static
+    {
+        $this->personnalRecord = $personnalRecord;
+
+        return $this;
+    }
+
+    public function getUserPerforming(): ?User
+    {
+        return $this->userPerforming;
+    }
+
+    public function setUserPerforming(?User $userPerforming): static
+    {
+        $this->userPerforming = $userPerforming;
+
+        return $this;
+    }
+
+    public function getExerciceMesured(): ?Exercice
+    {
+        return $this->exerciceMesured;
+    }
+
+    public function setExerciceMesured(?Exercice $exerciceMesured): static
+    {
+        $this->exerciceMesured = $exerciceMesured;
+
+        return $this;
     }
 }

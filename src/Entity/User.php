@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -33,6 +35,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column]
+    private ?int $score = null;
+
+    #[ORM\OneToOne(mappedBy: 'userTracked', cascade: ['persist', 'remove'])]
+    private ?Tracking $tracking = null;
+
+    #[ORM\OneToMany(targetEntity: Performance::class, mappedBy: 'userPerforming', orphanRemoval: true)]
+    private Collection $performances;
+
+    public function __construct()
+    {
+        $this->performances = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -107,5 +123,64 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getScore(): ?int
+    {
+        return $this->score;
+    }
+
+    public function setScore(int $score): static
+    {
+        $this->score = $score;
+
+        return $this;
+    }
+
+    public function getTracking(): ?Tracking
+    {
+        return $this->tracking;
+    }
+
+    public function setTracking(Tracking $tracking): static
+    {
+        // set the owning side of the relation if necessary
+        if ($tracking->getUserTracked() !== $this) {
+            $tracking->setUserTracked($this);
+        }
+
+        $this->tracking = $tracking;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Performance>
+     */
+    public function getPerformances(): Collection
+    {
+        return $this->performances;
+    }
+
+    public function addPerformance(Performance $performance): static
+    {
+        if (!$this->performances->contains($performance)) {
+            $this->performances->add($performance);
+            $performance->setUserPerforming($this);
+        }
+
+        return $this;
+    }
+
+    public function removePerformance(Performance $performance): static
+    {
+        if ($this->performances->removeElement($performance)) {
+            // set the owning side to null (unless already changed)
+            if ($performance->getUserPerforming() === $this) {
+                $performance->setUserPerforming(null);
+            }
+        }
+
+        return $this;
     }
 }
