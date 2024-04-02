@@ -32,10 +32,14 @@ class Exercice
     #[ORM\ManyToMany(targetEntity: Muscle::class, inversedBy: 'exercices')]
     private Collection $secondaryTarget;
 
+    #[ORM\ManyToMany(targetEntity: Program::class, mappedBy: 'exercice')]
+    private Collection $programs;
+
     public function __construct()
     {
         $this->performances = new ArrayCollection();
         $this->secondaryTarget = new ArrayCollection();
+        $this->programs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,6 +133,33 @@ class Exercice
     public function removeSecondaryTarget(Muscle $secondaryTarget): static
     {
         $this->secondaryTarget->removeElement($secondaryTarget);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Program>
+     */
+    public function getPrograms(): Collection
+    {
+        return $this->programs;
+    }
+
+    public function addProgram(Program $program): static
+    {
+        if (!$this->programs->contains($program)) {
+            $this->programs->add($program);
+            $program->addExercice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgram(Program $program): static
+    {
+        if ($this->programs->removeElement($program)) {
+            $program->removeExercice($this);
+        }
 
         return $this;
     }

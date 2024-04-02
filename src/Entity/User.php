@@ -45,9 +45,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Performance::class, mappedBy: 'userPerforming', orphanRemoval: true)]
     private Collection $performances;
 
+    #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'author')]
+    private Collection $sessions;
+
     public function __construct()
     {
         $this->performances = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,6 +182,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($performance->getUserPerforming() === $this) {
                 $performance->setUserPerforming(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Session>
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    public function addSession(Session $session): static
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions->add($session);
+            $session->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Session $session): static
+    {
+        if ($this->sessions->removeElement($session)) {
+            // set the owning side to null (unless already changed)
+            if ($session->getAuthor() === $this) {
+                $session->setAuthor(null);
             }
         }
 
