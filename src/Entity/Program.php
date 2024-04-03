@@ -21,10 +21,14 @@ class Program
     #[ORM\Column]
     private ?int $weightUsed = null;
 
-    #[ORM\ManyToMany(targetEntity: Exercice::class, inversedBy: 'programs')]
+    #[ORM\ManyToOne(targetEntity: Exercice::class, inversedBy: "program")]
+    #[ORM\JoinColumn(nullable: false)]
+
     private Collection $exercice;
 
-    #[ORM\ManyToMany(targetEntity: Muscle::class, inversedBy: 'programs')]
+    #[ORM\ManyToOne(targetEntity: Muscle::class, inversedBy: 'program')]
+    #[ORM\JoinColumn(nullable: false)]
+
     private Collection $muscle;
 
     #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'program', orphanRemoval: true)]

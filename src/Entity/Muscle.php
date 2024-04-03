@@ -25,7 +25,7 @@ class Muscle
     #[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'target')]
     private Collection $exercices;
 
-    #[ORM\ManyToMany(targetEntity: Program::class, mappedBy: 'muscle')]
+    #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'muscle')]
     private Collection $programs;
 
     public function __construct()

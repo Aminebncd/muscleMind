@@ -29,17 +29,18 @@ class Exercice
     #[ORM\JoinColumn(nullable: false)]
     private ?Muscle $target = null;
 
-    #[ORM\ManyToMany(targetEntity: Muscle::class, inversedBy: 'exercices')]
-    private Collection $secondaryTarget;
+    #[ORM\ManyToOne(inversedBy: 'exercices')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Muscle $secondaryTarget = null;
 
-    #[ORM\ManyToMany(targetEntity: Program::class, mappedBy: 'exercice')]
-    private Collection $programs;
+    #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'exercice')]
+    private Collection $program;
 
     public function __construct()
     {
         $this->performances = new ArrayCollection();
         $this->secondaryTarget = new ArrayCollection();
-        $this->programs = new ArrayCollection();
+        $this->program = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -113,26 +114,14 @@ class Exercice
         return $this;
     }
 
-    /**
-     * @return Collection<int, Muscle>
-     */
-    public function getSecondaryTarget(): Collection
+    public function getSecondaryTarget(): ?Muscle
     {
         return $this->secondaryTarget;
     }
 
-    public function addSecondaryTarget(Muscle $secondaryTarget): static
+    public function setSecondaryTarget(?Muscle $secondaryTarget): static
     {
-        if (!$this->secondaryTarget->contains($secondaryTarget)) {
-            $this->secondaryTarget->add($secondaryTarget);
-        }
-
-        return $this;
-    }
-
-    public function removeSecondaryTarget(Muscle $secondaryTarget): static
-    {
-        $this->secondaryTarget->removeElement($secondaryTarget);
+        $this->secondaryTarget = $secondaryTarget;
 
         return $this;
     }
