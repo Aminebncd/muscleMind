@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
--- Listage des données de la table musclemind.doctrine_migration_versions : ~8 rows (environ)
+-- Listage des données de la table musclemind.doctrine_migration_versions : ~6 rows (environ)
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20240402204018', '2024-04-02 20:40:33', 339),
 	('DoctrineMigrations\\Version20240402205810', '2024-04-02 20:58:16', 212),
@@ -36,7 +36,8 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 	('DoctrineMigrations\\Version20240403201549', '2024-04-03 20:15:53', 114),
 	('DoctrineMigrations\\Version20240403201720', '2024-04-03 20:17:24', 42),
 	('DoctrineMigrations\\Version20240403203044', '2024-04-03 20:30:50', 47),
-	('DoctrineMigrations\\Version20240405210256', '2024-04-05 21:03:03', 51);
+	('DoctrineMigrations\\Version20240405210256', '2024-04-05 21:03:03', 51),
+	('DoctrineMigrations\\Version20240406213635', '2024-04-06 21:36:45', 248);
 
 -- Listage de la structure de table musclemind. exercice
 CREATE TABLE IF NOT EXISTS `exercice` (
@@ -50,11 +51,11 @@ CREATE TABLE IF NOT EXISTS `exercice` (
   KEY `IDX_E418C74D8AAA4E1F` (`secondary_target_id`),
   CONSTRAINT `FK_E418C74D158E0B66` FOREIGN KEY (`target_id`) REFERENCES `muscle` (`id`),
   CONSTRAINT `FK_E418C74D8AAA4E1F` FOREIGN KEY (`secondary_target_id`) REFERENCES `muscle` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table musclemind.exercice : ~0 rows (environ)
+-- Listage des données de la table musclemind.exercice : ~28 rows (environ)
 INSERT INTO `exercice` (`id`, `target_id`, `exercice_name`, `exercice_function`, `secondary_target_id`) VALUES
-	(1, 1, 'Bench Press', 'Exercice de développé couché pour les pectoraux', NULL),
+	(1, 1, 'Bench Press', 'Exercice de développé couché pour les pectoraux', 2),
 	(2, 1, 'Push-Ups', 'Exercice de pompes pour les pectoraux', NULL),
 	(3, 1, 'Chest Fly', 'Exercice d\'écarté couché pour les pectoraux', NULL),
 	(4, 2, 'Tricep Dips', 'Exercice de dips pour les triceps', NULL),
@@ -106,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `muscle` (
   `muscle_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `muscle_function` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table musclemind.muscle : ~17 rows (environ)
 INSERT INTO `muscle` (`id`, `muscle_name`, `muscle_function`) VALUES
@@ -163,20 +164,29 @@ CREATE TABLE IF NOT EXISTS `performance` (
 -- Listage de la structure de table musclemind. program
 CREATE TABLE IF NOT EXISTS `program` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `number_of_repetitions` int NOT NULL,
-  `weight_used` int NOT NULL,
-  `exercice_id` int NOT NULL,
-  `muscle_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_92ED778489D40298` (`exercice_id`),
-  KEY `IDX_92ED7784354FDBB4` (`muscle_id`),
-  CONSTRAINT `FK_92ED7784354FDBB4` FOREIGN KEY (`muscle_id`) REFERENCES `muscle` (`id`),
-  CONSTRAINT `FK_92ED778489D40298` FOREIGN KEY (`exercice_id`) REFERENCES `exercice` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table musclemind.program : ~1 rows (environ)
-INSERT INTO `program` (`id`, `number_of_repetitions`, `weight_used`, `exercice_id`, `muscle_id`) VALUES
-	(1, 10, 100, 1, 1);
+INSERT INTO `program` (`id`, `title`) VALUES
+	(1, 'Pecs / Triceps');
+
+-- Listage de la structure de table musclemind. program_muscle_group
+CREATE TABLE IF NOT EXISTS `program_muscle_group` (
+  `program_id` int NOT NULL,
+  `muscle_group_id` int NOT NULL,
+  PRIMARY KEY (`program_id`,`muscle_group_id`),
+  KEY `IDX_7198FAA93EB8070A` (`program_id`),
+  KEY `IDX_7198FAA944004D0` (`muscle_group_id`),
+  CONSTRAINT `FK_7198FAA93EB8070A` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_7198FAA944004D0` FOREIGN KEY (`muscle_group_id`) REFERENCES `muscle_group` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table musclemind.program_muscle_group : ~2 rows (environ)
+INSERT INTO `program_muscle_group` (`program_id`, `muscle_group_id`) VALUES
+	(1, 1),
+	(1, 2);
 
 -- Listage de la structure de table musclemind. ressources
 CREATE TABLE IF NOT EXISTS `ressources` (
@@ -192,19 +202,15 @@ CREATE TABLE IF NOT EXISTS `ressources` (
 CREATE TABLE IF NOT EXISTS `session` (
   `id` int NOT NULL AUTO_INCREMENT,
   `date_session` datetime NOT NULL,
-  `author_id` int NOT NULL,
   `program_id` int NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_D044D5D4F675F31B` (`author_id`),
   KEY `IDX_D044D5D43EB8070A` (`program_id`),
-  CONSTRAINT `FK_D044D5D43EB8070A` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`),
-  CONSTRAINT `FK_D044D5D4F675F31B` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  CONSTRAINT `FK_D044D5D43EB8070A` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table musclemind.session : ~1 rows (environ)
-INSERT INTO `session` (`id`, `date_session`, `author_id`, `program_id`, `title`) VALUES
-	(1, '2024-04-06 22:58:25', 1, 1, 'seance pecs');
+INSERT INTO `session` (`id`, `date_session`, `program_id`) VALUES
+	(1, '2024-04-06 22:58:25', 1);
 
 -- Listage de la structure de table musclemind. tracking
 CREATE TABLE IF NOT EXISTS `tracking` (
@@ -233,9 +239,28 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `UNIQ_IDENTIFIER_EMAIL` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table musclemind.user : ~1 rows (environ)
+-- Listage des données de la table musclemind.user : ~0 rows (environ)
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `score`, `username`) VALUES
 	(1, 'aminebncd_pro@hotmail.com', '["ROLE_ADMIN"]', '$2y$13$tRlVKy1IevwVp4wryKyBPO9tbkx9P9bOeLYZXZvfO.LFjbI1HToqu', 0, 'Aminebncd');
+
+-- Listage de la structure de table musclemind. workout_plan
+CREATE TABLE IF NOT EXISTS `workout_plan` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `exercice_id` int NOT NULL,
+  `program_id` int DEFAULT NULL,
+  `number_of_repetitions` int NOT NULL,
+  `weights_used` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_A5D4580189D40298` (`exercice_id`),
+  KEY `IDX_A5D458013EB8070A` (`program_id`),
+  CONSTRAINT `FK_A5D458013EB8070A` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`),
+  CONSTRAINT `FK_A5D4580189D40298` FOREIGN KEY (`exercice_id`) REFERENCES `exercice` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table musclemind.workout_plan : ~2 rows (environ)
+INSERT INTO `workout_plan` (`id`, `exercice_id`, `program_id`, `number_of_repetitions`, `weights_used`) VALUES
+	(1, 1, 1, 10, 100),
+	(2, 3, 1, 12, 15);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
