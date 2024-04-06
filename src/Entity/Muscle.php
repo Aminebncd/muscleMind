@@ -25,13 +25,9 @@ class Muscle
     #[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'target')]
     private Collection $exercices;
 
-    #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'muscle')]
-    private Collection $programs;
-
     public function __construct()
     {
         $this->exercices = new ArrayCollection();
-        $this->programs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,33 +84,6 @@ class Muscle
             if ($exercice->getTarget() === $this) {
                 $exercice->setTarget(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Program>
-     */
-    public function getPrograms(): Collection
-    {
-        return $this->programs;
-    }
-
-    public function addProgram(Program $program): static
-    {
-        if (!$this->programs->contains($program)) {
-            $this->programs->add($program);
-            $program->addMuscle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProgram(Program $program): static
-    {
-        if ($this->programs->removeElement($program)) {
-            $program->removeMuscle($this);
         }
 
         return $this;

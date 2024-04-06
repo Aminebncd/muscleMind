@@ -33,14 +33,15 @@ class Exercice
     #[ORM\JoinColumn(nullable: true)]
     private ?Muscle $secondaryTarget = null;
 
-    #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'exercice')]
-    private Collection $program;
+    #[ORM\OneToMany(targetEntity: WorkoutPlan::class, mappedBy: 'exercice')]
+    private Collection $workoutPlans;
 
     public function __construct()
     {
         $this->performances = new ArrayCollection();
         $this->secondaryTarget = new ArrayCollection();
         $this->program = new ArrayCollection();
+        $this->workoutPlans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,29 +128,33 @@ class Exercice
     }
 
     /**
-     * @return Collection<int, Program>
+     * @return Collection<int, WorkoutPlan>
      */
-    public function getPrograms(): Collection
+    public function getWorkoutPlans(): Collection
     {
-        return $this->programs;
+        return $this->workoutPlans;
     }
 
-    public function addProgram(Program $program): static
+    public function addWorkoutPlan(WorkoutPlan $workoutPlan): static
     {
-        if (!$this->programs->contains($program)) {
-            $this->programs->add($program);
-            $program->addExercice($this);
+        if (!$this->workoutPlans->contains($workoutPlan)) {
+            $this->workoutPlans->add($workoutPlan);
+            $workoutPlan->setExercice($this);
         }
 
         return $this;
     }
 
-    public function removeProgram(Program $program): static
+    public function removeWorkoutPlan(WorkoutPlan $workoutPlan): static
     {
-        if ($this->programs->removeElement($program)) {
-            $program->removeExercice($this);
+        if ($this->workoutPlans->removeElement($workoutPlan)) {
+            // set the owning side to null (unless already changed)
+            if ($workoutPlan->getExercice() === $this) {
+                $workoutPlan->setExercice(null);
+            }
         }
 
         return $this;
     }
+
 }

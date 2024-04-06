@@ -3,5 +3,21 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-TEST
+
+    {{user}}
+
+    {% if sessions| length > 0 %}
+
+        {% for session in sessions %}
+            {{session}}
+        {% endfor %}
+
+    {% else %}
+
+        <p>it seems that you don't have any sessions programmed, let's add some !</p>
+
+    {% endif %}
+
+
+
 {% endblock %}

@@ -15,30 +15,23 @@ class Program
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $numberOfRepetitions = null;
-
-    #[ORM\Column]
-    private ?int $weightUsed = null;
-
-    #[ORM\ManyToOne(targetEntity: Exercice::class, inversedBy: "program")]
-    #[ORM\JoinColumn(nullable: false)]
-
-    private Collection $exercice;
-
-    #[ORM\ManyToOne(targetEntity: Muscle::class, inversedBy: 'program')]
-    #[ORM\JoinColumn(nullable: false)]
-
-    private Collection $muscle;
+    #[ORM\Column(length: 255)]
+    private ?string $title = null;
 
     #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'program', orphanRemoval: true)]
-    private Collection $session;
+    private Collection $sessions;
+
+    #[ORM\ManyToMany(targetEntity: MuscleGroup::class, inversedBy: 'programs')]
+    private Collection $muscleGroupTargeted;
+
+    #[ORM\OneToMany(targetEntity: WorkoutPlan::class, mappedBy: 'program')]
+    private Collection $workoutPlans;
 
     public function __construct()
     {
-        $this->exercice = new ArrayCollection();
-        $this->muscle = new ArrayCollection();
-        $this->session = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
+        $this->muscleGroupTargeted = new ArrayCollection();
+        $this->workoutPlans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,74 +39,14 @@ class Program
         return $this->id;
     }
 
-    public function getNumberOfRepetitions(): ?int
+    public function getTitle(): ?string
     {
-        return $this->numberOfRepetitions;
+        return $this->title;
     }
 
-    public function setNumberOfRepetitions(int $numberOfRepetitions): static
+    public function setTitle(string $title): static
     {
-        $this->numberOfRepetitions = $numberOfRepetitions;
-
-        return $this;
-    }
-
-    public function getWeightUsed(): ?int
-    {
-        return $this->weightUsed;
-    }
-
-    public function setWeightUsed(int $weightUsed): static
-    {
-        $this->weightUsed = $weightUsed;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Exercice>
-     */
-    public function getExercice(): Collection
-    {
-        return $this->exercice;
-    }
-
-    public function addExercice(Exercice $exercice): static
-    {
-        if (!$this->exercice->contains($exercice)) {
-            $this->exercice->add($exercice);
-        }
-
-        return $this;
-    }
-
-    public function removeExercice(Exercice $exercice): static
-    {
-        $this->exercice->removeElement($exercice);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Muscle>
-     */
-    public function getMuscle(): Collection
-    {
-        return $this->muscle;
-    }
-
-    public function addMuscle(Muscle $muscle): static
-    {
-        if (!$this->muscle->contains($muscle)) {
-            $this->muscle->add($muscle);
-        }
-
-        return $this;
-    }
-
-    public function removeMuscle(Muscle $muscle): static
-    {
-        $this->muscle->removeElement($muscle);
+        $this->title = $title;
 
         return $this;
     }
@@ -121,15 +54,15 @@ class Program
     /**
      * @return Collection<int, Session>
      */
-    public function getSession(): Collection
+    public function getSessions(): Collection
     {
-        return $this->session;
+        return $this->sessions;
     }
 
     public function addSession(Session $session): static
     {
-        if (!$this->session->contains($session)) {
-            $this->session->add($session);
+        if (!$this->sessions->contains($session)) {
+            $this->sessions->add($session);
             $session->setProgram($this);
         }
 
@@ -138,10 +71,64 @@ class Program
 
     public function removeSession(Session $session): static
     {
-        if ($this->session->removeElement($session)) {
+        if ($this->sessions->removeElement($session)) {
             // set the owning side to null (unless already changed)
             if ($session->getProgram() === $this) {
                 $session->setProgram(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MuscleGroup>
+     */
+    public function getMuscleGroupTargeted(): Collection
+    {
+        return $this->muscleGroupTargeted;
+    }
+
+    public function addMuscleGroupTargeted(MuscleGroup $muscleGroupTargeted): static
+    {
+        if (!$this->muscleGroupTargeted->contains($muscleGroupTargeted)) {
+            $this->muscleGroupTargeted->add($muscleGroupTargeted);
+        }
+
+        return $this;
+    }
+
+    public function removeMuscleGroupTargeted(MuscleGroup $muscleGroupTargeted): static
+    {
+        $this->muscleGroupTargeted->removeElement($muscleGroupTargeted);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, WorkoutPlan>
+     */
+    public function getWorkoutPlans(): Collection
+    {
+        return $this->workoutPlans;
+    }
+
+    public function addWorkoutPlan(WorkoutPlan $workoutPlan): static
+    {
+        if (!$this->workoutPlans->contains($workoutPlan)) {
+            $this->workoutPlans->add($workoutPlan);
+            $workoutPlan->setProgram($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkoutPlan(WorkoutPlan $workoutPlan): static
+    {
+        if ($this->workoutPlans->removeElement($workoutPlan)) {
+            // set the owning side to null (unless already changed)
+            if ($workoutPlan->getProgram() === $this) {
+                $workoutPlan->setProgram(null);
             }
         }
 

@@ -232,4 +232,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+    public function __tostring ()
+    {
+        return $this->username;
+    }
 }

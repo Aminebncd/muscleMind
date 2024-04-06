@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
--- Listage des données de la table musclemind.doctrine_migration_versions : ~6 rows (environ)
+-- Listage des données de la table musclemind.doctrine_migration_versions : ~8 rows (environ)
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20240402204018', '2024-04-02 20:40:33', 339),
 	('DoctrineMigrations\\Version20240402205810', '2024-04-02 20:58:16', 212),
@@ -35,7 +35,8 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 	('DoctrineMigrations\\Version20240403200751', '2024-04-03 20:07:55', 135),
 	('DoctrineMigrations\\Version20240403201549', '2024-04-03 20:15:53', 114),
 	('DoctrineMigrations\\Version20240403201720', '2024-04-03 20:17:24', 42),
-	('DoctrineMigrations\\Version20240403203044', '2024-04-03 20:30:50', 47);
+	('DoctrineMigrations\\Version20240403203044', '2024-04-03 20:30:50', 47),
+	('DoctrineMigrations\\Version20240405210256', '2024-04-05 21:03:03', 51);
 
 -- Listage de la structure de table musclemind. exercice
 CREATE TABLE IF NOT EXISTS `exercice` (
@@ -52,6 +53,35 @@ CREATE TABLE IF NOT EXISTS `exercice` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table musclemind.exercice : ~0 rows (environ)
+INSERT INTO `exercice` (`id`, `target_id`, `exercice_name`, `exercice_function`, `secondary_target_id`) VALUES
+	(1, 1, 'Bench Press', 'Exercice de développé couché pour les pectoraux', NULL),
+	(2, 1, 'Push-Ups', 'Exercice de pompes pour les pectoraux', NULL),
+	(3, 1, 'Chest Fly', 'Exercice d\'écarté couché pour les pectoraux', NULL),
+	(4, 2, 'Tricep Dips', 'Exercice de dips pour les triceps', NULL),
+	(5, 2, 'Tricep Extension', 'Exercice d\'extension triceps', NULL),
+	(6, 2, 'Close-Grip Bench Press', 'Exercice de développé couché prise serrée pour les triceps', NULL),
+	(7, 4, 'Military Press', 'Exercice de développé militaire pour les épaules', NULL),
+	(8, 4, 'Lateral Raises', 'Exercice d\'élévations latérales pour les épaules', NULL),
+	(9, 4, 'Front Raises', 'Exercice d\'élévations frontales pour les épaules', NULL),
+	(10, 5, 'Deadlifts', 'Exercice de soulevé de terre pour le dos', NULL),
+	(11, 5, 'Pull-Ups', 'Exercice de tractions pour le dos', NULL),
+	(12, 5, 'Bent Over Rows', 'Exercice de rowing barre pour le dos', NULL),
+	(13, 6, 'Crunches', 'Exercice de crunchs pour les abdominaux', NULL),
+	(14, 6, 'Planks', 'Exercice de planche abdominale', NULL),
+	(15, 6, 'Russian Twists', 'Exercice de torsions russes pour les abdominaux', NULL),
+	(16, 7, 'Squats', 'Exercice de squats pour les jambes', NULL),
+	(17, 7, 'Lunges', 'Exercice de fentes pour les jambes', NULL),
+	(18, 7, 'Leg Press', 'Exercice de presse à cuisses pour les jambes', NULL),
+	(19, 8, 'Pull-Ups', 'Exercice de tractions pour le grand dorsal', NULL),
+	(20, 9, 'Shrugs', 'Exercice d\'élévations d\'épaules pour les trapèzes', NULL),
+	(21, 10, 'Pull-Ups', 'Exercice de tractions pour les rhomboïdes', NULL),
+	(22, 11, 'Lateral Raises', 'Exercice d\'élévations latérales pour les deltoïdes', NULL),
+	(23, 12, 'Glute Bridge', 'Exercice de pont pour les fessiers', NULL),
+	(24, 13, 'Squats', 'Exercice de squats pour les quadriceps', NULL),
+	(25, 14, 'Romanian Deadlifts', 'Exercice de soulevé de terre jambes tendues pour les ischio-jambiers', NULL),
+	(26, 15, 'Calf Raises', 'Exercice de relevés de mollets', NULL),
+	(27, 16, 'Russian Twists', 'Exercice de torsions russes pour les obliques', NULL),
+	(28, 17, 'Crunches', 'Exercice de crunchs pour le grand droit de dos', NULL);
 
 -- Listage de la structure de table musclemind. messenger_messages
 CREATE TABLE IF NOT EXISTS `messenger_messages` (
@@ -78,7 +108,25 @@ CREATE TABLE IF NOT EXISTS `muscle` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table musclemind.muscle : ~0 rows (environ)
+-- Listage des données de la table musclemind.muscle : ~17 rows (environ)
+INSERT INTO `muscle` (`id`, `muscle_name`, `muscle_function`) VALUES
+	(1, 'PECTORAUX', 'Groupe musculaire situé sur la poitrine'),
+	(2, 'TRICEPS', 'Muscle situé à l\'arrière du bras'),
+	(3, 'BICEPS', 'Muscle situé à l\'avant du bras'),
+	(4, 'ÉPAULES', 'Groupe musculaire situé sur les épaules'),
+	(5, 'DOS', 'Groupe musculaire situé sur le dos'),
+	(6, 'ABDOMINAUX', 'Groupe musculaire situé sur l\'abdomen'),
+	(7, 'JAMBES', 'Groupe musculaire situé sur les jambes'),
+	(8, 'GRAND DORSAL', 'Muscle large situé sur le dos'),
+	(9, 'TRAPEZIUS', 'Muscle situé sur le haut du dos et du cou'),
+	(10, 'RHOMBOÏDES', 'Muscles situés entre les omoplates'),
+	(11, 'DELTOÏDES', 'Muscles situés sur les épaules'),
+	(12, 'FESSIERS', 'Groupe musculaire situé sur les fesses'),
+	(13, 'QUADRICEPS', 'Groupe musculaire situé sur la partie antérieure de la cuisse'),
+	(14, 'ISCHIO-JAMBIERS', 'Groupe musculaire situé sur la partie postérieure de la cuisse'),
+	(15, 'MOLLETS', 'Muscles situés sur la partie inférieure de la jambe'),
+	(16, 'OBLIQUES', 'Muscles abdominaux situés sur les côtés'),
+	(17, 'GRAND DROIT DE DOS', 'Muscle droit situé sur le dos');
 
 -- Listage de la structure de table musclemind. muscle_group
 CREATE TABLE IF NOT EXISTS `muscle_group` (
@@ -87,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `muscle_group` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table musclemind.muscle_group : ~0 rows (environ)
+-- Listage des données de la table musclemind.muscle_group : ~7 rows (environ)
 INSERT INTO `muscle_group` (`id`, `muscle_group`) VALUES
 	(1, 'CHEST'),
 	(2, 'TRICEPS'),
@@ -126,7 +174,9 @@ CREATE TABLE IF NOT EXISTS `program` (
   CONSTRAINT `FK_92ED778489D40298` FOREIGN KEY (`exercice_id`) REFERENCES `exercice` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table musclemind.program : ~0 rows (environ)
+-- Listage des données de la table musclemind.program : ~1 rows (environ)
+INSERT INTO `program` (`id`, `number_of_repetitions`, `weight_used`, `exercice_id`, `muscle_id`) VALUES
+	(1, 10, 100, 1, 1);
 
 -- Listage de la structure de table musclemind. ressources
 CREATE TABLE IF NOT EXISTS `ressources` (
@@ -152,7 +202,9 @@ CREATE TABLE IF NOT EXISTS `session` (
   CONSTRAINT `FK_D044D5D4F675F31B` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table musclemind.session : ~0 rows (environ)
+-- Listage des données de la table musclemind.session : ~1 rows (environ)
+INSERT INTO `session` (`id`, `date_session`, `author_id`, `program_id`, `title`) VALUES
+	(1, '2024-04-06 22:58:25', 1, 1, 'seance pecs');
 
 -- Listage de la structure de table musclemind. tracking
 CREATE TABLE IF NOT EXISTS `tracking` (
@@ -176,11 +228,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `roles` json NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `score` int NOT NULL,
+  `username` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_IDENTIFIER_EMAIL` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table musclemind.user : ~0 rows (environ)
+-- Listage des données de la table musclemind.user : ~1 rows (environ)
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `score`, `username`) VALUES
+	(1, 'aminebncd_pro@hotmail.com', '["ROLE_ADMIN"]', '$2y$13$tRlVKy1IevwVp4wryKyBPO9tbkx9P9bOeLYZXZvfO.LFjbI1HToqu', 0, 'Aminebncd');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
