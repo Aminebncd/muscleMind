@@ -134,4 +134,9 @@ class Program
 
         return $this;
     }
+
+    public function __tostring()
+    {
+        return $this->title;
+    }
 }

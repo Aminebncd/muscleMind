@@ -203,14 +203,17 @@ CREATE TABLE IF NOT EXISTS `session` (
   `id` int NOT NULL AUTO_INCREMENT,
   `date_session` datetime NOT NULL,
   `program_id` int NOT NULL,
+  `creator_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_D044D5D43EB8070A` (`program_id`),
-  CONSTRAINT `FK_D044D5D43EB8070A` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `FK_session_user` (`creator_id`),
+  CONSTRAINT `FK_D044D5D43EB8070A` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`),
+  CONSTRAINT `FK_session_user` FOREIGN KEY (`creator_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table musclemind.session : ~1 rows (environ)
-INSERT INTO `session` (`id`, `date_session`, `program_id`) VALUES
-	(1, '2024-04-06 22:58:25', 1);
+INSERT INTO `session` (`id`, `date_session`, `program_id`, `creator_id`) VALUES
+	(2, '2024-04-07 22:08:55', 1, 1);
 
 -- Listage de la structure de table musclemind. tracking
 CREATE TABLE IF NOT EXISTS `tracking` (
@@ -239,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `UNIQ_IDENTIFIER_EMAIL` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table musclemind.user : ~0 rows (environ)
+-- Listage des données de la table musclemind.user : ~1 rows (environ)
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `score`, `username`) VALUES
 	(1, 'aminebncd_pro@hotmail.com', '["ROLE_ADMIN"]', '$2y$13$tRlVKy1IevwVp4wryKyBPO9tbkx9P9bOeLYZXZvfO.LFjbI1HToqu', 0, 'Aminebncd');
 
