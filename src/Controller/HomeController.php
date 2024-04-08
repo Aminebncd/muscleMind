@@ -19,14 +19,14 @@ class HomeController extends AbstractController
 
 
         $user = $this->getUser();
-        $sessions = $user->getSessions();
+        $programs = $user->getPrograms();
 
         // dd($sessions);
 
 
         return $this->render('home/index.html.twig', [
             'user' => $user,
-            'sessions' => $sessions,
+            'programs' => $programs,
             'controller_name' => 'UserController',
         ]);
     }

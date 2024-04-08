@@ -48,13 +48,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 30)]
     private ?string $username = null;
 
-    #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'creator', orphanRemoval: true)]
-    private Collection $sessions;
+    #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'creator', orphanRemoval: true)]
+    private Collection $programs;
 
     public function __construct()
     {
         $this->performances = new ArrayCollection();
-        $this->sessions = new ArrayCollection();
+        $this->programs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,27 +212,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Session>
      */
-    public function getSessions(): Collection
+    public function getPrograms(): Collection
     {
-        return $this->sessions;
+        return $this->programs;
     }
 
-    public function addSession(Session $session): static
+    public function addPrograms(program $program): static
     {
-        if (!$this->sessions->contains($session)) {
-            $this->sessions->add($session);
-            $session->setCreator($this);
+        if (!$this->programs->contains($program)) {
+            $this->programs->add($program);
+            $program->setCreator($this);
         }
 
         return $this;
     }
 
-    public function removeSession(Session $session): static
+    public function removeprogram(program $program): static
     {
-        if ($this->sessions->removeElement($session)) {
+        if ($this->programs->removeElement($program)) {
             // set the owning side to null (unless already changed)
-            if ($session->getCreator() === $this) {
-                $session->setCreator(null);
+            if ($program->getCreator() === $this) {
+                $program->setCreator(null);
             }
         }
 

@@ -27,6 +27,11 @@ class Program
     #[ORM\OneToMany(targetEntity: WorkoutPlan::class, mappedBy: 'program')]
     private Collection $workoutPlans;
 
+    #[ORM\ManyToOne(inversedBy: 'sessions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $creator = null;
+
+
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
@@ -131,6 +136,18 @@ class Program
                 $workoutPlan->setProgram(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): static
+    {
+        $this->creator = $creator;
 
         return $this;
     }

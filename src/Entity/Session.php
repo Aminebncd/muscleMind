@@ -21,10 +21,7 @@ class Session
     #[ORM\JoinColumn(nullable: false)]
     private ?Program $program = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sessions')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $creator = null;
-
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -50,18 +47,6 @@ class Session
     public function setProgram(?Program $program): static
     {
         $this->program = $program;
-
-        return $this;
-    }
-
-    public function getCreator(): ?User
-    {
-        return $this->creator;
-    }
-
-    public function setCreator(?User $creator): static
-    {
-        $this->creator = $creator;
 
         return $this;
     }
