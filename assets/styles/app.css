@@ -14,6 +14,26 @@ div {
 }
 
 
-a g.biceps:hover {
-    background-color: red;
+/* This */
+/* 
+.Biceps path:hover, 
+.Obliques path:hover, 
+.Abdominals g path:hover,
+.Shoulder path:hover,
+.Back path:hover,
+.Trapezius path:hover,
+.Chest path:hover,
+.Forearms path:hover,
+.Abductors path:hover,
+.Adductors path:hover,
+.Quadriceps path:hover,
+.Calves path:hover,
+.Neck path:hover {
+    fill: red;
+} */
+
+
+/* is the equivalent of that, i don't even know why i bothered writingf the whole thing... */
+a g path:hover {
+    fill: red;
 }
