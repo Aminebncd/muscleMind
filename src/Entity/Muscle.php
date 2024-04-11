@@ -25,6 +25,10 @@ class Muscle
     #[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'target')]
     private Collection $exercices;
 
+    #[ORM\ManyToOne(inversedBy: 'muscles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?MuscleGroup $muscleGroup = null;
+
     public function __construct()
     {
         $this->exercices = new ArrayCollection();
@@ -85,6 +89,18 @@ class Muscle
                 $exercice->setTarget(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMuscleGroup(): ?MuscleGroup
+    {
+        return $this->muscleGroup;
+    }
+
+    public function setMuscleGroup(?MuscleGroup $muscleGroup): static
+    {
+        $this->muscleGroup = $muscleGroup;
 
         return $this;
     }

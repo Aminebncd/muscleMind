@@ -21,9 +21,13 @@ class MuscleGroup
     #[ORM\ManyToMany(targetEntity: Program::class, mappedBy: 'muscleGroupTargeted')]
     private Collection $programs;
 
+    #[ORM\OneToMany(targetEntity: Muscle::class, mappedBy: 'muscleGroup')]
+    private Collection $muscles;
+
     public function __construct()
     {
         $this->programs = new ArrayCollection();
+        $this->muscles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -65,6 +69,36 @@ class MuscleGroup
     {
         if ($this->programs->removeElement($program)) {
             $program->removeMuscleGroupTargeted($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Muscle>
+     */
+    public function getMuscles(): Collection
+    {
+        return $this->muscles;
+    }
+
+    public function addMuscle(Muscle $muscle): static
+    {
+        if (!$this->muscles->contains($muscle)) {
+            $this->muscles->add($muscle);
+            $muscle->setMuscleGroup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMuscle(Muscle $muscle): static
+    {
+        if ($this->muscles->removeElement($muscle)) {
+            // set the owning side to null (unless already changed)
+            if ($muscle->getMuscleGroup() === $this) {
+                $muscle->setMuscleGroup(null);
+            }
         }
 
         return $this;
