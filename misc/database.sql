@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `muscle_group` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table musclemind.muscle_group : ~0 rows (environ)
+-- Listage des données de la table musclemind.muscle_group : ~7 rows (environ)
 INSERT INTO `muscle_group` (`id`, `muscle_group`) VALUES
 	(1, 'CHEST'),
 	(2, 'TRICEPS'),
@@ -138,9 +138,11 @@ CREATE TABLE IF NOT EXISTS `performance` (
   KEY `FK_EXERCICE_MESURED_ID` (`exercice_mesured_id`),
   CONSTRAINT `FK_EXERCICE_MESURED_ID` FOREIGN KEY (`exercice_mesured_id`) REFERENCES `exercice` (`id`),
   CONSTRAINT `FK_USER_PERFORMING_ID` FOREIGN KEY (`user_performing_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table musclemind.performance : ~0 rows (environ)
+-- Listage des données de la table musclemind.performance : ~1 rows (environ)
+INSERT INTO `performance` (`id`, `personnal_record`, `user_performing_id`, `exercice_mesured_id`) VALUES
+	(1, '110', 1, 111);
 
 -- Listage de la structure de table musclemind. program
 CREATE TABLE IF NOT EXISTS `program` (
@@ -162,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `ressources` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table musclemind.ressources : ~0 rows (environ)
+-- Listage des données de la table musclemind.ressources : ~3 rows (environ)
 INSERT INTO `ressources` (`id`, `content`, `link`) VALUES
 	(1, 'Sample content for resource 1', 'https://example.com/resource1'),
 	(2, 'Sample content for resource 2', 'https://example.com/resource2'),
@@ -191,9 +193,11 @@ CREATE TABLE IF NOT EXISTS `tracking` (
   PRIMARY KEY (`id`),
   KEY `FK_USER_TRACKED_ID` (`user_tracked_id`),
   CONSTRAINT `FK_USER_TRACKED_ID` FOREIGN KEY (`user_tracked_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table musclemind.tracking : ~0 rows (environ)
+-- Listage des données de la table musclemind.tracking : ~1 rows (environ)
+INSERT INTO `tracking` (`id`, `height`, `weight`, `age`, `sex`, `user_tracked_id`) VALUES
+	(1, '185', '85', '23', 1, 1);
 
 -- Listage de la structure de table musclemind. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -205,9 +209,11 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_IDENTIFIER_EMAIL` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table musclemind.user : ~0 rows (environ)
+-- Listage des données de la table musclemind.user : ~1 rows (environ)
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `score`, `username`) VALUES
+	(1, 'aminebncd_pro@hotmail.com', '[]', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 0, 'aminebncd');
 
 -- Listage de la structure de table musclemind. workout_plan
 CREATE TABLE IF NOT EXISTS `workout_plan` (

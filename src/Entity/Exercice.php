@@ -40,7 +40,6 @@ class Exercice
     {
         $this->performances = new ArrayCollection();
         $this->secondaryTarget = new ArrayCollection();
-        $this->program = new ArrayCollection();
         $this->workoutPlans = new ArrayCollection();
     }
 
