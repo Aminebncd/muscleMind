@@ -21,8 +21,8 @@ class Program
     #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'program', orphanRemoval: true)]
     private Collection $sessions;
 
-    #[ORM\ManyToMany(targetEntity: MuscleGroup::class, inversedBy: 'programs')]
-    private Collection $muscleGroupTargeted;
+    // #[ORM\ManyToMany(targetEntity: MuscleGroup::class, inversedBy: 'programs')]
+    // private Collection $muscleGroupTargeted;
 
     #[ORM\OneToMany(targetEntity: WorkoutPlan::class, mappedBy: 'program')]
     private Collection $workoutPlans;
@@ -30,12 +30,19 @@ class Program
     #[ORM\ManyToOne(inversedBy: 'sessions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $creator = null;
+    
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?MuscleGroup $muscleGroupTargeted;
+
+    #[ORM\ManyToOne]
+    private ?MuscleGroup $secondaryMuscleGroupTargeted = null;
 
 
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
-        $this->muscleGroupTargeted = new ArrayCollection();
+        // $this->muscleGroupTargeted = new ArrayCollection();
         $this->workoutPlans = new ArrayCollection();
     }
 
@@ -86,26 +93,50 @@ class Program
         return $this;
     }
 
-    /**
-     * @return Collection<int, MuscleGroup>
-     */
-    public function getMuscleGroupTargeted(): Collection
+    // /**
+    //  * @return Collection<int, MuscleGroup>
+    //  */
+    // public function getMuscleGroupTargeted(): Collection
+    // {
+    //     return $this->muscleGroupTargeted;
+    // }
+
+    // public function addMuscleGroupTargeted(MuscleGroup $muscleGroupTargeted): static
+    // {
+    //     if (!$this->muscleGroupTargeted->contains($muscleGroupTargeted)) {
+    //         $this->muscleGroupTargeted->add($muscleGroupTargeted);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function removeMuscleGroupTargeted(MuscleGroup $muscleGroupTargeted): static
+    // {
+    //     $this->muscleGroupTargeted->removeElement($muscleGroupTargeted);
+
+    //     return $this;
+    // }
+    
+    public function getMuscleGroupTargeted(): ?MuscleGroup
     {
-        return $this->muscleGroupTargeted;
+        return $this->secondaryMuscleGroupTargeted;
     }
 
-    public function addMuscleGroupTargeted(MuscleGroup $muscleGroupTargeted): static
+    public function setMuscleGroupTargeted(?MuscleGroup $muscleGroupTargeted): static
     {
-        if (!$this->muscleGroupTargeted->contains($muscleGroupTargeted)) {
-            $this->muscleGroupTargeted->add($muscleGroupTargeted);
-        }
+        $this->muscleGroupTargeted = $muscleGroupTargeted;
 
         return $this;
     }
-
-    public function removeMuscleGroupTargeted(MuscleGroup $muscleGroupTargeted): static
+    
+    public function getSecondaryMuscleGroupTargeted(): ?MuscleGroup
     {
-        $this->muscleGroupTargeted->removeElement($muscleGroupTargeted);
+        return $this->secondaryMuscleGroupTargeted;
+    }
+
+    public function setSecondaryMuscleGroupTargeted(?MuscleGroup $secondaryMuscleGroupTargeted): static
+    {
+        $this->secondaryMuscleGroupTargeted = $secondaryMuscleGroupTargeted;
 
         return $this;
     }
@@ -156,4 +187,5 @@ class Program
     {
         return $this->title;
     }
+
 }

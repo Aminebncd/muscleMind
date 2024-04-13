@@ -18,15 +18,15 @@ class MuscleGroup
     #[ORM\Column(length: 255)]
     private ?string $muscleGroup = null;
 
-    #[ORM\ManyToMany(targetEntity: Program::class, mappedBy: 'muscleGroupTargeted')]
-    private Collection $programs;
+    // #[ORM\ManyToMany(targetEntity: Program::class, mappedBy: 'muscleGroupTargeted')]
+    // private Collection $programs;
 
     #[ORM\OneToMany(targetEntity: Muscle::class, mappedBy: 'muscleGroup')]
     private Collection $muscles;
 
     public function __construct()
     {
-        $this->programs = new ArrayCollection();
+        // $this->programs = new ArrayCollection();
         $this->muscles = new ArrayCollection();
     }
 
@@ -47,32 +47,32 @@ class MuscleGroup
         return $this;
     }
 
-    /**
-     * @return Collection<int, Program>
-     */
-    public function getPrograms(): Collection
-    {
-        return $this->programs;
-    }
+    // /**
+    //  * @return Collection<int, Program>
+    //  */
+    // public function getPrograms(): Collection
+    // {
+    //     return $this->programs;
+    // }
 
-    public function addProgram(Program $program): static
-    {
-        if (!$this->programs->contains($program)) {
-            $this->programs->add($program);
-            $program->addMuscleGroupTargeted($this);
-        }
+    // public function addProgram(Program $program): static
+    // {
+    //     if (!$this->programs->contains($program)) {
+    //         $this->programs->add($program);
+    //         $program->addMuscleGroupTargeted($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeProgram(Program $program): static
-    {
-        if ($this->programs->removeElement($program)) {
-            $program->removeMuscleGroupTargeted($this);
-        }
+    // public function removeProgram(Program $program): static
+    // {
+    //     if ($this->programs->removeElement($program)) {
+    //         $program->removeMuscleGroupTargeted($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Muscle>

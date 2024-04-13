@@ -28,6 +28,11 @@ class ProgramType extends AbstractType
                 'choice_label' => 'muscleGroup',
                 // 'multiple' => true,
             ])
+            ->add('secondaryMuscleGroupTargeted', EntityType::class, [
+                'class' => MuscleGroup::class,
+                'choice_label' => 'muscleGroup',
+                // 'multiple' => true,
+            ])
             // ->add('muscleGroupTargeted', EntityType::class, [
             //     'class' => MuscleGroup::class,
             //     'choice_label' => 'muscleGroup',
