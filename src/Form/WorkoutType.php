@@ -2,24 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Exercice;
 use App\Entity\Program;
+use App\Entity\Exercice;
 use App\Entity\WorkoutPlan;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class WorkoutType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('numberOfRepetitions')
-            ->add('weightsUsed')
+            ->add('numberOfRepetitions', NumberType::class)
+            ->add('weightsUsed', NumberType::class)
             ->add('exercice', EntityType::class, [
                 'class' => Exercice::class,
-                'choice_label' => 'id',
+                'choice_label' => 'exerciceName',
             ])
             // ->add('program', EntityType::class, [
             //     'class' => Program::class,

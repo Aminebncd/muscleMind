@@ -6,8 +6,18 @@
 
 <h1>Compose your own workout session !</h1>
 
-{{form_start(formAddProgram)}}
-{{form_end(formAddProgram)}}
+<h2>Add a Program</h2>
+{{ form_start(formAddProgram) }}
+{{ form_row(formAddProgram.title) }}
+{{ form_row(formAddProgram.muscleGroupTargeted) }}
+{{ form_end(formAddProgram) }}
 
+<h2>Add a Workout Plan</h2>
+{{ form_start(formAddWorkout) }}
+{{ form_row(formAddWorkout.exercice) }}
+{{ form_row(formAddWorkout.numberOfRepetitions) }}
+{{ form_row(formAddWorkout.weightsUsed) }}
+<button type="submit">Add Workout Plan</button>
+{{ form_end(formAddWorkout) }}
 
 {% endblock %}
