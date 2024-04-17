@@ -6,18 +6,7 @@
 
     {% if edit %}
         <h1>Now compose your own workout session !</h1>
-    {% else %}
-        <h1>First choose what you wanna work !</h1>
-    {% endif %}
 
-    <h2>Add a Program</h2>
-
-    {{ form_start(formAddProgram) }}
-    {# {{ form_row(formAddProgram.title) }}
-    {{ form_row(formAddProgram.muscleGroupTargeted) }} #}
-    {{ form_end(formAddProgram) }}
-
-    {% if edit %}
         <h2>Plan your workout !</h2>
         {{ form_start(formAddWorkout) }}
         {# {{ form_row(formAddWorkout.exercice) }}
@@ -25,6 +14,17 @@
         {{ form_row(formAddWorkout.weightsUsed) }} #}
         {# <button type="submit">Add Workout Plan</button> #}
         {{ form_end(formAddWorkout) }}
+
+    {% else %}
+    
+        <h1>First choose what you wanna work !</h1>
+
+        <h2>Add a Program</h2>
+
+        {{ form_start(formAddProgram) }}
+        {# {{ form_row(formAddProgram.title) }}
+        {{ form_row(formAddProgram.muscleGroupTargeted) }} #}
+        {{ form_end(formAddProgram) }}
     {% endif %}
 
 {% endblock %}
