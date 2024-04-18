@@ -78,4 +78,9 @@ class WorkoutPlan
 
         return $this;
     }
+
+    public function __tostring()
+    {
+        return $this->exercice." : ".$this->numberOfRepetitions." repetitions de ".$this->weightsUsed." kg";
+    }
 }

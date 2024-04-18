@@ -24,7 +24,7 @@ class Program
     // #[ORM\ManyToMany(targetEntity: MuscleGroup::class, inversedBy: 'programs')]
     // private Collection $muscleGroupTargeted;
 
-    #[ORM\OneToMany(targetEntity: WorkoutPlan::class, mappedBy: 'program')]
+    #[ORM\OneToMany(targetEntity: WorkoutPlan::class, mappedBy: 'program', cascade: ['persist'])]
     private Collection $workoutPlans;
 
     #[ORM\ManyToOne(inversedBy: 'sessions')]

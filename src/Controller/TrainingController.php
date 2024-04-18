@@ -17,13 +17,15 @@ class TrainingController extends AbstractController
 {
     #[Route('/training', name: 'app_training')]
     #[Route('/training/edit/{id}', name: 'app_training_edit')]
-    public function index(Request $request, EntityManagerInterface $em, Program $program = null): Response
+    public function index(Request $request, 
+                          EntityManagerInterface $em, 
+                          Program $program = null): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
     
-        $isEdit = $request->attributes->get('_route') === 'app_training_edit';
+        $isEdit = $program !== null;
     
         if (!$program) {
             $program = new Program();
@@ -63,10 +65,13 @@ class TrainingController extends AbstractController
         return $this->render('training/index.html.twig', [
             'formAddProgram' => $formAddProgram->createView(),
             'formAddWorkout' => $formAddWorkout->createView(),
+            'program' => $program,
+            'workoutPlans' => $program->getWorkoutPlans(),
             'edit' => $isEdit,
             'controller_name' => 'TrainingController',
         ]);
     }
+    
     
 
 

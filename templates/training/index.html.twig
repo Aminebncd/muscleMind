@@ -6,7 +6,12 @@
 
     {% if edit %}
         <h1>Now compose your own workout session !</h1>
-
+    {{program}} 
+    <br>
+    <br>
+    {% for workout in workoutPlans %}
+        {{workout}} <br>
+    {% endfor %}
         <h2>Plan your workout !</h2>
         {{ form_start(formAddWorkout) }}
         {# {{ form_row(formAddWorkout.exercice) }}

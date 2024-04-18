@@ -156,4 +156,11 @@ class Exercice
         return $this;
     }
 
+    //ici je fais mon __tostring
+    public function __tostring()
+    {
+        return $this->exerciceName;
+
+    }
+
 }
