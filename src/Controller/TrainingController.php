@@ -65,11 +65,11 @@ class TrainingController extends AbstractController
             $em->persist($program);
             $em->flush();
     
-            if ($isEdit) {
+            // if ($isEdit) {
                 return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
-            } else {
-                return $this->redirectToRoute('app_training');
-            }
+            // } else {
+            //     return $this->redirectToRoute('app_training');
+            // }
         }
     
         if ($formAddWorkout->isSubmitted() && $formAddWorkout->isValid()) {
@@ -78,11 +78,11 @@ class TrainingController extends AbstractController
             $em->persist($program);
             $em->flush();
     
-            if ($isEdit) {
+            // if ($isEdit) {
                 return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
-            } else {
-                return $this->redirectToRoute('app_training');
-            }
+            // } else {
+            //     return $this->redirectToRoute('app_training');
+            // }
         }
     
         return $this->render('training/new.html.twig', [

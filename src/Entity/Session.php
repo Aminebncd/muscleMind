@@ -21,6 +21,10 @@ class Session
     #[ORM\JoinColumn(nullable: false)]
     private ?Program $program = null;
 
+    #[ORM\ManyToOne(inversedBy: 'session')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     
     public function getId(): ?int
     {
@@ -54,5 +58,17 @@ class Session
     public function __tostring()
     {
         return $this->program;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

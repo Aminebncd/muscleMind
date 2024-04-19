@@ -19,6 +19,7 @@ class UserController extends AbstractController
 
 
         $user = $this->getUser();
+        
 
 
         return $this->render('user/index.html.twig', [
@@ -26,4 +27,8 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+
+    // public function sessions
+
+    
 }

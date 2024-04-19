@@ -48,13 +48,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 30)]
     private ?string $username = null;
 
+    #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $sessions;
+
     #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'creator', orphanRemoval: true)]
     private Collection $programs;
 
     public function __construct()
+
+
+
     {
         $this->performances = new ArrayCollection();
         $this->programs = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -203,10 +210,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-
-    public function __tostring ()
+     /**
+     * @return Collection<int, Session>
+     */
+    public function getSessions(): Collection
     {
-        return $this->username;
+        return $this->sessions;
+    }
+
+    public function addSession(Session $session): static
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions[] = $session;
+            $session->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Session $session): static
+    {
+        if ($this->sessions->removeElement($session)) {
+            // set the owning side to null (unless already changed)
+            if ($session->getUser() === $this) {
+                $session->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
     /**
@@ -217,7 +248,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->programs;
     }
 
-    public function addPrograms(program $program): static
+    public function addProgram(program $program): static
     {
         if (!$this->programs->contains($program)) {
             $this->programs->add($program);
@@ -238,4 +269,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    
+
+    public function __tostring ()
+    {
+        return $this->username;
+    }
+
 }
