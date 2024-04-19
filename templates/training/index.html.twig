@@ -1,35 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TrainingController!{% endblock %}
+{% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
 
-    {% if edit %}
-        <h1>Now compose your own workout session !</h1>
-    {{program}} 
-    <br>
-    <br>
-    {% for workout in workoutPlans %}
-        {{workout}} <br>
-    {% endfor %}
-        <h2>Plan your workout !</h2>
-        {{ form_start(formAddWorkout) }}
-        {# {{ form_row(formAddWorkout.exercice) }}
-        {{ form_row(formAddWorkout.numberOfRepetitions) }}
-        {{ form_row(formAddWorkout.weightsUsed) }} #}
-        {# <button type="submit">Add Workout Plan</button> #}
-        {{ form_end(formAddWorkout) }}
+    {{user}} <br><br>
+
+    {% if programs| length > 0 %}
+
+    <a href="{{ path('app_training_new')}}">NEW PROGRAM </a> <br> <br>
+
+        {% for program in programs %}
+        <a href="{{ path('app_training_edit', {'id': program.id}) }}">{{ program }}</a><br>  {% endfor %}
 
     {% else %}
-    
-        <h1>First choose what you wanna work !</h1>
 
-        <h2>Add a Program</h2>
+        <p>it seems that you don't have any Workout planned, <a href="{{ path ('app_training_new')}}">let's change that !</a></p>
 
-        {{ form_start(formAddProgram) }}
-        {# {{ form_row(formAddProgram.title) }}
-        {{ form_row(formAddProgram.muscleGroupTargeted) }} #}
-        {{ form_end(formAddProgram) }}
     {% endif %}
+
+
 
 {% endblock %}

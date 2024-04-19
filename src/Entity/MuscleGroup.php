@@ -103,4 +103,9 @@ class MuscleGroup
 
         return $this;
     }
+
+    public function __tostring()
+    {
+        return $this->muscleGroup;
+    }
 }

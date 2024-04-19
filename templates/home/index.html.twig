@@ -4,17 +4,16 @@
 
 {% block body %}
 
-    {{user}}
+    {{user}} <br><br>
 
     {% if programs| length > 0 %}
 
         {% for program in programs %}
-            {{program}}
-        {% endfor %}
+        <a href="{{ path('app_training_edit', {'id': program.id}) }}">{{ program }}</a>        {% endfor %}
 
     {% else %}
 
-        <p>it seems that you don't have any Workout planned, <a href="{{ path ('app_training')}}">let's change that !</a></p>
+        <p>it seems that you don't have any Workout planned, <a href="{{ path ('app_training_new')}}">let's change that !</a></p>
 
     {% endif %}
 
