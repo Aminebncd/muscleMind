@@ -19,11 +19,13 @@ class UserController extends AbstractController
 
 
         $user = $this->getUser();
-        
+        $sessions = $user->getSessions();
+
 
 
         return $this->render('user/index.html.twig', [
             'user' => $user,
+            'sessions' => $sessions,
             'controller_name' => 'UserController',
         ]);
     }
