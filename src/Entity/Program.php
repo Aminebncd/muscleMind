@@ -21,13 +21,10 @@ class Program
     #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'program', orphanRemoval: true)]
     private Collection $sessions;
 
-    // #[ORM\ManyToMany(targetEntity: MuscleGroup::class, inversedBy: 'programs')]
-    // private Collection $muscleGroupTargeted;
-
-    #[ORM\OneToMany(targetEntity: WorkoutPlan::class, mappedBy: 'program', cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: WorkoutPlan::class, mappedBy: 'program', cascade: ['persist'], orphanRemoval: true)]
     private Collection $workoutPlans;
 
-    #[ORM\ManyToOne(inversedBy: 'sessions')]
+    #[ORM\ManyToOne(inversedBy: 'programs')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $creator = null;
     
@@ -42,7 +39,6 @@ class Program
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
-        // $this->muscleGroupTargeted = new ArrayCollection();
         $this->workoutPlans = new ArrayCollection();
     }
 
@@ -92,34 +88,10 @@ class Program
 
         return $this;
     }
-
-    // /**
-    //  * @return Collection<int, MuscleGroup>
-    //  */
-    // public function getMuscleGroupTargeted(): Collection
-    // {
-    //     return $this->muscleGroupTargeted;
-    // }
-
-    // public function addMuscleGroupTargeted(MuscleGroup $muscleGroupTargeted): static
-    // {
-    //     if (!$this->muscleGroupTargeted->contains($muscleGroupTargeted)) {
-    //         $this->muscleGroupTargeted->add($muscleGroupTargeted);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function removeMuscleGroupTargeted(MuscleGroup $muscleGroupTargeted): static
-    // {
-    //     $this->muscleGroupTargeted->removeElement($muscleGroupTargeted);
-
-    //     return $this;
-    // }
     
     public function getMuscleGroupTargeted(): ?MuscleGroup
     {
-        return $this->secondaryMuscleGroupTargeted;
+        return $this->muscleGroupTargeted;
     }
 
     public function setMuscleGroupTargeted(?MuscleGroup $muscleGroupTargeted): static

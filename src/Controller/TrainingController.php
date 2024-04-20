@@ -20,16 +20,15 @@ class TrainingController extends AbstractController
     #[Route('/training', name: 'app_training')]
     public function index(Request $request, UserRepository $ur): Response
     {
+        // i always verify if the user is logged in
+        // if not, i send him the login page
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
 
-
+        // we gather his infos to render his username and the programs he created
         $user = $this->getUser();
         $programs = $user->getPrograms();
-
-        // dd($sessions);
-
 
         return $this->render('training/index.html.twig', [
             'user' => $user,
@@ -47,44 +46,46 @@ class TrainingController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
-    
+        
+        // if we are in edit mode (meaning we're in an existing program)
+        // we won't render the same form 
         $isEdit = $program !== null;
     
         if (!$program) {
             $program = new Program();
         }
     
+        // we still load both of them
         $formAddProgram = $this->createForm(ProgramType::class, $program);
         $formAddProgram->handleRequest($request);
     
         $formAddWorkout = $this->createForm(WorkoutType::class, new WorkoutPlan());
         $formAddWorkout->handleRequest($request);
     
-        if ($formAddProgram->isSubmitted() && $formAddProgram->isValid()) {
+        // after verifications, we persist the new program into the database and
+        // enter edit mode to add workoutPlans
+        if ($formAddProgram->isSubmitted() 
+            && $formAddProgram->isValid()
+                && $formAddProgram->getData()->getMuscleGroupTargeted() != $formAddProgram->getData()->getSecondaryMuscleGroupTargeted()) {
             $program->setCreator($this->getUser());
             $em->persist($program);
             $em->flush();
-    
-            // if ($isEdit) {
-                return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
-            // } else {
-            //     return $this->redirectToRoute('app_training');
-            // }
+
+            return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
         }
     
-        if ($formAddWorkout->isSubmitted() && $formAddWorkout->isValid()) {
-            // Ajouter le workout plan au programme actuel
+        // same thing here, after adding a workoutPlan we stay in edit mode to add more
+        if ($formAddWorkout->isSubmitted() 
+            && $formAddWorkout->isValid()
+            ) {
             $program->addWorkoutPlan($formAddWorkout->getData());
             $em->persist($program);
             $em->flush();
-    
-            // if ($isEdit) {
-                return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
-            // } else {
-            //     return $this->redirectToRoute('app_training');
-            // }
+
+            return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
         }
     
+        // we render every variable 
         return $this->render('training/new.html.twig', [
             'formAddProgram' => $formAddProgram->createView(),
             'formAddWorkout' => $formAddWorkout->createView(),
@@ -107,6 +108,9 @@ class TrainingController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        // thanks to symfony, we already have a method to call if we want to remove a workoutPlan item
+        // we specifically have to enable orphan removals for it to completely delete the object from the database
+        // if we didn't, we would've just nulled the program_id in it
         $program->removeWorkoutPlan($workoutPlan);
         $em->persist($program);
         $em->flush();
@@ -115,8 +119,9 @@ class TrainingController extends AbstractController
         $formAddWorkout->handleRequest($request);
 
         return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
-
     }
+
+    
 
     
 

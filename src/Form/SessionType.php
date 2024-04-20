@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use App\Entity\Program;
 use App\Entity\Session;
 use Symfony\Component\Form\AbstractType;
@@ -20,8 +21,12 @@ class SessionType extends AbstractType
             ])
             ->add('program', EntityType::class, [
                 'class' => Program::class,
-                'choice_label' => 'id',
+                'choice_label' => 'title',
             ])
+            // ->add('user', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'id',
+            // ])
         ;
     }
 
