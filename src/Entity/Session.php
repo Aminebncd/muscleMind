@@ -57,7 +57,7 @@ class Session
     
     public function __tostring()
     {
-        return $this->program;
+        return $this->dateSession->format('d.m.Y').' -> '.$this->program;
     }
 
     public function getUser(): ?User

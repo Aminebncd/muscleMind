@@ -6,14 +6,16 @@
 
     {{user}} <br><br>
 
-    {# {% if sessions| length > 0 %}
+    <a href="{{ path('app_home_newSession')}}">Schedule your training sessions</a> <br> <br>
+
+    {% if sessions| length > 0 %}
         {% for session in sessions %}
-        <a href="{{ path('app_training_edit', {'id': session.id}) }}">{{ session }}</a>
+        <a href="{{ path('app_training_edit', {'id': session.id}) }}">{{ session }}</a> <br>
         {% endfor %}
     {% else %}
-    {% endif %} #}
+    {% endif %}
 
-    <a href="{{ path('app_home_newSession')}}">Schedule your training sessions</a> <br> <br>
+<br> <br>
 
     {% if programs| length > 0 %}
         {% for program in programs %}

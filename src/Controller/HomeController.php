@@ -30,6 +30,7 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'user' => $user,
+            'sessions' => $sessions,
             'programs' => $programs,
             'controller_name' => 'HomeController',
         ]);
@@ -43,7 +44,7 @@ class HomeController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
-        
+
         $user = $this->getUser();
 
         if (!$session) {
@@ -57,11 +58,11 @@ class HomeController extends AbstractController
 
         if ($formAddSession->isSubmitted() 
             && $formAddSession->isValid()) {
-            // $session->setCreator($this->getUser());
+            $session->setUser($user);
             $em->persist($session);
             $em->flush();
 
-            return $this->redirectToRoute('/');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('home/newSession.html.twig', [

@@ -6,6 +6,9 @@ body {
     background-color: #07080d;
     color: aliceblue;
     font-family: "Montserrat", sans-serif;
+    a:visited {
+        color: aliceblue;
+    }
 }
 
 
@@ -33,7 +36,7 @@ div {
 } */
 
 
-/* is the equivalent of that, i don't even know why i bothered writingf the whole thing... */
+/* is the equivalent of that, i don't even know why i bothered writing the whole thing... */
 a g path:hover {
     fill: red;
 }
