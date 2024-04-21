@@ -11,7 +11,9 @@
     <a href="{{ path('app_training_new')}}">NEW PROGRAM </a> <br> <br>
 
         {% for program in programs %}
-        <a href="{{ path('app_training_edit', {'id': program.id}) }}">{{ program }}</a><br>  {% endfor %}
+        <a href="{{ path('app_training_edit', {'id': program.id}) }}">{{ program }}</a> 
+        <a href="{{ path('app_training_delete', {'id': program.id}) }}">delete</a> <br>  
+        {% endfor %}
 
     {% else %}
 

@@ -97,7 +97,27 @@ class TrainingController extends AbstractController
     }
 
 
-    #[Route('/admin/{program}/{workoutPlan}/delete', name: 'removeWP_Program')]
+    #[Route('/training/delete/{id}', name: 'app_training_delete')]
+    public function removeProgram(Program $program = null, 
+                            EntityManagerInterface $em,
+                            Request $request)
+    {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        // necessary only with the render() method
+        // $user = $this->getUser();
+        // $programs = $user->getPrograms();
+        
+        $em->remove($program);
+        $em->flush();
+        
+        return $this->redirectToRoute('app_training');
+    }
+
+    #[Route('/training/{program}/{workoutPlan}/delete', name: 'removeWP_Program')]
     public function removeWorkoutPlan(Program $program = null, 
                             WorkoutPlan $workoutPlan = null,
                             EntityManagerInterface $em,

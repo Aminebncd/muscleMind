@@ -36,7 +36,8 @@ div {
 } */
 
 
-/* is the equivalent of that, i don't even know why i bothered writing the whole thing... */
+/* is the equivalent of this, i don't even know 
+why i bothered writing the whole thing... */
 a g path:hover {
     fill: red;
 }
