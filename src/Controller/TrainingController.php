@@ -17,6 +17,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TrainingController extends AbstractController
 {
 
+
+// FUNCTIONS RELATING TO PROGRAMS
+
+    // lists every programs created by the user
     #[Route('/training', name: 'app_training')]
     public function index(Request $request, UserRepository $ur): Response
     {
@@ -37,11 +41,14 @@ class TrainingController extends AbstractController
         ]);
     }
 
+
+
+    // create or edit a program and it's content
     #[Route('/training/new', name: 'app_training_new')]
     #[Route('/training/edit/{id}', name: 'app_training_edit')]
     public function createEditProgram(Request $request, 
-                          EntityManagerInterface $em, 
-                          Program $program = null): Response
+                            EntityManagerInterface $em, 
+                            Program $program = null): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -97,6 +104,8 @@ class TrainingController extends AbstractController
     }
 
 
+
+    // delete a program
     #[Route('/training/delete/{id}', name: 'app_training_delete')]
     public function removeProgram(Program $program = null, 
                             EntityManagerInterface $em,
@@ -117,6 +126,9 @@ class TrainingController extends AbstractController
         return $this->redirectToRoute('app_training');
     }
 
+
+    
+    // delete the workoutPlan within a program
     #[Route('/training/{program}/{workoutPlan}/delete', name: 'removeWP_Program')]
     public function removeWorkoutPlan(Program $program = null, 
                             WorkoutPlan $workoutPlan = null,
@@ -141,9 +153,5 @@ class TrainingController extends AbstractController
         return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
     }
 
-    
-
-    
-
-
+ 
 }

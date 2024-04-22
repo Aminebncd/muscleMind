@@ -10,7 +10,7 @@
 
     {% if sessions| length > 0 %}
         {% for session in sessions %}
-            <a href="{{ path('app_training_edit', {'id': session.id}) }}">{{ session }}</a> <br>
+            <a href="{{ path('app_training_edit', {'id': session.id}) }}">{{ session }}</a><br> 
         {% endfor %}
     {% endif %}
 
@@ -19,7 +19,8 @@
 
     {% if programs| length > 0 %}
         {% for program in programs %}
-            <a href="{{ path('app_training_edit', {'id': program.id}) }}">{{ program }}</a> <br>
+            <a href="{{ path('app_training_edit', {'id': program.id}) }}">{{ program }}</a> 
+            <a href="{{ path('app_training_delete', {'id': program.id}) }}">delete</a> <br>
         {% endfor %}
     {% else %}
         <p>it seems that you don't have any Workout planned, <a href="{{ path ('app_training_new')}}">let's change that !</a></p> <br>
