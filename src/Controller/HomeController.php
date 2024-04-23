@@ -27,6 +27,22 @@ class HomeController extends AbstractController
         $user = $this->getUser();
         $programs = $user->getPrograms();
         $sessions = $user->getSessions();
+        $totalScore = 0;
+        $now = new \DateTime;
+
+        foreach ($sessions as $session) {
+            // dd($session);
+            if($session->getDateSession() <= $now) {
+                $program = $session->getProgram();
+                $workoutPlans = $program->getWorkoutPlans();
+                foreach ($workoutPlans as $workoutPlan) {
+                    $totalScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
+                }
+            }
+        }
+
+        // dd($totalScore);
+        // echo "Le score total de l'utilisateur est : " . $totalScore;
 
         // dd($sessions);
 
@@ -35,6 +51,7 @@ class HomeController extends AbstractController
             'user' => $user,
             'sessions' => $sessions,
             'programs' => $programs,
+            'totalScore' => $totalScore,
             'controller_name' => 'HomeController',
         ]);
     }
