@@ -13,6 +13,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
+
+    // lists every session and program created by the user
+    // also my default route
     #[Route('/', name: 'app_home')]
     public function index(Request $request): Response
     {
@@ -36,6 +39,9 @@ class HomeController extends AbstractController
         ]);
     }
 
+
+
+    // schedule a new training session
     #[Route('/newSession', name: 'app_home_newSession')]
     public function newSession(Request $request,
                                 EntityManagerInterface $em, 
@@ -71,6 +77,24 @@ class HomeController extends AbstractController
             'edit' => $isEdit,
             'controller_name' => 'HomeController',
         ]);
+    }
+
+    
+    // delete a Session
+    #[Route('/delete/{id}', name: 'app_home_deleteSession')]
+    public function removeSession(Session $session = null, 
+                            EntityManagerInterface $em,
+                            Request $request)
+    {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $em->remove($session);
+        $em->flush();
+        
+        return $this->redirectToRoute('app_home');
     }
 
 }

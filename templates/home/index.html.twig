@@ -10,7 +10,8 @@
 
     {% if sessions| length > 0 %}
         {% for session in sessions %}
-            <a href="{{ path('app_training_edit', {'id': session.id}) }}">{{ session }}</a><br> 
+            <a href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{ session }}</a>
+            <a href="{{ path('app_home_deleteSession', {'id': session.id}) }}">delete</a> <br> 
         {% endfor %}
     {% endif %}
 
