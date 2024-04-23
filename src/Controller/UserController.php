@@ -10,8 +10,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
-    #[Route('/admin/listUsers', name: 'app_user')]
+    #[Route('/user/myProfile', name: 'app_user')]
     public function index(Request $request, UserRepository $ur): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $user = $this->getUser();
+
+        return $this->render('user/index.html.twig', [
+            'user' => $user,
+            // 'sessions' => $sessions,
+            'controller_name' => 'UserController',
+        ]);
+    }
+
+    #[Route('/admin/listUsers', name: 'app_user_list')]
+    public function listUsers(Request $request, UserRepository $ur): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -19,7 +35,7 @@ class UserController extends AbstractController
 
         $users = $ur->findAll();
 
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/listUsers.html.twig', [
             'users' => $users,
             // 'sessions' => $sessions,
             'controller_name' => 'UserController',
@@ -35,7 +51,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $user = $ur->findAll();
+    
 
         return $this->render('user/details.html.twig', [
             'user' => $user,

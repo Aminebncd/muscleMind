@@ -91,13 +91,20 @@ class TrainingController extends AbstractController
 
             return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
         }
+        $workoutPlans = $program->getWorkoutPlans();
+        $programScore = 0;
+
+        foreach($workoutPlans as $workoutPlan){
+            $programScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
+        }
     
         // we render every variable 
         return $this->render('training/new.html.twig', [
             'formAddProgram' => $formAddProgram->createView(),
             'formAddWorkout' => $formAddWorkout->createView(),
             'program' => $program,
-            'workoutPlans' => $program->getWorkoutPlans(),
+            'workoutPlans' => $workoutPlans,
+            'workoutScore' => $programScore,
             'edit' => $isEdit,
             'controller_name' => 'TrainingController',
         ]);

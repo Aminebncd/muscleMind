@@ -4,9 +4,33 @@
 
 {% block body %}
 
-    {% for user in users %}
+    
         {{user}} <br>
-    {% endfor %}
+        {{user.email}} <br>
+        {{user.score}} <br>
 
-{# Plan your weeks  #}
+        {% if user.performances %} 
+        {% for performance in user.performances %}
+            {{performance}} <br>
+        {% endfor %}
+        {% endif %}
+
+        {% if user.programs %} 
+        {% for program in user.programs %}
+            {{program}} <br>
+        {% endfor %}
+        {% endif %}
+
+        {% if user.sessions %}
+        {% for session in user.sessions %}
+            {{session}} <br>
+        {% endfor %}
+        {% endif %}
+
+        
+        
+
+
+
+
 {% endblock %}

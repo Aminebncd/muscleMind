@@ -64,4 +64,11 @@ class Performance
 
         return $this;
     }
+
+    public function __tostring()
+    {
+        return $this->personnalRecord."kg : ".$this->exerciceMesured;
+    }
+
+
 }
