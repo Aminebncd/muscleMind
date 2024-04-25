@@ -118,6 +118,7 @@ class HomeController extends AbstractController
         // here i create a custom form (with the createFormBuilder() func), since i cannot 
         // add a property in SessionType that doesn't exist in my Session entity
         // if everything works as intented i'll definitely create a ScheduleType.php file
+        // 
         $scheduleForm = $this->createFormBuilder()
             ->add('program', EntityType::class, [
                 'class' => Program::class,
@@ -144,6 +145,7 @@ class HomeController extends AbstractController
                 ]
             ])
             ->getForm();
+        // 
 
         $scheduleForm->handleRequest($request);
 
@@ -157,14 +159,15 @@ class HomeController extends AbstractController
             // i initialise the starting point
             $startDate = new \DateTimeImmutable();
 
-            // then i determine the endpoint
-            $endDate = $startDate->add(new \DateInterval('P6M'));
+            // then i determine the endpoint, 12 months from now
+            $endDate = $startDate->add(new \DateInterval('P12M'));
 
             // i loop on every monday from start to end
             $currentDate = $startDate;
             while ($currentDate <= $endDate) {
-                if ($currentDate->format('N') == 1) { // Vérifie si le jour est un lundi (1 = lundi)
-                    // Créer une nouvelle session pour ce lundi
+                // verifies if the selected day exists in our choice array
+                if (in_array($currentDate->format('N'), $selectedDaysOfWeek)) {
+                    // Create a new session
                     $session = new Session();
                     $session->setUser($user);
                     $session->setProgram($selectedProgram);
