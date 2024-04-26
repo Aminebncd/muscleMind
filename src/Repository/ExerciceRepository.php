@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Exercice;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\MuscleGroup;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Exercice>
@@ -20,6 +21,16 @@ class ExerciceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Exercice::class);
     }
+
+    public function findExercisesByMuscleGroup(MuscleGroup $muscleGroup): array
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.target = :muscleGroup')
+            ->setParameter('muscleGroup', $muscleGroup)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     //    /**
     //     * @return Exercice[] Returns an array of Exercice objects

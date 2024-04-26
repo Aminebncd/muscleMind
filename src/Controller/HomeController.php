@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Program;
 use App\Entity\Session;
 use App\Form\SessionType;
+use App\Form\ScheduleType;
 use App\Repository\UserRepository;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -115,38 +116,7 @@ class HomeController extends AbstractController
 
         $user = $this->getUser();
 
-        // here i create a custom form (with the createFormBuilder() func), since i cannot 
-        // add a property in SessionType that doesn't exist in my Session entity
-        // if everything works as intented i'll definitely create a ScheduleType.php file
-        // 
-        $scheduleForm = $this->createFormBuilder()
-            ->add('program', EntityType::class, [
-                'class' => Program::class,
-                'choice_label' => 'title',
-                'label' => 'Programme'
-            ])
-            ->add('daysOfWeek', ChoiceType::class, [
-                'choices' => [
-                    'Lundi' => 1,
-                    'Mardi' => 2,
-                    'Mercredi' => 3,
-                    'Jeudi' => 4,
-                    'Vendredi' => 5,
-                    'Samedi' => 6,
-                    'Dimanche' => 7,
-                ],
-                'multiple' => true,
-                'expanded' => true,
-                'label' => 'Jours de la semaine'
-            ])
-            ->add('valider', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary'
-                ]
-            ])
-            ->getForm();
-        // 
-
+        $scheduleForm = $this->createForm(ScheduleType::class);
         $scheduleForm->handleRequest($request);
 
         if ($scheduleForm->isSubmitted() && $scheduleForm->isValid()) {
@@ -160,7 +130,9 @@ class HomeController extends AbstractController
             $startDate = new \DateTimeImmutable();
 
             // then i determine the endpoint, 12 months from now
-            $endDate = $startDate->add(new \DateInterval('P12M'));
+            // $endDate = $startDate->add(new \DateInterval('P12M'));
+            // this one is just for testing
+            $endDate = $startDate->add(new \DateInterval('P1M'));
 
             // i loop on every monday from start to end
             $currentDate = $startDate;

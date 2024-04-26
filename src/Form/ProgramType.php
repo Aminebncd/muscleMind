@@ -22,35 +22,35 @@ class ProgramType extends AbstractType
     {
         $builder
         
-            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-                $program = $event->getData();
-                $form = $event->getForm();
+            // ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            //     $program = $event->getData();
+            //     $form = $event->getForm();
 
-                // Vérifiez si le programme a déjà un groupe musculaire ciblé
-                if ($program && $program->getMuscleGroupTargeted()) {
-                    $selectedMuscleGroup = $program->getMuscleGroupTargeted();
+            //     // Vérifiez si le programme a déjà un groupe musculaire ciblé
+            //     if ($program && $program->getMuscleGroupTargeted()) {
+            //         $selectedMuscleGroup = $program->getMuscleGroupTargeted();
 
-                    // Récupérez les options actuelles du champ secondaryMuscleGroupTargeted
-                    $options = $form->get('secondaryMuscleGroupTargeted')->getConfig()->getOptions();
+            //         // Récupérez les options actuelles du champ secondaryMuscleGroupTargeted
+            //         $options = $form->get('secondaryMuscleGroupTargeted')->getConfig()->getOptions();
 
-                    // Filtrer les options pour exclure le groupe musculaire déjà sélectionné
-                    $filteredOptions = array_filter($options['choices'], function ($choice) use ($selectedMuscleGroup) {
-                        return $choice !== $selectedMuscleGroup;
-                    });
+            //         // Filtrer les options pour exclure le groupe musculaire déjà sélectionné
+            //         $filteredOptions = array_filter($options['choices'], function ($choice) use ($selectedMuscleGroup) {
+            //             return $choice !== $selectedMuscleGroup;
+            //         });
 
-                    // Mettez à jour les options du champ secondaryMuscleGroupTargeted
-                    $form->add('secondaryMuscleGroupTargeted', EntityType::class, [
-                        'class' => MuscleGroup::class,
-                        'choice_label' => 'muscleGroup',
-                        'choices' => $filteredOptions,
-                    ]);
-                }
-            })
+            //         // Mettez à jour les options du champ secondaryMuscleGroupTargeted
+            //         $form->add('secondaryMuscleGroupTargeted', EntityType::class, [
+            //             'class' => MuscleGroup::class,
+            //             'choice_label' => 'muscleGroup',
+            //             'choices' => $filteredOptions,
+            //         ]);
+            //     }
+            // })
             ->add('title', TextType::class)
 
             ->add('muscleGroupTargeted', EntityType::class, [
                 'class' => MuscleGroup::class,
-                'choice_label' => 'id',
+                'choice_label' => 'muscleGroup',
                 // 'multiple' => true,
             ])
             ->add('secondaryMuscleGroupTargeted', EntityType::class, [
