@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Form\PerfType;
+use App\Entity\Performance;
 use App\Repository\UserRepository;
+use App\Repository\ExerciceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -42,23 +46,60 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/detailsUser/{id}', name: 'app_user_details')]
-    public function detailsUser(Request $request, 
-                            UserRepository $ur,
+    // #[Route('/admin/detailsUser/{id}', name: 'app_user_details')]
+    // public function detailsUser(Request $request, 
+    //                         UserRepository $ur,
+    //                         User $user = null): Response
+    // {
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('app_login');
+    //     }
+
+    
+
+    //     return $this->render('user/details.html.twig', [
+    //         'user' => $user,
+    //         // 'sessions' => $sessions,
+    //         'controller_name' => 'UserController',
+    //     ]);
+    // }
+
+    #[Route('/user/newPerf', name: 'app_user_newPerf')]
+    public function newPerf(Request $request,
+                            Performance $perf,
+                            EntityManagerInterface $em, 
+                            // ExerciceRepository $er,
                             User $user = null): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
 
-    
+        // $exercices = $er->findAll();
+        $perf = new Performance();
 
-        return $this->render('user/details.html.twig', [
+        $perfForm = $this->createForm(PerfType::class, $perf);
+        $perfForm->handleRequest($request);
+
+        if ($perfForm->isSubmitted() && $perfForm->isValid()) {
+            $perf->setUserPerforming($this->getUser());
+            
+            $em->persist($perf);
+            $em->flush();
+            
+            return $this->redirectToRoute('app_user');
+        }
+
+
+        return $this->render('user/newPerf.html.twig', [
             'user' => $user,
-            // 'sessions' => $sessions,
+            // 'exercices' => $exercices,
+            'perfForm' => $perfForm,
             'controller_name' => 'UserController',
         ]);
     }
+
+
 
     
 }

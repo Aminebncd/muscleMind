@@ -58,7 +58,7 @@ class HomeController extends AbstractController
     }
 
 
-    // commented this one so i can still hhhave it in case the one i'm working on doesn't work
+    // commented this one so i can still have it in case the one i'm working on doesn't work
     // will eventually delete it
 
     // schedule a new training session
