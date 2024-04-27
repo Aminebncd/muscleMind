@@ -6,7 +6,7 @@
 
     
 {% for user in users %}
-    {{user}} <br><br>
+<a href="{{path ('app_user_details', {'id' : user.id})}}">{{user}}</a><br><br>
 {% endfor %}
 
 

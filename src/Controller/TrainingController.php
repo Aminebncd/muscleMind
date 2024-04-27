@@ -45,94 +45,93 @@ class TrainingController extends AbstractController
 
 
     // create or edit a program and it's content
-#[Route('/training/new', name: 'app_training_new')]
-#[Route('/training/edit/{id}', name: 'app_training_edit')]
-public function createEditProgram(Request $request,
-                                ExerciceRepository $exerciceRepository,
-                                EntityManagerInterface $em, 
-                                Program $program = null
-                            ): Response {
-    if (!$this->getUser()) {
-        return $this->redirectToRoute('app_login');
-    }
-    
-    // if we are in edit mode (meaning we're in an existing program)
-    // we won't render the same form 
-    $isEdit = $program !== null;
+    #[Route('/training/new', name: 'app_training_new')]
+    #[Route('/training/edit/{id}', name: 'app_training_edit')]
+    public function createEditProgram(Request $request,
+                                    ExerciceRepository $exerciceRepository,
+                                    EntityManagerInterface $em, 
+                                    Program $program = null
+                                ): Response {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        
+        // if we are in edit mode (meaning we're in an existing program)
+        // we won't render the same form 
+        $isEdit = $program !== null;
 
-    if (!$program) {
-        $program = new Program();
-    }
-
-    $formAddProgram = $this->createForm(ProgramType::class, $program);
-    $formAddProgram->handleRequest($request);
-    
-        // after verifications, we persist the new program into the database and
-        // enter edit mode to add workoutPlans
-        if ($formAddProgram->isSubmitted() 
-            && $formAddProgram->isValid()
-                && $formAddProgram->getData()->getMuscleGroupTargeted() != $formAddProgram->getData()->getSecondaryMuscleGroupTargeted()) {
-            $program->setCreator($this->getUser());
-            $em->persist($program);
-            $em->flush();
-            return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
+        if (!$program) {
+            $program = new Program();
         }
 
-    // we initialize our variables just to have them ready
-    $exercisesForPrimaryMuscleGroup = new ArrayCollection();
-    $exercisesForSecondaryMuscleGroup = new ArrayCollection();
-
-    // if we're in edit mode
-    if($isEdit){
-        // We gather the muscle groups infos from the program entity with our getters
-        $selectedMuscleGroup = $program->getMuscleGroupTargeted();
-        $selectedSecondaryMuscleGroup = $program->getSecondaryMuscleGroupTargeted();
+        $formAddProgram = $this->createForm(ProgramType::class, $program);
+        $formAddProgram->handleRequest($request);
         
-        //We use those values to collect the corresponding exercises
-        $exercisesForPrimaryMuscleGroup = new ArrayCollection($exerciceRepository->findExercisesByMuscleGroup($selectedMuscleGroup));
-        $exercisesForSecondaryMuscleGroup = new ArrayCollection($exerciceRepository->findExercisesByMuscleGroup($selectedSecondaryMuscleGroup));
-    }
+            // after verifications, we persist the new program into the database and
+            // enter edit mode to add workoutPlans
+            if ($formAddProgram->isSubmitted() 
+                && $formAddProgram->isValid()
+                    && $formAddProgram->getData()->getMuscleGroupTargeted() != $formAddProgram->getData()->getSecondaryMuscleGroupTargeted()) {
+                $program->setCreator($this->getUser());
+                $em->persist($program);
+                $em->flush();
+                return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
+            }
 
-     // we create the workout form with the pre established options
-     $formAddWorkout = $this->createForm(WorkoutType::class, new WorkoutPlan(), [
-        'primaryMuscleGroupExercises' => $exercisesForPrimaryMuscleGroup,
-        'secondaryMuscleGroupExercises' => $exercisesForSecondaryMuscleGroup,
-    ]);
-    $formAddWorkout->handleRequest($request);
-    
-        // after adding a workoutPlan we stay in edit mode to add more
-        if ($formAddWorkout->isSubmitted() 
-            && $formAddWorkout->isValid()) {
+        // we initialize our variables just to have them ready
+        $exercisesForPrimaryMuscleGroup = new ArrayCollection();
+        $exercisesForSecondaryMuscleGroup = new ArrayCollection();
 
-            $program->addWorkoutPlan($formAddWorkout->getData());
-            $em->persist($program);
-            $em->flush();
-
-            return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
+        // if we're in edit mode
+        if($isEdit){
+            // We gather the muscle groups infos from the program entity with our getters
+            $selectedMuscleGroup = $program->getMuscleGroupTargeted();
+            $selectedSecondaryMuscleGroup = $program->getSecondaryMuscleGroupTargeted();
+            
+            //We use those values to collect the corresponding exercises
+            $exercisesForPrimaryMuscleGroup = new ArrayCollection($exerciceRepository->findExercisesByMuscleGroup($selectedMuscleGroup));
+            $exercisesForSecondaryMuscleGroup = new ArrayCollection($exerciceRepository->findExercisesByMuscleGroup($selectedSecondaryMuscleGroup));
         }
 
+        // we create the workout form with the pre established options
+        $formAddWorkout = $this->createForm(WorkoutType::class, new WorkoutPlan(), [
+            'primaryMuscleGroupExercises' => $exercisesForPrimaryMuscleGroup,
+            'secondaryMuscleGroupExercises' => $exercisesForSecondaryMuscleGroup,
+        ]);
+        $formAddWorkout->handleRequest($request);
         
-        // this part was used to verify the score incrementation, not useful anymore since workout out isn't just about
-        // composing the heaviest or longest workout session, i want it to be about training efficiently with consistency
+            // after adding a workoutPlan we stay in edit mode to add more
+            if ($formAddWorkout->isSubmitted() 
+                && $formAddWorkout->isValid()) {
 
-        $workoutPlans = $program->getWorkoutPlans();
-        // $programScore = 0;
+                $program->addWorkoutPlan($formAddWorkout->getData());
+                $em->persist($program);
+                $em->flush();
 
-        // foreach($workoutPlans as $workoutPlan){
-        //     $programScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
-        // }
+                return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
+            }
 
-    // we render every variable 
-    return $this->render('training/new.html.twig', [
-        'formAddProgram' => $formAddProgram->createView(),
-        'formAddWorkout' => $formAddWorkout->createView(),
-        'program' => $program,
-        'workoutPlans' => $workoutPlans,
-        // 'workoutScore' => $programScore,
-        'edit' => $isEdit,
-        'controller_name' => 'TrainingController',
-    ]);
-}
+            
+            // this part was used to verify the score incrementation, not useful anymore since workout out isn't just about
+            // composing the heaviest or longest workout session, i want it to be about training efficiently with consistency
+            $workoutPlans = $program->getWorkoutPlans();
+            // $programScore = 0;
+
+            // foreach($workoutPlans as $workoutPlan){
+            //     $programScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
+            // }
+
+        // we render every variable 
+        return $this->render('training/new.html.twig', [
+            'formAddProgram' => $formAddProgram->createView(),
+            'formAddWorkout' => $formAddWorkout->createView(),
+            'program' => $program,
+            'workoutPlans' => $workoutPlans,
+            // 'workoutScore' => $programScore,
+            'edit' => $isEdit,
+            'controller_name' => 'TrainingController',
+        ]);
+    }
 
 
 

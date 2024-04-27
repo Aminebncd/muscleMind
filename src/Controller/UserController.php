@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\PerfType;
 use App\Entity\Performance;
 use App\Repository\UserRepository;
@@ -14,6 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
+
+    
     #[Route('/user/myProfile', name: 'app_user')]
     public function index(Request $request, UserRepository $ur): Response
     {
@@ -29,6 +32,8 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+
+
 
     #[Route('/admin/listUsers', name: 'app_user_list')]
     public function listUsers(Request $request, UserRepository $ur): Response
@@ -46,23 +51,26 @@ class UserController extends AbstractController
         ]);
     }
 
-    // #[Route('/admin/detailsUser/{id}', name: 'app_user_details')]
-    // public function detailsUser(Request $request, 
-    //                         UserRepository $ur,
-    //                         User $user = null): Response
-    // {
-    //     if (!$this->getUser()) {
-    //         return $this->redirectToRoute('app_login');
-    //     }
 
-    
 
-    //     return $this->render('user/details.html.twig', [
-    //         'user' => $user,
-    //         // 'sessions' => $sessions,
-    //         'controller_name' => 'UserController',
-    //     ]);
-    // }
+    #[Route('/admin/detailsUser/{id}', name: 'app_user_details')]
+    public function detailsUser(Request $request, 
+                            UserRepository $ur,
+                            User $user = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+
+        return $this->render('user/detailsUser.html.twig', [
+            'user' => $user,
+            // 'sessions' => $sessions,
+            'controller_name' => 'UserController',
+        ]);
+    }
+
+
 
     #[Route('/user/newPerf', name: 'app_user_newPerf')]
     public function newPerf(Request $request,
