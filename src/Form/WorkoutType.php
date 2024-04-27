@@ -17,20 +17,25 @@ class WorkoutType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // we convert our options to arrays and merge them to make one big list
+        $primaryExercises = $options['primaryMuscleGroupExercises']->toArray();
+        $secondaryExercises = $options['secondaryMuscleGroupExercises']->toArray();
+        $allExercises = array_merge($primaryExercises, $secondaryExercises);
+
         $builder
-            ->add('numberOfRepetitions', NumberType::class)
-            ->add('weightsUsed', NumberType::class)
-            ->add('exercice', EntityType::class, [
-                'class' => Exercice::class,
-                'choice_label' => 'exerciceName',
-                'choices' => array_merge($options['primaryMuscleGroupExercises']->toArray(), 
-                                        $options['secondaryMuscleGroupExercises']->toArray()),
-            ])
-            ->add('valider', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary'
-                ]
-            ]);
+        ->add('numberOfRepetitions', NumberType::class)
+        ->add('weightsUsed', NumberType::class)
+        ->add('exercice', EntityType::class, [
+            'class' => Exercice::class,
+            'choice_label' => 'exerciceName',
+            'choices' => $allExercises,
+            'label' => 'Exercice',
+        ])
+        ->add('valider', SubmitType::class, [
+            'attr' => [
+                'class' => 'btn btn-primary'
+            ]
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -41,6 +46,7 @@ class WorkoutType extends AbstractType
             'secondaryMuscleGroupExercises' => null,
         ]);
 
+        // just a security mesure to ensure we get the right type
         $resolver->setAllowedTypes('primaryMuscleGroupExercises', Collection::class);
         $resolver->setAllowedTypes('secondaryMuscleGroupExercises', Collection::class);
     }
