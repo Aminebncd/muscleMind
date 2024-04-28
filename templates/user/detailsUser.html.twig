@@ -9,14 +9,7 @@
         {{user.score}} <br> <br>
 
         
-        {% if user.trackings %}
-        {# Made progress? write everything down <a href="{{ path ('app_user_newPerf')}}"> here</a> ! <br><br> #}
-        {% for tracking in user.trackings %}
-        {{tracking}} <br>
-        {% endfor %}
-        {% else %}
-        {# Wanna track your progress? add your trackings <a href="#"> here</a> ! #}
-        {% endif %} <br><br>
+       
 
 
         {% if user.performances %}

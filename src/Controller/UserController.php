@@ -30,7 +30,6 @@ class UserController extends AbstractController
 
         return $this->render('user/index.html.twig', [
             'user' => $user,
-            // 'sessions' => $sessions,
             'controller_name' => 'UserController',
         ]);
     }

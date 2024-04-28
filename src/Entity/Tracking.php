@@ -30,6 +30,9 @@ class Tracking
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userTracked = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateOfTracking = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,7 +40,7 @@ class Tracking
 
     public function getHeight(): ?string
     {
-        return $this->height;
+        return $this->height.'cm';
     }
 
     public function setHeight(?string $height): static
@@ -49,7 +52,7 @@ class Tracking
 
     public function getWeight(): ?string
     {
-        return $this->weight;
+        return $this->weight.'kg';
     }
 
     public function setWeight(?string $weight): static
@@ -61,7 +64,7 @@ class Tracking
 
     public function getAge(): ?string
     {
-        return $this->age;
+        return $this->age.'years old';
     }
 
     public function setAge(?string $age): static
@@ -71,9 +74,12 @@ class Tracking
         return $this;
     }
 
-    public function getSex(): ?int
+    // had problems because by default my getter was set to expect an int (: ?int)
+    // changed to (: ?string) and it works fine
+    public function getSex(): ?string
     {
-        return $this->sex;
+        // if sex value is 0, return male ,if else return female
+        return $this->sex === 0 ? 'male' : 'female';
     }
 
     public function setSex(?int $sex): static
@@ -91,6 +97,18 @@ class Tracking
     public function setUserTracked(User $userTracked): static
     {
         $this->userTracked = $userTracked;
+
+        return $this;
+    }
+
+    public function getDateOfTracking(): ?\DateTimeInterface
+    {
+        return $this->dateOfTracking;
+    }
+
+    public function setDateOfTracking(\DateTimeInterface $dateOfTracking): static
+    {
+        $this->dateOfTracking = $dateOfTracking;
 
         return $this;
     }
