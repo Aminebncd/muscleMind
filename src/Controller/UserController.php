@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\PerfType;
+use App\Entity\Tracking;
+use App\Form\TrackingType;
 use App\Entity\Performance;
 use App\Repository\UserRepository;
 use App\Repository\ExerciceRepository;
@@ -103,6 +105,41 @@ class UserController extends AbstractController
             'user' => $user,
             // 'exercices' => $exercices,
             'perfForm' => $perfForm,
+            'controller_name' => 'UserController',
+        ]);
+    }
+
+
+    #[Route('/user/newtracking', name: 'app_user_newtracking')]
+    public function newtracking(Request $request,
+                            Tracking $tracking,
+                            EntityManagerInterface $em, 
+                            // ExerciceRepository $er,
+                            User $user = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        // $exercices = $er->findAll();
+        $tracking = new Tracking();
+
+        $trackingForm = $this->createForm(TrackingType::class, $tracking);
+        $trackingForm->handleRequest($request);
+
+        if ($trackingForm->isSubmitted() && $trackingForm->isValid()) {
+            $tracking->setUserTracked($this->getUser());
+            $em->persist($tracking);
+            $em->flush();
+            
+            return $this->redirectToRoute('app_user');
+        }
+
+
+        return $this->render('user/newtracking.html.twig', [
+            'user' => $user,
+            // 'exercices' => $exercices,
+            'trackingForm' => $trackingForm,
             'controller_name' => 'UserController',
         ]);
     }

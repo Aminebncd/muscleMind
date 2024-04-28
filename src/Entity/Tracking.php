@@ -26,7 +26,7 @@ class Tracking
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
     private ?int $sex = null;
 
-    #[ORM\OneToOne(inversedBy: 'tracking', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'tracking', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userTracked = null;
 
@@ -94,4 +94,5 @@ class Tracking
 
         return $this;
     }
+
 }

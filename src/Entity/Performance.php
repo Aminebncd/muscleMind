@@ -20,7 +20,7 @@ class Performance
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userPerforming = null;
 
-    #[ORM\ManyToOne(inversedBy: 'performances')]
+    #[ORM\ManyToOne(inversedBy: 'performances', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Exercice $exerciceMesured = null;
 

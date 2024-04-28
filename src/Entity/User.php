@@ -21,6 +21,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 30)]
+    private ?string $username = null;
+
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
@@ -39,14 +42,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $score = null;
 
-    #[ORM\OneToOne(mappedBy: 'userTracked', cascade: ['persist', 'remove'])]
-    private ?Tracking $tracking = null;
 
-    #[ORM\OneToMany(targetEntity: Performance::class, mappedBy: 'userPerforming', orphanRemoval: true)]
+
+    #[ORM\OneToMany(targetEntity: Tracking::class, mappedBy: 'userTracked', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    private Collection $trackings;
+
+    #[ORM\OneToMany(targetEntity: Performance::class, mappedBy: 'userPerforming', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $performances;
-
-    #[ORM\Column(length: 30)]
-    private ?string $username = null;
 
     #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $sessions;
@@ -54,12 +56,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'creator', orphanRemoval: true)]
     private Collection $programs;
 
+
+
+
     public function __construct()
-
-
 
     {
         $this->performances = new ArrayCollection();
+        $this->trackings = new ArrayCollection();
         $this->programs = new ArrayCollection();
         $this->sessions = new ArrayCollection();
     }
@@ -67,6 +71,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -151,19 +167,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getTracking(): ?Tracking
+
+
+
+
+
+
+    // TRAINING RELATED PROPERTIES //
+    /**
+     * @return Collection<int, Tracking>
+     */
+    public function getTracking(): Collection
     {
-        return $this->tracking;
+        return $this->trackings;
     }
 
-    public function setTracking(Tracking $tracking): static
+    public function addTracking(Tracking $tracking): static
     {
         // set the owning side of the relation if necessary
-        if ($tracking->getUserTracked() !== $this) {
+        if (!$this->trackings->contains($tracking)) {
+            $this->trackings->add($tracking);
             $tracking->setUserTracked($this);
         }
 
-        $this->tracking = $tracking;
+        return $this;
+    }
+
+    public function removeTracking(Performance $tracking): static
+    {
+        if ($this->trackings->removeElement($tracking)) {
+            // set the owning side to null (unless already changed)
+            if ($tracking->getUserTracked() === $this) {
+                $tracking->setUserTracked(null);
+            }
+        }
 
         return $this;
     }
@@ -198,17 +235,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): static
-    {
-        $this->username = $username;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Session>
@@ -271,6 +297,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     
+
+
 
     public function __tostring ()
     {
