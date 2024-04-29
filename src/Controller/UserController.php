@@ -9,6 +9,7 @@ use App\Form\TrackingType;
 use App\Entity\Performance;
 use App\Repository\UserRepository;
 use App\Repository\ExerciceRepository;
+use App\Repository\TrackingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,9 @@ class UserController extends AbstractController
 
     
     #[Route('/user/myProfile', name: 'app_user')]
-    public function index(Request $request, UserRepository $ur): Response
+    public function index(Request $request, 
+                        UserRepository $ur,
+                        TrackingRepository $tr): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -28,8 +31,12 @@ class UserController extends AbstractController
 
         $user = $this->getUser();
 
+        $latestTracking = $tr->getLatest($user);
+        // dd($latestTracking->getWeight());
+
         return $this->render('user/index.html.twig', [
             'user' => $user,
+            'latestTracking' => $latestTracking, 
             'controller_name' => 'UserController',
         ]);
     }

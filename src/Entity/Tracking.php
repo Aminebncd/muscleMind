@@ -101,9 +101,9 @@ class Tracking
         return $this;
     }
 
-    public function getDateOfTracking(): ?\DateTimeInterface
+    public function getDateOfTracking(): ?string
     {
-        return $this->dateOfTracking;
+        return $this->dateOfTracking->format('d.m.Y');
     }
 
     public function setDateOfTracking(\DateTimeInterface $dateOfTracking): static

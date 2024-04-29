@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Tracking;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Tracking>
@@ -20,6 +21,19 @@ class TrackingRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Tracking::class);
     }
+
+    public function getLatest(User $user)
+{
+    return $this->createQueryBuilder('t')
+        ->andWhere('t.userTracked = :user')
+        ->setParameter('user', $user)
+        ->orderBy('t.dateOfTracking', 'DESC')
+        ->setMaxResults(1)
+        ->getQuery()
+        ->getOneOrNullResult();
+}
+
+
 
     //    /**
     //     * @return Tracking[] Returns an array of Tracking objects
