@@ -47,6 +47,8 @@ class HomeController extends AbstractController
             }
         }
 
+        $user->setScore($totalScore);
+
 
         return $this->render('home/index.html.twig', [
             'user' => $user,

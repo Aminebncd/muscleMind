@@ -31,6 +31,23 @@ class UserController extends AbstractController
 
         $user = $this->getUser();
 
+        $sessions = $user->getSessions();
+        $totalScore = 0;
+        $now = new \DateTime;
+
+        foreach ($sessions as $session) {
+            // dd($session);
+            if($session->getDateSession() <= $now) {
+                $program = $session->getProgram();
+                $workoutPlans = $program->getWorkoutPlans();
+                foreach ($workoutPlans as $workoutPlan) {
+                    $totalScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
+                }
+            }
+        }
+        
+        $user->setScore($totalScore);
+
         $latestTracking = $tr->getLatest($user);
         // dd($latestTracking->getWeight());
 
@@ -116,7 +133,7 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/user/newtracking', name: 'app_user_newtracking')]
+    #[Route('/user/newTrack', name: 'app_user_newTrack')]
     public function newtracking(Request $request,
                             Tracking $tracking,
                             EntityManagerInterface $em, 
@@ -132,9 +149,12 @@ class UserController extends AbstractController
 
         $trackingForm = $this->createForm(TrackingType::class, $tracking);
         $trackingForm->handleRequest($request);
+        $now = new \DateTime;
+
 
         if ($trackingForm->isSubmitted() && $trackingForm->isValid()) {
             $tracking->setUserTracked($this->getUser());
+            $tracking->setDateOfTracking($now);
             $em->persist($tracking);
             $em->flush();
             
@@ -142,7 +162,7 @@ class UserController extends AbstractController
         }
 
 
-        return $this->render('user/newtracking.html.twig', [
+        return $this->render('user/newTrack.html.twig', [
             'user' => $user,
             // 'exercices' => $exercices,
             'trackingForm' => $trackingForm,

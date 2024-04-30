@@ -9,8 +9,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+// use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+// use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class TrackingType extends AbstractType
 {
@@ -20,7 +22,12 @@ class TrackingType extends AbstractType
             ->add('height', TextType::class)
             ->add('weight', TextType::class)
             ->add('age', TextType::class)
-            ->add('sex', NumberType::class)
+            ->add('sex', ChoiceType::class, [
+                'choices' => [
+                    'male' => 0,
+                    'female' => 1,
+                ]
+            ])
             // ->add('userTracked', EntityType::class, [
             //     'class' => User::class,
             //     'choice_label' => 'id',
