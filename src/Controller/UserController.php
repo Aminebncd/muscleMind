@@ -23,6 +23,7 @@ class UserController extends AbstractController
     #[Route('/user/myProfile', name: 'app_user')]
     public function index(Request $request, 
                         UserRepository $ur,
+                        EntityManagerInterface $em,
                         TrackingRepository $tr): Response
     {
         if (!$this->getUser()) {
@@ -45,8 +46,11 @@ class UserController extends AbstractController
                 }
             }
         }
-        
         $user->setScore($totalScore);
+        $em->persist($user);
+        $em->flush();
+
+        // dd($user->getScore());
 
         $latestTracking = $tr->getLatest($user);
         // dd($latestTracking->getWeight());

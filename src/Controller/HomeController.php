@@ -33,28 +33,28 @@ class HomeController extends AbstractController
         $user = $this->getUser();
         $programs = $user->getPrograms();
         $sessions = $user->getSessions();
-        $totalScore = 0;
-        $now = new \DateTime;
+        // $totalScore = 0;
+        // $now = new \DateTime;
 
-        foreach ($sessions as $session) {
-            // dd($session);
-            if($session->getDateSession() <= $now) {
-                $program = $session->getProgram();
-                $workoutPlans = $program->getWorkoutPlans();
-                foreach ($workoutPlans as $workoutPlan) {
-                    $totalScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
-                }
-            }
-        }
+        // foreach ($sessions as $session) {
+        //     // dd($session);
+        //     if($session->getDateSession() <= $now) {
+        //         $program = $session->getProgram();
+        //         $workoutPlans = $program->getWorkoutPlans();
+        //         foreach ($workoutPlans as $workoutPlan) {
+        //             $totalScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
+        //         }
+        //     }
+        // }
 
-        $user->setScore($totalScore);
+        // $user->setScore($totalScore);
 
 
         return $this->render('home/index.html.twig', [
             'user' => $user,
             'sessions' => $sessions,
             'programs' => $programs,
-            'totalScore' => $totalScore,
+            // 'totalScore' => $totalScore,
             'controller_name' => 'HomeController',
         ]);
     }
