@@ -17,27 +17,20 @@ div {
 }
 
 
-/* This */
-/* 
-.Biceps path:hover, 
-.Obliques path:hover, 
-.Abdominals g path:hover,
-.Shoulder path:hover,
-.Back path:hover,
-.Trapezius path:hover,
-.Chest path:hover,
-.Forearms path:hover,
-.Abductors path:hover,
-.Adductors path:hover,
-.Quadriceps path:hover,
-.Calves path:hover,
-.Neck path:hover {
-    fill: red;
-} */
-
-
-/* is the equivalent of this, i don't even know 
-why i bothered writing the whole thing... */
-a g path:hover {
+/* i'll most definetly adjust the colors and precision of my hovering
+but for now everything is going to be highlithed in red */
+.Chest:hover .Pec,
+.Abdominals:hover .LowerAb,
+.Back:hover .Lats,
+ .Trapezius:hover .Trap,
+ .Trapezius:hover .Neck,
+.Obliques:hover .Oblique,
+.Biceps:hover .Bicep,
+.Forearms:hover .Forearm,
+.Abductors:hover .Adductor,
+.Adductors:hover .Abductor,
+.Quadriceps:hover .Quad,
+.Calves:hover .calf
+ {
     fill: red;
 }

@@ -26,7 +26,7 @@
         {# Made progress? write everything down <a href="{{ path ('app_user_newPerf')}}"> here</a> ! <br><br> #}
         {% for tracking in  user.trackings %}
         <div>
-            <h3>Tracking date : {{tracking.dateOfTracking}}</h3>
+            <h5>Tracking date : {{tracking.dateOfTracking}}</h5>
             {{tracking.age}} <br>
             {{tracking.sex}} <br>
             {{tracking.height}} <br>
