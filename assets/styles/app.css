@@ -19,11 +19,13 @@ div {
 
 /* i'll most definetly adjust the colors and precision of my hovering
 but for now everything is going to be highlithed in red */
-.Chest:hover .Pec,
+/* also that was very unnecessary for me to write */
+/* .Chest:hover .Pec,
 .Abdominals:hover .LowerAb,
 .Back:hover .Lats,
  .Trapezius:hover .Trap,
  .Trapezius:hover .Neck,
+ .Shoulders:hover .Shoulder,
 .Obliques:hover .Oblique,
 .Biceps:hover .Bicep,
 .Forearms:hover .Forearm,
@@ -32,5 +34,10 @@ but for now everything is going to be highlithed in red */
 .Quadriceps:hover .Quad,
 .Calves:hover .calf
  {
+    fill: red;
+} */
+
+/* this is much better */
+a:hover path {
     fill: red;
 }
