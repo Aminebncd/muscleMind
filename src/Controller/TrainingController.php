@@ -7,6 +7,7 @@ use App\Form\ProgramType;
 use App\Form\WorkoutType;
 use App\Entity\WorkoutPlan;
 use App\Repository\UserRepository;
+use App\Repository\MuscleRepository;
 use App\Repository\ExerciceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\MuscleGroupRepository;
@@ -49,6 +50,7 @@ class TrainingController extends AbstractController
     #[Route('/training/edit/{id}', name: 'app_training_edit')]
     public function createEditProgram(Request $request,
                                     ExerciceRepository $exerciceRepository,
+                                    MuscleRepository $muscleRepository,
                                     EntityManagerInterface $em, 
                                     Program $program = null
                                 ): Response {
@@ -82,15 +84,33 @@ class TrainingController extends AbstractController
         $exercisesForPrimaryMuscleGroup = new ArrayCollection();
         $exercisesForSecondaryMuscleGroup = new ArrayCollection();
 
-        // if we're in edit mode
         if($isEdit){
             // We gather the muscle groups infos from the program entity with our getters
             $selectedMuscleGroup = $program->getMuscleGroupTargeted();
             $selectedSecondaryMuscleGroup = $program->getSecondaryMuscleGroupTargeted();
-            
-            //We use those values to collect the corresponding exercises
-            $exercisesForPrimaryMuscleGroup = new ArrayCollection($exerciceRepository->findExercisesByMuscleGroup($selectedMuscleGroup));
-            $exercisesForSecondaryMuscleGroup = new ArrayCollection($exerciceRepository->findExercisesByMuscleGroup($selectedSecondaryMuscleGroup));
+
+            // Find the muscles in the selected muscle groups and convert them to ArrayCollection
+            $musclesPrimary = new ArrayCollection($muscleRepository->findMusclesInMuscleGroup($selectedMuscleGroup));
+            $musclesSecondary = new ArrayCollection($muscleRepository->findMusclesInMuscleGroup($selectedSecondaryMuscleGroup));
+
+            // Merge the muscles from primary and secondary muscle groups
+            $muscles = new ArrayCollection(array_merge($musclesPrimary->toArray(), $musclesSecondary->toArray()));
+
+            // Initialize the exercise collections
+            $exercisesForPrimaryMuscleGroup = new ArrayCollection();
+            $exercisesForSecondaryMuscleGroup = new ArrayCollection();
+
+            // Find the exercises for each muscle
+            foreach ($muscles as $muscle) {
+                $exercisesForMuscle = $exerciceRepository->findExercisesByMuscle($muscle);
+                foreach ($exercisesForMuscle as $exercise) {
+                    if ($muscle->getMuscleGroup() == $selectedMuscleGroup) {
+                        $exercisesForPrimaryMuscleGroup->add($exercise);
+                    } else {
+                        $exercisesForSecondaryMuscleGroup->add($exercise);
+                    }
+                }
+            }
         }
 
         // we create the workout form with the pre established options
@@ -128,6 +148,7 @@ class TrainingController extends AbstractController
             'program' => $program,
             'workoutPlans' => $workoutPlans,
             // 'workoutScore' => $programScore,
+            // 'exercice' => $exercise,
             'edit' => $isEdit,
             'controller_name' => 'TrainingController',
         ]);

@@ -22,15 +22,23 @@ class ExerciceRepository extends ServiceEntityRepository
         parent::__construct($registry, Exercice::class);
     }
 
-    public function findExercisesByMuscleGroup(MuscleGroup $muscleGroup): array
+    // public function findExercisesByMuscleGroup(MuscleGroup $muscleGroup): array
+    // {
+    //     return $this->createQueryBuilder('e')
+    //         ->where('e.target = :muscleGroup')
+    //         ->setParameter('muscleGroup', $muscleGroup)
+    //         ->getQuery()
+    //         ->getResult();
+    // }
+
+    public function findExercisesByMuscle($muscle)
     {
         return $this->createQueryBuilder('e')
-            ->where('e.target = :muscleGroup')
-            ->setParameter('muscleGroup', $muscleGroup)
+            ->where('e.target = :muscle')
+            ->setParameter('muscle', $muscle)
             ->getQuery()
             ->getResult();
     }
-
 
     //    /**
     //     * @return Exercice[] Returns an array of Exercice objects
