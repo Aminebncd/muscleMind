@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TrainingController!{% endblock %}
+
+{% block body %}
+
+    <h1>Details of the muscle group</h1>
+    <h2>{{ muscleGroup}}</h2>
+
+    <p>Muscles</p>
+
+    <ul>
+        {% for muscle in muscles %}
+            <li>{{ muscle }}</li>
+        {% endfor %}
+    </ul>
+
+
+
+    <p>Exercices:</p>
+    <ul>
+        {% for exercice in exercices %}
+            <li>{{ exercice.exerciceName }}</li>
+        {% endfor %}
+    </ul>
+    {# <a href="{{ path('listMuscleGroup') }}">Back to the list</a> #}
+{% endblock %}
+
+
