@@ -1,0 +1,43 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    background-color: #07080d;
+    color: aliceblue;
+    font-family: "Montserrat", sans-serif;
+    a:visited {
+        color: aliceblue;
+    }
+}
+
+
+div {
+    margin: 50px;
+}
+
+
+/* i'll most definetly adjust the colors and precision of my hovering
+but for now everything is going to be highlithed in red */
+/* also that was very unnecessary for me to write */
+/* .Chest:hover .Pec,
+.Abdominals:hover .LowerAb,
+.Back:hover .Lats,
+ .Trapezius:hover .Trap,
+ .Trapezius:hover .Neck,
+ .Shoulders:hover .Shoulder,
+.Obliques:hover .Oblique,
+.Biceps:hover .Bicep,
+.Forearms:hover .Forearm,
+.Abductors:hover .Adductor,
+.Adductors:hover .Abductor,
+.Quadriceps:hover .Quad,
+.Calves:hover .calf
+ {
+    fill: red;
+} */
+
+/* this is much better */
+a:hover path {
+    fill: red;
+}
