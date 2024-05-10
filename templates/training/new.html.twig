@@ -20,6 +20,14 @@
     {% for workout in workoutPlans %}
         {{workout}} <a href="{{ path('removeWP_Program', {'program' : program.id, 'workoutPlan' : workout.id}) }}">delete</a> <br>
     {% endfor %}
+
+    {% set lastWarningMessage = app.flashes('warning') | last %}
+    {% if lastWarningMessage is not empty %}
+        <div class="alert alert-warning">
+            {{ lastWarningMessage }}
+        </div>
+    {% endif %}
+    
         <h2>Plan your workout !</h2>
         {{ form_start(formAddWorkout) }}
         {{ form_end(formAddWorkout) }}

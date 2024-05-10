@@ -45,7 +45,15 @@ class TrainingController extends AbstractController
     }
 
 
-    // create or edit a program and it's content
+
+
+
+
+
+
+    // This monstrosity of a function is used to create or edit a program
+    // i will have to refactor it to make it more readable
+    // inshaAllah
     #[Route('/training/new', name: 'app_training_new')]
     #[Route('/training/edit/{id}', name: 'app_training_edit')]
     public function createEditProgram(Request $request,
@@ -54,23 +62,26 @@ class TrainingController extends AbstractController
                                     EntityManagerInterface $em, 
                                     Program $program = null
                                 ): Response {
+
+        // i always verify if the user is logged in
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
-        
-        // if we are in edit mode (meaning we're in an existing program)
+
+        // if we are in edit mode 
+        // (meaning we're in an existing program)
         // we won't render the same form 
         $isEdit = $program !== null;
-
         if (!$program) {
             $program = new Program();
         }
 
+        
         $formAddProgram = $this->createForm(ProgramType::class, $program);
         $formAddProgram->handleRequest($request);
         
-            // after verifications, we persist the new program into the database and
-            // enter edit mode to add workoutPlans
+            // after validation, we persist the new program into the database and
+            // enter edit mode to add workoutPlans (Exercises to do in the program)
             if ($formAddProgram->isSubmitted() 
                 && $formAddProgram->isValid()
                     && $formAddProgram->getData()->getMuscleGroupTargeted() != $formAddProgram->getData()->getSecondaryMuscleGroupTargeted()) {
@@ -84,34 +95,36 @@ class TrainingController extends AbstractController
         $exercisesForPrimaryMuscleGroup = new ArrayCollection();
         $exercisesForSecondaryMuscleGroup = new ArrayCollection();
 
-        if($isEdit){
-            // We gather the muscle groups infos from the program entity with our getters
-            $selectedMuscleGroup = $program->getMuscleGroupTargeted();
-            $selectedSecondaryMuscleGroup = $program->getSecondaryMuscleGroupTargeted();
+            // if we are in edit mode
+            if($isEdit){
 
-            // Find the muscles in the selected muscle groups and convert them to ArrayCollection
-            $musclesPrimary = new ArrayCollection($muscleRepository->findMusclesInMuscleGroup($selectedMuscleGroup));
-            $musclesSecondary = new ArrayCollection($muscleRepository->findMusclesInMuscleGroup($selectedSecondaryMuscleGroup));
+                // We gather the muscle groups from the program entity with our getters
+                $selectedMuscleGroup = $program->getMuscleGroupTargeted();
+                $selectedSecondaryMuscleGroup = $program->getSecondaryMuscleGroupTargeted();
 
-            // Merge the muscles from primary and secondary muscle groups
-            $muscles = new ArrayCollection(array_merge($musclesPrimary->toArray(), $musclesSecondary->toArray()));
+                // Find the muscles in the selected muscle groups and convert them to ArrayCollection
+                $musclesPrimary = new ArrayCollection($muscleRepository->findMusclesInMuscleGroup($selectedMuscleGroup));
+                $musclesSecondary = new ArrayCollection($muscleRepository->findMusclesInMuscleGroup($selectedSecondaryMuscleGroup));
 
-            // Initialize the exercise collections
-            $exercisesForPrimaryMuscleGroup = new ArrayCollection();
-            $exercisesForSecondaryMuscleGroup = new ArrayCollection();
+                // Merge the muscles from primary and secondary muscle groups
+                $muscles = new ArrayCollection(array_merge($musclesPrimary->toArray(), $musclesSecondary->toArray()));
 
-            // Find the exercises for each muscle
-            foreach ($muscles as $muscle) {
-                $exercisesForMuscle = $exerciceRepository->findExercisesByMuscle($muscle);
-                foreach ($exercisesForMuscle as $exercise) {
-                    if ($muscle->getMuscleGroup() == $selectedMuscleGroup) {
-                        $exercisesForPrimaryMuscleGroup->add($exercise);
-                    } else {
-                        $exercisesForSecondaryMuscleGroup->add($exercise);
+                // Initialize the exercise collections
+                $exercisesForPrimaryMuscleGroup = new ArrayCollection();
+                $exercisesForSecondaryMuscleGroup = new ArrayCollection();
+
+                // Find the exercises for each muscle
+                foreach ($muscles as $muscle) {
+                    $exercisesForMuscle = $exerciceRepository->findExercisesByMuscle($muscle);
+                    foreach ($exercisesForMuscle as $exercise) {
+                        if ($muscle->getMuscleGroup() == $selectedMuscleGroup) {
+                            $exercisesForPrimaryMuscleGroup->add($exercise);
+                        } else {
+                            $exercisesForSecondaryMuscleGroup->add($exercise);
+                        }
                     }
                 }
             }
-        }
 
         // we create the workout form with the pre established options
         $formAddWorkout = $this->createForm(WorkoutType::class, new WorkoutPlan(), [
@@ -120,27 +133,67 @@ class TrainingController extends AbstractController
         ]);
         $formAddWorkout->handleRequest($request);
         
-            // after adding a workoutPlan we stay in edit mode to add more
-            if ($formAddWorkout->isSubmitted() 
-                && $formAddWorkout->isValid()) {
+ 
+        // after adding a workoutPlan we stay in edit mode to add more
+        if ($formAddWorkout->isSubmitted() && $formAddWorkout->isValid()) {
+            $workoutPlan = $formAddWorkout->getData();
+            $newExerciseId = $formAddWorkout->getData()->getExercice()->getId();
 
-                $program->addWorkoutPlan($formAddWorkout->getData());
-                $em->persist($program);
-                $em->flush();
-
-                return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
-            }
+            // If everything is fine, persist the workout plan
+            $program->addWorkoutPlan($workoutPlan);
+            $em->persist($program);
+            $em->flush();
+        
+            // Check if the user is adding too much volume on the same exercise
+            // i can do this by counting the number of times an exercise is added
+            // and checking if it exceeds a certain limit
+            // usually, 5 sets of 4 to 12 reps is a good start for beginners who want to build strength
+            // and that's counting the first 2-3 sets as warm-up sets
+            // so let's say 3 working sets of x reps per exercise is the limit
+            // if the user wants to add more, he still can but i'll show a warning message
+            // and let him know that it's not recommended for beginners
 
             
-            // this part was used to verify the score incrementation, not useful anymore since workout out isn't just about
-            // composing the heaviest or longest workout session, i want it to be about training efficiently with consistency
             $workoutPlans = $program->getWorkoutPlans();
-            // $programScore = 0;
+            
+            foreach ($workoutPlans as $workoutPlan) {
+                $exercise = $workoutPlan->getExercice();
+                $exerciseId = $exercise->getId();
+                if (!isset($exerciseOccurrences[$exerciseId])) {
+                    $exerciseOccurrences[$exerciseId] = 1;
+                } else {
+                    $exerciseOccurrences[$exerciseId]++;
+                }
+            }
 
-            // foreach($workoutPlans as $workoutPlan){
-            //     $programScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
-            // }
+            $maxOccurrencesPerExercise = 5;
 
+            // Check if the maximum occurrences per exercise limit is exceeded
+            if (isset($exerciseOccurrences[$newExerciseId]) && $exerciseOccurrences[$newExerciseId] >= $maxOccurrencesPerExercise) {
+                // You can handle the case where the limit is exceeded here
+                // For now, let's just set a flag to indicate that the limit is exceeded
+                $maxOccurrencesPerExerciseExceeded = true;
+            } else {
+                $maxOccurrencesPerExerciseExceeded = false;
+            }
+
+            // dd($maxOccurrencesPerExerciseExceeded);
+
+            // depending on the situation, we can display a message to the user
+            // if he's adding too much volume on the same exercise
+            // something like "You've added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise."
+            if ($maxOccurrencesPerExerciseExceeded) {
+                $this->addFlash('warning', 'You\'ve added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise.');
+            }
+
+            return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
+        }
+
+
+            
+        // we gather the workoutPlans to render them
+        $workoutPlans = $program->getWorkoutPlans();
+ 
         // we render every variable 
         return $this->render('training/new.html.twig', [
             'formAddProgram' => $formAddProgram->createView(),
@@ -149,10 +202,19 @@ class TrainingController extends AbstractController
             'workoutPlans' => $workoutPlans,
             // 'workoutScore' => $programScore,
             // 'exercice' => $exercise,
+            // 'maxOccurrencesPerExerciseExceeded' => $maxOccurrencesPerExerciseExceeded, // Pass the flag indicating if the limit is exceeded
             'edit' => $isEdit,
             'controller_name' => 'TrainingController',
         ]);
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -177,6 +239,8 @@ class TrainingController extends AbstractController
         return $this->redirectToRoute('app_training');
     }
 
+
+    
 
     
     // delete the workoutPlan within a program
