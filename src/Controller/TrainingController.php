@@ -242,10 +242,12 @@ class TrainingController extends AbstractController
 
     
 
-    
+
     // delete the workoutPlan within a program
     #[Route('/training/{program}/{workoutPlan}/delete', name: 'removeWP_Program')]
     public function removeWorkoutPlan(Program $program = null, 
+                            ExerciceRepository $exerciceRepository,
+                            MuscleRepository $muscleRepository,
                             WorkoutPlan $workoutPlan = null,
                             EntityManagerInterface $em,
                             Request $request)
@@ -262,7 +264,44 @@ class TrainingController extends AbstractController
         $em->persist($program);
         $em->flush();
 
-        $formAddWorkout = $this->createForm(WorkoutType::class, new WorkoutPlan());
+         // we initialize our variables just to have them ready
+        $exercisesForPrimaryMuscleGroup = new ArrayCollection();
+        $exercisesForSecondaryMuscleGroup = new ArrayCollection();
+
+
+                // We gather the muscle groups from the program entity with our getters
+                $selectedMuscleGroup = $program->getMuscleGroupTargeted();
+                $selectedSecondaryMuscleGroup = $program->getSecondaryMuscleGroupTargeted();
+
+                // Find the muscles in the selected muscle groups and convert them to ArrayCollection
+                $musclesPrimary = new ArrayCollection($muscleRepository->findMusclesInMuscleGroup($selectedMuscleGroup));
+                $musclesSecondary = new ArrayCollection($muscleRepository->findMusclesInMuscleGroup($selectedSecondaryMuscleGroup));
+
+                // Merge the muscles from primary and secondary muscle groups
+                $muscles = new ArrayCollection(array_merge($musclesPrimary->toArray(), $musclesSecondary->toArray()));
+
+                // Initialize the exercise collections
+                $exercisesForPrimaryMuscleGroup = new ArrayCollection();
+                $exercisesForSecondaryMuscleGroup = new ArrayCollection();
+
+                // Find the exercises for each muscle
+                foreach ($muscles as $muscle) {
+                    $exercisesForMuscle = $exerciceRepository->findExercisesByMuscle($muscle);
+                    foreach ($exercisesForMuscle as $exercise) {
+                        if ($muscle->getMuscleGroup() == $selectedMuscleGroup) {
+                            $exercisesForPrimaryMuscleGroup->add($exercise);
+                        } else {
+                            $exercisesForSecondaryMuscleGroup->add($exercise);
+                        }
+                    }
+                }
+        
+
+        // we create the workout form with the pre established options
+        $formAddWorkout = $this->createForm(WorkoutType::class, new WorkoutPlan(), [
+            'primaryMuscleGroupExercises' => $exercisesForPrimaryMuscleGroup,
+            'secondaryMuscleGroupExercises' => $exercisesForSecondaryMuscleGroup,
+        ]);
         $formAddWorkout->handleRequest($request);
 
         return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
