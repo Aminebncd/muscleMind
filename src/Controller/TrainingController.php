@@ -49,11 +49,8 @@ class TrainingController extends AbstractController
 
 
 
-
-
     // This monstrosity of a function is used to create or edit a program
     // i will have to refactor it to make it more readable
-    // inshaAllah
     #[Route('/training/new', name: 'app_training_new')]
     #[Route('/training/edit/{id}', name: 'app_training_edit')]
     public function createEditProgram(Request $request,
@@ -80,51 +77,51 @@ class TrainingController extends AbstractController
         $formAddProgram = $this->createForm(ProgramType::class, $program);
         $formAddProgram->handleRequest($request);
         
-            // after validation, we persist the new program into the database and
-            // enter edit mode to add workoutPlans (Exercises to do in the program)
-            if ($formAddProgram->isSubmitted() 
-                && $formAddProgram->isValid()
-                    && $formAddProgram->getData()->getMuscleGroupTargeted() != $formAddProgram->getData()->getSecondaryMuscleGroupTargeted()) {
-                $program->setCreator($this->getUser());
-                $em->persist($program);
-                $em->flush();
-                return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
-            }
+        // after validation, we persist the new program into the database and
+        // enter edit mode to add workoutPlans (Exercises to do in the program)
+        if ($formAddProgram->isSubmitted() 
+            && $formAddProgram->isValid()
+                && $formAddProgram->getData()->getMuscleGroupTargeted() != $formAddProgram->getData()->getSecondaryMuscleGroupTargeted()) {
+            $program->setCreator($this->getUser());
+            $em->persist($program);
+            $em->flush();
+            return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
+        }
 
         // we initialize our variables just to have them ready
         $exercisesForPrimaryMuscleGroup = new ArrayCollection();
         $exercisesForSecondaryMuscleGroup = new ArrayCollection();
 
-            // if we are in edit mode
-            if($isEdit){
+        // if we are in edit mode
+        if($isEdit){
 
-                // We gather the muscle groups from the program entity with our getters
-                $selectedMuscleGroup = $program->getMuscleGroupTargeted();
-                $selectedSecondaryMuscleGroup = $program->getSecondaryMuscleGroupTargeted();
+            // We gather the muscle groups from the program entity with our getters
+            $selectedMuscleGroup = $program->getMuscleGroupTargeted();
+            $selectedSecondaryMuscleGroup = $program->getSecondaryMuscleGroupTargeted();
 
-                // Find the muscles in the selected muscle groups and convert them to ArrayCollection
-                $musclesPrimary = new ArrayCollection($muscleRepository->findMusclesInMuscleGroup($selectedMuscleGroup));
-                $musclesSecondary = new ArrayCollection($muscleRepository->findMusclesInMuscleGroup($selectedSecondaryMuscleGroup));
+            // Find the muscles in the selected muscle groups and convert them to ArrayCollection
+            $musclesPrimary = new ArrayCollection($muscleRepository->findMusclesInMuscleGroup($selectedMuscleGroup));
+            $musclesSecondary = new ArrayCollection($muscleRepository->findMusclesInMuscleGroup($selectedSecondaryMuscleGroup));
 
-                // Merge the muscles from primary and secondary muscle groups
-                $muscles = new ArrayCollection(array_merge($musclesPrimary->toArray(), $musclesSecondary->toArray()));
+            // Merge the muscles from primary and secondary muscle groups
+            $muscles = new ArrayCollection(array_merge($musclesPrimary->toArray(), $musclesSecondary->toArray()));
 
-                // Initialize the exercise collections
-                $exercisesForPrimaryMuscleGroup = new ArrayCollection();
-                $exercisesForSecondaryMuscleGroup = new ArrayCollection();
+            // Initialize the exercise collections
+            $exercisesForPrimaryMuscleGroup = new ArrayCollection();
+            $exercisesForSecondaryMuscleGroup = new ArrayCollection();
 
-                // Find the exercises for each muscle
-                foreach ($muscles as $muscle) {
-                    $exercisesForMuscle = $exerciceRepository->findExercisesByMuscle($muscle);
-                    foreach ($exercisesForMuscle as $exercise) {
-                        if ($muscle->getMuscleGroup() == $selectedMuscleGroup) {
-                            $exercisesForPrimaryMuscleGroup->add($exercise);
-                        } else {
-                            $exercisesForSecondaryMuscleGroup->add($exercise);
-                        }
+            // Find the exercises for each muscle
+            foreach ($muscles as $muscle) {
+                $exercisesForMuscle = $exerciceRepository->findExercisesByMuscle($muscle);
+                foreach ($exercisesForMuscle as $exercise) {
+                    if ($muscle->getMuscleGroup() == $selectedMuscleGroup) {
+                        $exercisesForPrimaryMuscleGroup->add($exercise);
+                    } else {
+                        $exercisesForSecondaryMuscleGroup->add($exercise);
                     }
                 }
             }
+        }
 
         // we create the workout form with the pre established options
         $formAddWorkout = $this->createForm(WorkoutType::class, new WorkoutPlan(), [
@@ -149,9 +146,9 @@ class TrainingController extends AbstractController
             // and checking if it exceeds a certain limit
             // usually, 5 sets of 4 to 12 reps is a good start for beginners who want to build strength
             // and that's counting the first 2-3 sets as warm-up sets
-            // so let's say 3 working sets of x reps per exercise is the limit
+            // so let's say 5 sets of x reps per exercise is the limit
             // if the user wants to add more, he still can but i'll show a warning message
-            // and let him know that it's not recommended for beginners
+            // and let him know that it's not recommended to do that much volume on the same exercise
 
             
             $workoutPlans = $program->getWorkoutPlans();
@@ -177,14 +174,50 @@ class TrainingController extends AbstractController
                 $maxOccurrencesPerExerciseExceeded = false;
             }
 
-            // dd($maxOccurrencesPerExerciseExceeded);
-
             // depending on the situation, we can display a message to the user
             // if he's adding too much volume on the same exercise
             // something like "You've added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise."
-            if ($maxOccurrencesPerExerciseExceeded) {
-                $this->addFlash('warning', 'You\'ve added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise.');
+            // if ($maxOccurrencesPerExerciseExceeded) {
+            //     $this->addFlash('warning', 'You\'ve added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise.');
+            // }
+
+            // along with the number of sets per exercice
+            // we can also check the total volume put on the muscle groups
+            // and let the user know if he's overdoing it
+            // the latest research shows that 10 to 20 sets per muscle group per week is a good start
+            // given that the user trains to failure or close to it
+            // i won't monitor how many times a week the user programs his workouts
+            // but i can still give him a warning message if he's overdoing it
+
+
+           
+            $muscleGroupOccurrences = [];
+
+            foreach ($workoutPlans as $workoutPlan) {
+                $exercise = $workoutPlan->getExercice();
+                $muscleGroup = $exercise->getTarget()->getMuscleGroup();
+
+                if (!isset($muscleGroupOccurrences[$muscleGroup])) {
+                    $muscleGroupOccurrences[$muscleGroup] = 1;
+                } else {
+                    $muscleGroupOccurrences[$muscleGroup]++;
+                }
             }
+            dd($muscleGroupOccurrences);
+    
+            $maxOccurrencesPerMuscleGroup = 20;
+
+            foreach ($muscleGroupOccurrences as $muscleGroup => $occurrences) {
+                if ($occurrences >= $maxOccurrencesPerMuscleGroup) {
+                    $this->addFlash('warning', 'You\'ve added a bit too much volume on the ' . $muscleGroup . ' muscle group. We recommend 10 to 20 sets per muscle group per week.');
+                    break; 
+                }
+            }
+
+
+
+            // i can also check if the user is training the same muscle group too often
+            // but that's for a future update
 
             return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
         }
@@ -207,12 +240,6 @@ class TrainingController extends AbstractController
             'controller_name' => 'TrainingController',
         ]);
     }
-
-
-
-
-
-
 
 
 
