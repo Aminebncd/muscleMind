@@ -150,9 +150,9 @@ class TrainingController extends AbstractController
             // if the user wants to add more, he still can but i'll show a warning message
             // and let him know that it's not recommended to do that much volume on the same exercise
 
-            
             $workoutPlans = $program->getWorkoutPlans();
             
+            $exerciseOccurrences = [];
             foreach ($workoutPlans as $workoutPlan) {
                 $exercise = $workoutPlan->getExercice();
                 $exerciseId = $exercise->getId();
@@ -181,6 +181,9 @@ class TrainingController extends AbstractController
             //     $this->addFlash('warning', 'You\'ve added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise.');
             // }
 
+
+
+
             // along with the number of sets per exercice
             // we can also check the total volume put on the muscle groups
             // and let the user know if he's overdoing it
@@ -189,13 +192,12 @@ class TrainingController extends AbstractController
             // i won't monitor how many times a week the user programs his workouts
             // but i can still give him a warning message if he's overdoing it
 
-
-           
+            
             $muscleGroupOccurrences = [];
 
             foreach ($workoutPlans as $workoutPlan) {
-                $exercise = $workoutPlan->getExercice();
-                $muscleGroup = $exercise->getTarget()->getMuscleGroup();
+
+                $muscleGroup = $workoutPlan->getExercice()->getTarget()->getMuscleGroup()->getMuscleGroup();
 
                 if (!isset($muscleGroupOccurrences[$muscleGroup])) {
                     $muscleGroupOccurrences[$muscleGroup] = 1;
@@ -203,9 +205,9 @@ class TrainingController extends AbstractController
                     $muscleGroupOccurrences[$muscleGroup]++;
                 }
             }
-            dd($muscleGroupOccurrences);
-    
-            $maxOccurrencesPerMuscleGroup = 20;
+            
+            $maxOccurrencesPerMuscleGroup = 10;
+            // dd($maxOccurrencesPerMuscleGroup);
 
             foreach ($muscleGroupOccurrences as $muscleGroup => $occurrences) {
                 if ($occurrences >= $maxOccurrencesPerMuscleGroup) {
