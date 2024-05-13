@@ -177,9 +177,9 @@ class TrainingController extends AbstractController
             // depending on the situation, we can display a message to the user
             // if he's adding too much volume on the same exercise
             // something like "You've added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise."
-            // if ($maxOccurrencesPerExerciseExceeded) {
-            //     $this->addFlash('warning', 'You\'ve added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise.');
-            // }
+            if ($maxOccurrencesPerExerciseExceeded) {
+                $this->addFlash('warning', 'You\'ve added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise.');
+            }
 
 
 
@@ -192,12 +192,14 @@ class TrainingController extends AbstractController
             // i won't monitor how many times a week the user programs his workouts
             // but i can still give him a warning message if he's overdoing it
 
-            
             $muscleGroupOccurrences = [];
 
             foreach ($workoutPlans as $workoutPlan) {
 
-                $muscleGroup = $workoutPlan->getExercice()->getTarget()->getMuscleGroup()->getMuscleGroup();
+                $muscleGroup = $workoutPlan->getExercice()
+                                            ->getTarget()
+                                            ->getMuscleGroup()
+                                            ->getName();
 
                 if (!isset($muscleGroupOccurrences[$muscleGroup])) {
                     $muscleGroupOccurrences[$muscleGroup] = 1;
@@ -206,8 +208,7 @@ class TrainingController extends AbstractController
                 }
             }
             
-            $maxOccurrencesPerMuscleGroup = 10;
-            // dd($maxOccurrencesPerMuscleGroup);
+            $maxOccurrencesPerMuscleGroup = 15;
 
             foreach ($muscleGroupOccurrences as $muscleGroup => $occurrences) {
                 if ($occurrences >= $maxOccurrencesPerMuscleGroup) {
@@ -237,7 +238,6 @@ class TrainingController extends AbstractController
             'workoutPlans' => $workoutPlans,
             // 'workoutScore' => $programScore,
             // 'exercice' => $exercise,
-            // 'maxOccurrencesPerExerciseExceeded' => $maxOccurrencesPerExerciseExceeded, // Pass the flag indicating if the limit is exceeded
             'edit' => $isEdit,
             'controller_name' => 'TrainingController',
         ]);

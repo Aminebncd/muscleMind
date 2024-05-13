@@ -35,6 +35,14 @@ class MuscleGroup
         return $this->id;
     }
 
+    // a little bit useless but easier for me in a 
+    // function that needs to return a string
+    // please don't judge me
+    public function getName(): ?string
+    {
+        return $this->muscleGroup;
+    }
+
     public function getMuscleGroup(): ?string
     {
         return $this->muscleGroup;
