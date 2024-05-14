@@ -39,7 +39,7 @@ class Exercice
     public function __construct()
     {
         $this->performances = new ArrayCollection();
-        $this->secondaryTarget = new ArrayCollection();
+        // $this->secondaryTarget = new ArrayCollection();
         $this->workoutPlans = new ArrayCollection();
     }
 
