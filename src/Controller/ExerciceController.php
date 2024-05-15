@@ -33,7 +33,7 @@ class ExerciceController extends AbstractController
 
     // this function will be used to create a new exercice
     #[Route('admin/exercice/new', name: 'app_exercice_new')]
-    // #[Route('admin/exercice/edit/{id}', name: 'app_exercice_edit')]
+    #[Route('admin/exercice/edit/{id}', name: 'app_exercice_edit')]
     public function newEditExercice(Request $request,
                                     Exercice $exercice = null,
                                     EntityManagerInterface $em): Response
