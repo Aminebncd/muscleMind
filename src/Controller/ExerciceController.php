@@ -60,4 +60,20 @@ class ExerciceController extends AbstractController
             'exerciceForm' => $exerciceForm->createView(),
         ]);
     }
+
+
+    // this function will be used to delete an exercice
+    #[Route('admin/exercice/delete/{id}', name: 'app_exercice_delete')]
+    public function deleteExercice(Exercice $exercice,
+                                    EntityManagerInterface $em): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $em->remove($exercice);
+        $em->flush();
+
+        return $this->redirectToRoute('app_exercice');
+    }
 }
