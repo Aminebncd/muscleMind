@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ExerciceController!{% endblock %}
+
+{% block body %}
+
+    <h1>{{ exercice }}</h1>
+
+    <p>{{ exercice.exerciceFunction }}</p>
+    <p>{{ exercice.target }}</p>
+    <p>{{ exercice.secondaryTarget }}</p>
+
+
+
+    <a href="{{ path('app_exercice') }}">Back to index</a>
+    <a href="{{ path('app_exercice_edit', {'id': exercice.id}) }}">Edit</a>
+    <a href="{{ path('app_exercice_delete', {'id': exercice.id}) }}">Delete</a>
+
+{% endblock %}
+
+
