@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Muscle;
 use App\Entity\MuscleGroup;
 use App\Repository\MuscleRepository;
 use App\Repository\ExerciceRepository;
@@ -62,8 +63,11 @@ class MuscleController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $muscleGroup = $muscle->getMuscleGroup();
+
         return $this->render('muscle/detailsMuscle.html.twig', [
             'muscle' => $muscle,
+            'muscleGroup' => $muscleGroup,
             'controller_name' => 'MuscleController',
         ]);
     }

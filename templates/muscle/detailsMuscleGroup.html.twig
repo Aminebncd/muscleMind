@@ -11,7 +11,7 @@
 
     <ul>
         {% for muscle in muscles %}
-            <li>{{ muscle }}</li>
+            <li> <a href="{{path ('app_muscle_details', {'id' : muscle.id } )}}">{{ muscle }}</a> </li>
         {% endfor %}
     </ul>
 
@@ -23,7 +23,8 @@
             <li>{{ exercice.exerciceName }}</li>
         {% endfor %}
     </ul>
-    {# <a href="{{ path('listMuscleGroup') }}">Back to the list</a> #}
+    
+    <a href="{{ path('app_muscle') }}">Back to index</a>
 {% endblock %}
 
 
