@@ -209,7 +209,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeTracking(Performance $tracking): static
+    public function removeTracking(Tracking $tracking): static
     {
         if ($this->trackings->removeElement($tracking)) {
             // set the owning side to null (unless already changed)

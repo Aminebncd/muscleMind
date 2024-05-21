@@ -63,6 +63,52 @@ class UserController extends AbstractController
     }
 
 
+    #[Route('/admin/deleteUser/{id}', name: 'app_user_delete')]
+    public function deleteUser(Request $request, 
+                            UserRepository $ur,
+                            EntityManagerInterface $em,
+                            User $user = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirectToRoute('app_user_list');
+    }
+
+    // #[Route('/user/editUser/{id}', name: 'app_user_edit')]
+    // public function editUser(Request $request, 
+    //                         UserRepository $ur,
+    //                         EntityManagerInterface $em,
+    //                         User $user = null): Response
+    // {
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('app_login');
+    //     }
+
+    //     $userForm = $this->createForm(UserType::class, $user);
+    //     $userForm->handleRequest($request);
+
+    //     if ($userForm->isSubmitted() && $userForm->isValid()) {
+    //         $em->persist($user);
+    //         $em->flush();
+            
+    //         return $this->redirectToRoute('app_user_list');
+    //     }
+
+    //     return $this->render('user/editUser.html.twig', [
+    //         'user' => $user,
+    //         'userForm' => $userForm,
+    //         'controller_name' => 'UserController',
+    //     ]);
+    // }
+
+    
+
+
 
     #[Route('/admin/listUsers', name: 'app_user_list')]
     public function listUsers(Request $request, UserRepository $ur): Response
@@ -174,7 +220,103 @@ class UserController extends AbstractController
         ]);
     }
 
+    // #[Route('/user/editTrack/{id}', name: 'app_user_editTrack')]
+    // public function editTrack(Request $request, 
+    //                         TrackingRepository $tr,
+    //                         EntityManagerInterface $em,
+    //                         Tracking $tracking = null): Response
+    // {
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('app_login');
+    //     }
+
+    //     $trackingForm = $this->createForm(TrackingType::class, $tracking);
+    //     $trackingForm->handleRequest($request);
+
+    //     if ($trackingForm->isSubmitted() && $trackingForm->isValid()) {
+    //         $em->persist($tracking);
+    //         $em->flush();
+            
+    //         return $this->redirectToRoute('app_user');
+    //     }
+
+    //     return $this->render('user/editTrack.html.twig', [
+    //         'tracking' => $tracking,
+    //         'trackingForm' => $trackingForm,
+    //         'controller_name' => 'UserController',
+    //     ]);
+    // }
+
+    #[Route('/admin/deleteTrack/{id}', name: 'app_user_deleteTrack')]
+    public function deleteTrack(Request $request, 
+                            TrackingRepository $tr,
+                            EntityManagerInterface $em,
+                            Tracking $tracking = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        
+        
+        $em->remove($tracking);
+        $em->flush();
+
+        return $this->redirectToRoute('app_user');
+    }
 
 
+    #[Route('/admin/deletePerf/{id}', name: 'app_user_deletePerf')]
+    public function deletePerf(Request $request, 
+                            Performance $perf,
+                            EntityManagerInterface $em,
+                            Performance $performance = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        $user = $this->getUser();
+
+        // For whatever reason, unless i nullify the relationship between 
+        // the exercice and the performance, i get an error
+
+        $performance->setExerciceMesured(null);
+        $user->removePerformance($performance);
+
+        $em->persist($user);
+        $em->flush();
+        // $em->remove($performance);
+        // $em->flush();
+
+        return $this->redirectToRoute('app_user');
+    }
+
+    // #[Route('/user/editPerf/{id}', name: 'app_user_editPerf')]
+    // public function editPerf(Request $request, 
+    //                         EntityManagerInterface $em,
+    //                         Performance $performance = null): Response
+    // {
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('app_login');
+    //     }
+
+    //     $perfForm = $this->createForm(PerfType::class, $performance);
+    //     $perfForm->handleRequest($request);
+
+    //     if ($perfForm->isSubmitted() && $perfForm->isValid()) {
+    //         $em->persist($performance);
+    //         $em->flush();
+            
+    //         return $this->redirectToRoute('app_user');
+    //     }
+
+    //     return $this->render('user/editPerf.html.twig', [
+    //         'performance' => $performance,
+    //         'perfForm' => $perfForm,
+    //         'controller_name' => 'UserController',
+    //     ]);
+    // }
+
+
+    
     
 }

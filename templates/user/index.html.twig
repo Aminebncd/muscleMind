@@ -16,32 +16,20 @@
                 {{latestTracking.age}} <br>
                 {{latestTracking.sex}} <br>
                 {{latestTracking.height}} <br>
-                {{latestTracking.weight}} <br><br>
+                {{latestTracking.weight}} <a href="{{ path ('app_user_deleteTrack', {'id': latestTracking.id}) }}"><i class="fa-solid fa-trash"></i></a>
             </h2>
+        
         </div>
         {% else %}
         <p>Wanna track your progress? add your trackings <a href="{{ path ('app_user_newTrack')}}"> here</a> !</p>
         {% endif %}
 
-        {# {% if user.trackings %} #}
-        {# Made progress? write everything down <a href="{{ path ('app_user_newPerf')}}"> here</a> ! <br><br> #}
-        {# {% for tracking in  user.trackings %} #}
-        {# <div>
-            <h5>Tracking date : {{tracking.dateOfTracking}}</h5>
-            {{tracking.age}} <br>
-            {{tracking.sex}} <br>
-            {{tracking.height}} <br>
-            {{tracking.weight}} <br>
-        </div> #}
-        {# {% endfor %} #}
-        {# {% else %} #}
-        {# Wanna track your progress? add your trackings <a href="#"> here</a> ! #}
-        {# {% endif %} <br><br> #}
+        
         
         {% if user.performances %}
             Made progress? write everything down <a href="{{ path ('app_user_newPerf')}}"> here</a> ! <br><br>
             {% for performance in user.performances %}
-                {{performance}} <br>
+                {{performance}} <a href="{{ path ('app_user_deletePerf', {'id': performance.id}) }}"><i class="fa-solid fa-trash"></i></a> <br>
             {% endfor %}
         {% else %}
             Wanna track your progress? add your performances <a href="#"> here</a> !
