@@ -81,6 +81,6 @@ class WorkoutPlan
 
     public function __tostring()
     {
-        return $this->exercice." : ".$this->numberOfRepetitions." repetitions de ".$this->weightsUsed." kg";
+        return $this->exercice." : ".$this->numberOfRepetitions." repetitions of ".$this->weightsUsed." kg";
     }
 }

@@ -57,6 +57,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'creator', orphanRemoval: true)]
     private Collection $programs;
 
+    #[ORM\Column]
+    private ?bool $isVerified = null;
+
 
 
 
@@ -168,6 +171,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function isIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
 
 
 
@@ -194,7 +209,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeTracking(Performance $tracking): static
+    public function removeTracking(Tracking $tracking): static
     {
         if ($this->trackings->removeElement($tracking)) {
             // set the owning side to null (unless already changed)
@@ -305,5 +320,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->username;
     }
+
 
 }

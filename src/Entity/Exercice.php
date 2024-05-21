@@ -33,7 +33,7 @@ class Exercice
     #[ORM\JoinColumn(nullable: true)]
     private ?Muscle $secondaryTarget = null;
 
-    #[ORM\OneToMany(targetEntity: WorkoutPlan::class, mappedBy: 'exercice')]
+    #[ORM\OneToMany(targetEntity: WorkoutPlan::class, mappedBy: 'exercice', orphanRemoval: true)]
     private Collection $workoutPlans;
 
     public function __construct()
