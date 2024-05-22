@@ -285,16 +285,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `score` int NOT NULL,
   `username` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_verified` BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_IDENTIFIER_EMAIL` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table musclemind.user : ~3 rows (environ)
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `score`, `username`) VALUES
-	(1, 'aminebncd_pro@hotmail.com', '[]', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 17745, 'aminebncd'),
-	(2, 'user1@gmail.com', '[]', 'abc', 0, 'user1'),
-	(3, 'user2@gmail.com', '[]', 'abc', 0, 'user2'),
-	(4, 'user3@gmail.com', '[]', 'abc', 0, 'user3');
+	(1, 'aminebncd_pro@hotmail.com', '[]', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 17745, 'aminebncd', 1),
+
 
 -- Listage de la structure de table musclemind. workout_plan
 CREATE TABLE IF NOT EXISTS `workout_plan` (
