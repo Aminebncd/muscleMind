@@ -43,6 +43,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $score = null;
 
+    #[ORM\Column]
+    private ?bool $isVerified = null;
+
 
 
     #[ORM\OneToMany(targetEntity: Tracking::class, mappedBy: 'userTracked', orphanRemoval: true, cascade: ['persist', 'remove'])]
@@ -57,8 +60,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'creator', orphanRemoval: true)]
     private Collection $programs;
 
-    #[ORM\Column]
-    private ?bool $isVerified = null;
+
 
 
 
