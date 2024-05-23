@@ -18,7 +18,8 @@ services:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
-            - '../src/Entity/'
+            # - '../src/Entity/'
+            - '../src/Entity/Program.php'
             - '../src/Kernel.php'
 
     App\Entity\Performance:

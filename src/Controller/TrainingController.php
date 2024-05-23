@@ -68,7 +68,8 @@ class TrainingController extends AbstractController
         // if we are in edit mode 
         // (meaning we're in an existing program)
         // we won't render the same form 
-        $isEdit = $program !== null;
+        $isEdit = ($program !== null);
+        
         if (!$program) {
             $program = new Program();
         }

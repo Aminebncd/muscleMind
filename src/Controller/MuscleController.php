@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Muscle;
+use App\Form\MuscleType;
 use App\Entity\MuscleGroup;
 use App\Repository\MuscleRepository;
 use App\Repository\ExerciceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\MuscleGroupRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,6 +78,50 @@ class MuscleController extends AbstractController
         return $this->render('muscle/detailsMuscle.html.twig', [
             'muscle' => $muscle,
             'muscleGroup' => $muscleGroup,
+            'controller_name' => 'MuscleController',
+        ]);
+    }
+
+
+
+
+
+    // this function is used by admins to add a new muscle
+    // that won't happen a lot given that the database is already fairly complete
+    // but that still could be useful
+    #[Route('/admin/muscle/add', name: 'app_muscle_add')]
+    #[Route('/admin/muscle/edit/{id}', name: 'app_muscle_edit')]
+    public function addEditMuscle(Request $request, 
+                                    MuscleGroupRepository $muscleGroupRepository,
+                                    MuscleRepository $muscleRepository,
+                                    EntityManagerInterface $entityManager,
+                                    Muscle $muscle): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        if (!$muscle) {
+            $muscle = new Muscle();
+        }
+
+        $form = $this->createForm(MuscleType::class, $muscle);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($muscle);
+            $entityManager->flush();
+
+            $entityManager->persist($muscle);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_muscle');
+        }
+        
+       
+
+        return $this->render('muscle/new.html.twig', [
+            'muscleForm' => $form->createView(),      
             'controller_name' => 'MuscleController',
         ]);
     }
