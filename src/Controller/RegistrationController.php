@@ -28,6 +28,9 @@ class RegistrationController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
+    // renders the registration page
+    // this function is used to register a new user
+    // it also sends an email to the user to verify his email
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, 
                             UserPasswordHasherInterface $userPasswordHasher, 
@@ -62,13 +65,14 @@ class RegistrationController extends AbstractController
                 ->to($user->getEmail())
                 ->subject('Please Confirm your Email')
                 ->htmlTemplate('registration/confirmation_email.html.twig')
-        );
+            );
 
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
                 $request
             );
+
         }
 
         return $this->render('registration/register.html.twig', [
@@ -76,6 +80,9 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+
+    // this function is used to verify the user's email
+    // it is called when the user clicks on the link sent to his email
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {
