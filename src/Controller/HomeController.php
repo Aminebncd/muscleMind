@@ -45,7 +45,6 @@ class HomeController extends AbstractController
 
     // commented this one so i can still have it in case the one i'm working on doesn't work
     // will eventually delete it
-
     // schedule a new training session
     // #[Route('/newSession', name: 'app_home_newSession')]
     // public function newSession(Request $request,

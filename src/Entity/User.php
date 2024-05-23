@@ -60,6 +60,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'creator', orphanRemoval: true)]
     private Collection $programs;
 
+    #[ORM\OneToMany(targetEntity: Ressources::class, mappedBy: 'Author')]
+    private Collection $ressources;
+
 
 
 
@@ -72,6 +75,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->trackings = new ArrayCollection();
         $this->programs = new ArrayCollection();
         $this->sessions = new ArrayCollection();
+        $this->ressources = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -321,6 +325,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __tostring ()
     {
         return $this->username;
+    }
+
+    /**
+     * @return Collection<int, Ressources>
+     */
+    public function getRessources(): Collection
+    {
+        return $this->ressources;
+    }
+
+    public function addRessource(Ressources $ressource): static
+    {
+        if (!$this->ressources->contains($ressource)) {
+            $this->ressources->add($ressource);
+            $ressource->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRessource(Ressources $ressource): static
+    {
+        if ($this->ressources->removeElement($ressource)) {
+            // set the owning side to null (unless already changed)
+            if ($ressource->getAuthor() === $this) {
+                $ressource->setAuthor(null);
+            }
+        }
+
+        return $this;
     }
 
 
