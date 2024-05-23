@@ -29,26 +29,9 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-
         $user = $this->getUser();
         $programs = $user->getPrograms();
         $sessions = $user->getSessions();
-        // $totalScore = 0;
-        // $now = new \DateTime;
-
-        // foreach ($sessions as $session) {
-        //     // dd($session);
-        //     if($session->getDateSession() <= $now) {
-        //         $program = $session->getProgram();
-        //         $workoutPlans = $program->getWorkoutPlans();
-        //         foreach ($workoutPlans as $workoutPlan) {
-        //             $totalScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
-        //         }
-        //     }
-        // }
-
-        // $user->setScore($totalScore);
-
 
         return $this->render('home/index.html.twig', [
             'user' => $user,
@@ -107,6 +90,7 @@ class HomeController extends AbstractController
     // ie : scheduling Program A for every monday in the next 6 months
     // i will try to make it annual so each year you can either reprogram everything
     // or try a new workout split (program)
+
     #[Route('/newSession', name: 'app_home_newSession')]
     public function newSession(Request $request,
                                 EntityManagerInterface $em, 
@@ -133,14 +117,17 @@ class HomeController extends AbstractController
 
             // then i determine the endpoint, 12 months from now
             // $endDate = $startDate->add(new \DateInterval('P12M'));
-            // this one is just for testing
+
+            // this one is just for testing purposes
             $endDate = $startDate->add(new \DateInterval('P1M'));
 
             // i loop on every monday from start to end
             $currentDate = $startDate;
             while ($currentDate <= $endDate) {
                 // verifies if the selected day exists in our choice array
-                if (in_array($currentDate->format('N'), $selectedDaysOfWeek)) {
+                // i also verify if the day already has a session scheduled
+                if (in_array($currentDate->format('N'), $selectedDaysOfWeek )
+                    && (!$sessionRepository->findOneBy(['dateSession' => $currentDate])) ) {
                     // Create a new session
                     $session = new Session();
                     $session->setUser($user);
@@ -167,7 +154,7 @@ class HomeController extends AbstractController
 
 
     
-    // delete a Session
+    // delete a Session, pretty straightforward
     #[Route('/delete/{id}', name: 'app_home_deleteSession')]
     public function removeSession(Session $session = null, 
                             EntityManagerInterface $em,

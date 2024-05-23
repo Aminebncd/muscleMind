@@ -15,6 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MuscleController extends AbstractController
 {
+
+    // renders the muscle page
     #[Route('/muscle', name: 'app_muscle')]
     public function index(): Response
     {
@@ -27,6 +29,8 @@ class MuscleController extends AbstractController
         ]);
     }
 
+
+    // renders the muscle details group page
     #[Route('/muscle/detailsMuscleGroup/{id}', name: 'app_muscleGroup_details')]
     public function detailsMuscleGroup(MuscleGroup $muscleGroup, 
                                         MuscleRepository $muscleRepository,
@@ -36,6 +40,8 @@ class MuscleController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        // we fetch every muscle composing the muscle group
+        // then we fetch every exercise that targets those muscles
         $muscles = $muscleRepository->findMusclesInMuscleGroup($muscleGroup);
         $exercisesForMuscleGroup = new ArrayCollection();
 
@@ -44,7 +50,6 @@ class MuscleController extends AbstractController
             foreach ($exercisesForMuscle as $exercise) {
             
                     $exercisesForMuscleGroup->add($exercise);
-                
             }
         }
 
@@ -56,6 +61,9 @@ class MuscleController extends AbstractController
         ]);
     }
 
+
+
+    // renders the muscle details page
     #[Route('/muscle/detailsMuscle/{id}', name: 'app_muscle_details')]
     public function detailsMuscle(Muscle $muscle): Response
     {

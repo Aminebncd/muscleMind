@@ -24,8 +24,8 @@ class TrackingType extends AbstractType
             ->add('age', TextType::class)
             ->add('sex', ChoiceType::class, [
                 'choices' => [
-                    'male' => 0,
-                    'female' => 1,
+                    'male'=> 'male',
+                    'female' => 'female',
                 ]
             ])
             // ->add('userTracked', EntityType::class, [

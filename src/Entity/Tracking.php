@@ -23,10 +23,10 @@ class Tracking
     #[ORM\Column(length: 3, nullable: true)]
     private ?string $age = null;
 
-    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
-    private ?int $sex = null;
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $sex = null;
 
-    #[ORM\ManyToOne(inversedBy: 'tracking', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'tracking')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userTracked = null;
 
@@ -74,15 +74,12 @@ class Tracking
         return $this;
     }
 
-    // had problems because by default my getter was set to expect an int (: ?int)
-    // changed to (: ?string) and it works fine
     public function getSex(): ?string
     {
-        // if sex value is 0, return male ,if else return female
-        return $this->sex === 0 ? 'male' : 'female';
+        return $this->sex;
     }
 
-    public function setSex(?int $sex): static
+    public function setSex(?string $sex): static
     {
         $this->sex = $sex;
 

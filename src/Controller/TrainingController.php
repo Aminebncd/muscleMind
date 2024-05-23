@@ -141,6 +141,8 @@ class TrainingController extends AbstractController
             $em->persist($program);
             $em->flush();
         
+
+
             // Check if the user is adding too much volume on the same exercise
             // i can do this by counting the number of times an exercise is added
             // and checking if it exceeds a certain limit
@@ -184,6 +186,7 @@ class TrainingController extends AbstractController
 
 
 
+            
             // along with the number of sets per exercice
             // we can also check the total volume put on the muscle groups
             // and let the user know if he's overdoing it

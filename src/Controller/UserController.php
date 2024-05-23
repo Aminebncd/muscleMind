@@ -248,22 +248,22 @@ class UserController extends AbstractController
     // }
 
     // i'll fix it later
-    // #[Route('/admin/deleteTrack/{id}', name: 'app_user_deleteTrack')]
-    // public function deleteTrack(Request $request, 
-    //                         TrackingRepository $tr,
-    //                         EntityManagerInterface $em,
-    //                         Tracking $tracking = null): Response
-    // {
-    //     if (!$this->getUser()) {
-    //         return $this->redirectToRoute('app_login');
-    //     }
+    #[Route('/admin/deleteTrack/{id}', name: 'app_user_deleteTrack')]
+    public function deleteTrack(Request $request, 
+                            TrackingRepository $tr,
+                            EntityManagerInterface $em,
+                            Tracking $tracking = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         
         
-    //     $em->remove($tracking);
-    //     $em->flush();
+        $em->remove($tracking);
+        $em->flush();
 
-    //     return $this->redirectToRoute('app_user');
-    // }
+        return $this->redirectToRoute('app_user');
+    }
 
 
     #[Route('/admin/deletePerf/{id}', name: 'app_user_deletePerf')]
