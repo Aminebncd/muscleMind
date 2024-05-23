@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class MuscleType extends AbstractType
@@ -22,6 +23,11 @@ class MuscleType extends AbstractType
                 'class' => MuscleGroup::class,
                 'choice_label' => 'muscleGroup',
             ])
+            ->add('valider', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-primary'
+                ]
+            ]);
         ;
     }
 

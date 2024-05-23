@@ -4,8 +4,13 @@
 
 {% block body %}
 
-    <h1>Details Muscle</h1>
-    {# <p>Id: {{ muscle.id }}</p> #}
+    <h1>Details Muscle 
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{path ('app_muscle_edit', {'id' : muscle.id})}}"><i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="{{path ('app_muscle_delete', {'id' : muscle.id})}}"><i class="fa-solid fa-trash"></i></a>
+        {% endif %}
+    </h1>
+
     <p>Name: {{ muscle}}</p>
     <p>Function: {{muscle.muscleFunction}}</p>
    

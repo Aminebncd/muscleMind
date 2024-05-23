@@ -88,6 +88,7 @@ class MuscleController extends AbstractController
 
     // this function is used by admins to add a new muscle
     // that won't happen a lot given that the database is already fairly complete
+    // and the human body won't (hopefully) change much in the future :
     // but that still could be useful
     #[Route('/admin/muscle/add', name: 'app_muscle_add')]
     #[Route('/admin/muscle/edit/{id}', name: 'app_muscle_edit')]
@@ -109,10 +110,6 @@ class MuscleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($muscle);
-            $entityManager->flush();
-
             $entityManager->persist($muscle);
             $entityManager->flush();
             return $this->redirectToRoute('app_muscle');
@@ -124,6 +121,25 @@ class MuscleController extends AbstractController
             'muscleForm' => $form->createView(),      
             'controller_name' => 'MuscleController',
         ]);
+    }
+
+    
+
+    // likewise, this function will be used by admins to delete a muscle
+    #[Route('/admin/muscle/delete/{id}', name: 'app_muscle_delete')]
+    public function deleteMuscle(Muscle $muscle, 
+                                EntityManagerInterface $entityManager): Response
+    {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $entityManager->remove($muscle);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_muscle');
+        
     }
  
 }
