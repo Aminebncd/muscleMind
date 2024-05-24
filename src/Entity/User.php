@@ -60,7 +60,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'creator', orphanRemoval: true)]
     private Collection $programs;
 
-    #[ORM\OneToMany(targetEntity: Ressources::class, mappedBy: 'Author')]
+    #[ORM\OneToMany(targetEntity: Ressource::class, mappedBy: 'Author')]
     private Collection $ressources;
 
 
@@ -335,7 +335,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->ressources;
     }
 
-    public function addRessource(Ressources $ressource): static
+    public function addRessource(Ressource $ressource): static
     {
         if (!$this->ressources->contains($ressource)) {
             $this->ressources->add($ressource);
@@ -345,7 +345,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeRessource(Ressources $ressource): static
+    public function removeRessource(Ressource $ressource): static
     {
         if ($this->ressources->removeElement($ressource)) {
             // set the owning side to null (unless already changed)
