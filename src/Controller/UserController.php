@@ -146,9 +146,10 @@ class UserController extends AbstractController
     }
 
 
-
+    
+    #[Route('/user/editPerf/{id}', name: 'app_user_editPerf')]
     #[Route('/user/newPerf', name: 'app_user_newPerf')]
-    public function newPerf(Request $request,
+    public function newEditPerf(Request $request,
                             Performance $perf,
                             EntityManagerInterface $em, 
                             // ExerciceRepository $er,
@@ -158,8 +159,9 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        // $exercices = $er->findAll();
-        $perf = new Performance();
+        if (!$perf) {
+            $perf = new Performance();
+        }
 
         $perfForm = $this->createForm(PerfType::class, $perf);
         $perfForm->handleRequest($request);
@@ -182,9 +184,9 @@ class UserController extends AbstractController
         ]);
     }
 
-
+    #[Route('/user/editTrack/{id}', name: 'app_user_editTrack')]
     #[Route('/user/newTrack', name: 'app_user_newTrack')]
-    public function newtracking(Request $request,
+    public function newEditTracking(Request $request,
                             Tracking $tracking,
                             EntityManagerInterface $em, 
                             // ExerciceRepository $er,
@@ -195,7 +197,9 @@ class UserController extends AbstractController
         }
 
         // $exercices = $er->findAll();
-        $tracking = new Tracking();
+        if (!$tracking) {
+            $tracking = new Tracking();
+        }
 
         $trackingForm = $this->createForm(TrackingType::class, $tracking);
         $trackingForm->handleRequest($request);
@@ -220,7 +224,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    // #[Route('/user/editTrack/{id}', name: 'app_user_editTrack')]
+    
     // public function editTrack(Request $request, 
     //                         TrackingRepository $tr,
     //                         EntityManagerInterface $em,

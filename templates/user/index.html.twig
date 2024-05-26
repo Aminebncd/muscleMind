@@ -13,11 +13,12 @@
         <p>See some change? keep track  <a href="{{ path ('app_user_newTrack')}}">here</a> !</p>
         <div>
             <h2>
-                {{latestTracking.age}} <br>
+                {{latestTracking.age}} years old <br>
                 {# {{latestTracking.sex}} <br> #}
-                {{latestTracking.height}} <br>
-                {{latestTracking.weight}} 
-                <a href="{{ path ('app_user_deleteTrack', {'id': latestTracking.id}) }}"><i class="fa-solid fa-trash"></i></a>
+                {{latestTracking.height}}cm <br>
+                {{latestTracking.weight}}kg 
+                <a href="{{ path ('app_user_editTrack', {'id': latestTracking.id}) }}">edit</a>
+                <a href="{{ path ('app_user_deleteTrack', {'id': latestTracking.id}) }}">delete</a>
             </h2>
         
         </div>
@@ -30,7 +31,7 @@
         {% if user.performances %}
             Made progress? write everything down <a href="{{ path ('app_user_newPerf')}}"> here</a> ! <br><br>
             {% for performance in user.performances %}
-                {{performance}} <a href="{{ path ('app_user_deletePerf', {'id': performance.id}) }}"><i class="fa-solid fa-trash"></i></a> <br>
+                {{performance}} <a href="{{ path ('app_user_editPerf', {'id': performance.id}) }}">edit</a> <a href="{{ path ('app_user_deletePerf', {'id': performance.id}) }}">delete</a> <br>
             {% endfor %}
         {% else %}
             Wanna track your progress? add your performances <a href="#"> here</a> !

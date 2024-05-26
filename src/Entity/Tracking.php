@@ -40,7 +40,7 @@ class Tracking
 
     public function getHeight(): ?string
     {
-        return $this->height.'cm';
+        return $this->height;
     }
 
     public function setHeight(?string $height): static
@@ -52,7 +52,7 @@ class Tracking
 
     public function getWeight(): ?string
     {
-        return $this->weight.'kg';
+        return $this->weight;
     }
 
     public function setWeight(?string $weight): static
@@ -64,7 +64,7 @@ class Tracking
 
     public function getAge(): ?string
     {
-        return $this->age.'years old';
+        return $this->age;
     }
 
     public function setAge(?string $age): static
