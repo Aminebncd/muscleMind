@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Ressources;
+use App\Entity\Ressource;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,11 +14,11 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Ressources[]    findAll()
  * @method Ressources[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RessourcesRepository extends ServiceEntityRepository
+class RessourceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Ressources::class);
+        parent::__construct($registry, Ressource::class);
     }
 
     //    /**
