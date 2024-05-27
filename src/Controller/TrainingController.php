@@ -285,7 +285,9 @@ class TrainingController extends AbstractController
         return $program ? $program : new Program();
     }
 
-    private function handleProgramForm(Request $request, Program $program, EntityManagerInterface $em) {
+    private function handleProgramForm(Request $request, 
+                                        Program $program, 
+                                        EntityManagerInterface $em) {
         $formAddProgram = $this->createForm(ProgramType::class, $program);
         $formAddProgram->handleRequest($request);
 
@@ -299,7 +301,10 @@ class TrainingController extends AbstractController
         return $formAddProgram;
     }
 
-    private function gatherExercisesForMuscleGroups($isEdit, Program $program, ExerciceRepository $exerciceRepository, MuscleRepository $muscleRepository) {
+    private function gatherExercisesForMuscleGroups($isEdit, 
+                                                    Program $program, 
+                                                    ExerciceRepository $exerciceRepository, 
+                                                    MuscleRepository $muscleRepository) {
         $exercisesForPrimaryMuscleGroup = new ArrayCollection();
         $exercisesForSecondaryMuscleGroup = new ArrayCollection();
 
@@ -336,7 +341,11 @@ class TrainingController extends AbstractController
         return [$exercisesForPrimaryMuscleGroup, $exercisesForSecondaryMuscleGroup];
     }
 
-    private function handleWorkoutForm(Request $request, ArrayCollection $exercisesForPrimaryMuscleGroup, ArrayCollection $exercisesForSecondaryMuscleGroup, Program $program, EntityManagerInterface $em) {
+    private function handleWorkoutForm(Request $request, 
+                                        ArrayCollection $exercisesForPrimaryMuscleGroup, 
+                                        ArrayCollection $exercisesForSecondaryMuscleGroup, 
+                                        Program $program, 
+                                        EntityManagerInterface $em) {
         $formAddWorkout = $this->createForm(WorkoutType::class, new WorkoutPlan(), [
             'primaryMuscleGroupExercises' => $exercisesForPrimaryMuscleGroup,
             'secondaryMuscleGroupExercises' => $exercisesForSecondaryMuscleGroup,
@@ -354,9 +363,11 @@ class TrainingController extends AbstractController
         return $formAddWorkout;
     }
 
-   
+
     
-    protected function renderTrainingView(FormInterface $formAddProgram, FormInterface $formAddWorkout, Program $program, bool $isEdit) {
+    protected function renderTrainingView(FormInterface $formAddProgram, 
+                                            FormInterface $formAddWorkout, 
+                                            Program $program, bool $isEdit) {
         $workoutPlans = $program->getWorkoutPlans();
 
         return $this->render('training/new.html.twig', [

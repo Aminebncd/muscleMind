@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Tag;
 use App\Entity\Ressource;
 use App\Form\RessourceType;
 use App\Repository\TagRepository;
@@ -35,8 +36,11 @@ class RessourceController extends AbstractController
         ]);
     }
     
-    #[Route('/ressource/details/{id}', name: 'app_ressource_show')]
-    public function show(Ressource $ressource = null ): Response
+
+
+
+    #[Route('/ressource/details/{id}', name: 'app_ressource_showRessource')]
+    public function showRessource(Ressource $ressource = null ): Response
     {
         if(!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -47,11 +51,14 @@ class RessourceController extends AbstractController
             throw $this->createNotFoundException('The ressource does not exist');
         }
         
-        return $this->render('ressource/show.html.twig', [
+        return $this->render('ressource/showRessource.html.twig', [
             'ressource' => $ressource,
             'controller_name' => 'RessourceController',
         ]);
     }
+
+
+
 
     #[Route('/ressource/{id}/edit', name: 'app_ressource_edit')]
     #[Route('/ressource/new', name: 'app_ressource_new')]
@@ -73,7 +80,6 @@ class RessourceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $ressource->setAuthor($this->getUser());
             $ressource->setIspublished(true);
 
@@ -85,13 +91,62 @@ class RessourceController extends AbstractController
 
             $em->persist($ressource);
             $em->flush();
-
             return $this->redirectToRoute('app_ressource');
         }
 
-        return $this->render('ressource/new.html.twig', [
+        return $this->render('ressource/newRessource.html.twig', [
             'formAddRessource' => $form->createView(),
         ]);
+    }
+
+
+
+
+    #[Route('/ressource/{id}/delete', name: 'app_ressource_delete')]
+    public function deleteRessource(Ressource $ressource,
+                                    EntityManagerInterface $em): Response
+    {
+        if(!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $em->remove($ressource);
+        $em->flush();
+
+        return $this->redirectToRoute('app_ressource');
+    }
+
+
+
+
+    #[Route('/ressource/tag/{id}', name: 'app_ressource_showTag')]
+    public function showTag(Tag $tag): Response
+    {
+        if(!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('ressource/showTag.html.twig', [
+            'tag' => $tag,
+            'controller_name' => 'RessourceController',
+        ]);
+    }
+
+
+    
+
+    #[Route('/ressource/tag/{id}/delete', name: 'app_ressource_tag_delete')]
+    public function deleteTag(Tag $tag,
+                                EntityManagerInterface $em): Response
+    {
+        if(!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $em->remove($tag);
+        $em->flush();
+
+        return $this->redirectToRoute('app_ressource');
     }
 
     
