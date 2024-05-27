@@ -17,7 +17,7 @@ class ExerciceType extends AbstractType
     {
         $builder
             ->add('exerciceName', TextType::class)
-            ->add('exerciceFunction', TextType::class)
+            ->add('exerciceFunction', TextareaType::class)
             ->add('target', EntityType::class, [
                 'class' => Muscle::class,
                 'choice_label' => 'muscleName',

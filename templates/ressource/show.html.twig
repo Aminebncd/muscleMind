@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MuscleController!{% endblock %}
+
+{% block body %}
+
+{% if ressource %}   
+    {{ ressource.title }}
+    {{ ressource.content }}
+    {{ ressource.link }}
+    {# {{ ressource.createdAt|date('Y-m-d') }}
+    {{ ressource.updatedAt|date('Y-m-d') #}
+{% endif %}
+
+{% endblock %}
