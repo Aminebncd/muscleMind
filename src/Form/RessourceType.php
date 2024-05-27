@@ -21,7 +21,7 @@ class RessourceType extends AbstractType
         $builder
             ->add('tag', EntityType::class, [
                 'class' => Tag::class,
-                'choice_label' => 'id',
+                'choice_label' => 'label',
             ])
             ->add('title', TextType::class,)
             ->add('content', TextareaType::class)
