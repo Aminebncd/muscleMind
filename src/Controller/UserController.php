@@ -16,10 +16,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 class UserController extends AbstractController
 {
-
-    
+    // gathers all the connected user's data to display them
     #[Route('/user/myProfile', name: 'app_user')]
     public function index(Request $request, 
                         UserRepository $ur,
@@ -32,28 +32,12 @@ class UserController extends AbstractController
 
         $user = $this->getUser();
 
-        $sessions = $user->getSessions();
-        $totalScore = 0;
-        $now = new \DateTime;
-
-        foreach ($sessions as $session) {
-            // dd($session);
-            if($session->getDateSession() <= $now) {
-                $program = $session->getProgram();
-                $workoutPlans = $program->getWorkoutPlans();
-                foreach ($workoutPlans as $workoutPlan) {
-                    $totalScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
-                }
-            }
-        }
-        $user->setScore($totalScore);
+        $this->updateScore($user);
+            
         $em->persist($user);
         $em->flush();
 
-        // dd($user->getScore());
-
         $latestTracking = $tr->getLatest($user);
-        // dd($latestTracking->getWeight());
 
         return $this->render('user/index.html.twig', [
             'user' => $user,
@@ -63,8 +47,31 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/admin/deleteUser/{id}', name: 'app_user_delete')]
-    public function deleteUser(Request $request, 
+
+            // factorized it for better readability
+            // updates the user's score based on the sessions he has done
+            private function updateScore(User $user) {
+                $sessions = $user->getSessions();
+                $totalScore = 0;
+                $now = new \DateTime;
+
+                foreach ($sessions as $session) {
+                    if($session->getDateSession() <= $now) {
+                        $program = $session->getProgram();
+                        $workoutPlans = $program->getWorkoutPlans();
+                        foreach ($workoutPlans as $workoutPlan) {
+                            $totalScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
+                        }
+                    }
+                }
+                $user->setScore($totalScore);
+            }
+
+
+
+
+    #[Route('/user/updateUser/{id}', name: 'app_user_update')]
+    public function updateUser(Request $request, 
                             UserRepository $ur,
                             EntityManagerInterface $em,
                             User $user = null): Response
@@ -73,43 +80,28 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $em->remove($user);
-        $em->flush();
+        $userForm = $this->createForm(UserType::class, $user);
+        $userForm->handleRequest($request);
 
-        return $this->redirectToRoute('app_user_list');
-    }
-
-    // #[Route('/user/editUser/{id}', name: 'app_user_edit')]
-    // public function editUser(Request $request, 
-    //                         UserRepository $ur,
-    //                         EntityManagerInterface $em,
-    //                         User $user = null): Response
-    // {
-    //     if (!$this->getUser()) {
-    //         return $this->redirectToRoute('app_login');
-    //     }
-
-    //     $userForm = $this->createForm(UserType::class, $user);
-    //     $userForm->handleRequest($request);
-
-    //     if ($userForm->isSubmitted() && $userForm->isValid()) {
-    //         $em->persist($user);
-    //         $em->flush();
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+            // $em->persist($user);
+            // $em->flush();
             
-    //         return $this->redirectToRoute('app_user_list');
-    //     }
+            return $this->redirectToRoute('app_user_list');
+        }
 
-    //     return $this->render('user/editUser.html.twig', [
-    //         'user' => $user,
-    //         'userForm' => $userForm,
-    //         'controller_name' => 'UserController',
-    //     ]);
-    // }
+        return $this->render('user/editUser.html.twig', [
+            'user' => $user,
+            'userForm' => $userForm,
+            'controller_name' => 'UserController',
+        ]);
+    }
 
     
 
 
 
+    // lists the existing users
     #[Route('/admin/listUsers', name: 'app_user_list')]
     public function listUsers(Request $request, UserRepository $ur): Response
     {
@@ -127,7 +119,7 @@ class UserController extends AbstractController
     }
 
 
-
+    // displays the details of a user
     #[Route('/admin/detailsUser/{id}', name: 'app_user_details')]
     public function detailsUser(Request $request, 
                             UserRepository $ur,
@@ -144,6 +136,42 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+
+
+    
+
+    // deletes the user
+    #[Route('/user/deleteUser/{id}', name: 'app_user_delete')]
+    public function deleteUser(Request $request, 
+                            UserRepository $ur,
+                            EntityManagerInterface $em,
+                            User $user = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        if ($user = $this->getUser() || $user->getRoles() == ['ROLE_ADMIN']){
+            $em->remove($user);
+            $em->flush();
+        }
+
+
+        return $this->redirectToRoute('app_user_list');
+    }
+
+
+
+
+
+
+
+
+
+
+    // TRAINING RELATED FUNCTIONS
+
+
 
 
     

@@ -8,7 +8,7 @@
     {{tag}} <br><br>
 
     {% for ressource in tag.ressources %}
-        <a href="{{path ('app_ressource_showRessource', {'id' : ressource.id})}}">{{ressource}}</a> <br>
+        <a href="{{path ('app_ressource_detailsRessource', {'id' : ressource.id})}}">{{ressource}}</a> <br>
     {% endfor %}
 
 {% endif %}

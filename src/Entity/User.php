@@ -54,13 +54,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Performance::class, mappedBy: 'userPerforming', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $performances;
 
-    #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'user', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'user', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $sessions;
 
-    #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'creator', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'creator', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $programs;
 
-    #[ORM\OneToMany(targetEntity: Ressource::class, mappedBy: 'Author')]
+    #[ORM\OneToMany(targetEntity: Ressource::class, mappedBy: 'Author', cascade: ['persist'])]
     private Collection $ressources;
 
 

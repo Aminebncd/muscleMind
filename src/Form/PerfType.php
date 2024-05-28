@@ -30,7 +30,7 @@ class PerfType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-primary'
                 ]
-            ]);
+            ])
         ;
     }
 

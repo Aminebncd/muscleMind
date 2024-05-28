@@ -7,14 +7,14 @@
 {% if tags %}
     <ul>
         {% for tag in tags %}
-            <li><a href="{{path ('app_ressource_showTag', {'id' : tag.id})}}">{{tag}}</a></li>
+            <li><a href="{{path ('app_ressource_detailsTag', {'id' : tag.id})}}">{{tag}}</a></li>
         {% endfor %}
     </ul>
 
     {% if ressources %}
     <ul>
         {% for ressource in ressources %}
-            <li><a href="{{path ('app_ressource_showRessource', {'id' : ressource.id})}}">{{ressource}}</a></li>
+            <li><a href="{{path ('app_ressource_detailsRessource', {'id' : ressource.id})}}">{{ressource}}</a></li>
         {% endfor %}
     </ul>
     {% else %}
