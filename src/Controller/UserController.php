@@ -97,6 +97,24 @@ class UserController extends AbstractController
     //     ]);
     // }
 
+    // grants the admin role to a user
+    #[Route('/admin/grantCredentials/{id}', name: 'app_user_grantCredentials')]
+    public function grantCredentials(Request $request, 
+                                UserRepository $ur,
+                                EntityManagerInterface $em,
+                                User $user = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        if (!$user) {
+            return $this->redirectToRoute('app_user_list');
+        }
+        $user->setRoles(['ROLE_ADMIN']);
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute('app_user_list');
+    }
     
 
 

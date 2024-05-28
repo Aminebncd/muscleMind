@@ -49,6 +49,7 @@ class RegistrationController extends AbstractController
             // dd($form->getData());
             $user->setScore(0);
             $user->setIsVerified(false);
+            $user->setRoles(['ROLE_USER']);
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -87,6 +88,7 @@ class RegistrationController extends AbstractController
     #[Route('/updateUserEmail/{id}', name: 'app_register_updateEmail')]
     public function updateUserEmail(Request $request, 
                             UserRepository $ur,
+                            UserAuthenticatorInterface $userAuthenticator,
                             EntityManagerInterface $em,
                             User $user = null): Response
     {
@@ -105,8 +107,8 @@ class RegistrationController extends AbstractController
 
             // dd($form->getData());
             $user->setIsVerified(false);
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $em->persist($user);
+            $em->flush();
 
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
@@ -132,6 +134,8 @@ class RegistrationController extends AbstractController
     }
 
     // this function is used to update the user's password
+    // it's different from the reset password function
+    // because the user must be logged in to update his password
     #[Route('/updateUserPassword/{id}', name: 'app_register_updatePassword')]
     public function updateUserPassword(Request $request, 
                             UserRepository $ur,
@@ -157,7 +161,7 @@ class RegistrationController extends AbstractController
                 $em->flush();
             }
         }
-        
+
         return $this->render('registration/updatePassword.html.twig', [
         'user' => $user,
         'updatePasswordForm' => $form,
