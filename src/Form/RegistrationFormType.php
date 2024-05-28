@@ -29,8 +29,17 @@ class RegistrationFormType extends AbstractType
             'attr' => ['class' => 'form-control'],
         ])
 
-        ->add('email', EmailType::class, [
-            'attr' => ['class' => 'form-control'],
+        ->add('email', RepeatedType::class, [
+            'type' => EmailType::class,
+            'first_options'  => [
+                'attr' => ['class' => 'form-control'],
+                'label' => 'Email',
+            ],
+            'second_options' => [
+                'attr' => ['class' => 'form-control'],
+                'label' => 'Confirmer l\'email',
+            ],
+            'invalid_message' => 'the emails must match.',
         ])
 
         ->add('plainPassword', RepeatedType::class, [

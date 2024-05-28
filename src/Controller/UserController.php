@@ -70,32 +70,32 @@ class UserController extends AbstractController
 
 
 
-    #[Route('/user/updateUser/{id}', name: 'app_user_update')]
-    public function updateUser(Request $request, 
-                            UserRepository $ur,
-                            EntityManagerInterface $em,
-                            User $user = null): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
+    // #[Route('/user/updateUser/{id}', name: 'app_user_update')]
+    // public function updateUser(Request $request, 
+    //                         UserRepository $ur,
+    //                         EntityManagerInterface $em,
+    //                         User $user = null): Response
+    // {
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('app_login');
+    //     }
 
-        $userForm = $this->createForm(UserType::class, $user);
-        $userForm->handleRequest($request);
+    //     $userForm = $this->createForm(UserType::class, $user);
+    //     $userForm->handleRequest($request);
 
-        if ($userForm->isSubmitted() && $userForm->isValid()) {
-            // $em->persist($user);
-            // $em->flush();
+    //     if ($userForm->isSubmitted() && $userForm->isValid()) {
+    //         // $em->persist($user);
+    //         // $em->flush();
             
-            return $this->redirectToRoute('app_user_list');
-        }
+    //         return $this->redirectToRoute('app_user_list');
+    //     }
 
-        return $this->render('user/editUser.html.twig', [
-            'user' => $user,
-            'userForm' => $userForm,
-            'controller_name' => 'UserController',
-        ]);
-    }
+    //     return $this->render('user/editUser.html.twig', [
+    //         'user' => $user,
+    //         'userForm' => $userForm,
+    //         'controller_name' => 'UserController',
+    //     ]);
+    // }
 
     
 
@@ -151,11 +151,12 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        if ($user = $this->getUser() || $user->getRoles() == ['ROLE_ADMIN']){
-            $em->remove($user);
-            $em->flush();
+        if ($user !== $this->getUser() || !in_array('ROLE_ADMIN', $user->getRoles())){
+            return $this->redirectToRoute('app_home');
         }
-
+        
+        $em->remove($user);
+        $em->flush();
 
         return $this->redirectToRoute('app_user_list');
     }

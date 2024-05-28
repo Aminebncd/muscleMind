@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Update your Email</h1>
+
+    {{user}} <br>
+    
+
+    current email: {{user.email}}
+
+    {{ form_start(updateEmailForm) }}
+
+    
+    {{ form_end(updateEmailForm) }}
+{% endblock %}

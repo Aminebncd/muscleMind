@@ -3,20 +3,22 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
-use App\Security\AppAuthenticator;
+use App\Form\UpdateEmailType;
 use App\Security\EmailVerifier;
+use App\Form\RegistrationFormType;
+use App\Repository\UserRepository;
+use App\Security\AppAuthenticator;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 
 class RegistrationController extends AbstractController
@@ -77,6 +79,88 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,
+        ]);
+    }
+
+
+    // this function is used to update the user's email
+    #[Route('/updateUserEmail/{id}', name: 'app_register_updateEmail')]
+    public function updateUserEmail(Request $request, 
+                            UserRepository $ur,
+                            EntityManagerInterface $em,
+                            User $user = null): Response
+    {
+        
+        if (!$user) {
+            return $this->redirectToRoute('app_home');
+        }
+
+        // just so i can pass it in the template
+        $user;
+
+        $form = $this->createForm(UpdateEmailType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // dd($form->getData());
+            $user->setIsVerified(false);
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // generate a signed url and email it to the user
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            (new TemplatedEmail())
+                ->from(new Address('admin@muscleMind.com', 'Registration Bot'))
+                ->to($user->getEmail())
+                ->subject('Please Confirm your Email')
+                ->htmlTemplate('registration/confirmation_email.html.twig')
+            );
+
+            return $userAuthenticator->authenticateUser(
+                $user,
+                $authenticator,
+                $request
+            );
+        }
+        
+        return $this->render('registration/updateEmail.html.twig', [
+            'user' => $user,
+            'updateEmailForm' => $form,
+        ]);
+
+    }
+
+    // this function is used to update the user's password
+    #[Route('/updateUserPassword/{id}', name: 'app_register_updatePassword')]
+    public function updateUserPassword(Request $request, 
+                            UserRepository $ur,
+                            EntityManagerInterface $em,
+                            User $user = null): Response
+    {
+
+        if (!$user) {
+        return $this->redirectToRoute('app_home');
+        }
+
+        $form = $this->createForm(UpdatePasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $oldPassword = $form->get('oldPassword')->getData();
+
+            if ($passwordEncoder->isPasswordValid($user, $oldPassword)) {
+                $newPassword = $form->get('newPassword')->getData();
+                $user->setPassword($passwordEncoder->encodePassword($user, $newPassword));
+                $user->setIsVerified(false);
+                $em->persist($user);
+                $em->flush();
+            }
+        }
+        
+        return $this->render('registration/updatePassword.html.twig', [
+        'user' => $user,
+        'updatePasswordForm' => $form,
         ]);
     }
 
