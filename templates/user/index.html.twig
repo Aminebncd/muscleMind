@@ -3,7 +3,9 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
-<a href="{{path ('app_register_updateEmail', {'id': user.id}) }}">update email</a> <br><br><br>
+<a href="{{path ('app_user_updateUsername', {'id': user.id}) }}">update username</a> <br>
+<a href="{{path ('app_register_updateEmail', {'id': user.id}) }}">update email</a> <br>
+<a href="{{path ('app_register_updatePassword', {'id': user.id}) }}">update password</a> <br><br><br>
 
     
         {{user}} <br>

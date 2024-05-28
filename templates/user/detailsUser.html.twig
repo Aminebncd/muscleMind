@@ -4,6 +4,10 @@
 
 {% block body %}
 
+        <a href="{{path ('app_user_delete' ,{'id': user.id})}}">delete user</a> <br>
+        <a href="{{path ('app_user_makeMod' ,{'id': user.id})}}">make Moderator</a> <br>
+        <a href="{{path ('app_user_makeAdmin' ,{'id': user.id})}}">make Admin</a> <br><br>
+
         {{user}} <br>
         {{user.email}} <br>
         {{user.score}} <br> <br>

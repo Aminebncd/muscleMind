@@ -26,7 +26,7 @@ class UpdatePasswordType extends AbstractType
                 new NotBlank(),
             ],
         ])
-        ->add('plainPassword', RepeatedType::class, [
+        ->add('newPassword', RepeatedType::class, [
             // instead of being set onto the object directly,
             // this is read and encoded in the controller
             'mapped' => false,

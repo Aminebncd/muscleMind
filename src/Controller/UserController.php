@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\PerfType;
+use App\Form\UserType;
 use App\Entity\Tracking;
 use App\Form\TrackingType;
 use App\Entity\Performance;
@@ -70,36 +71,41 @@ class UserController extends AbstractController
 
 
 
-    // #[Route('/user/updateUser/{id}', name: 'app_user_update')]
-    // public function updateUser(Request $request, 
-    //                         UserRepository $ur,
-    //                         EntityManagerInterface $em,
-    //                         User $user = null): Response
-    // {
-    //     if (!$this->getUser()) {
-    //         return $this->redirectToRoute('app_login');
-    //     }
+    #[Route('/user/updateUsername/{id}', name: 'app_user_updateUsername')]
+    public function updateUsername(Request $request, 
+                            UserRepository $ur,
+                            EntityManagerInterface $em,
+                            User $user = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
 
-    //     $userForm = $this->createForm(UserType::class, $user);
-    //     $userForm->handleRequest($request);
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
 
-    //     if ($userForm->isSubmitted() && $userForm->isValid()) {
-    //         // $em->persist($user);
-    //         // $em->flush();
+        // dd($user->getUsername());
+
+        if ($form->isSubmitted() 
+            && $form->isValid() 
+                && ($user->getUsername() !== $form->getData()->getUsername())) {
+                    dd($form->getData());
+            $em->persist($user);
+            $em->flush();
             
-    //         return $this->redirectToRoute('app_user_list');
-    //     }
+            return $this->redirectToRoute('app_user');
+        }
 
-    //     return $this->render('user/editUser.html.twig', [
-    //         'user' => $user,
-    //         'userForm' => $userForm,
-    //         'controller_name' => 'UserController',
-    //     ]);
-    // }
+        return $this->render('user/updateUsername.html.twig', [
+            'user' => $user,
+            'updateUsernameForm' => $form,
+            'controller_name' => 'UserController',
+        ]);
+    }
 
     // grants the admin role to a user
-    #[Route('/admin/grantCredentials/{id}', name: 'app_user_grantCredentials')]
-    public function grantCredentials(Request $request, 
+    #[Route('/admin/makeAdmin/{id}', name: 'app_user_makeAdmin')]
+    public function makeAdmin(Request $request, 
                                 UserRepository $ur,
                                 EntityManagerInterface $em,
                                 User $user = null): Response
@@ -110,7 +116,27 @@ class UserController extends AbstractController
         if (!$user) {
             return $this->redirectToRoute('app_user_list');
         }
-        $user->setRoles(['ROLE_ADMIN']);
+        $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute('app_user_list');
+    }
+
+
+    // grants the moderator role to a user
+    #[Route('/admin/makeMod/{id}', name: 'app_user_makeMod')]
+    public function makeMod(Request $request, 
+                                UserRepository $ur,
+                                EntityManagerInterface $em,
+                                User $user = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        if (!$user) {
+            return $this->redirectToRoute('app_user_list');
+        }
+        $user->setRoles(['ROLE_USER', 'ROLE_MODERATOR']);
         $em->persist($user);
         $em->flush();
         return $this->redirectToRoute('app_user_list');

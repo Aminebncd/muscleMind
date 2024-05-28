@@ -11,10 +11,12 @@
     </head>
 
     <body>
+        {% if app.user %}
+            
         <nav>
             <a href="#">Settings</a>
         </nav>
-
+        
         <div class="navbar">
             <nav>
                 <a href="{{ path('app_muscle') }}">anatomy</a>
@@ -25,7 +27,8 @@
                 <a href="{{ path('app_exercice') }}">exercices</a>
             </nav>
         </div>
-
+        {% endif %}
+        
         <main>
             {% block body %}{% endblock %}
         </main>

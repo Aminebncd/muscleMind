@@ -9,7 +9,7 @@
     <ul>
         {% for exercice in exercices %}
             <li> 
-                <a href="{{path ('app_exercice_details', {'id': exercice.id} )}}">{{ exercice}}</a> | 
+                <a href="{{path ('app_exercice_details', {'id': exercice.id} )}}">{{exercice}}</a> | 
                 <a href="{{path ('app_exercice_edit', {'id': exercice.id} )}}">edit</a> | 
                 <a href="{{path ('app_exercice_delete', {'id': exercice.id})}}">delete</a>
             </li>

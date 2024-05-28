@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UpdateEmailType;
 use App\Security\EmailVerifier;
+use App\Form\UpdatePasswordType;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
@@ -139,6 +140,7 @@ class RegistrationController extends AbstractController
     #[Route('/updateUserPassword/{id}', name: 'app_register_updatePassword')]
     public function updateUserPassword(Request $request, 
                             UserRepository $ur,
+                            UserPasswordHasherInterface $passwordEncoder,
                             EntityManagerInterface $em,
                             User $user = null): Response
     {
@@ -155,10 +157,12 @@ class RegistrationController extends AbstractController
 
             if ($passwordEncoder->isPasswordValid($user, $oldPassword)) {
                 $newPassword = $form->get('newPassword')->getData();
-                $user->setPassword($passwordEncoder->encodePassword($user, $newPassword));
+                $user->setPassword($passwordEncoder->hashPassword($user, $newPassword));
                 $user->setIsVerified(false);
                 $em->persist($user);
                 $em->flush();
+
+                return $this->redirectToRoute('app_logout');
             }
         }
 
