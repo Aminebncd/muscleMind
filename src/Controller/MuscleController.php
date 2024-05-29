@@ -115,7 +115,6 @@ class MuscleController extends AbstractController
             return $this->redirectToRoute('app_muscle');
         }
         
-       
 
         return $this->render('muscle/new.html.twig', [
             'muscleForm' => $form->createView(),      

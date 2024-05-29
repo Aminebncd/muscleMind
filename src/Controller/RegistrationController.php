@@ -153,8 +153,11 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // we initialize the old password to compare it with the new one in the form
             $oldPassword = $form->get('oldPassword')->getData();
 
+            // if the old password is correct, we update the user's password
             if ($passwordEncoder->isPasswordValid($user, $oldPassword)) {
                 $newPassword = $form->get('newPassword')->getData();
                 $user->setPassword($passwordEncoder->hashPassword($user, $newPassword));

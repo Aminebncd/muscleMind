@@ -11,12 +11,19 @@
     </head>
 
     <body>
-        {% if app.user %}
-            
-        <nav>
-            <a href="#">Settings</a>
-        </nav>
+
         
+        {% if app.user %}
+            <nav>
+                <a href="#">Settings</a>
+            </nav>
+        {% endif %}
+        
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+
+        {% if app.user %}
         <div class="navbar">
             <nav>
                 <a href="{{ path('app_muscle') }}">anatomy</a>
@@ -29,10 +36,16 @@
         </div>
         {% endif %}
         
-        <main>
-            {% block body %}{% endblock %}
-        </main>
-        
+
+
+
+
+
+
+
+
+
+
         {% block javascripts %}
             <script type="text/javascript" src="{{ asset('tarteaucitron/tarteaucitron.js') }}"></script>
             <script type="text/javascript">

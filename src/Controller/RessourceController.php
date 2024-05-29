@@ -72,6 +72,10 @@ class RessourceController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        if ($ressource->getAuthor() !== $this->getUser() || !in_array('ROLE_MODERATOR', $this->getUser()->getRoles())){
+            return $this->redirectToRoute('app_home');
+        }
+        // same logic as in my TrainingController
         $isEdit = ($ressource !== null);
 
         if (!$ressource) {
@@ -83,6 +87,7 @@ class RessourceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $ressource->setAuthor($this->getUser());
+            // for now, all ressources are published
             $ressource->setIspublished(true);
 
             if (!$isEdit) {
@@ -110,6 +115,10 @@ class RessourceController extends AbstractController
     {
         if(!$this->getUser()) {
             return $this->redirectToRoute('app_login');
+        }
+
+        if ($ressource->getAuthor() !== $this->getUser() || !in_array('ROLE_MODERATOR', $this->getUser()->getRoles())){
+            return $this->redirectToRoute('app_home');
         }
 
         $em->remove($ressource);
@@ -143,6 +152,10 @@ class RessourceController extends AbstractController
     {
         if(!$this->getUser()) {
             return $this->redirectToRoute('app_login');
+        }
+
+        if ($ressource->getAuthor() !== $this->getUser() || !in_array('ROLE_MODERATOR', $this->getUser()->getRoles())){
+            return $this->redirectToRoute('app_home');
         }
 
         $em->remove($tag);

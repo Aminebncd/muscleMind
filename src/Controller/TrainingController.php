@@ -310,7 +310,9 @@ class TrainingController extends AbstractController
     }
 
 
-
+// the functions below are used in the createEditProgram function
+// they are separated to make the code more readable and easier to maintain
+// they are not meant to be used outside of the createEditProgram function,, that's why they are private
 
     // here we initialize the program while also checking if there is an existing one
     private function initializeProgram($program) {
@@ -410,7 +412,10 @@ class TrainingController extends AbstractController
     }
 
 
-
+// the last function of my former createEditProgram function
+// it's used to render the view
+// it's separated to make the code more readable and easier to maintain
+// it's not meant to be used outside of the createEditProgram function,, that's why it's private
 
     // this function renders the view
     // the FormInterface type hinting is necessary for the render() method
