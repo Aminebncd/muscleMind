@@ -32,9 +32,9 @@ class UserController extends AbstractController
         }
 
         $user = $this->getUser();
-
+        
         $this->updateScore($user);
-            
+
         $em->persist($user);
         $em->flush();
 
@@ -49,25 +49,24 @@ class UserController extends AbstractController
 
 
 
-            // factorized it for better readability
-            // updates the user's score based on the sessions he has done
-            private function updateScore(User $user) {
-                $sessions = $user->getSessions();
-                $totalScore = 0;
-                $now = new \DateTime;
+    // factorized it for better readability
+    // updates the user's score based on the sessions he has done
+    private function updateScore(User $user) {
+        $sessions = $user->getSessions();
+        $totalScore = 0;
+        $now = new \DateTime;
 
-                foreach ($sessions as $session) {
-                    if($session->getDateSession() <= $now) {
-                        $program = $session->getProgram();
-                        $workoutPlans = $program->getWorkoutPlans();
-                        foreach ($workoutPlans as $workoutPlan) {
-                            $totalScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
-                        }
-                    }
+        foreach ($sessions as $session) {
+            if($session->getDateSession() <= $now) {
+                $program = $session->getProgram();
+                $workoutPlans = $program->getWorkoutPlans();
+                foreach ($workoutPlans as $workoutPlan) {
+                    $totalScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
                 }
-                $user->setScore($totalScore);
             }
-
+        }
+        $user->setScore($totalScore);
+    }
 
 
 
@@ -102,6 +101,7 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+
 
     // grants the admin role to a user
     #[Route('/admin/makeAdmin/{id}', name: 'app_user_makeAdmin')]
@@ -143,8 +143,6 @@ class UserController extends AbstractController
     }
     
 
-
-
     // lists the existing users
     #[Route('/admin/listUsers', name: 'app_user_list')]
     public function listUsers(Request $request, UserRepository $ur): Response
@@ -182,8 +180,6 @@ class UserController extends AbstractController
     }
 
 
-    
-
     // deletes the user
     #[Route('/user/deleteUser/{id}', name: 'app_user_delete')]
     public function deleteUser(Request $request, 
@@ -217,9 +213,6 @@ class UserController extends AbstractController
     // TRAINING RELATED FUNCTIONS
 
 
-
-
-    
     #[Route('/user/editPerf/{id}', name: 'app_user_editPerf')]
     #[Route('/user/newPerf', name: 'app_user_newPerf')]
     public function newEditPerf(Request $request,
@@ -298,31 +291,6 @@ class UserController extends AbstractController
     }
 
     
-    // public function editTrack(Request $request, 
-    //                         TrackingRepository $tr,
-    //                         EntityManagerInterface $em,
-    //                         Tracking $tracking = null): Response
-    // {
-    //     if (!$this->getUser()) {
-    //         return $this->redirectToRoute('app_login');
-    //     }
-
-    //     $trackingForm = $this->createForm(TrackingType::class, $tracking);
-    //     $trackingForm->handleRequest($request);
-
-    //     if ($trackingForm->isSubmitted() && $trackingForm->isValid()) {
-    //         $em->persist($tracking);
-    //         $em->flush();
-            
-    //         return $this->redirectToRoute('app_user');
-    //     }
-
-    //     return $this->render('user/editTrack.html.twig', [
-    //         'tracking' => $tracking,
-    //         'trackingForm' => $trackingForm,
-    //         'controller_name' => 'UserController',
-    //     ]);
-    // }
 
     
     #[Route('/admin/deleteTrack/{id}', name: 'app_user_deleteTrack')]
@@ -341,7 +309,6 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user');
     }
-
 
     #[Route('/admin/deletePerf/{id}', name: 'app_user_deletePerf')]
     public function deletePerf(Request $request, 
@@ -367,34 +334,5 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user');
     }
-
-    // #[Route('/user/editPerf/{id}', name: 'app_user_editPerf')]
-    // public function editPerf(Request $request, 
-    //                         EntityManagerInterface $em,
-    //                         Performance $performance = null): Response
-    // {
-    //     if (!$this->getUser()) {
-    //         return $this->redirectToRoute('app_login');
-    //     }
-
-    //     $perfForm = $this->createForm(PerfType::class, $performance);
-    //     $perfForm->handleRequest($request);
-
-    //     if ($perfForm->isSubmitted() && $perfForm->isValid()) {
-    //         $em->persist($performance);
-    //         $em->flush();
-            
-    //         return $this->redirectToRoute('app_user');
-    //     }
-
-    //     return $this->render('user/editPerf.html.twig', [
-    //         'performance' => $performance,
-    //         'perfForm' => $perfForm,
-    //         'controller_name' => 'UserController',
-    //     ]);
-    // }
-
-
-    
     
 }
