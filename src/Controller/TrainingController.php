@@ -250,6 +250,24 @@ class TrainingController extends AbstractController
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // create or edit a program
     #[Route('/training/new', name: 'app_training_new')]
     #[Route('/training/edit/{id}', name: 'app_training_edit')]
     public function createEditProgram(Request $request,
@@ -263,35 +281,55 @@ class TrainingController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        // if there is an existing program, we are in edit mode
         $isEdit = ($program !== null);
+
+        // to check that, we call the initializeProgram function
         $program = $this->initializeProgram($program);
+
+        // then we handle the program form
         $formAddProgram = $this->handleProgramForm($request, $program, $em);
 
+        // then we check if the form is valid
         if ($formAddProgram instanceof Response) {
             return $formAddProgram;
         }
-
+        // from there, we can gather the exercises for the muscle groups added in the program
         list($exercisesForPrimaryMuscleGroup, $exercisesForSecondaryMuscleGroup) = $this->gatherExercisesForMuscleGroups($isEdit, $program, $exerciceRepository, $muscleRepository);
+
+        // then we handle the workout form
         $formAddWorkout = $this->handleWorkoutForm($request, $exercisesForPrimaryMuscleGroup, $exercisesForSecondaryMuscleGroup, $program, $em);
 
+        // and check if the form is valid
         if ($formAddWorkout instanceof Response) {
             return $formAddWorkout;
         }
 
+        // finally, we render the view
         return $this->renderTrainingView($formAddProgram, $formAddWorkout, $program, $isEdit);
     }
 
+
+
+
+    // here we initialize the program while also checking if there is an existing one
     private function initializeProgram($program) {
         return $program ? $program : new Program();
     }
 
+
+    // here we handle the program form
     private function handleProgramForm(Request $request, 
                                         Program $program, 
                                         EntityManagerInterface $em) {
         $formAddProgram = $this->createForm(ProgramType::class, $program);
         $formAddProgram->handleRequest($request);
 
-        if ($formAddProgram->isSubmitted() && $formAddProgram->isValid() && $formAddProgram->getData()->getMuscleGroupTargeted() != $formAddProgram->getData()->getSecondaryMuscleGroupTargeted()) {
+        // we check if the form is submitted and valid
+        // and if the muscle groups are different
+        if ($formAddProgram->isSubmitted() 
+            && $formAddProgram->isValid() 
+                && $formAddProgram->getData()->getMuscleGroupTargeted() != $formAddProgram->getData()->getSecondaryMuscleGroupTargeted()) {
             $program->setCreator($this->getUser());
             $em->persist($program);
             $em->flush();
@@ -301,10 +339,15 @@ class TrainingController extends AbstractController
         return $formAddProgram;
     }
 
+
+
+    // here we gather the exercises for the muscle groups added in the program
     private function gatherExercisesForMuscleGroups($isEdit, 
                                                     Program $program, 
                                                     ExerciceRepository $exerciceRepository, 
                                                     MuscleRepository $muscleRepository) {
+        
+        // we initialize the exercise collections, we'll merge them later  
         $exercisesForPrimaryMuscleGroup = new ArrayCollection();
         $exercisesForSecondaryMuscleGroup = new ArrayCollection();
 
@@ -321,12 +364,9 @@ class TrainingController extends AbstractController
             // Merge the muscles from primary and secondary muscle groups
             $muscles = new ArrayCollection(array_merge($musclesPrimary->toArray(), $musclesSecondary->toArray()));
 
-            // Initialize the exercise collections
-            $exercisesForPrimaryMuscleGroup = new ArrayCollection();
-            $exercisesForSecondaryMuscleGroup = new ArrayCollection();
-
             // Find the exercises for each muscle
             foreach ($muscles as $muscle) {
+                // we find the exercises for each muscle with a custom DQL query
                 $exercisesForMuscle = $exerciceRepository->findExercisesByMuscle($muscle);
                 foreach ($exercisesForMuscle as $exercise) {
                     if ($muscle->getMuscleGroup() == $selectedMuscleGroup) {
@@ -341,17 +381,23 @@ class TrainingController extends AbstractController
         return [$exercisesForPrimaryMuscleGroup, $exercisesForSecondaryMuscleGroup];
     }
 
+
+
+    // here we handle the workout form
     private function handleWorkoutForm(Request $request, 
                                         ArrayCollection $exercisesForPrimaryMuscleGroup, 
                                         ArrayCollection $exercisesForSecondaryMuscleGroup, 
                                         Program $program, 
                                         EntityManagerInterface $em) {
+
+        // we create the workout form with the pre established options
         $formAddWorkout = $this->createForm(WorkoutType::class, new WorkoutPlan(), [
             'primaryMuscleGroupExercises' => $exercisesForPrimaryMuscleGroup,
             'secondaryMuscleGroupExercises' => $exercisesForSecondaryMuscleGroup,
         ]);
         $formAddWorkout->handleRequest($request);
 
+        // after adding a workoutPlan we stay in edit mode to add more
         if ($formAddWorkout->isSubmitted() && $formAddWorkout->isValid()) {
             $workoutPlan = $formAddWorkout->getData();
             $workoutPlan->setProgram($program);
@@ -364,7 +410,11 @@ class TrainingController extends AbstractController
     }
 
 
-    
+
+
+    // this function renders the view
+    // the FormInterface type hinting is necessary for the render() method
+
     protected function renderTrainingView(FormInterface $formAddProgram, 
                                             FormInterface $formAddWorkout, 
                                             Program $program, bool $isEdit) {
@@ -379,6 +429,11 @@ class TrainingController extends AbstractController
             'controller_name' => 'TrainingController',
         ]);
     }
+
+
+
+
+
 
 
 
