@@ -9,6 +9,7 @@
 
     {{ form_start(registrationForm) }}
 
+    <div class="form">
         {{ form_row(registrationForm.username) }}  
         {{ form_row(registrationForm.email) }}  
         {{ form_row(registrationForm.plainPassword, {
@@ -16,6 +17,7 @@
         }) }}
         {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn-connect">Register</button>
+    </div>
     {{ form_end(registrationForm) }}
 {% endblock %}

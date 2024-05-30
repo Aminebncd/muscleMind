@@ -14,9 +14,12 @@
 
         
         {% if app.user %}
+        <div class="navbar-up">
             <nav>
+                <a href="{{path('app_logout')}}">Logout</a>
                 <a href="#">Settings</a>
             </nav>
+        </div>
         {% endif %}
         
         <main>
@@ -24,7 +27,7 @@
         </main>
 
         {% if app.user %}
-        <div class="navbar">
+        <div class="navbar-down">
             <nav>
                 <a href="{{ path('app_muscle') }}">anatomy</a>
                 <a href="{{ path('app_training') }}">program</a>

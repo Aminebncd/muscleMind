@@ -26,17 +26,17 @@ class RegistrationFormType extends AbstractType
         $builder
         
         ->add('username', TextType::class, [
-            'attr' => ['class' => 'form-control'],
+            'attr' => ['class' => 'field'],
         ])
 
         ->add('email', RepeatedType::class, [
             'type' => EmailType::class,
             'first_options'  => [
-                'attr' => ['class' => 'form-control'],
+                'attr' => ['class' => 'field'],
                 'label' => 'Email',
             ],
             'second_options' => [
-                'attr' => ['class' => 'form-control'],
+                'attr' => ['class' => 'field'],
                 'label' => 'Confirmer l\'email',
             ],
             'invalid_message' => 'the emails must match.',
@@ -50,8 +50,12 @@ class RegistrationFormType extends AbstractType
             'invalid_message' => 'The password fields must match.',
             'options' => ['attr' => ['class' => 'password-field']],
             'required' => true,
-            'first_options'  => ['label' => 'Password'],
-            'second_options' => ['label' => 'Repeat Password'],
+            'first_options'  => [
+                'attr' => ['class' => 'field'],
+                'label' => 'Password'],
+            'second_options' => [
+                'attr' => ['class' => 'field'],
+                'label' => 'Repeat Password'],
             'constraints' => [
                 new NotBlank(),
                 // je laisse la regex pour plus tard le temps de faire mes tests, 
@@ -62,7 +66,7 @@ class RegistrationFormType extends AbstractType
                 //     'pattern' => '/^(?=.+[$&+,:;=?@#|<>.-^*()%!])(?=.+[0-9])(?=.+[a-z])(?=.+[A-Z]).{12,}$/',
                 // ]),
             ],
-            'attr' => ['class' => 'form-control'],
+            'attr' => ['class' => 'field'],
         ])
 
         ->add('agreeTerms', CheckboxType::class, [
@@ -72,7 +76,7 @@ class RegistrationFormType extends AbstractType
                     'message' => 'Agree or consequences.',
                 ]),
             ],
-            'attr' => ['class' => 'checkbox mb-3'],
+            'attr' => ['class' => 'checkbox'],
         ]);
     }
 

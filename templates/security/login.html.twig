@@ -14,26 +14,28 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" name="_remember_me"> Remember me
-        </label>
+    <div class="form">
+        <h1 class="h3 mb-3 font-weight-normal">Welcome back !</h1>
+        {# <label for="inputEmail">Email</label> #}
+        <input class="field" type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="email" required autofocus>
+        {# <label for="inputPassword">Password</label> #}
+        <input class="field" type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="password" required>
+    
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}"
+        >
+    
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    
+        <button class="btn-connect" type="submit">
+            Log in !
+        </button>
     </div>
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+    <p>First time here ? <a href="{{path('app_register')}}">Sign up !</a> </p>
+    <p>Forgot your password ? <a href="{{path('app_forgot_password_request')}}">let's change it !</a></p>
 </form>
-<p>First time here ? <a href="{{path('app_register')}}">Sign up !</a> </p>
-<p>Forgot your password ? <a href="{{path('app_forgot_password_request')}}">let's change it !</a></p>
 {% endblock %}
