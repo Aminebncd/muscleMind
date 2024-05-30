@@ -26,18 +26,22 @@ class RegistrationFormType extends AbstractType
         $builder
         
         ->add('username', TextType::class, [
-            'attr' => ['class' => 'field'],
+            'attr' => ['class' => 'field', 'placeholder' => 'Username'],
+            'label' => false,
+            'row_attr' => ['class' => 'form-group'],
         ])
 
         ->add('email', RepeatedType::class, [
             'type' => EmailType::class,
             'first_options'  => [
-                'attr' => ['class' => 'field'],
-                'label' => 'Email',
+                'attr' => ['class' => 'field', 'placeholder' => 'Email'],
+                'label' => false,
+                // 'row_attr' => ['class' => 'form-group'],
             ],
             'second_options' => [
-                'attr' => ['class' => 'field'],
-                'label' => 'Confirmer l\'email',
+                'attr' => ['class' => 'field', 'placeholder' => 'Confirm email'],
+                'label' => false,
+                'row_attr' => ['class' => 'form-group'],
             ],
             'invalid_message' => 'the emails must match.',
         ])
@@ -51,11 +55,13 @@ class RegistrationFormType extends AbstractType
             'options' => ['attr' => ['class' => 'password-field']],
             'required' => true,
             'first_options'  => [
-                'attr' => ['class' => 'field'],
-                'label' => 'Password'],
+                'attr' => ['class' => 'field', 'placeholder' => 'Password'],
+                'label' => false,],
+                'row_attr' => ['class' => 'form-group'],
             'second_options' => [
-                'attr' => ['class' => 'field'],
-                'label' => 'Repeat Password'],
+                'attr' => ['class' => 'field', 'placeholder' => 'Confirm password'],
+                'label' => false,],
+                'row_attr' => ['class' => 'form-group'],
             'constraints' => [
                 new NotBlank(),
                 // je laisse la regex pour plus tard le temps de faire mes tests, 
@@ -66,7 +72,7 @@ class RegistrationFormType extends AbstractType
                 //     'pattern' => '/^(?=.+[$&+,:;=?@#|<>.-^*()%!])(?=.+[0-9])(?=.+[a-z])(?=.+[A-Z]).{12,}$/',
                 // ]),
             ],
-            'attr' => ['class' => 'field'],
+            // 'attr' => ['class' => 'field'],
         ])
 
         ->add('agreeTerms', CheckboxType::class, [
@@ -77,6 +83,7 @@ class RegistrationFormType extends AbstractType
                 ]),
             ],
             'attr' => ['class' => 'checkbox'],
+            'row_attr' => ['class' => 'flex form-group'],
         ]);
     }
 
@@ -84,6 +91,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'attr' => ['class' => 'form'],
         ]);
     }
 }

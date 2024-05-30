@@ -33,10 +33,22 @@ main {
     align-items: center;
 }
 
+.form-group{
+    margin-bottom: 1rem;
+
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
 .form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* width: 100%; */
+
     .field {
         margin: 0.5rem;
         padding: 0.5rem;
@@ -44,7 +56,7 @@ main {
         border-radius: 10px;
         background-color: var(--white);
         color: rgb(0, 0, 0);
-        width: 100%;
+        /* width: 100%; */
     }
     .checkbox {
         margin: 0.5rem;
@@ -53,12 +65,11 @@ main {
         /* border-radius: 10px; */
         /* background-color: var(--white); */
         color: var(--white);
-        width: 100%;
+        /* width: 100%;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: center; */
     }
-
     .btn-connect{
         margin: 0.5rem;
         padding: 0.5rem;
@@ -68,7 +79,6 @@ main {
         color: var(--white);
         width: 100%;
         cursor: pointer;
-    
     }
 }
 
