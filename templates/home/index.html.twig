@@ -1,31 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Welcome, {{ user.username }}!{% endblock %}
 
 {% block body %}
 
-    {{user}} ({{user.score}}) <br><br>
-    
+<div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-4 text-center">Welcome, {{ user.username }}!</h1>
+    <p class="text-center text-gray-700 mb-6">Your score: <strong>{{ user.score }}</strong></p>
 
-    <a href="{{ path('app_home_newSession')}}">Schedule your training sessions</a> <br> <br>
+    <div class="text-center mb-6">
+        <a href="{{ path('app_home_newSession') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Schedule your training sessions
+        </a>
+    </div>
 
-    {% if sessions| length > 0 %}
-        {% for session in sessions | sort((a, b) => a.dateSession <=> b.dateSession) %}
-            <a href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{ session }}</a>
-            <a href="{{ path('app_home_deleteSession', {'id': session.id}) }}">delete</a> <br> 
-        {% endfor %}
-    {% endif %}
+    {# {% if sessions|length > 0 %}
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold mb-4">Your Sessions</h2>
+            <div class="space-y-4">
+                {% for session in sessions|sort((a, b) => a.dateSession <=> b.dateSession) %}
+                    <div class="p-4 bg-gray-100 rounded-lg flex justify-between items-center">
+                        <div>
+                            <span class="text-lg">{{ session.dateSession|date('Y-m-d H:i') }} - {{ session.program }}</span>
+                        </div>
+                        <div class="space-x-2">
+                            <a href="{{ path('app_training_edit', {'id': session.program.id}) }}" class="text-blue-500 hover:underline">Edit</a>
+                            <a href="{{ path('app_home_deleteSession', {'id': session.id}) }}" class="text-red-500 hover:underline">Delete</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %} #}
 
-    <br>
-    <br>
-
-    {% if programs| length > 0 %}
-        {% for program in programs %}
-            <a href="{{ path('app_training_edit', {'id': program.id}) }}">{{ program }}</a> 
-            <a href="{{ path('app_training_delete', {'id': program.id}) }}">delete</a> <br>
-        {% endfor %}
+    {% if programs|length > 0 %}
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold mb-4">Your Programs</h2>
+            <div class="space-y-4">
+                {% for program in programs %}
+                    <div class="p-4 bg-gray-100 rounded-lg flex justify-between items-center">
+                        <div>
+                            <span class="text-lg">{{ program }}</span>
+                        </div>
+                        <div class="space-x-2">
+                            <a href="{{ path('app_training_edit', {'id': program.id}) }}" class="text-blue-500 hover:underline">Edit</a>
+                            <a href="{{ path('app_training_delete', {'id': program.id}) }}" class="text-red-500 hover:underline">Delete</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     {% else %}
-        <p>it seems that you don't have any Workout planned, <a href="{{ path ('app_training_new')}}">let's change that !</a></p> <br>
+        <p class="text-center text-gray-700">It seems that you don't have any workout planned, 
+            <a href="{{ path('app_training_new') }}" class="text-blue-500 hover:underline">let's change that!</a>
+        </p>
     {% endif %}
+</div>
 
 {% endblock %}
