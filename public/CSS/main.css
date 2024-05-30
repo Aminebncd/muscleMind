@@ -18,18 +18,15 @@ body {
     background-color: var(--secondary-color);
     color: aliceblue;
     font-family: "Montserrat", sans-serif;
-    a:visited {
-        color: aliceblue;
-    }
 }
 
 main {
-    /* position: relative; */
-    height: 100dvh;
+    margin-top: 10dvh;
+    margin-bottom: 10dvh;
+    height: 80dvh;
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
@@ -58,19 +55,11 @@ main {
         border-radius: 10px;
         background-color: var(--white);
         color: rgb(0, 0, 0);
-        /* width: 100%; */
     }
     .checkbox {
         margin: 0.5rem;
         padding: 0.5rem;
-        /* border: 1px solid var(--tertiary-color); */
-        /* border-radius: 10px; */
-        /* background-color: var(--white); */
         color: var(--white);
-        /* width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center; */
     }
     .btn-connect{
         margin: 0.5rem;
@@ -90,12 +79,8 @@ main {
     position: fixed;
     top: 0;
     left: 0;
-    /* transform: translateX(-50%); */
     width: 100%;
     padding: 1.5rem;
-    /* text-align: center; */
-    /* display: flex; */
-
 }
 
 .navbar-down {
@@ -109,30 +94,8 @@ main {
     width: 100%;
     padding: 1.5rem;
     text-align: center;
-    /* display: flex; */
 }
 
-/* i'll most definetly adjust the colors and precision of my hovering
-but for now everything is going to be highlithed in red */
-/* also that was very unnecessary for me to write */
-/* .Chest:hover .Pec,
-.Abdominals:hover .LowerAb,
-.Back:hover .Lats,
- .Trapezius:hover .Trap,
- .Trapezius:hover .Neck,
- .Shoulders:hover .Shoulder,
-.Obliques:hover .Oblique,
-.Biceps:hover .Bicep,
-.Forearms:hover .Forearm,
-.Abductors:hover .Adductor,
-.Adductors:hover .Abductor,
-.Quadriceps:hover .Quad,
-.Calves:hover .calf
- {
-    fill: red;
-} */
-
-/* this is much better */
 a:hover path {
     fill: red;
 }
