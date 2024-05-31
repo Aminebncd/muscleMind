@@ -72,6 +72,17 @@ class Exercice
         return $this;
     }
 
+    public function isIsolationExercice(): bool
+    {
+        if ($this->secondaryTarget === null) {
+            $this->isolationExercice = true;
+        } else {
+            $this->isolationExercice = false;
+        }
+        
+        return $this->isolationExercice;
+    }
+
     /**
      * @return Collection<int, Performance>
      */

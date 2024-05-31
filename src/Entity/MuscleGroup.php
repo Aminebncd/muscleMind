@@ -112,6 +112,30 @@ class MuscleGroup
         return $this;
     }
 
+    public function muscleGroupImage()
+    {
+        switch ($this->muscleGroup) {
+            case 'Chest':
+                return 'chest.jpg';
+            case 'Back':
+                return 'back.jpg';
+            case 'Shoulders':
+                return 'shoulders.jpg';
+            case 'Biceps':
+                return 'biceps.jpg';
+            case 'Triceps':
+                return 'triceps.jpg';
+            case 'Forearms':
+                return 'forearms.jpg';
+            case 'Abs':
+                return 'abs.jpg';
+            case 'legs':
+                return 'legs.jpg';
+            default:
+                return '';
+        }
+    }
+
     public function __tostring()
     {
         return $this->muscleGroup;

@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <h1 class="text-2xl font-bold mb-8">Welcome <br>{{ user.username }}!</h1>
+    <h1 class="text-center text-2xl font-bold mb-8">Welcome <br>{{ user.username }} !</h1>
     {# <p class="">Your score: <strong>{{ user.score }}</strong></p> #}
 
     <div class="">
@@ -14,13 +14,11 @@
     </div>
 
     {% if sessions|length > 0 %}
-    <p>your next sessions : </p>
-    {% for session in sessions|sort((a, b) => a.dateSession <=> b.dateSession)|slice(0, 5) %}
-
-        <a class="p-8 m-1 bg-primary-950 rounded-lg" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{session}}</a>
-        {# <a href="{{ path('app_home_deleteSession', {'id': session.id}) }}">delete</a> #}
-
-    {% endfor %}
+        <p>your next sessions : </p>
+        {% for session in sessions|sort((a, b) => a.dateSession <=> b.dateSession)|slice(0, 5) %}
+            <a class="p-8 m-1 bg-red-800/40 rounded-lg" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{session}}</a>
+            {# <a href="{{ path('app_home_deleteSession', {'id': session.id}) }}">delete</a> #}
+        {% endfor %}
 {% endif %}
 
 
