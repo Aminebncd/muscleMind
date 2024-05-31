@@ -9,7 +9,8 @@ use App\Entity\Tracking;
 use App\Form\TrackingType;
 use App\Entity\Performance;
 use App\Repository\UserRepository;
-use App\Service\EquivalentService;
+// use App\Service\EquivalentService;
+use App\Service\Utility\Equivalent;
 use App\Repository\ExerciceRepository;
 use App\Repository\TrackingRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,21 +27,20 @@ class UserController extends AbstractController
     public function index(Request $request, 
                         UserRepository $ur,
                         EntityManagerInterface $em,
-                        TrackingRepository $tr, 
-                        EquivalentService $es): Response
+                        TrackingRepository $tr): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
 
         $user = $this->getUser();
-        
-        $this->updateScore($user);
-        $equiv = $this->displayEquivalent($user, $es);
-        dd($equiv);
+        // $this->updateScore($user);
 
-        $em->persist($user);
-        $em->flush();
+        // $em->persist($user);
+        // $em->flush();
+        
+        $equiv = $this->displayEquivalent($user);
+        dd($equiv);
 
         $latestTracking = $tr->getLatest($user);
 
@@ -73,13 +73,19 @@ class UserController extends AbstractController
         $user->setScore($totalScore);
     }
 
+
+
     // this function displays the equivalent (in object/things) of 
     // the user's score (in kilos, because we will NEVER use pounds or imperial units in this house)
-    private function displayEquivalent(User $user, EquivalentService $equivalentService) {
-        $score = $this->getUser()->getScore();
-        $equivalent = $equivalentService->getEquivalent($score);
-        echo "The equivalent of your score is: " . $equivalent;
+    private function displayEquivalent(User $user)
+    {
+        $score = $user->getScore();
+        return Equivalent::getEquivalent($score);
     }
+
+
+
+
 
 
     #[Route('/user/updateUsername/{id}', name: 'app_user_updateUsername')]

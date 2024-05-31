@@ -5,21 +5,15 @@ namespace App\Service;
 use App\Service\Utility\Equivalent;
 
 
-class EquivalentService
+abstract class EquivalentService extends Equivalent
 {
     private $equivalent;
 
-    public function __construct(Equivalent $equivalent)
-    {
 
-        $this->equivalent = $equivalent;
-        
-    }
-
-    public function getEquivalent()
-    {
-        return $this->equivalent;
-    }
+    // static function getEquivalent($score)
+    // {
+    //     return $this->equivalent;
+    // }
 
    
 
