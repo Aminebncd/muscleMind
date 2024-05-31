@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Utility;
+namespace App\Service;
 
 class Equivalent
 {

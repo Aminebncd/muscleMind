@@ -28,10 +28,7 @@ services:
     App\Entity\Tracking:
         autoconfigure: true
 
-    # App\Service\EquivalentService:
-    #     public: true
-    
-    App\Service\Utility\Equivalent:
+    App\Service\Equivalent:
         public: true
 
     # add more service definitions when explicit configuration is needed

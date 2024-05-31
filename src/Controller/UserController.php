@@ -3,14 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Tracking;
+use App\Entity\Performance;
 use App\Form\PerfType;
 use App\Form\UserType;
-use App\Entity\Tracking;
 use App\Form\TrackingType;
-use App\Entity\Performance;
+use App\Service\Equivalent;
 use App\Repository\UserRepository;
-// use App\Service\EquivalentService;
-use App\Service\Utility\Equivalent;
 use App\Repository\ExerciceRepository;
 use App\Repository\TrackingRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,18 +33,19 @@ class UserController extends AbstractController
         }
 
         $user = $this->getUser();
-        // $this->updateScore($user);
+        $this->updateScore($user);
 
-        // $em->persist($user);
-        // $em->flush();
+        $em->persist($user);
+        $em->flush();
         
         $equiv = $this->displayEquivalent($user);
-        dd($equiv);
+        // dd($equiv);
 
         $latestTracking = $tr->getLatest($user);
 
         return $this->render('user/index.html.twig', [
             'user' => $user,
+            'equiv' => $equiv, 
             'latestTracking' => $latestTracking, 
             'controller_name' => 'UserController',
         ]);
@@ -90,9 +90,9 @@ class UserController extends AbstractController
 
     #[Route('/user/updateUsername/{id}', name: 'app_user_updateUsername')]
     public function updateUsername(Request $request, 
-                            UserRepository $ur,
-                            EntityManagerInterface $em,
-                            User $user = null): Response
+                                UserRepository $ur,
+                                EntityManagerInterface $em,
+                                User $user = null): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
