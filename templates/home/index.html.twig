@@ -16,34 +16,24 @@
     {% if sessions|length > 0 %}
         <p>your next sessions : </p>
         {% for session in sessions|sort((a, b) => a.dateSession <=> b.dateSession)|slice(0, 5) %}
-            <a class="p-8 m-1 bg-primary rounded-lg" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{session}}</a>
-            {# <a href="{{ path('app_home_deleteSession', {'id': session.id}) }}">delete</a> #}
-        {% endfor %}
-{% endif %}
+        <div class="bg-primary rounded-lg m-5 max-w-2xl	">
+            <div class="p-2 flex justify-between w-full">
+                <a class="" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{session}}</a>
+                <a class="text-end" href="{{ path('app_home_deleteSession', {'id': session.id}) }}">delete</a>
+            </div>
+            <div class="flex">
 
+                <a class="h-auto w-1/2"  href="{{ path('app_muscleGroup_details', {'id': session.program.muscleGroupTargeted.id })}}"><img src="{{ asset('img/muscleGroups/' ~ session.program.muscleGroupTargeted.muscleGroupImage ) }}" alt="{{session.program.muscleGroupTargeted.muscleGroupImage()}}"></a>
 
-    {# {% if programs|length > 0 %}
-        <div class="">
-            <h2 class="">Your Programs</h2>
-            <div class="">
-                {% for program in programs %}
-                    <div class="">
-                        <div>
-                            <span class="">{{ program }}</span>
-                        </div>
-                        <div class="space-x-2">
-                            <a href="{{ path('app_training_edit', {'id': program.id}) }}" class="text-blue-500 hover:underline">Edit</a>
-                            <a href="{{ path('app_training_delete', {'id': program.id}) }}" class="text-red-500 hover:underline">Delete</a>
-                        </div>
-                    </div>
-                {% endfor %}
+                <a class="h-auto w-1/2"  href="{{ path('app_muscleGroup_details', {'id': session.program.secondaryMuscleGroupTargeted.id })}}"><img src="{{ asset('img/muscleGroups/' ~ session.program.secondaryMuscleGroupTargeted.muscleGroupImage ) }}" alt="{{session.program.muscleGroupTargeted.muscleGroupImage()}}"></a>
             </div>
         </div>
+        {% endfor %}
     {% else %}
-        <p class="">It seems that you don't have any workout planned, 
-            <a href="{{ path('app_training_new') }}" class="">let's change that!</a>
-        </p>
-    {% endif %} #}
+        <p>you have no scheduled sessions</p>
+    {% endif %}
+
+
 
 
 {% endblock %}

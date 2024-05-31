@@ -114,26 +114,49 @@ class MuscleGroup
 
     public function muscleGroupImage()
     {
-        switch ($this->muscleGroup) {
-            case 'Chest':
-                return 'chest.jpg';
-            case 'Back':
-                return 'back.jpg';
-            case 'Shoulders':
-                return 'shoulders.jpg';
-            case 'Biceps':
-                return 'biceps.jpg';
-            case 'Triceps':
-                return 'triceps.jpg';
-            case 'Forearms':
-                return 'forearms.jpg';
-            case 'Abs':
-                return 'abs.jpg';
-            case 'legs':
-                return 'legs.jpg';
+        $muscleGroup = $this->muscleGroup;
+        // dd($muscleGroup);
+
+        switch ($muscleGroup) {
+            case 'CHEST':
+                $muscleGroupImage = 'chest.webp';
+                break;
+            case 'BACK':
+                $muscleGroupImage = 'back.webp';
+                break;
+            case 'SHOULDERS':
+                $muscleGroupImage = 'shoulders.webp';
+                break;
+            case 'BICEPS':
+                $muscleGroupImage = 'biceps.webp';
+                break;
+            case 'TRICEPS':
+                $muscleGroupImage = 'triceps.webp';
+                break;
+            case 'FOREARMS':
+                $muscleGroupImage = 'forearms.webp';
+                break;
+            case 'ABS':
+                $muscleGroupImage = 'abs.webp';
+                break; 
+            case 'LEGS':
+                $muscleGroupImage = 'legs.webp';
+                break;
+        
             default:
-                return '';
+                return 'TEST';
         }
+
+        // return "<img 
+        //     src='{{ asset('img/muscleGroups/$muscleGroupImage') }}' 
+        //     alt='$muscleGroup'
+        // >";
+
+        // <img src="{{ asset('img/muscleGroups/' ~ $muscleGroupImage ) }}" alt="{{$muscleGroupImage()}}">
+
+        return $muscleGroupImage;
+
+
     }
 
     public function __tostring()
