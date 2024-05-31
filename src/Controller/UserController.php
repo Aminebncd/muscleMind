@@ -8,7 +8,7 @@ use App\Entity\Performance;
 use App\Form\PerfType;
 use App\Form\UserType;
 use App\Form\TrackingType;
-use App\Service\Equivalent;
+use App\Service\EquivalentService;
 use App\Repository\UserRepository;
 use App\Repository\ExerciceRepository;
 use App\Repository\TrackingRepository;
@@ -80,7 +80,7 @@ class UserController extends AbstractController
     private function displayEquivalent(User $user)
     {
         $score = $user->getScore();
-        return Equivalent::getEquivalent($score);
+        return EquivalentService::getEquivalent($score);
     }
 
 

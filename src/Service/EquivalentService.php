@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-class Equivalent
+class EquivalentService
 {
     public static function getEquivalent($score)
     {
