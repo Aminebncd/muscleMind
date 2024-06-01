@@ -7,14 +7,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -26,64 +22,59 @@ class RegistrationFormType extends AbstractType
         $builder
         
         ->add('username', TextType::class, [
-            'attr' => ['class' => 'field', 'placeholder' => 'Username'],
+            'attr' => ['class' => 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8', 'placeholder' => 'Username'],
             'label' => false,
-            'row_attr' => ['class' => 'form-group'],
+            'row_attr' => ['class' => 'w-full'],
         ])
 
         ->add('email', RepeatedType::class, [
             'type' => EmailType::class,
             'first_options'  => [
-                'attr' => ['class' => 'field', 'placeholder' => 'Email'],
+                'attr' => ['class' => 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600', 'placeholder' => 'Email'],
                 'label' => false,
-                // 'row_attr' => ['class' => 'form-group'],
             ],
             'second_options' => [
-                'attr' => ['class' => 'field', 'placeholder' => 'Confirm email'],
+                'attr' => ['class' => 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8', 'placeholder' => 'Confirm email'],
                 'label' => false,
-                'row_attr' => ['class' => 'form-group'],
             ],
-            'invalid_message' => 'the emails must match.',
+            'invalid_message' => 'The emails must match.',
+            'row_attr' => ['class' => 'w-full'],
         ])
 
         ->add('plainPassword', RepeatedType::class, [
-            // instead of being set onto the object directly,
-            // this is read and encoded in the controller
             'mapped' => false,
             'type' => PasswordType::class,
             'invalid_message' => 'The password fields must match.',
-            'options' => ['attr' => ['class' => 'password-field']],
+            'options' => ['attr' => ['class' => '']],
             'required' => true,
             'first_options'  => [
-                'attr' => ['class' => 'field', 'placeholder' => 'Password'],
-                'label' => false,],
-                'row_attr' => ['class' => 'form-group'],
+                'attr' => ['class' => 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600', 'placeholder' => 'Password'],
+                'label' => false,
+            ],
             'second_options' => [
-                'attr' => ['class' => 'field', 'placeholder' => 'Confirm password'],
-                'label' => false,],
-                'row_attr' => ['class' => 'form-group'],
+                'attr' => ['class' => 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8', 'placeholder' => 'Confirm password'],
+                'label' => false,
+            ],
             'constraints' => [
                 new NotBlank(),
-                // je laisse la regex pour plus tard le temps de faire mes tests, 
-                // une fois activée elle necessitera des 12 caracteres minimum,
-                // 1 minuscule, 1 majuscule, 1 chiffre et 1 caractere special comme le recommande la CNIL
+                // Uncomment for stricter password rules
                 // new Regex([
                 //     'match' => true,
                 //     'pattern' => '/^(?=.+[$&+,:;=?@#|<>.-^*()%!])(?=.+[0-9])(?=.+[a-z])(?=.+[A-Z]).{12,}$/',
                 // ]),
             ],
-            // 'attr' => ['class' => 'field'],
+            'row_attr' => ['class' => 'w-full'],
         ])
 
         ->add('agreeTerms', CheckboxType::class, [
             'mapped' => false,
             'constraints' => [
                 new IsTrue([
-                    'message' => 'Agree or consequences.',
+                    'message' => 'You must agree to the terms.',
                 ]),
             ],
-            'attr' => ['class' => 'checkbox'],
-            'row_attr' => ['class' => 'flex form-group'],
+            'attr' => ['class' => 'form-checkbox mx-2 h-4 w-4 text-blue-600'],
+            'row_attr' => ['class' => 'my-4 flex items-center justify-center w-full'],
         ]);
     }
 
@@ -91,7 +82,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'attr' => ['class' => 'form'],
+            'attr' => ['class' => 'w-full max-w-xl mx-auto flex flex-col space-y-4 bg-primary px-4 pt-4 pb-8 rounded-lg shadow-lg'],
         ]);
     }
 }
