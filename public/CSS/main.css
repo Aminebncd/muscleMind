@@ -23,8 +23,8 @@ body {
 }
 
 main {
-    margin-top: 10dvh;
-    margin-bottom: 10dvh;
+    /* margin-top: 10dvh;
+    margin-bottom: 10dvh; */
     height: 80dvh;
     padding: 1rem;
     display: flex;

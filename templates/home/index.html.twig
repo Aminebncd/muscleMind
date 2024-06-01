@@ -16,7 +16,7 @@
     {% if sessions|length > 0 %}
         <p>your next sessions : </p>
         {% for session in sessions|sort((a, b) => a.dateSession <=> b.dateSession)|slice(0, 5) %}
-        <div class="bg-primary rounded-lg m-5 max-w-2xl	">
+        <div class="bg-primary rounded-lg m-5 max-w-3xl	max-h-1/2">
             <div class="p-2 flex justify-between w-full">
                 <a class="" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{session}}</a>
                 <a class="text-end" href="{{ path('app_home_deleteSession', {'id': session.id}) }}">delete</a>
