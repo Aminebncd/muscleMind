@@ -23,17 +23,34 @@ class WorkoutType extends AbstractType
         $allExercises = array_merge($primaryExercises, $secondaryExercises);
 
         $builder
-        ->add('numberOfRepetitions', NumberType::class)
-        ->add('weightsUsed', NumberType::class)
+        ->add('numberOfRepetitions', NumberType::class, [
+            'label' => 'Number of repetitions',
+            'attr' => [
+                'placeholder' => 'Number of repetitions',
+                'class' => ' w-3/4 px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'
+            ]
+        ])
+        ->add('weightsUsed', NumberType::class, [
+            'label' => 'Weights used',
+            'attr' => [
+                'placeholder' => 'Weights used',
+                'class' => ' w-3/4 px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'
+            ]
+        ])
         ->add('exercice', EntityType::class, [
             'class' => Exercice::class,
             'choice_label' => 'exerciceName',
             'choices' => $allExercises,
             'label' => 'Exercice',
+            'attr' => [
+                'class' => 'w-3/4 px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                'placeholder' => 'Exercice'
+            ],
+            'row_attr' => ['class' => 'flex flex-col w-full'],
         ])
         ->add('valider', SubmitType::class, [
             'attr' => [
-                'class' => 'btn btn-primary'
+                'class' => 'px-4 py-2 rounded-2xl bg-tertiary drop-shadow-xl hover:bg-quinary duration-150'
             ]
         ]);
     }
