@@ -23,7 +23,7 @@ class ProgramType extends AbstractType
         $builder
         
             ->add('title', TextType::class, [
-                'attr' => ['class' => 'bg-primary/50 w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'],
+                'attr' => ['class' => 'bg-white w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'],
                 // 'label' => false,
                 'row_attr' => ['class' => 'w-full'],
             ])
@@ -32,30 +32,32 @@ class ProgramType extends AbstractType
                 'class' => MuscleGroup::class,
                 'choice_label' => 'muscleGroup',
                 'attr' => [
-                    'class' => 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => ' px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                     'placeholder' => 'Muscle group targeted'
                 ],
                 'choice_attr' => function($choice, $key, $value) {
                     // Ajoutez des classes personnalisées aux options ici
                     return ['class' => 'text-black'];
                 },
+                'row_attr' => ['class' => 'flex flex-col	'],
                
             ])
             ->add('secondaryMuscleGroupTargeted', EntityType::class, [
                 'class' => MuscleGroup::class,
                 'choice_label' => 'muscleGroup',
                 'attr' => [
-                    'class' => 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
-                    'placeholder' => 'Muscle group targeted'
-                ],   
+                    'class' => ' px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'placeholder' => 'Secondary muscle group targeted'
+                ],
                 'choice_attr' => function($choice, $key, $value) {
                     // Ajoutez des classes personnalisées aux options ici
-                    return ['class' => 'bg-gray-100 hover:bg-gray-200'];
-                },            
+                    return ['class' => 'text-black'];
+                },   
+                'row_attr' => ['class' => 'flex flex-col	'],        
             ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
-                    'class' => ''
+                    'class' => 'px-4 py-2 rounded-2xl bg-tertiary drop-shadow-xl hover:bg-quinary duration-150'
                 ]
             ]);
         ;

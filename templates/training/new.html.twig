@@ -33,17 +33,18 @@
         {{ form_end(formAddWorkout) }}
 
     {% else %}
-    
-        <h1>First choose what you wanna work !</h1>
+    <div class="bg-primary p-8 rounded-lg">
+        <h1 class="text-center font-bold text-2xl px-2 py-4 mb-14">First choose what you wanna work !</h1>
         {# <h2>Add a Program</h2> #}
 
         {{ form_start(formAddProgram) }}
         {{ form_row(formAddProgram.title)}}
-        <div class="flex">
+        <div class="flex flex-row">
             {{ form_row(formAddProgram.muscleGroupTargeted) }}
             {{ form_row(formAddProgram.secondaryMuscleGroupTargeted) }}
         </div>
         {{ form_end(formAddProgram) }}
+    </div>
     {% endif %}
 
 {% endblock %}
