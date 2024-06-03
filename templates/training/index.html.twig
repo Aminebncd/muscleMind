@@ -12,10 +12,10 @@
 
         {% for program in programs %}
 
-        <div class="rounded-xl m-5 max-w-3xl max-h-3/5 drop-shadow-xl relative ">
-            <div class="absolute h-full w-full bg-gradient-to-t from-black rounded-xl"></div>
+        <div class="rounded-xl m-5 max-w-3xl max-h-3/5 drop-shadow-xl relative hover:ease-out hover:scale-110 duration-200 ">
+            <div class="absolute h-full w-full bg-gradient-to-t from-black rounded-xl hover:ease-out hover:bg-black/50 duration-200"></div>
             <a class="text-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-semibold" href="{{ path('app_training_edit', {'id': program.id}) }}">{{program}}</a>
-            <div class="flex items-center  ">
+            <div class="flex items-center">
                 <a class="h-auto w-1/2 object-cover"  href="{{ path('app_muscleGroup_details', {'id': program.muscleGroupTargeted.id })}}"><img class="rounded-l-xl" src="{{ asset('img/muscleGroups/' ~ program.muscleGroupTargeted.muscleGroupImage ) }}" alt="{{program.muscleGroupTargeted.muscleGroupImage()}}"></a>
                 <a class="h-auto w-1/2 object-cover"  href="{{ path('app_muscleGroup_details', {'id': program.secondaryMuscleGroupTargeted.id })}}"><img class="rounded-r-xl" src="{{ asset('img/muscleGroups/' ~ program.secondaryMuscleGroupTargeted.muscleGroupImage ) }}" alt="{{program.muscleGroupTargeted.muscleGroupImage()}}"></a>
             </div>

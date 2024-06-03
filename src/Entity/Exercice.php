@@ -21,17 +21,17 @@ class Exercice
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $exerciceFunction = null;
-
-    #[ORM\OneToMany(targetEntity: Performance::class, mappedBy: 'exerciceMesured', orphanRemoval: true)]
-    private Collection $performances;
-
+    
     #[ORM\ManyToOne(inversedBy: 'exercices')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Muscle $target = null;
-
+    
     #[ORM\ManyToOne(inversedBy: 'exercices')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Muscle $secondaryTarget = null;
+    
+    #[ORM\OneToMany(targetEntity: Performance::class, mappedBy: 'exerciceMesured', orphanRemoval: true)]
+    private Collection $performances;
 
     #[ORM\OneToMany(targetEntity: WorkoutPlan::class, mappedBy: 'exercice', orphanRemoval: true)]
     private Collection $workoutPlans;
@@ -39,7 +39,6 @@ class Exercice
     public function __construct()
     {
         $this->performances = new ArrayCollection();
-        // $this->secondaryTarget = new ArrayCollection();
         $this->workoutPlans = new ArrayCollection();
     }
 
@@ -83,6 +82,32 @@ class Exercice
         return $this->isolationExercice;
     }
 
+    
+    public function getTarget(): ?Muscle
+    {
+        return $this->target;
+    }
+
+    public function setTarget(?Muscle $target): static
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    public function getSecondaryTarget(): ?Muscle
+    {
+        return $this->secondaryTarget;
+    }
+
+    public function setSecondaryTarget(?Muscle $secondaryTarget): static
+    {
+        $this->secondaryTarget = $secondaryTarget;
+
+        return $this;
+    }
+
+
     /**
      * @return Collection<int, Performance>
      */
@@ -109,30 +134,6 @@ class Exercice
                 $performance->setExerciceMesured(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getTarget(): ?Muscle
-    {
-        return $this->target;
-    }
-
-    public function setTarget(?Muscle $target): static
-    {
-        $this->target = $target;
-
-        return $this;
-    }
-
-    public function getSecondaryTarget(): ?Muscle
-    {
-        return $this->secondaryTarget;
-    }
-
-    public function setSecondaryTarget(?Muscle $secondaryTarget): static
-    {
-        $this->secondaryTarget = $secondaryTarget;
 
         return $this;
     }
