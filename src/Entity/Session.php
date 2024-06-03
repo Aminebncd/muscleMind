@@ -55,20 +55,22 @@ class Session
         return $this;
     }
     
-    public function __tostring()
-    {
-        return $this->program.' - '.$this->dateSession->format('d.m.Y');
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
     }
-
+    
     public function setUser(?User $user): static
     {
         $this->user = $user;
-
+        
         return $this;
     }
+    
+    public function __tostring()
+    {
+        return $this->program.' - '.$this->dateSession->format('d.m.Y');
+    }
+    
+
 }

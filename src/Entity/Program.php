@@ -157,7 +157,9 @@ class Program
 
     public function __tostring()
     {
-        return $this->title;
+        return $this->title
+        // .' ('.$this->muscleGroupTargeted->getName().' - '.$this->secondaryMuscleGroupTargeted->getName().')'
+        ;
     }
 
 }
