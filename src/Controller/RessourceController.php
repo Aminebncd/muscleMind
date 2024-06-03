@@ -50,7 +50,8 @@ class RessourceController extends AbstractController
         
         // dd($ressource);
         if (!$ressource) {
-            throw $this->createNotFoundException('The ressource does not exist');
+            return $this->redirectToRoute('app_ressource');
+            // throw $this->createNotFoundException('The ressource does not exist');
         }
         
         return $this->render('ressource/detailsRessource.html.twig', [

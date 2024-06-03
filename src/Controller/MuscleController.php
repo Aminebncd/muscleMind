@@ -34,12 +34,16 @@ class MuscleController extends AbstractController
 
     // renders the muscle details group page
     #[Route('/muscle/detailsMuscleGroup/{id}', name: 'app_muscleGroup_details')]
-    public function detailsMuscleGroup(MuscleGroup $muscleGroup, 
+    public function detailsMuscleGroup(MuscleGroup $muscleGroup = null, 
                                         MuscleRepository $muscleRepository,
                                         ExerciceRepository $exerciceRepository,): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
+        }
+
+        if (!$muscleGroup) {
+            return $this->redirectToRoute('app_muscle');
         }
 
         // we fetch every muscle composing the muscle group
@@ -50,10 +54,10 @@ class MuscleController extends AbstractController
         foreach ($muscles as $muscle) {
             $exercisesForMuscle = $exerciceRepository->findExercisesByMuscle($muscle);
             foreach ($exercisesForMuscle as $exercise) {
-            
-                    $exercisesForMuscleGroup->add($exercise);
+                $exercisesForMuscleGroup->add($exercise);
             }
         }
+
 
         return $this->render('muscle/detailsMuscleGroup.html.twig', [
             'muscleGroup' => $muscleGroup,
@@ -67,10 +71,14 @@ class MuscleController extends AbstractController
 
     // renders the muscle details page
     #[Route('/muscle/detailsMuscle/{id}', name: 'app_muscle_details')]
-    public function detailsMuscle(Muscle $muscle): Response
+    public function detailsMuscle(Muscle $muscle = null): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
+        }
+
+        if (!$muscle) {
+            return $this->redirectToRoute('app_muscle');
         }
 
         $muscleGroup = $muscle->getMuscleGroup();
@@ -126,12 +134,16 @@ class MuscleController extends AbstractController
 
     // likewise, this function will be used by admins to delete a muscle
     #[Route('/admin/muscle/delete/{id}', name: 'app_muscle_delete')]
-    public function deleteMuscle(Muscle $muscle, 
+    public function deleteMuscle(Muscle $muscle = null, 
                                 EntityManagerInterface $entityManager): Response
     {
 
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
+        }
+
+        if (!$muscle) {
+            return $this->redirectToRoute('app_muscle');
         }
 
         $entityManager->remove($muscle);

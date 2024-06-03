@@ -68,11 +68,16 @@ class ExerciceController extends AbstractController
 
     // this function will be used to display a single exercice
     #[Route('exercice/details/{id}', name: 'app_exercice_details')]
-    public function detailsExercice(Exercice $exercice): Response
+    public function detailsExercice(Exercice $exercice = null): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
+
+        if (!$exercice) {
+            return $this->redirectToRoute('app_exercice');
+        }
+
 
         return $this->render('exercice/details.html.twig', [
             'controller_name' => 'ExerciceController',
@@ -84,12 +89,17 @@ class ExerciceController extends AbstractController
 
     // this function will be used to delete an exercice
     #[Route('admin/exercice/delete/{id}', name: 'app_exercice_delete')]
-    public function deleteExercice(Exercice $exercice,
+    public function deleteExercice(Exercice $exercice = null,
                                     EntityManagerInterface $em): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
+
+        if (!$exercice) {
+            return $this->redirectToRoute('app_exercice');
+        }
+
 
         $em->remove($exercice);
         $em->flush();

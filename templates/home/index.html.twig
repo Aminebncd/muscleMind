@@ -18,13 +18,13 @@
         {% for session in sessions|sort((a, b) => a.dateSession <=> b.dateSession)|slice(0, 5) %}
         <div class="bg-primary rounded-lg m-5 max-w-3xl max-h-3/5 drop-shadow-xl relative">
             <div class="p-2 flex justify-between w-full">
-                <a class="" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{session}}</a>
+                <a class="text-white text-lg hover:text-quaternary" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{session}}</a>
                 <a class="text-end hover:text-red-700" href="{{ path('app_home_deleteSession', {'id': session.id}) }}">delete</a>
             </div>
             <div class="flex items-center overflow-hidden max-sm:flex-col">
                 <a class="relative h-auto w-1/2 object-cover hover:ease-out hover:scale-105 duration-100 max-sm:w-full max-sm:h-1/6 group" href="{{ path('app_muscleGroup_details', {'id': session.program.muscleGroupTargeted.id })}}">
                     <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-bl-lg hover:opacity-80 transition-opacity duration-300"></div>
-                    <span class="text-white font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:block">{{session.program.muscleGroupTargeted}}</span>
+                    <span class="text-white font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:block ">{{session.program.muscleGroupTargeted}}</span>
                     <img class="rounded-bl-lg max-sm:rounded-none" src="{{ asset('img/muscleGroups/' ~ session.program.muscleGroupTargeted.muscleGroupImage ) }}" alt="{{session.program.muscleGroupTargeted.muscleGroupImage()}}">
                 </a>
         
