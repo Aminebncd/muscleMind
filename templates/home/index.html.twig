@@ -8,7 +8,7 @@
     {# <p class="">Your score: <strong>{{ user.score }}</strong></p> #}
 
     <div class=" mb-8">
-        <a href="{{ path('app_home_newSession') }}" class="px-4 py-2 rounded-2xl bg-quinary drop-shadow-xl hover:bg-tertiary">
+        <a href="{{ path('app_home_newSession') }}" class="px-4 py-2 rounded-2xl bg-tertiary drop-shadow-xl hover:bg-quinary duration-150">
             Schedule your training sessions
         </a>
     </div>
@@ -16,18 +16,19 @@
     {% if sessions|length > 0 %}
         <p>your next sessions : </p>
         {% for session in sessions|sort((a, b) => a.dateSession <=> b.dateSession)|slice(0, 5) %}
-        <div class="bg-primary rounded-lg m-5 max-w-3xl	max-h-3/5 drop-shadow-xl relative hover:ease-out hover:scale-110 duration-200 ">
-            {# <div class="absolute h-full w-full bg-gradient-to-t from-black rounded-xl"></div> #}
+        <div class="bg-primary rounded-lg m-5 max-w-3xl	max-h-3/5 drop-shadow-xl relative hover:ease-out hover:scale-110 duration-150 ">
             
             <div class="p-2 flex justify-between w-full ">
                 <a class="" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{session}}</a>
-                <a class="text-end" href="{{ path('app_home_deleteSession', {'id': session.id}) }}">delete</a>
+                <a class="text-end hover:text-red-700" href="{{ path('app_home_deleteSession', {'id': session.id}) }}">delete</a>
             </div>
             <div class="flex items-center	">
                 <a class="h-auto w-1/2 object-cover"  href="{{ path('app_muscleGroup_details', {'id': session.program.muscleGroupTargeted.id })}}">
+                    <div class="absolute h-5/6 w-1/2 bg-gradient-to-t from-black rounded-bl-lg"></div>
                     <img class="rounded-bl-lg" src="{{ asset('img/muscleGroups/' ~ session.program.muscleGroupTargeted.muscleGroupImage ) }}" alt="{{session.program.muscleGroupTargeted.muscleGroupImage()}}">
                 </a>
                 <a class="h-auto w-1/2 object-cover"  href="{{ path('app_muscleGroup_details', {'id': session.program.secondaryMuscleGroupTargeted.id })}}">
+                    <div class="absolute h-5/6 w-1/2 bg-gradient-to-t from-black rounded-br-lg"></div>
                     <img class="rounded-br-lg"  src="{{ asset('img/muscleGroups/' ~ session.program.secondaryMuscleGroupTargeted.muscleGroupImage ) }}" alt="{{session.program.muscleGroupTargeted.muscleGroupImage()}}">
                 </a>
             </div>

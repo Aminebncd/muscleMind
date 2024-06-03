@@ -24,7 +24,7 @@ class RegistrationFormType extends AbstractType
         ->add('username', TextType::class, [
             'attr' => ['class' => 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8', 'placeholder' => 'Username'],
             'label' => false,
-            'row_attr' => ['class' => 'w-full'],
+            // 'row_attr' => ['class' => 'w-full'],
         ])
 
         ->add('email', RepeatedType::class, [

@@ -35,9 +35,14 @@
     {% else %}
     
         <h1>First choose what you wanna work !</h1>
-        <h2>Add a Program</h2>
+        {# <h2>Add a Program</h2> #}
 
         {{ form_start(formAddProgram) }}
+        {{ form_row(formAddProgram.title)}}
+        <div class="flex">
+            {{ form_row(formAddProgram.muscleGroupTargeted) }}
+            {{ form_row(formAddProgram.secondaryMuscleGroupTargeted) }}
+        </div>
         {{ form_end(formAddProgram) }}
     {% endif %}
 

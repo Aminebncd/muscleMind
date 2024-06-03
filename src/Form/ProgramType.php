@@ -22,21 +22,40 @@ class ProgramType extends AbstractType
     {
         $builder
         
-            ->add('title', TextType::class)
+            ->add('title', TextType::class, [
+                'attr' => ['class' => 'bg-primary/50 w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'],
+                // 'label' => false,
+                'row_attr' => ['class' => 'w-full'],
+            ])
 
             ->add('muscleGroupTargeted', EntityType::class, [
                 'class' => MuscleGroup::class,
                 'choice_label' => 'muscleGroup',
-                // 'multiple' => true,
+                'attr' => [
+                    'class' => 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'placeholder' => 'Muscle group targeted'
+                ],
+                'choice_attr' => function($choice, $key, $value) {
+                    // Ajoutez des classes personnalisées aux options ici
+                    return ['class' => 'text-black'];
+                },
+               
             ])
             ->add('secondaryMuscleGroupTargeted', EntityType::class, [
                 'class' => MuscleGroup::class,
                 'choice_label' => 'muscleGroup',
-                // 'multiple' => true,
+                'attr' => [
+                    'class' => 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'placeholder' => 'Muscle group targeted'
+                ],   
+                'choice_attr' => function($choice, $key, $value) {
+                    // Ajoutez des classes personnalisées aux options ici
+                    return ['class' => 'bg-gray-100 hover:bg-gray-200'];
+                },            
             ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary'
+                    'class' => ''
                 ]
             ]);
         ;
