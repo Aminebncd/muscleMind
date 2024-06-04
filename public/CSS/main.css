@@ -60,3 +60,16 @@ main {
 a:hover path {
     fill: red;
 }
+
+.stroke {
+    text-shadow:
+        1px 0 var(--black),
+        -1px 0 var(--black),
+        0 1px var(--black),
+        0 -1px var(--black),
+        1px 1px var(--black),
+        -1px -1px var(--black),
+        1px -1px var(--black),
+        -1px 1px var(--black);
+}
+        

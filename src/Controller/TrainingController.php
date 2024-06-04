@@ -145,82 +145,82 @@ class TrainingController extends AbstractController
         
 
 
-    //         // Check if the user is adding too much volume on the same exercise
-    //         // i can do this by counting the number of times an exercise is added
-    //         // and checking if it exceeds a certain limit
-    //         // usually, 5 sets of 4 to 12 reps is a good start for beginners who want to build strength
-    //         // and that's counting the first 2-3 sets as warm-up sets
-    //         // so let's say 5 sets of x reps per exercise is the limit
-    //         // if the user wants to add more, he still can but i'll show a warning message
-    //         // and let him know that it's not recommended to do that much volume on the same exercise
+            // // Check if the user is adding too much volume on the same exercise
+            // // i can do this by counting the number of times an exercise is added
+            // // and checking if it exceeds a certain limit
+            // // usually, 5 sets of 4 to 12 reps is a good start for beginners who want to build strength
+            // // and that's counting the first 2-3 sets as warm-up sets
+            // // so let's say 5 sets of x reps per exercise is the limit
+            // // if the user wants to add more, he still can but i'll show a warning message
+            // // and let him know that it's not recommended to do that much volume on the same exercise
 
-    //         $workoutPlans = $program->getWorkoutPlans();
+            // $workoutPlans = $program->getWorkoutPlans();
             
-    //         $exerciseOccurrences = [];
-    //         foreach ($workoutPlans as $workoutPlan) {
-    //             $exercise = $workoutPlan->getExercice();
-    //             $exerciseId = $exercise->getId();
-    //             if (!isset($exerciseOccurrences[$exerciseId])) {
-    //                 $exerciseOccurrences[$exerciseId] = 1;
-    //             } else {
-    //                 $exerciseOccurrences[$exerciseId]++;
-    //             }
-    //         }
+            // $exerciseOccurrences = [];
+            // foreach ($workoutPlans as $workoutPlan) {
+            //     $exercise = $workoutPlan->getExercice();
+            //     $exerciseId = $exercise->getId();
+            //     if (!isset($exerciseOccurrences[$exerciseId])) {
+            //         $exerciseOccurrences[$exerciseId] = 1;
+            //     } else {
+            //         $exerciseOccurrences[$exerciseId]++;
+            //     }
+            // }
 
-    //         $maxOccurrencesPerExercise = 5;
+            // $maxOccurrencesPerExercise = 5;
 
-    //         // Check if the maximum occurrences per exercise limit is exceeded
-    //         if (isset($exerciseOccurrences[$newExerciseId]) && $exerciseOccurrences[$newExerciseId] >= $maxOccurrencesPerExercise) {
-    //             // You can handle the case where the limit is exceeded here
-    //             // For now, let's just set a flag to indicate that the limit is exceeded
-    //             $maxOccurrencesPerExerciseExceeded = true;
-    //         } else {
-    //             $maxOccurrencesPerExerciseExceeded = false;
-    //         }
+            // // Check if the maximum occurrences per exercise limit is exceeded
+            // if (isset($exerciseOccurrences[$newExerciseId]) && $exerciseOccurrences[$newExerciseId] >= $maxOccurrencesPerExercise) {
+            //     // You can handle the case where the limit is exceeded here
+            //     // For now, let's just set a flag to indicate that the limit is exceeded
+            //     $maxOccurrencesPerExerciseExceeded = true;
+            // } else {
+            //     $maxOccurrencesPerExerciseExceeded = false;
+            // }
 
-    //         // depending on the situation, we can display a message to the user
-    //         // if he's adding too much volume on the same exercise
-    //         // something like "You've added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise."
-    //         if ($maxOccurrencesPerExerciseExceeded) {
-    //             $this->addFlash('warning', 'You\'ve added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise.');
-    //         }
+            // // depending on the situation, we can display a message to the user
+            // // if he's adding too much volume on the same exercise
+            // // something like "You've added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise."
+            // if ($maxOccurrencesPerExerciseExceeded) {
+            //     $this->addFlash('warning', 'You\'ve added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise.');
+            // }
 
 
 
 
             
-    //         // along with the number of sets per exercice
-    //         // we can also check the total volume put on the muscle groups
-    //         // and let the user know if he's overdoing it
-    //         // the latest research shows that 10 to 20 sets per muscle group per week is a good start
-    //         // given that the user trains to failure or close to it
-    //         // i won't monitor how many times a week the user programs his workouts
-    //         // but i can still give him a warning message if he's overdoing it
+            // // along with the number of sets per exercice
+            // // we can also check the total volume put on the muscle groups
+            // // and let the user know if he's overdoing it
+            // // the latest research shows that 10 to 20 sets per muscle group per week is a good start
+            // // given that the user trains to failure or close to it
+            // // i won't monitor how many times a week the user programs his workouts
+            // // but i can still give him a warning message if he's overdoing it
 
-    //         $muscleGroupOccurrences = [];
+            // $muscleGroupOccurrences = [];
 
-    //         foreach ($workoutPlans as $workoutPlan) {
+            // foreach ($workoutPlans as $workoutPlan) {
 
-    //             $muscleGroup = $workoutPlan->getExercice()
-    //                                         ->getTarget()
-    //                                         ->getMuscleGroup()
-    //                                         ->getName();
+            //     $muscleGroup = $workoutPlan->getExercice()
+            //                                 ->getTarget()
+            //                                 ->getMuscleGroup()
+            //                                 ->getName();
 
-    //             if (!isset($muscleGroupOccurrences[$muscleGroup])) {
-    //                 $muscleGroupOccurrences[$muscleGroup] = 1;
-    //             } else {
-    //                 $muscleGroupOccurrences[$muscleGroup]++;
-    //             }
-    //         }
+            //     if (!isset($muscleGroupOccurrences[$muscleGroup])) {
+            //         $muscleGroupOccurrences[$muscleGroup] = 1;
+            //     } else {
+            //         $muscleGroupOccurrences[$muscleGroup]++;
+            //     }
+            // }
             
-    //         $maxOccurrencesPerMuscleGroup = 15;
+            // $maxOccurrencesPerMuscleGroup = 15;
 
-    //         foreach ($muscleGroupOccurrences as $muscleGroup => $occurrences) {
-    //             if ($occurrences >= $maxOccurrencesPerMuscleGroup) {
-    //                 $this->addFlash('warning', 'You\'ve added a bit too much volume on the ' . $muscleGroup . ' muscle group. We recommend 10 to 20 sets per muscle group per week.');
-    //                 break; 
-    //             }
-    //         }
+            // foreach ($muscleGroupOccurrences as $muscleGroup => $occurrences) {
+            //     if ($occurrences >= $maxOccurrencesPerMuscleGroup) {
+            //         $this->addFlash('warning', 'You\'ve added a bit too much volume on the ' . $muscleGroup . ' muscle group. We recommend 10 to 20 sets per muscle group per week.');
+            //         break; 
+            //     }
+            // }
 
 
 
@@ -385,31 +385,93 @@ class TrainingController extends AbstractController
 
 
 
+    private function checkExerciseOccurrences($program, $newExerciseId) {
+        $workoutPlans = $program->getWorkoutPlans();
+        $exerciseOccurrences = [];
+        foreach ($workoutPlans as $workoutPlan) {
+            $exercise = $workoutPlan->getExercice();
+            $exerciseId = $exercise->getId();
+            if (!isset($exerciseOccurrences[$exerciseId])) {
+                $exerciseOccurrences[$exerciseId] = 1;
+            } else {
+                $exerciseOccurrences[$exerciseId]++;
+            }
+        }
+    
+        $maxOccurrencesPerExercise = 5;
+    
+        if (isset($exerciseOccurrences[$newExerciseId]) && $exerciseOccurrences[$newExerciseId] >= $maxOccurrencesPerExercise) {
+            $this->addFlash('warning', 'You\'ve added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise.');
+            return true;
+        }
+    
+        return false;
+    }
+    
+    private function checkMuscleGroupOccurrences($program) {
+        $workoutPlans = $program->getWorkoutPlans();
+        $muscleGroupOccurrences = [];
+        foreach ($workoutPlans as $workoutPlan) {
+            $muscleGroup = $workoutPlan->getExercice()
+                                        ->getTarget()
+                                        ->getMuscleGroup()
+                                        ->getName();
+    
+            if (!isset($muscleGroupOccurrences[$muscleGroup])) {
+                $muscleGroupOccurrences[$muscleGroup] = 1;
+            } else {
+                $muscleGroupOccurrences[$muscleGroup]++;
+            }
+        }
+    
+        $maxOccurrencesPerMuscleGroup = 10;
+    
+        foreach ($muscleGroupOccurrences as $muscleGroup => $occurrences) {
+            if ($occurrences >= $maxOccurrencesPerMuscleGroup) {
+                $this->addFlash('warning', 'You\'ve added a bit too much volume on the ' . $muscleGroup . ' muscle group. We recommend 10 to 20 sets per muscle group per week.');
+                return true;
+            }
+        }
+    
+        return false;
+    }
+
+
+
     // here we handle the workout form
     private function handleWorkoutForm(Request $request, 
-                                        ArrayCollection $exercisesForPrimaryMuscleGroup, 
-                                        ArrayCollection $exercisesForSecondaryMuscleGroup, 
-                                        Program $program, 
-                                        EntityManagerInterface $em) {
+                                    ArrayCollection $exercisesForPrimaryMuscleGroup, 
+                                    ArrayCollection $exercisesForSecondaryMuscleGroup, 
+                                    Program $program, 
+                                    EntityManagerInterface $em) {
 
-        // we create the workout form with the pre established options
-        $formAddWorkout = $this->createForm(WorkoutType::class, new WorkoutPlan(), [
-            'primaryMuscleGroupExercises' => $exercisesForPrimaryMuscleGroup,
-            'secondaryMuscleGroupExercises' => $exercisesForSecondaryMuscleGroup,
-        ]);
-        $formAddWorkout->handleRequest($request);
+    // we create the workout form with the pre established options
+    $formAddWorkout = $this->createForm(WorkoutType::class, new WorkoutPlan(), [
+        'primaryMuscleGroupExercises' => $exercisesForPrimaryMuscleGroup,
+        'secondaryMuscleGroupExercises' => $exercisesForSecondaryMuscleGroup,
+    ]);
+    $formAddWorkout->handleRequest($request);
 
-        // after adding a workoutPlan we stay in edit mode to add more
-        if ($formAddWorkout->isSubmitted() && $formAddWorkout->isValid()) {
-            $workoutPlan = $formAddWorkout->getData();
-            $workoutPlan->setProgram($program);
-            $em->persist($workoutPlan);
-            $em->flush();
+    // after adding a workoutPlan we stay in edit mode to add more
+    if ($formAddWorkout->isSubmitted() && $formAddWorkout->isValid()) {
+        $workoutPlan = $formAddWorkout->getData();
+        $workoutPlan->setProgram($program);
+
+        // Get the new exercise id
+        $newExerciseId = $workoutPlan->getExercice()->getId();
+
+        // Check if the exercise or muscle group occurrences exceed the limit
+        if ($this->checkExerciseOccurrences($program, $newExerciseId) || $this->checkMuscleGroupOccurrences($program, $newExerciseId)) {
             return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
         }
 
-        return $formAddWorkout;
+        $em->persist($workoutPlan);
+        $em->flush();
+        return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
     }
+
+    return $formAddWorkout;
+}
 
 
 // the last function of my former createEditProgram function
