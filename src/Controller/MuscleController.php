@@ -20,13 +20,19 @@ class MuscleController extends AbstractController
 
     // renders the muscle page
     #[Route('/muscle', name: 'app_muscle')]
-    public function index(): Response
+    public function index(MuscleGroupRepository $mgr): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
 
+        $muscleGroups = $mgr->findAll();
+
+
+
+
         return $this->render('muscle/index.html.twig', [
+            'muscleGroups' => $muscleGroups,
             'controller_name' => 'MuscleController',
         ]);
     }
