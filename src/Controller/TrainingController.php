@@ -459,14 +459,14 @@ class TrainingController extends AbstractController
 
         // Get the new exercise id
         $newExerciseId = $workoutPlan->getExercice()->getId();
+        
+                $em->persist($workoutPlan);
+                $em->flush();
 
         // Check if the exercise or muscle group occurrences exceed the limit
         if ($this->checkExerciseOccurrences($program, $newExerciseId) || $this->checkMuscleGroupOccurrences($program, $newExerciseId)) {
             return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
         }
-
-        $em->persist($workoutPlan);
-        $em->flush();
         return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
     }
 

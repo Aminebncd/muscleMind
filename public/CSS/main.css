@@ -73,3 +73,27 @@ a:hover path {
         -1px 1px var(--black);
 }
         
+/* .stroke-quaternary {
+    text-shadow:
+        1px 0 var(--quaternary-color),
+        -1px 0 var(--quaternary-color),
+        0 1px var(--quaternary-color),
+        0 -1px var(--quaternary-color),
+        1px 1px var(--quaternary-color),
+        -1px -1px var(--quaternary-color),
+        1px -1px var(--quaternary-color),
+        -1px 1px var(--quaternary-color);
+}
+        
+.stroke-quinary {
+    text-shadow:
+        1px 0 var(--quinary-color),
+        -1px 0 var(--quinary-color),
+        0 1px var(--quinary-color),
+        0 -1px var(--quinary-color),
+        1px 1px var(--quinary-color),
+        -1px -1px var(--quinary-color),
+        1px -1px var(--quinary-color),
+        -1px 1px var(--quinary-color);
+} */
+        
