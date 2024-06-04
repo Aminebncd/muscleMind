@@ -5,41 +5,58 @@
 {% block body %}
 
     {% if edit %}
-        {# {% for exo in exercice %}
-        {{exo.exerciceName}} <br>
-        {% endfor %} #}
-        <h1>Now compose your own workout session !</h1>
+        <div class="bg-primary/60 p-8 rounded-lg w-5/6 mt-10">
+            <h1 class="text-center font-bold text-2xl px-2 py-4 mb-14">Now compose your own workout session!</h1>
 
-        {{program}}<br><br>
-        {{program.muscleGroupTargeted}}<br>
-        {{program.secondaryMuscleGroupTargeted}}<br><br>
+            <div class="text-center mb-4">
+                <p class="text-white text-3xl mb-8">{{ program }}</p>
 
-
-        <br><br>
-        {% for workout in workoutPlans %}
-            {{workout}} <a href="{{ path('removeWP_Program', {'program' : program.id, 'workoutPlan' : workout.id}) }}">delete</a> <br>
-        {% endfor %}
-
-        {% set lastWarningMessage = app.flashes('warning') | last %}
-
-        {% if lastWarningMessage is not empty %}
-            <div class="alert alert-warning">
-                {{ lastWarningMessage }}
+                <div class="flex justify-around items-center overflow-hidden max-sm:flex-col">
+                    <a class="relative h-auto w-1/3 object-cover hover:ease-out hover:scale-105 duration-100 max-sm:w-full max-sm:h-1/6 group" href="{{ path('app_muscleGroup_details', {'id': program.muscleGroupTargeted.id })}}">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-lg hover:opacity-80 transition-opacity duration-300"></div>
+                        <span class="text-quinary font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:block ">{{program.muscleGroupTargeted}}</span>
+                        <img class="rounded-lg max-sm:rounded-none" src="{{ asset('img/muscleGroups/' ~ program.muscleGroupTargeted.muscleGroupImage ) }}" alt="{{program.muscleGroupTargeted.muscleGroupImage()}}">
+                    </a>
+            
+                    <a class="relative h-auto w-1/3 object-cover hover:ease-out hover:scale-105 duration-100 max-sm:w-full max-sm:h-1/6 group" href="{{ path('app_muscleGroup_details', {'id': program.secondaryMuscleGroupTargeted.id })}}">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-lg hover:opacity-80 transition-opacity duration-300"></div>
+                        <span class="text-quaternary font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:block">{{program.secondaryMuscleGroupTargeted}}</span>
+                        <img class="rounded-lg max-sm:rounded-" src="{{ asset('img/muscleGroups/' ~ program.secondaryMuscleGroupTargeted.muscleGroupImage ) }}" alt="{{program.secondaryMuscleGroupTargeted.muscleGroupImage()}}">
+                    </a>
+                </div>
+                {# <p class="text-white">{{ program.muscleGroupTargeted }} - {{ program.secondaryMuscleGroupTargeted }}</p> #}
             </div>
-        {% endif %}
-    
-        <h2>Plan your workout !</h2>
 
-        {{ form_start(formAddWorkout) }}
-        {{ form_end(formAddWorkout) }}
+            <div class="my-8">
+                {% for workout in workoutPlans %}
+                    <p class="text-white">{{ workout }} 
+                        <a href="{{ path('removeWP_Program', {'program': program.id, 'workoutPlan': workout.id}) }}" class="text-red-500 hover:underline">delete</a>
+                    </p>
+                {% endfor %}
+            </div>
+
+            {% set lastWarningMessage = app.flashes('warning') | last %}
+
+            {% if lastWarningMessage is not empty %}
+                <div class="alert alert-warning bg-yellow-500 text-white p-4 rounded-lg mb-8">
+                    {{ lastWarningMessage }}
+                </div>
+            {% endif %}
+
+            <h2 class="text-center font-bold text-xl mb-6">Plan your workout!</h2>
+
+            {{ form_start(formAddWorkout) }}
+            {{ form_end(formAddWorkout) }}
+        </div>
 
     {% else %}
-        <div class="bg-primary p-8 rounded-lg w-5/6">
+
+        <div class="bg-primary/60 p-8 rounded-lg w-5/6 mt-10">
             <h1 class="text-center font-bold text-2xl px-2 py-4 mb-14">First choose what you wanna work !</h1>
 
             {{ form_start(formAddProgram) }}
             {{ form_row(formAddProgram.title)}}
-            <div class="flex flex-row">
+            <div class="flex flex-row justify-between">
                 {{ form_row(formAddProgram.muscleGroupTargeted) }}
                 {{ form_row(formAddProgram.secondaryMuscleGroupTargeted) }}
             </div>
