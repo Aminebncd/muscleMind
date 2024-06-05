@@ -21,33 +21,34 @@
     font-family: "Montserrat", sans-serif;
     position: relative;
     overflow: hidden; 
-}
+} */
 
 body::before {
     content: "";
-    position: absolute;
+    position: fixed; /* Utiliser fixed pour s'assurer que le fond couvre tout l'écran */
     top: 0;
     left: 0;
     right: 0;
-    bottom: -100px;
+    bottom: 0;
     background: url(/img/pattern.svg) repeat;
     filter: blur(2px);
     z-index: -1; 
-} */
+}
 
 body {
+    min-height: 100vh; /* Assure-toi que le body couvre au moins 100% de la hauteur de la fenêtre */
     background-color: var(--secondary-color);
     color: aliceblue;
     font-family: "Montserrat", sans-serif;
+    position: relative; /* Ajout de cette ligne pour permettre à ::before de fonctionner correctement */
+    margin: 0; /* Ajout de cette ligne pour supprimer les marges par défaut du body */
 }
 
-
-
 main {
-    width: fit-content;
+    /* position: relative; */
+    /* width: fit-content; */
     margin-left: auto;
     margin-right: auto;
-    /* padding: 1rem; */
     display: flex;
     flex-direction: column;
     align-items: center;
