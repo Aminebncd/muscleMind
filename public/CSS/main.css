@@ -14,19 +14,40 @@
 }
 
 
-body {
-    /* background: url(/misc/pattern.png); */
 
+
+/* body {
+    color: aliceblue;
+    font-family: "Montserrat", sans-serif;
+    position: relative;
+    overflow: hidden; 
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: -100px;
+    background: url(/img/pattern.svg) repeat;
+    filter: blur(2px);
+    z-index: -1; 
+} */
+
+body {
     background-color: var(--secondary-color);
     color: aliceblue;
     font-family: "Montserrat", sans-serif;
 }
 
+
+
 main {
-    /* margin-top: 10dvh;
-    margin-bottom: 10dvh; */
-    /* height: 80dvh; */
-    padding: 1rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    /* padding: 1rem; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,9 +78,9 @@ main {
     text-align: center;
 }
 
-a:hover path {
+/* a:hover path {
     fill: red;
-}
+} */
 
 .stroke {
     text-shadow:
