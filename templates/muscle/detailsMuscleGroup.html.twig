@@ -34,13 +34,13 @@
         </div>
     </div>
 
-    <div class=" mx-auto flex flex-col justify-end w-full mt-24">
-        <div class="flex w-full">
+    <div class=" mx-auto flex flex-col justify-center w-full mt-24">
+        <div class="flex w-full max-md:flex-col max-md:items-center">
             {% if muscleGroup.muscleGroupSvgBack %}
-            <img class="rounded-bl-lg max-sm:rounded-none w-1/2 mb-8" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgFront ) }}" alt="{{ muscleGroup.muscleGroupSvgFront()}}">
-            <img class="rounded-bl-lg max-sm:rounded-none w-1/2   mb-8" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgBack ) }}" alt="{{ muscleGroup.muscleGroupSvgBack()}}"> 
+            <img class="rounded-bl-lg max-sm:rounded-none w-1/2 mb-8 max-md:w-full" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgFront ) }}" alt="{{ muscleGroup.muscleGroupSvgFront()}}">
+            <img class="rounded-bl-lg max-sm:rounded-none w-1/2 mb-8 max-md:w-full" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgBack ) }}" alt="{{ muscleGroup.muscleGroupSvgBack()}}"> 
             {% else %}
-            <img class="rounded-bl-lg max-sm:rounded-none w-full mb-8" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgFront ) }}" alt="{{ muscleGroup.muscleGroupSvgFront()}}">
+            <img class="rounded-bl-lg max-sm:rounded-none w-full mb-8 max-md:w-full" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgFront ) }}" alt="{{ muscleGroup.muscleGroupSvgFront()}}">
             {% endif %}
         </div>
         <a href="{{ path('app_muscle') }}" class="mx-auto text-white hover:underline"><i class="fa-solid fa-arrow-left"></i>  Back to index</a>
