@@ -5,6 +5,7 @@
 {% block body %}
 
 <div class="flex w-full">
+
     <div class="container mx-auto  mt-24 px-4 ">
         <div class="bg-primary/60 p-1 rounded-lg w-full max-w-screen-md flex flex-col mx-auto">
         <h1 class="text-4xl font-bold mb-8 p-4 text-center">Details of the {{ muscleGroup}} muscle group</h1>
@@ -31,8 +32,8 @@
                 </ul>
             </div>
         </div>
-        
     </div>
+
     <div class=" mx-auto flex flex-col justify-end w-full mt-24">
         <div class="flex w-full">
             {% if muscleGroup.muscleGroupSvgBack %}
@@ -44,6 +45,7 @@
         </div>
         <a href="{{ path('app_muscle') }}" class="mx-auto text-white hover:underline"><i class="fa-solid fa-arrow-left"></i>  Back to index</a>
     </div>
+    
 </div>
 {% endblock %}
 
