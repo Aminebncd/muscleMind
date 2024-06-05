@@ -3,30 +3,42 @@
 {% block title %}Hello TrainingController!{% endblock %}
 
 {% block body %}
-<div class="container mx-auto mt-24 px-4">
-    <h1 class="text-4xl font-bold mb-4">Details of the muscle group</h1>
-    <h2 class="text-2xl mb-2">{{ muscleGroup}}</h2>
 
-    <p class="font-semibold text-lg mb-2">Muscles</p>
-
-    <ul class="list-disc pl-5 mb-4">
-        {% for muscle in muscles %}
-            <li class="mb-1">
-                <a href="{{path ('app_muscle_details', {'id' : muscle.id } )}}" class="text-blue-500 hover:underline">{{ muscle }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-
-    <p class="font-semibold text-lg mb-2">Exercises:</p>
-    <ul class="list-disc pl-5 mb-4">
-        {% for exercice in exercices %}
-            <li class="mb-1">
-                <a href="{{path ('app_exercice_details', {'id': exercice.id} )}}" class="text-blue-500 hover:underline">{{ exercice}}</a>
-            </li>
-        {% endfor %}
-    </ul>
+<div class="flex w-full">
+    <div class="container mx-auto  mt-24 px-4">
+        <h1 class="text-4xl font-bold mb-24">Details of the {{ muscleGroup}} muscle group</h1>
     
-    <a href="{{ path('app_muscle') }}" class="text-white hover:underline"><i class="fa-solid fa-arrow-left"></i>  Back to index</a>
+        <p class="font-semibold text-lg mb-2">Muscles composing it</p>
+    
+        <ul class="list-disc pl-5 mb-4">
+            {% for muscle in muscles %}
+                <li class="mb-1">
+                    <a href="{{path ('app_muscle_details', {'id' : muscle.id } )}}" class="text-blue-500 hover:underline">{{ muscle }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    
+        <p class="font-semibold text-lg mb-2">Exercises :</p>
+        <ul class="list-disc pl-5 mb-4">
+            {% for exercice in exercices %}
+                <li class="mb-1">
+                    <a href="{{path ('app_exercice_details', {'id': exercice.id} )}}" class="text-blue-500 hover:underline">{{ exercice}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        
+    </div>
+    <div class=" mx-auto flex flex-col justify-center w-full items-end mt-24">
+        <div class="flex w-full">
+            {% if muscleGroup.muscleGroupSvgBack %}
+            <img class="rounded-bl-lg max-sm:rounded-none w-1/2 mb-8" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgFront ) }}" alt="{{ muscleGroup.muscleGroupSvgFront()}}">
+            <img class="rounded-bl-lg max-sm:rounded-none w-1/2   mb-8" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgBack ) }}" alt="{{ muscleGroup.muscleGroupSvgBack()}}"> 
+            {% else %}
+            <img class="rounded-bl-lg max-sm:rounded-none w-full mb-8" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgFront ) }}" alt="{{ muscleGroup.muscleGroupSvgFront()}}">
+            {% endif %}
+        </div>
+        <a href="{{ path('app_muscle') }}" class="mx-auto text-white hover:underline"><i class="fa-solid fa-arrow-left"></i>  Back to index</a>
+    </div>
 </div>
 {% endblock %}
 

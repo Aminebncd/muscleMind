@@ -24,6 +24,15 @@ class MuscleGroup
     #[ORM\OneToMany(targetEntity: Muscle::class, mappedBy: 'muscleGroup')]
     private Collection $muscles;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $muscleGroupImage = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $muscleGroupSvgFront = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $muscleGroupSvgBack = null;
+
     public function __construct()
     {
         // $this->programs = new ArrayCollection();
@@ -112,90 +121,122 @@ class MuscleGroup
         return $this;
     }
 
-    public function muscleGroupImage()
-    {
-        $muscleGroup = $this->muscleGroup;
-        // dd($muscleGroup);
+    // public function muscleGroupImage()
+    // {
+    //     $muscleGroup = $this->muscleGroup;
+    //     // dd($muscleGroup);
 
-        switch ($muscleGroup) {
-            case 'CHEST':
-                $muscleGroupImage = 'chest.webp';
-                break;
-            case 'BACK':
-                $muscleGroupImage = 'back.webp';
-                break;
-            case 'SHOULDERS':
-                $muscleGroupImage = 'shoulders.webp';
-                break;
-            case 'BICEPS':
-                $muscleGroupImage = 'biceps.webp';
-                break;
-            case 'TRICEPS':
-                $muscleGroupImage = 'triceps.webp';
-                break;
-            case 'FOREARMS':
-                $muscleGroupImage = 'forearms.webp';
-                break;
-            case 'ABS':
-                $muscleGroupImage = 'abs.webp';
-                break; 
-            case 'LEGS':
-                $muscleGroupImage = 'legs.webp';
-                break;
+    //     switch ($muscleGroup) {
+    //         case 'CHEST':
+    //             $muscleGroupImage = 'chest.webp';
+    //             break;
+    //         case 'BACK':
+    //             $muscleGroupImage = 'back.webp';
+    //             break;
+    //         case 'SHOULDERS':
+    //             $muscleGroupImage = 'shoulders.webp';
+    //             break;
+    //         case 'BICEPS':
+    //             $muscleGroupImage = 'biceps.webp';
+    //             break;
+    //         case 'TRICEPS':
+    //             $muscleGroupImage = 'triceps.webp';
+    //             break;
+    //         case 'FOREARMS':
+    //             $muscleGroupImage = 'forearms.webp';
+    //             break;
+    //         case 'ABS':
+    //             $muscleGroupImage = 'abs.webp';
+    //             break; 
+    //         case 'LEGS':
+    //             $muscleGroupImage = 'legs.webp';
+    //             break;
         
-            default:
-                return 'TEST';
-        }
+    //         default:
+    //             return 'TEST';
+    //     }
+        
+    //     return $muscleGroupImage;
+    // }
 
-        // return "<img 
-        //     src='{{ asset('img/muscleGroups/$muscleGroupImage') }}' 
-        //     alt='$muscleGroup'
-        // >";
+    // public function muscleGroupSvg()
+    // {
+    //     $muscleGroup = $this->muscleGroup;
+    //     // dd($muscleGroup);
 
-        // <img src="{{ asset('img/muscleGroups/' ~ $muscleGroupImage ) }}" alt="{{$muscleGroupImage()}}">
+    //     switch ($muscleGroup) {
+    //         case 'CHEST':
+    //             $muscleGroupSvg = 'chest.svg';
+    //             break;
+    //         case 'BACK':
+    //             $muscleGroupSvg = 'back.svg';
+    //             break;
+    //         case 'SHOULDERS':
+    //             $muscleGroupSvg = 'shoulders.svg';
+    //             break;
+    //         case 'BICEPS':
+    //             $muscleGroupSvg = 'biceps.svg';
+    //             break;
+    //         case 'TRICEPS':
+    //             $muscleGroupSvg = 'triceps.svg';
+    //             break;
+    //         case 'FOREARMS':
+    //             $muscleGroupSvg = 'forearms.svg';
+    //             break;
+    //         case 'ABS':
+    //             $muscleGroupSvg = 'abs.svg';
+    //             break; 
+    //         case 'LEGS':
+    //             $muscleGroupSvg = 'legs.svg';
+    //             break;
+        
+    //         default:
+    //             return 'TEST';
+    //     }
 
-        return $muscleGroupImage;
+    //     return $muscleGroupSvg;
+    // }
+
+    public function getMuscleGroupImage(): ?string
+    {
+        return $this->muscleGroupImage;
     }
 
-    public function muscleGroupSvg()
+    public function setMuscleGroupImage(?string $muscleGroupImage): static
     {
-        $muscleGroup = $this->muscleGroup;
+        $this->muscleGroupImage = $muscleGroupImage;
 
-        switch ($muscleGroup) {
-            case 'CHEST':
-                $muscleGroupSvg = 'chest.svg';
-                break;
-            case 'BACK':
-                $muscleGroupSvg = 'back.svg';
-                break;
-            case 'SHOULDERS':
-                $muscleGroupSvg = 'shoulders.svg';
-                break;
-            case 'BICEPS':
-                $muscleGroupSvg = 'biceps.svg';
-                break;
-            case 'TRICEPS':
-                $muscleGroupSvg = 'triceps.svg';
-                break;
-            case 'FOREARMS':
-                $muscleGroupSvg = 'forearms.svg';
-                break;
-            case 'ABS':
-                $muscleGroupSvg = 'abs.svg';
-                break; 
-            case 'LEGS':
-                $muscleGroupSvg = 'legs.svg';
-                break;
-        
-            default:
-                return 'TEST';
-        }
-
-        return $muscleGroupSvg;
+        return $this;
     }
 
+    public function getMuscleGroupSvgFront(): ?string
+    {
+        return $this->muscleGroupSvgFront;
+    }
+
+    public function setMuscleGroupSvgFront(?string $muscleGroupSvgFront): static
+    {
+        $this->muscleGroupSvgFront = $muscleGroupSvgFront;
+
+        return $this;
+    }
+
+    public function getMuscleGroupSvgBack(): ?string
+    {
+        return $this->muscleGroupSvgBack;
+    }
+
+    public function setMuscleGroupSvgBack(?string $muscleGroupSvgBack): static
+    {
+        $this->muscleGroupSvgBack = $muscleGroupSvgBack;
+
+        return $this;
+    }
+    
     public function __tostring()
     {
         return $this->muscleGroup;
     }
+
+    
 }
