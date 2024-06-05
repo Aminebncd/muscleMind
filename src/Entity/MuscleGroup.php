@@ -155,8 +155,43 @@ class MuscleGroup
         // <img src="{{ asset('img/muscleGroups/' ~ $muscleGroupImage ) }}" alt="{{$muscleGroupImage()}}">
 
         return $muscleGroupImage;
+    }
 
+    public function muscleGroupSvg()
+    {
+        $muscleGroup = $this->muscleGroup;
 
+        switch ($muscleGroup) {
+            case 'CHEST':
+                $muscleGroupSvg = 'chest.svg';
+                break;
+            case 'BACK':
+                $muscleGroupSvg = 'back.svg';
+                break;
+            case 'SHOULDERS':
+                $muscleGroupSvg = 'shoulders.svg';
+                break;
+            case 'BICEPS':
+                $muscleGroupSvg = 'biceps.svg';
+                break;
+            case 'TRICEPS':
+                $muscleGroupSvg = 'triceps.svg';
+                break;
+            case 'FOREARMS':
+                $muscleGroupSvg = 'forearms.svg';
+                break;
+            case 'ABS':
+                $muscleGroupSvg = 'abs.svg';
+                break; 
+            case 'LEGS':
+                $muscleGroupSvg = 'legs.svg';
+                break;
+        
+            default:
+                return 'TEST';
+        }
+
+        return $muscleGroupSvg;
     }
 
     public function __tostring()

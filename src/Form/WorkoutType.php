@@ -47,7 +47,7 @@ class WorkoutType extends AbstractType
             'choices' => $allExercises,
             'label' => 'Exercice',
             'attr' => [
-                'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8 mt-1',
                 'placeholder' => 'Exercice'
             ],
             'row_attr' => ['class' => 'flex flex-col w-full'],
