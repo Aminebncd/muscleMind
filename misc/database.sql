@@ -14,7 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Listage des données de la table musclemind.doctrine_migration_versions : ~8 rows (environ)
+-- Listage des données de la table musclemind.doctrine_migration_versions : ~9 rows (environ)
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20240413214807', '2024-04-13 21:48:11', 510),
 	('DoctrineMigrations\\Version20240413214908', '2024-04-13 21:49:13', 56),
@@ -23,7 +23,9 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 	('DoctrineMigrations\\Version20240428194821', '2024-04-28 19:49:46', 33),
 	('DoctrineMigrations\\Version20240521075309', '2024-05-22 08:45:14', 50),
 	('DoctrineMigrations\\Version20240523082833', '2024-05-24 16:05:06', 57),
-	('DoctrineMigrations\\Version20240524160459', '2024-05-24 16:05:07', 83);
+	('DoctrineMigrations\\Version20240524160459', '2024-05-24 16:05:07', 83),
+	('DoctrineMigrations\\Version20240531070850', '2024-05-31 07:08:54', 1626),
+	('DoctrineMigrations\\Version20240605123700', '2024-06-05 12:37:08', 133);
 
 -- Listage des données de la table musclemind.exercice : ~59 rows (environ)
 INSERT INTO `exercice` (`id`, `target_id`, `secondary_target_id`, `exercice_name`, `exercice_function`) VALUES
@@ -89,7 +91,7 @@ INSERT INTO `exercice` (`id`, `target_id`, `secondary_target_id`, `exercice_name
 
 -- Listage des données de la table musclemind.messenger_messages : ~0 rows (environ)
 
--- Listage des données de la table musclemind.muscle : ~18 rows (environ)
+-- Listage des données de la table musclemind.muscle : ~21 rows (environ)
 INSERT INTO `muscle` (`id`, `muscle_group_id`, `muscle_name`, `muscle_function`) VALUES
 	(1, 1, 'Pectoralis Major', 'Located in the chest area, attached to the sternum, clavicle, and ribs. Primary function is to bring the upper arm across the body, as in pressing movements like chest press and push-ups.'),
 	(2, 1, 'Pectoralis Minor', 'Located beneath the pectoralis major, attached to the ribs. Assists in pulling the shoulder forward and down.'),
@@ -113,38 +115,56 @@ INSERT INTO `muscle` (`id`, `muscle_group_id`, `muscle_name`, `muscle_function`)
 	(20, 8, 'Forearm Flexors', 'retjhrte'),
 	(21, 7, 'calves', 'zrgzrg');
 
--- Listage des données de la table musclemind.muscle_group : ~7 rows (environ)
-INSERT INTO `muscle_group` (`id`, `muscle_group`) VALUES
-	(1, 'CHEST'),
-	(2, 'TRICEPS'),
-	(3, 'BICEPS'),
-	(4, 'SHOULDERS'),
-	(5, 'BACK'),
-	(6, 'ABS'),
-	(7, 'LEGS'),
-	(8, 'FOREARMS');
+-- Listage des données de la table musclemind.muscle_group : ~8 rows (environ)
+INSERT INTO `muscle_group` (`id`, `muscle_group`, `muscle_group_image`, `muscle_group_svg_front`, `muscle_group_svg_back`) VALUES
+	(1, 'CHEST', 'chest.webp', 'chest.svg', NULL),
+	(2, 'TRICEPS', 'triceps.webp', 'triceps.svg', ''),
+	(3, 'BICEPS', 'biceps.webp', 'biceps.svg', ''),
+	(4, 'SHOULDERS', 'shoulders.webp', 'shoulders.svg', 'shoulders_b.svg'),
+	(5, 'BACK', 'back.webp', 'back.svg', 'back_b.svg'),
+	(6, 'ABS', 'abs.webp', 'abs.svg', ''),
+	(7, 'LEGS', 'legs.webp', 'legs.svg', 'legs_b.svg'),
+	(8, 'FOREARMS', 'forearms.webp', 'forearms.svg', 'forearms_b.svg');
 
--- Listage des données de la table musclemind.performance : ~1 rows (environ)
+-- Listage des données de la table musclemind.performance : ~0 rows (environ)
 INSERT INTO `performance` (`id`, `user_performing_id`, `exercice_mesured_id`, `personnal_record`) VALUES
-	(4, 1, 191, '105');
+	(4, 1, 191, '105'),
+	(5, 1, 191, '110');
 
--- Listage des données de la table musclemind.program : ~2 rows (environ)
+-- Listage des données de la table musclemind.program : ~3 rows (environ)
 INSERT INTO `program` (`id`, `creator_id`, `muscle_group_targeted_id`, `secondary_muscle_group_targeted_id`, `title`) VALUES
-	(15, 1, 1, 2, 'seance pec de folie');
+	(15, 1, 1, 2, 'seance pec de folie'),
+	(16, 1, 7, 8, 'jambes avant bras'),
+	(17, 1, 5, 3, 'dos biceps'),
+	(18, 1, 1, 4, 'program test');
+
+-- Listage des données de la table musclemind.reset_password_request : ~0 rows (environ)
 
 -- Listage des données de la table musclemind.ressource : ~0 rows (environ)
 
--- Listage des données de la table musclemind.session : ~9 rows (environ)
-INSERT INTO `session` (`id`, `program_id`, `date_session`, `user_id`) VALUES
-	(226, 15, '2024-05-09 21:22:05', 1),
-	(227, 15, '2024-05-13 21:22:05', 1),
-	(228, 15, '2024-05-16 21:22:05', 1),
-	(229, 15, '2024-05-20 21:22:05', 1),
-	(230, 15, '2024-05-23 21:22:05', 1),
-	(231, 15, '2024-05-27 21:22:05', 1),
-	(232, 15, '2024-05-30 21:22:05', 1),
-	(233, 15, '2024-06-03 21:22:05', 1),
-	(234, 15, '2024-06-06 21:22:05', 1);
+-- Listage des données de la table musclemind.session : ~21 rows (environ)
+INSERT INTO `session` (`id`, `program_id`, `user_id`, `date_session`) VALUES
+	(232, 15, 1, '2024-05-30 21:22:05'),
+	(233, 15, 1, '2024-06-03 21:22:05'),
+	(234, 15, 1, '2024-06-06 21:22:05'),
+	(235, 17, 1, '2024-06-01 14:47:29'),
+	(236, 17, 1, '2024-06-05 14:47:29'),
+	(237, 17, 1, '2024-06-08 14:47:29'),
+	(238, 17, 1, '2024-06-12 14:47:29'),
+	(239, 17, 1, '2024-06-15 14:47:29'),
+	(240, 17, 1, '2024-06-19 14:47:29'),
+	(241, 17, 1, '2024-06-22 14:47:29'),
+	(242, 17, 1, '2024-06-26 14:47:29'),
+	(243, 17, 1, '2024-06-29 14:47:29'),
+	(244, 16, 1, '2024-06-03 14:47:40'),
+	(245, 16, 1, '2024-06-06 14:47:40'),
+	(246, 16, 1, '2024-06-10 14:47:40'),
+	(247, 16, 1, '2024-06-13 14:47:40'),
+	(248, 16, 1, '2024-06-17 14:47:40'),
+	(249, 16, 1, '2024-06-20 14:47:40'),
+	(250, 16, 1, '2024-06-24 14:47:40'),
+	(251, 16, 1, '2024-06-27 14:47:40'),
+	(252, 16, 1, '2024-07-01 14:47:40');
 
 -- Listage des données de la table musclemind.tag : ~3 rows (environ)
 INSERT INTO `tag` (`id`, `label`) VALUES
@@ -159,11 +179,8 @@ INSERT INTO `tracking` (`id`, `user_tracked_id`, `height`, `weight`, `age`, `sex
 	(4, 1, '186', '89', '23', '0', '2024-04-30 20:22:59');
 
 -- Listage des données de la table musclemind.user : ~4 rows (environ)
-INSERT INTO `user` (`id`, `email`, `roles`, `password`, `score`, `username`, `is_verified`) VALUES
-	(1, 'aminebncd_pro@hotmail.com', '[]', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 23660, 'aminebncd', 1),
-	(2, 'user1@gmail.com', '[]', 'abc', 0, 'user1', 0),
-	(3, 'user2@gmail.com', '[]', 'abc', 0, 'user2', 0),
-	(4, 'user3@gmail.com', '[]', 'abc', 0, 'user3', 0);
+INSERT INTO `user` (`id`, `username`, `email`, `roles`, `password`, `score`, `is_verified`) VALUES
+	(1, 'aminebncd', 'aminebncd_pro@hotmail.com', '["ROLE_ADMIN"]', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 11830, 1);
 
 -- Listage des données de la table musclemind.workout_plan : ~15 rows (environ)
 INSERT INTO `workout_plan` (`id`, `exercice_id`, `program_id`, `number_of_repetitions`, `weights_used`) VALUES
