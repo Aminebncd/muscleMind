@@ -63,8 +63,8 @@ class RessourceController extends AbstractController
 
 
     // displays the form to add or edit a ressource
-    #[Route('/ressource/{id}/edit', name: 'app_ressource_edit')]
-    #[Route('/ressource/new', name: 'app_ressource_new')]
+    #[Route('/moderator/{id}/edit', name: 'app_ressource_edit')]
+    #[Route('/moderator/new', name: 'app_ressource_new')]
     public function newEditRessource(Request $request,
                                         EntityManagerInterface $em,
                                         Ressource $ressource = null): Response
@@ -73,7 +73,9 @@ class RessourceController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        if ($ressource->getAuthor() !== $this->getUser() || !in_array('ROLE_MODERATOR', $this->getUser()->getRoles())){
+        if ($ressource->getAuthor() !== $this->getUser() 
+            || !in_array('ROLE_MODERATOR', $this->getUser()->getRoles())){
+        
             return $this->redirectToRoute('app_home');
         }
         // same logic as in my TrainingController

@@ -21,7 +21,7 @@ class Session
     #[ORM\JoinColumn(nullable: false)]
     private ?Program $program = null;
 
-    #[ORM\ManyToOne(inversedBy: 'session')]
+    #[ORM\ManyToOne(inversedBy: 'sessions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 

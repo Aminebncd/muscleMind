@@ -26,7 +26,7 @@ class Tracking
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $sex = null;
 
-    #[ORM\ManyToOne(inversedBy: 'tracking')]
+    #[ORM\ManyToOne(inversedBy: 'trackings')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userTracked = null;
 
