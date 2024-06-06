@@ -81,7 +81,7 @@ INSERT INTO `exercice` (`id`, `target_id`, `secondary_target_id`, `exercice_name
 	(191, 1, 4, 'Bench Press', 'Compound exercise targeting the chest, shoulders, and triceps, performed by pressing a barbell away from the chest while lying on a bench.', 'Stand with a dumbbell in each hand, palms facing your torso. Curl the weights towards your shoulders while keeping your upper arms stationary. Lower the weights back to the starting position.', 'Focus on keeping your upper arms stationary to maximize bicep engagement and avoid using momentum.', 'https://app-media.fitbod.me/v2/29/videos/full_1080p.mp4'),
 	(192, 1, NULL, 'Dumbbell Flyes', 'Isolation exercise targeting the chest, performed by lying on a bench and opening the arms wide, lowering dumbbells to the sides, and then bringing them back up.', NULL, NULL, NULL),
 	(193, 1, 8, 'Incline Bench Press', 'Compound exercise targeting the upper chest, shoulders, and triceps, performed on an inclined bench with a barbell or dumbbells.', NULL, NULL, NULL),
-	(194, 1, 2, 'Chest Dips', 'Compound exercise targeting the lower chest and triceps, performed by lowering and raising the body on parallel bars or dip bars.', NULL, NULL, NULL),
+	(194, 1, 4, 'Chest Dips', 'Compound exercise targeting the lower chest and triceps, performed by lowering and raising the body on parallel bars or dip bars.', NULL, NULL, NULL),
 	(195, 1, NULL, 'Cable Crossover', 'Isolation exercise targeting the chest, performed by crossing cables in front of the body at shoulder height to contract the chest muscles.', NULL, NULL, NULL),
 	(196, 5, 3, 'Tricep Dumbell kickbacks', 'Isolation exercise targeting the triceps, performed by extending the arm behind the body with a dumbbell while bent over.', NULL, NULL, NULL),
 	(197, 5, 7, 'Tricep Rope Pushdowns', 'Isolation exercise targeting the triceps, performed by pushing a rope attachment down towards the thighs with elbows stationary at the sides.', NULL, NULL, NULL),
@@ -126,7 +126,7 @@ INSERT INTO `muscle_group` (`id`, `muscle_group`, `muscle_group_image`, `muscle_
 	(7, 'LEGS', 'legs.webp', 'legs.svg', 'legs_b.svg'),
 	(8, 'FOREARMS', 'forearms.webp', 'forearms.svg', 'forearms_b.svg');
 
--- Listage des données de la table musclemind.performance : ~0 rows (environ)
+-- Listage des données de la table musclemind.performance : ~2 rows (environ)
 INSERT INTO `performance` (`id`, `user_performing_id`, `exercice_mesured_id`, `personnal_record`) VALUES
 	(4, 1, 191, '105'),
 	(5, 1, 191, '110');
@@ -180,7 +180,7 @@ INSERT INTO `tracking` (`id`, `user_tracked_id`, `height`, `weight`, `age`, `sex
 
 -- Listage des données de la table musclemind.user : ~1 rows (environ)
 INSERT INTO `user` (`id`, `username`, `email`, `roles`, `password`, `score`, `is_verified`) VALUES
-	(1, 'aminebncd', 'aminebncd_pro@hotmail.com', '["ROLE_ADMIN"]', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 12630, 1);
+	(1, 'aminebncd', 'aminebncd_pro@hotmail.com', '["ROLE_ADMIN", "ROLE_MODERATOR"]', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 15210, 1);
 
 -- Listage des données de la table musclemind.workout_plan : ~17 rows (environ)
 INSERT INTO `workout_plan` (`id`, `exercice_id`, `program_id`, `number_of_repetitions`, `weights_used`) VALUES
@@ -199,7 +199,12 @@ INSERT INTO `workout_plan` (`id`, `exercice_id`, `program_id`, `number_of_repeti
 	(60, 197, 15, 10, 30),
 	(61, 200, 15, 10, 45),
 	(62, 200, 15, 10, 45),
-	(72, 200, 15, 8, 50);
+	(72, 200, 15, 8, 50),
+	(73, 157, 16, 12, 40),
+	(74, 157, 16, 12, 40),
+	(75, 157, 16, 8, 60),
+	(76, 157, 16, 8, 80),
+	(77, 157, 16, 5, 100);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
