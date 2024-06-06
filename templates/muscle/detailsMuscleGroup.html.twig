@@ -16,7 +16,7 @@
                 <ul class="list-disc pl-5 mb-1">
                     {% for muscle in muscles %}
                         <li class="mb-1">
-                            <a href="{{path ('app_muscle_details', {'id' : muscle.id } )}}" class="text-blue-500 hover:underline">{{ muscle }}</a>
+                            <a href="{{path ('app_muscle_details', {'id' : muscle.id } )}}" class="text-blue-500 hover:font-medium hover:underline">{{ muscle }}</a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -26,7 +26,7 @@
                 <ul class="list-disc pl-5 mb-4">
                     {% for exercice in exercices %}
                         <li class="mb-1">
-                            <a href="{{path ('app_exercice_details', {'id': exercice.id} )}}" class="text-blue-500 hover:underline">{{ exercice}}</a>
+                            <a href="{{path ('app_exercice_details', {'id': exercice.id} )}}" class="text-blue-500 hover:font-medium hover:underline">{{ exercice}}</a>
                         </li>
                     {% endfor %}
                 </ul>

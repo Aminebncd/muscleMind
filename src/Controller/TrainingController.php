@@ -312,7 +312,7 @@ class TrainingController extends AbstractController
 
 // the functions below are used in the createEditProgram function
 // they are separated to make the code more readable and easier to maintain
-// they are not meant to be used outside of the createEditProgram function,, that's why they are private
+// they are not meant to be used outside of the createEditProgram function, that's why they are private
 
     // here we initialize the program while also checking if there is an existing one
     private function initializeProgram($program) {
@@ -424,7 +424,7 @@ class TrainingController extends AbstractController
             }
         }
     
-        $maxOccurrencesPerMuscleGroup = 10;
+        $maxOccurrencesPerMuscleGroup = 15;
     
         foreach ($muscleGroupOccurrences as $muscleGroup => $occurrences) {
             if ($occurrences >= $maxOccurrencesPerMuscleGroup) {
