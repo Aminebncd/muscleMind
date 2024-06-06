@@ -35,6 +35,12 @@ class ChangePasswordFormType extends AbstractType
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
+                        // Uncomment for stricter password rules
+                        // new Regex([
+                        //     'match' => true,
+                        //     'pattern' => '/^(?=.+[$&+,:;=?@#|<>.-^*()%!])(?=.+[0-9])(?=.+[a-z])(?=.+[A-Z]).{12,}$/',
+                        // ]),
+            
                         new PasswordStrength(),
                         new NotCompromisedPassword(),
                     ],

@@ -10,9 +10,9 @@
 
     <p>{{ exercice.exerciceFunction }}</p> <br>
     {% if exercice.isIsolationExercice %}
-    <p>{{ exercice.target }}</p> <br>
+    {# <p>{{ exercice.target }}</p> <br> #}
     
-    <div class="w-full flex">
+    <div class="w-full flex ">
         <svg id="Frontview" 
         class="mx-auto"
         xmlns="http://www.w3.org/2000/svg"
@@ -247,9 +247,9 @@
     
     {% else %}
         {% if exercice.target.muscleGroup == exercice.secondaryTarget.muscleGroup %}
-        <p>{{exercice.target.muscleGroup}}</p> 
+        {# <p>{{exercice.target.muscleGroup}}</p>  #}
         
-    <div class="w-full flex">
+    <div class="w-full flex ">
         <svg id="Frontview" 
         class="mx-auto"
         xmlns="http://www.w3.org/2000/svg"
@@ -482,11 +482,11 @@
         </svg>
     </div>
         {% else %}
-        <p>{{exercice.target.muscleGroup}}</p> 
-        <p>{{exercice.secondaryTarget.muscleGroup}}</p> <br>
+        {# <p>{{exercice.target.muscleGroup}}</p> 
+        <p>{{exercice.secondaryTarget.muscleGroup}}</p> <br> #}
 
-    <div class="w-full flex">
-        <svg id="Frontview" 
+    <div class="w-full flex ">
+        <svg id="Frontview"
         class="mx-auto"
         xmlns="http://www.w3.org/2000/svg"
         width="80%" 
