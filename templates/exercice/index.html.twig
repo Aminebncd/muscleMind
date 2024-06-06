@@ -4,17 +4,43 @@
 
 {% block body %}
 
-    <h1>ExerciceController index</h1>
 
-    <ul>
-        {% for exercice in exercices %}
-            <li> 
-                <a href="{{path ('app_exercice_details', {'id': exercice.id} )}}">{{exercice}}</a> | 
-                <a href="{{path ('app_exercice_edit', {'id': exercice.id} )}}">edit</a> | 
-                <a href="{{path ('app_exercice_delete', {'id': exercice.id})}}">delete</a>
-            </li>
-        {% endfor %}
-    </ul>
+<div class="container bg-primary/60 p-8 rounded-lg w-full max-w-screen-md flex flex-col mx-auto backdrop-blur-md">
+        <h1 class="text-3xl text-center font-bold">Exercice list</h1>
+        <h2 class="text-lg text-center font-medium mt-3">looking for a specific exercice ? Find every one of them here grouped by target muscle !</h2>
+        <ul>
+            {# here i'll separate them into divs to group the ones with the same target muscle #}
+            {% set target = null %}
+            {% for exercice in exercices %}
+                {% if target is not same as(exercice.target) %}
 
-    <a href="{{ path('app_exercice_new') }}">Create new</a>
+                    {% if not loop.first %}
+                        </div> 
+                    {% endif %}
+
+                    <div class="my-8 px-8 py-4 rounded-lg bg-primary/60">
+                    {% set target = exercice.target %}
+                {% endif %}
+
+                <li> 
+                    <a href="{{path ('app_exercice_details', {'id': exercice.id} )}}">{{exercice}}</a> 
+                    {% if is_granted('ROLE_ADMIN') %}   
+                       | <a class="text-quinary" href="{{path ('app_exercice_edit', {'id': exercice.id} )}}">edit</a> | 
+                        <a class="text-quaternary"  href="{{path ('app_exercice_delete', {'id': exercice.id})}}">delete</a>
+                    {% endif %}
+                </li>
+
+            {% endfor %}
+            {% if target is not null %}
+                </div> 
+            {% endif %}
+        </ul>
+        {% if is_granted('ROLE_ADMIN') %}   
+            <div class="w-full flex justify-end">
+                <a class="m px-4 py-2 rounded-2xl w-fit bg-tertiary drop-shadow-xl hover:bg-quinary duration-150" href="{{ path('app_exercice_new') }}">Create new</a>
+            </div>
+        {% endif %}
+    </div>
+
+   
 {% endblock %}

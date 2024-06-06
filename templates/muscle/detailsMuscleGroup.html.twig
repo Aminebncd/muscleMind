@@ -7,7 +7,7 @@
 <div class="flex w-full">
 
     <div class="container mx-auto  mt-24 px-4 ">
-        <div class="bg-primary/60 p-1 rounded-lg w-full max-w-screen-md flex flex-col mx-auto  backdrop-blur-md	">
+        <div class="bg-primary/60 p-1 rounded-lg w-full max-w-screen-md flex flex-col mx-auto backdrop-blur-md">
         <h1 class="text-4xl font-bold mb-8 p-4 text-center">Details of the {{ muscleGroup}} muscle group</h1>
     
             <div class="bg-primary/60 p-4 rounded-lg w-5/6 max-w-screen-md flex flex-col mx-auto">
@@ -35,12 +35,12 @@
     </div>
 
     <div class=" mx-auto flex flex-col justify-center w-full mt-24">
-        <div class="flex w-full max-md:flex-col max-md:items-center">
+        <div class="flex justify-center w-full max-md:flex-col max-md:items-center">
             {% if muscleGroup.muscleGroupSvgBack %}
             <img class="rounded-bl-lg max-sm:rounded-none w-1/2 mb-8 max-md:w-full" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgFront ) }}" alt="{{ muscleGroup.muscleGroupSvgFront()}}">
             <img class="rounded-bl-lg max-sm:rounded-none w-1/2 mb-8 max-md:w-full" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgBack ) }}" alt="{{ muscleGroup.muscleGroupSvgBack()}}"> 
             {% else %}
-            <img class="rounded-bl-lg max-sm:rounded-none w-full mb-8 max-md:w-full" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgFront ) }}" alt="{{ muscleGroup.muscleGroupSvgFront()}}">
+            <img class="rounded-bl-lg max-sm:rounded-none w-11/12 mb-8 max-md:w-full" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgFront ) }}" alt="{{ muscleGroup.muscleGroupSvgFront()}}">
             {% endif %}
         </div>
         <a href="{{ path('app_muscle') }}" class="mx-auto text-white hover:underline"><i class="fa-solid fa-arrow-left"></i>  Back to index</a>

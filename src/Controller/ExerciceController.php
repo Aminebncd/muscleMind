@@ -23,7 +23,8 @@ class ExerciceController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $exercices = $er->findAll(); 
+        // i'll gather the exercices and order them by target muscle
+        $exercices = $er->findBy([], ['target' => 'ASC']);
 
         return $this->render('exercice/index.html.twig', [
             'controller_name' => 'ExerciceController',

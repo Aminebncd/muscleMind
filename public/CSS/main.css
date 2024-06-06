@@ -25,7 +25,7 @@
 
 body::before {
     content: "";
-    position: fixed; /* Utiliser fixed pour s'assurer que le fond couvre tout l'écran */
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -36,12 +36,12 @@ body::before {
 }
 
 body {
-    min-height: 100vh; /* Assure-toi que le body couvre au moins 100% de la hauteur de la fenêtre */
-    background-color: var(--secondary-color);
+    /* min-height: 100vh;  */
+    background-color: var(--primary-color);
     color: aliceblue;
     font-family: "Montserrat", sans-serif;
-    position: relative; /* Ajout de cette ligne pour permettre à ::before de fonctionner correctement */
-    margin: 0; /* Ajout de cette ligne pour supprimer les marges par défaut du body */
+    position: relative; 
+    margin: 0; 
 }
 
 main {
