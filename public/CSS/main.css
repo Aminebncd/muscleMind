@@ -31,7 +31,7 @@ body::before {
     right: 0;
     bottom: 0;
     background: url(/img/pattern.svg) repeat;
-    filter: blur(2px);
+    /* filter: blur(2px); */
     z-index: -1; 
 }
 

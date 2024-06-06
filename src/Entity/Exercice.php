@@ -29,6 +29,15 @@ class Exercice
     #[ORM\ManyToOne(inversedBy: 'exercices')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Muscle $secondaryTarget = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $howToPerform = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $proTip = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $videoExplication = null;
     
     #[ORM\OneToMany(targetEntity: Performance::class, mappedBy: 'exerciceMesured', orphanRemoval: true)]
     private Collection $performances;
@@ -107,7 +116,45 @@ class Exercice
         return $this;
     }
 
+    public function getHowToPerform(): ?string
+    {
+        return $this->howToPerform;
+    }
 
+    public function setHowToPerform(?string $howToPerform): static
+    {
+        $this->howToPerform = $howToPerform;
+
+        return $this;
+    }
+
+    public function getProTip(): ?string
+    {
+        return $this->proTip;
+    }
+
+    public function setProTip(?string $proTip): static
+    {
+        $this->proTip = $proTip;
+
+        return $this;
+    }
+
+    public function getVideoExplication(): ?string
+    {
+        return $this->videoExplication;
+    }
+
+    public function setVideoExplication(?string $videoExplication): static
+    {
+        $this->videoExplication = $videoExplication;
+
+        return $this;
+    }
+
+
+
+    
     /**
      * @return Collection<int, Performance>
      */
@@ -174,5 +221,6 @@ class Exercice
         return $this->exerciceName;
 
     }
+
 
 }

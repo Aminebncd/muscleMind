@@ -5,7 +5,7 @@
 {% block body %}
 
     {% if edit %}
-        <div class="bg-primary/60 p-8 rounded-lg w-5/6 mt-10 max-w-screen-lg  backdrop-blur-md	">
+        <div class="bg-secondary/60 p-8 rounded-lg w-5/6 mt-10 max-w-screen-lg  backdrop-blur-md	">
             <div class="mb-8 px-8 py-4 rounded-lg bg-primary/60">
                 <h1 class="text-center font-bold text-2xl px-2 py-4 mb-14">Now compose your own workout session!</h1>
                 <div class="text-center mb-4">
@@ -40,7 +40,7 @@
                 {% endif %}
             </div>
 
-            <div class="mb-8 px-8 py-4 rounded-lg bg-primary/60">
+            <div class=" px-8 py-4 rounded-lg bg-primary/60">
                 {% set lastExercice = null %}
                 {% for workout in workoutPlans %}
 
@@ -91,7 +91,7 @@
             {{ form_row(formAddProgram.title) }}
             <div class="flex flex-row justify-between">
                 {{ form_row(formAddProgram.muscleGroupTargeted) }}
-                {{ form_row(formAddProgram.secondaryMuscleGroupTargeted) }}
+                {{ form_row(formAddProgram.primaryMuscleGroupTargeted) }}
             </div>
             {{ form_end(formAddProgram) }}
         </div>
