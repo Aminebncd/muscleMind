@@ -55,7 +55,7 @@
                     <div class="my-8 px-8 py-4 rounded-lg bg-primary/60">
                     {% set lastExercice = workout.exercice %}
                 {% endif %}
-                 
+            
                             
                     <div class="my-1">
                         {% if workout.exercice.target.muscleGroup == program.muscleGroupTargeted %}
@@ -77,29 +77,34 @@
                         {% endif %}
                     </div>
 
-                    {% if not loop.last %}
+                    {# {% if not loop.last %}
                         <hr class="border-t border-gray-300/25 my-1">
-                    {% endif %}
+                    {% endif %} #}
                 {% endfor %}
                 {% if lastExercice is not null %}
                     </div> 
                 {% endif %}
             {% endif %}
-
+            <div class="w-full flex justify-end">
+                <a class="text-end text-red-500 hover:font-medium" href="{{ path('app_training_delete', {'id' : program.id})}}">delete program</a>
+            </div>
         </div>
 
     {% else %}
 
-        <div class="bg-primary/60 p-8 rounded-lg w-5/6 mt-10">
-            <h1 class="text-center font-bold text-2xl px-2 py-4 mb-14">First choose what you wanna work !</h1>
-
-            {{ form_start(formAddProgram) }}
-            {{ form_row(formAddProgram.title) }}
-            <div class="flex flex-row justify-between">
-                {{ form_row(formAddProgram.muscleGroupTargeted) }}
-                {{ form_row(formAddProgram.primaryMuscleGroupTargeted) }}
+        <div class="bg-secondary/60 p-8 rounded-lg w-5/6 mt-10 max-w-screen-lg  backdrop-blur-md">
+            <div class="my-1 px-8 py-6 mb-4 rounded-lg bg-primary/60">
+                <h1 class="text-center font-bold text-2xl px-2 py-4">First choose what you wanna work !</h1>
             </div>
-            {{ form_end(formAddProgram) }}
+            <div class="my-1 px-8 py-6 rounded-lg bg-primary/60">
+                {{ form_start(formAddProgram) }}
+                {{ form_row(formAddProgram.title) }}
+                <div class="flex flex-row justify-between">
+                    {{ form_row(formAddProgram.muscleGroupTargeted) }}
+                    {{ form_row(formAddProgram.secondaryMuscleGroupTargeted) }}
+                </div>
+                {{ form_end(formAddProgram) }}
+            </div>
         </div>
     {% endif %}
 

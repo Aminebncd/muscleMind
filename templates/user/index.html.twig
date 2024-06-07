@@ -3,57 +3,75 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
-<a href="{{path ('app_user_updateUsername', {'id': user.id}) }}">update username</a> 
+{# <a href="{{path ('app_user_updateUsername', {'id': user.id}) }}">update username</a> 
 <a href="{{path ('app_register_updateEmail', {'id': user.id}) }}">update email</a> 
 <a href="{{path ('app_register_updatePassword', {'id': user.id}) }}">update password</a> <br>
-<a href="{{path ('app_user_delete', {'id': user.id}) }}">delete account</a> <br>
-<br><br>
+<a href="{{path ('app_user_delete', {'id': user.id}) }}">delete account</a> <br> #}
+
 
     
-        {{user}} <br>
+        {# {{user}} <br>
         {{user.email}} <br>
         {{user.score}} <br> <br>
-        {{equiv}} <br><br>
+        {{equiv}} <br><br> #}
 
-        {% if latestTracking %}
-        <p>See some change? keep track  <a href="{{ path ('app_user_newTrack')}}">here</a> !</p> <br><br>
-        <div>
-            <h2>
-                {{latestTracking.age}} years old <br>
-                {# {{latestTracking.sex}} <br> #}
-                {{latestTracking.height}}cm <br>
-                {{latestTracking.weight}}kg <br>
-                <a href="{{ path ('app_user_editTrack', {'id': latestTracking.id}) }}">edit</a>
-                <a href="{{ path ('app_user_deleteTrack', {'id': latestTracking.id}) }}">delete</a>
-            </h2>
-        
-        </div>  <br><br>
-        {% else %}
-        <p>Wanna track your progress? add your trackings <a href="{{ path ('app_user_newTrack')}}"> here</a>!</p><br><br>
-        {% endif %}
+       
 
         
         
-        {% if user.performances %}
+        {# {% if user.performances %}
            <p> Made progress? write everything down <a href="{{ path ('app_user_newPerf')}}"> here</a> ! </p><br><br>
             {% for performance in user.performances %}
                 <p>{{performance}} <a href="{{ path ('app_user_editPerf', {'id': performance.id}) }}">edit</a> <a href="{{ path ('app_user_deletePerf', {'id': performance.id}) }}">delete</a></p> <br>
             {% endfor %}
         {% else %}
             <p> Wanna track your progress? add your performances <a href="#"> here</a> !</p>
-        {% endif %} <br><br>
+        {% endif %} <br><br> #}
 
-        {% if user.programs %} 
+        {# {% if user.programs %} 
             {% for program in user.programs %}
                 <a href="{{ path('app_training_edit', {'id': program.id}) }}">{{ program }}</a> 
             {% endfor %}
-        {% endif %} <br><br>
+        {% endif %}  #}
 
         {# {% if user.sessions %}
             {% for session in user.sessions %}
                 {{session}} <br>
             {% endfor %}
         {% endif %} #}
+
+
+
+        <div class="w-10/12 flex flex-row justify-between mt-14 items-center">
+            <span class="text-2xl font-semibold">{{user}}</span>
+            <div>
+                <a href="">Your activity</a>
+                <hr>
+                <a href="">Your progress</a>
+            </div>
+        </div>
+        <div class="w-10/12 flex flex-row justify-between mt-14 items-center">
+            <div class="w-1/3 flex flex-col">
+                {% if latestTracking %}
+                <p class="text-lg font-medium">See some change? keep track here !</p> 
+                <div>
+                    <p>
+                        {{latestTracking.age}} years old <br>
+                        {{latestTracking.sex}} <br>
+                        {{latestTracking.height}}cm <br>
+                        {{latestTracking.weight}}kg <br>
+                        <div class="w-full flex justify-around mt-4">
+                            <a class="w-1/5" href="{{ path ('app_user_newTrack')}}">Add entry</a>
+                            <a class="w-1/5" href="{{ path ('app_user_editTrack', {'id': latestTracking.id}) }}">edit latest</a>
+                            <a class="w-1/5" href="{{ path ('app_user_deleteTrack', {'id': latestTracking.id}) }}">delete latest</a>
+                        </div>
+                    </p>
+                </div>
+                {% else %}
+                <p>Wanna track your progress? add your trackings <a href="{{ path ('app_user_newTrack')}}"> here</a>!</p>
+                {% endif %}
+            </div>
+        </div>
 
         
         
