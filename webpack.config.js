@@ -1,3 +1,4 @@
+
 const Encore = require('@symfony/webpack-encore');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
@@ -63,6 +64,10 @@ Encore
     //.enableReactPreset()
 
     .enablePostCssLoader()
+
+    .configureDefinePlugin(options => {
+        options.DEBUG = !Encore.isProduction();
+    })
 
 
     // uncomment to get integrity="..." attributes on your script & link tags
