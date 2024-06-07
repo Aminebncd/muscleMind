@@ -63,10 +63,18 @@
                 </div>
             </div>
 
-            <div class="overflow-x-auto w-auto flex justify-center">
-                <div class="grid grid-cols-7 gap-1 transform -rotate-90 h-28 w-fit">
+
+            <div class="overflow-x-auto flex justify-center">
+                {# <div class="max-w-[960px] w-[960px]" ></div> #}
+                <div class=" max-w-[750px] w-[750px] gap-1 flex flex-wrap flex-col h-40 my-5 relative p-7">
+                    <div class="grid grid-cols-12 absolute top-0 left-0 w-[750px]  text-center">
+                        {% set months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'] %}
+                        {% for month in months %}
+                            <div class="text-sm">{{ month }}</div>
+                        {% endfor %}
+                    </div>
                     {% for date, count in activity %}
-                        <div class="w-[10px] h-[10px] rounded-[2px] {{ count > 0 ? 'bg-quinary' : 'bg-gray-800' }}"></div>
+                        <div class=" w-[10px] h-[10px] rounded-[2px] {{ count > 0 ? 'bg-quinary' : 'bg-gray-800' }}"></div>
                     {% endfor %}
                 </div>
             </div>
