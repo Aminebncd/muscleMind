@@ -3,13 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Tracking;
-use App\Entity\Performance;
 use App\Form\PerfType;
 use App\Form\UserType;
+use App\Entity\Tracking;
 use App\Form\TrackingType;
-use App\Service\EquivalentService;
+use App\Entity\Performance;
 use App\Repository\UserRepository;
+use App\Service\EquivalentService;
+use App\Service\UserActivityService;
+use App\Repository\SessionRepository;
 use App\Repository\ExerciceRepository;
 use App\Repository\TrackingRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,10 +23,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
+    
+    private UserActivityService $userActivityService;
+
+    public function __construct(UserActivityService $userActivityService)
+    {
+        $this->userActivityService = $userActivityService;
+    }
+
     // gathers all the connected user's data to display them
     #[Route('/user/myProfile', name: 'app_user')]
     public function index(Request $request, 
                         UserRepository $ur,
+                        SessionRepository $sr,
                         EntityManagerInterface $em,
                         TrackingRepository $tr): Response
     {
@@ -39,17 +50,23 @@ class UserController extends AbstractController
         $em->flush();
         
         $equiv = $this->displayEquivalent($user);
+        $activity = $this->getActivity($user, $sr, 365);
+
         // dd($equiv);
+        // dd($activity);
 
         $latestTracking = $tr->getLatest($user);
 
         return $this->render('user/index.html.twig', [
             'user' => $user,
             'equiv' => $equiv, 
+            'activity' => $activity,
             'latestTracking' => $latestTracking, 
             'controller_name' => 'UserController',
         ]);
     }
+
+
 
 
 
@@ -82,6 +99,12 @@ class UserController extends AbstractController
         $score = $user->getScore();
         return EquivalentService::getEquivalent($score);
     }
+
+    private function getActivity(User $user, SessionRepository $sr, int $days = 365)
+    {
+        return UserActivityService::getUserActivity($user, $sr, $days);
+    }
+
 
 
 
