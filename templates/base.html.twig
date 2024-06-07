@@ -63,6 +63,8 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            <script src="{{ asset('js/main.js') }}"></script>
+            <script src="https://kit.fontawesome.com/a99d4df9ac.js" crossorigin="anonymous"></script>
             <script type="text/javascript" src="{{ asset('tarteaucitron/tarteaucitron.js') }}"></script>
             <script type="text/javascript">
                 document.addEventListener('DOMContentLoaded', function() {
@@ -110,8 +112,6 @@
                     (tarteaucitron.job = tarteaucitron.job || []).push('analytics');
                 });
             </script>
-            <script src="{{ asset('js/main.js') }}"></script>
-            <script src="https://kit.fontawesome.com/a99d4df9ac.js" crossorigin="anonymous"></script>
 
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}

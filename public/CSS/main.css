@@ -118,4 +118,7 @@ main {
         1px -1px var(--quinary-color),
         -1px 1px var(--quinary-color);
 } */
-        
+
+#PROGRESS {
+    display: none;
+}

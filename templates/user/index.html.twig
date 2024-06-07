@@ -15,12 +15,12 @@
         {{user.score}} <br> <br>
         {{equiv}} <br><br> #}
 
-       
+    
 
         
         
         {# {% if user.performances %}
-           <p> Made progress? write everything down <a href="{{ path ('app_user_newPerf')}}"> here</a> ! </p><br><br>
+            <p> Made progress? write everything down <a href="{{ path ('app_user_newPerf')}}"> here</a> ! </p><br><br>
             {% for performance in user.performances %}
                 <p>{{performance}} <a href="{{ path ('app_user_editPerf', {'id': performance.id}) }}">edit</a> <a href="{{ path ('app_user_deletePerf', {'id': performance.id}) }}">delete</a></p> <br>
             {% endfor %}
@@ -45,34 +45,49 @@
         <div class="w-10/12 flex flex-row justify-between mt-14 items-center">
             <span class="text-2xl font-semibold">{{user}}</span>
             <div>
-                <a href="">Your activity</a>
-                <hr>
-                <a href="">Your progress</a>
+                <button id="activityButton">Your activity</button>
+                                    <hr>
+                <button id="progressButton">Your progress</button>
             </div>
         </div>
-        <div class="w-10/12 flex flex-row justify-between mt-14 items-center">
-            <div class="w-1/3 flex flex-col">
-                {% if latestTracking %}
-                <p class="text-lg font-medium">See some change? keep track here !</p> 
-                <div>
-                    <p>
-                        {{latestTracking.age}} years old <br>
-                        {{latestTracking.sex}} <br>
-                        {{latestTracking.height}}cm <br>
-                        {{latestTracking.weight}}kg <br>
-                        <div class="w-full flex justify-around mt-4">
-                            <a class="w-1/5" href="{{ path ('app_user_newTrack')}}">Add entry</a>
-                            <a class="w-1/5" href="{{ path ('app_user_editTrack', {'id': latestTracking.id}) }}">edit latest</a>
-                            <a class="w-1/5" href="{{ path ('app_user_deleteTrack', {'id': latestTracking.id}) }}">delete latest</a>
-                        </div>
-                    </p>
+        
+        <div id="ACTIVITY" class="">
+            <p>TEST</p>
+        </div>
+        
+        <div id="PROGRESS" class="w-10/12">
+            <div class="flex flex-row justify-between mt-14 items-center">
+                <div class="w-1/3 flex flex-col">
+                    {% if latestTracking %}
+                    <p class="text-lg font-medium">See some change? keep track here !</p>
+                    <div class="mt-4">
+                        <p>
+                            {{latestTracking.age}} years old <br>
+                            {{latestTracking.sex}} <br>
+                            {{latestTracking.height}}cm <br>
+                            {{latestTracking.weight}}kg <br>
+                            <div class="w-full flex items-center justify-around mt-4 max-md:flex-col">
+                                <a class="w-fit mx-2 text-center no-underline px-5 py-3 rounded bg-tertiary drop-shadow-xl hover:bg-quinary duration-150 max-md:w-full max-md:mt-2" href="{{ path ('app_user_newTrack')}}"><i class="fa-solid fa-plus"></i></a>
+                                <a class="w-fit mx-2 text-center no-underline border-2 border-quaternary border-offset-2 text-quaternary hover:bg-quaternary hover:text-black  duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path ('app_user_editTrack', {'id': latestTracking.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a class="w-fit mx-2 text-center no-underline border-2 border-red-500 border-offset-2 text-red-500 hover:bg-red-500 hover:text-white  duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path ('app_user_deleteTrack', {'id': latestTracking.id}) }}"><i class="fa-solid fa-minus"></i></a>
+                            </div>
+                        </p>
+                    </div>
+                    {% else %}
+                    <p>Wanna track your progress? add your trackings <a href="{{ path ('app_user_newTrack')}}"> here</a>!</p>
+                    {% endif %}
                 </div>
-                {% else %}
-                <p>Wanna track your progress? add your trackings <a href="{{ path ('app_user_newTrack')}}"> here</a>!</p>
-                {% endif %}
+                <div>
+                    {# CHART OF SHAPE VISUALIZATION GOES HERE #}
+                </div>
+            </div>
+            <div class="flex flex-row justify-between mt-14 items-center">
+                <p class="text-lg font-medium">Track your progress here!</p>
+                <div class="mt-4">
+                    {# CHART OF PERFORMANCE VISUALIZATION GOES HERE #}
+                </div>
             </div>
         </div>
-
         
         
 
