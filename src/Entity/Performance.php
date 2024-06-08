@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PerformanceRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PerformanceRepository::class)]
@@ -23,6 +24,9 @@ class Performance
     #[ORM\ManyToOne(inversedBy: 'performances', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Exercice $exerciceMesured = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateOfPerformance = null;
 
     public function getId(): ?int
     {
@@ -70,5 +74,15 @@ class Performance
         return $this->personnalRecord."kg : ".$this->exerciceMesured;
     }
 
+    public function getDateOfPerformance(): ?string
+    {
+        return $this->dateOfPerformance->format('d/m/Y') ;
+    }
 
+    public function setDateOfPerformance($dateOfPerformance): static
+    {
+        $this->dateOfPerformance = $dateOfPerformance;
+
+        return $this;
+    }
 }
