@@ -13,6 +13,7 @@
         </a>
     </div>
 
+
     {% if sessions|length > 0 %}
         <p>your next sessions : </p>
         {% for session in sessions|sort((a, b) => a.dateSession <=> b.dateSession)|slice(0, 5) %}

@@ -29,6 +29,7 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+
         $user = $this->getUser();
         // $programs = $user->getPrograms();
         $sessions = $user->getSessions();

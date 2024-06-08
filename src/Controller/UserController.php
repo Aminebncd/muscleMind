@@ -8,6 +8,7 @@ use App\Form\UserType;
 use App\Entity\Tracking;
 use App\Form\TrackingType;
 use App\Entity\Performance;
+use App\Service\ChartService;
 use App\Repository\UserRepository;
 use App\Service\EquivalentService;
 use App\Service\UserActivityService;
@@ -23,21 +24,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
-    
-    private UserActivityService $userActivityService;
+    private $chartService;
 
-    public function __construct(UserActivityService $userActivityService)
+    public function __construct(ChartService $chartService)
     {
-        $this->userActivityService = $userActivityService;
+        $this->chartService = $chartService;
     }
 
+    
     // gathers all the connected user's data to display them
     #[Route('/user/myProfile', name: 'app_user')]
     public function index(Request $request, 
                         UserRepository $ur,
                         SessionRepository $sr,
                         EntityManagerInterface $em,
-                        TrackingRepository $tr): Response
+                        TrackingRepository $tr,
+                        ChartService $chartService): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -52,8 +54,19 @@ class UserController extends AbstractController
         $equiv = $this->displayEquivalent($user);
         $activity = $this->getActivity($user, $sr, 365);
 
+        // why doesn't this work? i don't know
+        // i'm losing it over here
+        // the chart service is working, the data is passed correctly
+        // but the chart is not displayed
+        // i hate symfony. i hate php. i hate everything
+        $trackingChart = $this->chartService->getTrackingChart();
+        $performanceChart = $this->chartService->getPerformanceChart();
+
+        // everything is working fine, except the charts
         // dd($equiv);
         // dd($activity);
+        // dd($trackingChart);
+        // dd($performanceChart);
 
         $latestTracking = $tr->getLatest($user);
 
@@ -62,6 +75,8 @@ class UserController extends AbstractController
             'equiv' => $equiv, 
             'activity' => $activity,
             'latestTracking' => $latestTracking, 
+            'trackingChart' => $trackingChart,
+            'performanceChart' => $performanceChart,
             'controller_name' => 'UserController',
         ]);
     }
@@ -100,6 +115,8 @@ class UserController extends AbstractController
         return EquivalentService::getEquivalent($score);
     }
 
+    // this function gathers the user's activity for 
+    // the last x days and returns it
     private function getActivity(User $user, SessionRepository $sr, int $days = 365)
     {
         return UserActivityService::getUserActivity($user, $sr, $days);

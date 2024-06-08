@@ -82,3 +82,10 @@ main {
 #PROGRESS {
     display: none;
 }
+
+
+
+.my-chart {
+    z-index: 1000;
+    background: #ff0000;
+}

@@ -9,37 +9,6 @@
 <a href="{{path ('app_user_delete', {'id': user.id}) }}">delete account</a> <br> #}
 
 
-    
-        {# {{user}} <br>
-        {{user.email}} <br>
-        {{user.score}} <br> <br>
-        {{equiv}} <br><br> #}
-
-    
-
-        
-        
-        {# {% if user.performances %}
-            <p> Made progress? write everything down <a href="{{ path ('app_user_newPerf')}}"> here</a> ! </p><br><br>
-            {% for performance in user.performances %}
-                <p>{{performance}} <a href="{{ path ('app_user_editPerf', {'id': performance.id}) }}">edit</a> <a href="{{ path ('app_user_deletePerf', {'id': performance.id}) }}">delete</a></p> <br>
-            {% endfor %}
-        {% else %}
-            <p> Wanna track your progress? add your performances <a href="#"> here</a> !</p>
-        {% endif %} <br><br> #}
-
-        {# {% if user.programs %} 
-            {% for program in user.programs %}
-                <a href="{{ path('app_training_edit', {'id': program.id}) }}">{{ program }}</a> 
-            {% endfor %}
-        {% endif %}  #}
-
-        {# {% if user.sessions %}
-            {% for session in user.sessions %}
-                {{session}} <br>
-            {% endfor %}
-        {% endif %} #}
-
 
 
         <div class=" w-10/12 max-w-[1200px]  flex flex-row justify-between mt-14 items-center">
@@ -104,15 +73,23 @@
                 </div>
                 <div>
                     {# CHART OF SHAPE VISUALIZATION GOES HERE #}
+                    <div style="width: 600px;">
+                        {{ render_chart(trackingChart, {'class': 'my-chart'}) }}
+                    </div>
                 </div>
             </div>
             <div class="flex flex-row justify-between mt-14 items-center">
                 <p class="text-lg font-medium">Track your progress here!</p>
                 <div class="mt-4">
                     {# CHART OF PERFORMANCE VISUALIZATION GOES HERE #}
+                    <div style="width: 600px;">
+                        {{ render_chart(performanceChart, {'class': 'my-chart'}) }}
+                    </div>
                 </div>
             </div>
         </div>
+        
+    
         
         
 
