@@ -1,7 +1,7 @@
-
+// assets/app.js 
 import { Application } from '@hotwired/stimulus';
 import { definitionsFromContext } from 'stimulus/webpack-helpers';
-// import '@symfony/ux-chartjs';
+import '@symfony/ux-chartjs';
 
 
 

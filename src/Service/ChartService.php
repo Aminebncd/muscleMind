@@ -2,32 +2,47 @@
 
 namespace App\Service;
 
-use App\Repository\TrackingRepository;
-use App\Repository\PerformanceRepository;
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\Component\String\Slugger\SluggerInterface;
-
 use Symfony\UX\Chartjs\Model\Chart;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use App\Entity\User;
 
 class ChartService
 {
-    private $trackingRepository;
-    private $performanceRepository;
     private $chartBuilder;
 
-    public function __construct(
-        TrackingRepository $trackingRepository,
-        PerformanceRepository $performanceRepository,
-        ChartBuilderInterface $chartBuilder
-    ) {
-        $this->trackingRepository = $trackingRepository;
-        $this->performanceRepository = $performanceRepository;
+    public function __construct(ChartBuilderInterface $chartBuilder)
+    {
         $this->chartBuilder = $chartBuilder;
     }
 
-    public function getTrackingChart(): Chart
+    public function generateTestChart(): Chart
     {
-        $trackings = $this->trackingRepository->findAll();
+        $labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+        $data = [65, 59, 80, 81, 56, 55, 40];
+
+        $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
+        $chart->setData([
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'Test Data',
+                    'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
+                    'borderColor' => 'rgba(75, 192, 192, 1)',
+                    'data' => $data,
+                ],
+            ],
+        ]);
+
+        return $chart;
+    }
+
+    public function getTrackingChart(User $user = null): Chart
+    {
+        if ($user === null) {
+            throw new \InvalidArgumentException('User cannot be null');
+        }
+    
+        $trackings = $user->getTrackings()->toArray();
 
         $trackingLabels = array_map(fn($tracking) => $tracking->getDateOfTracking(), $trackings);
         $trackingHeights = array_map(fn($tracking) => $tracking->getHeight(), $trackings);
@@ -62,9 +77,13 @@ class ChartService
         return $chart;
     }
 
-    public function getPerformanceChart(): Chart
+    public function getPerformanceChart(User $user): Chart
     {
-        $performances = $this->performanceRepository->findAll();
+        if ($user === null) {
+            throw new \InvalidArgumentException('User cannot be null');
+        }
+
+        $performances = $user->getPerformances()->toArray();
 
         $performanceLabels = array_map(fn($performance) => $performance->getDateOfPerformance(), $performances);
         $performanceRecords = array_map(fn($performance) => $performance->getPersonnalRecord(), $performances);
@@ -89,7 +108,7 @@ class ChartService
         $chart = $this->chartBuilder->createChart(Chart::TYPE_BAR);
         $chart->setData([
             'labels' => $performanceLabels,
-            'datasets' => array_values($datasets), // Réinitialisez les clés d'index pour les datasets
+            'datasets' => array_values($datasets),
         ]);
 
         return $chart;
@@ -97,7 +116,7 @@ class ChartService
 
     private function generateRandomColor(): string
     {
-        // Générer une couleur aléatoire au format hexadécimal
+        // generate a random color
         return '#' . substr(md5(mt_rand()), 0, 6);
     }
 }

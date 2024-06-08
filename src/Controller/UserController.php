@@ -31,6 +31,18 @@ class UserController extends AbstractController
         $this->chartService = $chartService;
     }
 
+    #[Route('/user/test', name: 'test_chart')]
+    public function testChart(ChartService $chartService): Response
+    {
+        $testChart = $chartService->generateTestChart();
+        // dd($testChart);
+        // i'm going to lose my mind
+        // i need to sleep
+        
+        return $this->render('user/test_chart.html.twig', [
+            'testChart' => $testChart,
+        ]);
+    }
     
     // gathers all the connected user's data to display them
     #[Route('/user/myProfile', name: 'app_user')]
@@ -58,9 +70,9 @@ class UserController extends AbstractController
         // i'm losing it over here
         // the chart service is working, the data is passed correctly
         // but the chart is not displayed
-        // i hate symfony. i hate php. i hate everything
-        $trackingChart = $this->chartService->getTrackingChart();
-        $performanceChart = $this->chartService->getPerformanceChart();
+        // i hate symfony. i hate php.
+        $trackingChart = $this->chartService->getTrackingChart($user);
+        $performanceChart = $this->chartService->getPerformanceChart($user);
 
         // everything is working fine, except the charts
         // dd($equiv);

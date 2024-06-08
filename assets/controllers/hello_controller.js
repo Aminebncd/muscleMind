@@ -1,5 +1,6 @@
-import { Controller } from 'stimulus';
-import Chart from 'chart.js/auto';
+// assets/controllers/hello_controller.js
+import { Controller } from '@hotwired/stimulus';
+import Chart from '@symfony/ux-chartjs';
 
 export default class extends Controller {
   connect() {

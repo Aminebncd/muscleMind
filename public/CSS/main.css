@@ -87,5 +87,5 @@ main {
 
 .my-chart {
     z-index: 1000;
-    background: #ff0000;
+    /* background: #ff0000; */
 }
