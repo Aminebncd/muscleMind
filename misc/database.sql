@@ -127,9 +127,9 @@ INSERT INTO `muscle_group` (`id`, `muscle_group`, `muscle_group_image`, `muscle_
 	(8, 'FOREARMS', 'forearms.webp', 'forearms.svg', 'forearms_b.svg');
 
 -- Listage des données de la table musclemind.performance : ~2 rows (environ)
-INSERT INTO `performance` (`id`, `user_performing_id`, `exercice_mesured_id`, `personnal_record`) VALUES
-	(4, 1, 191, '105'),
-	(5, 1, 191, '110');
+INSERT INTO `performance` (`id`, `user_performing_id`, `exercice_mesured_id`, `personnal_record`, `date_of_performance`) VALUES
+	(4, 1, 191, '105', '2024-06-08 00:00:00' ),
+	(5, 1, 191, '110', '2024-06-08 00:00:00' );
 
 -- Listage des données de la table musclemind.program : ~3 rows (environ)
 INSERT INTO `program` (`id`, `creator_id`, `muscle_group_targeted_id`, `secondary_muscle_group_targeted_id`, `title`) VALUES
