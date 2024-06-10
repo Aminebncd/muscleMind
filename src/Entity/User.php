@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 // use App\Entity\Tracking;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
@@ -27,6 +28,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180)]
     private ?string $email = null;
+    
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateOfBirth = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $sex = null;
 
     /**
      * @var list<string> The user roles
@@ -68,6 +75,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
 
+
     public function __construct()
 
     {
@@ -103,6 +111,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getDateOfBirth(): ?\DateTimeInterface
+    {
+        return $this->dateOfBirth;
+    }
+
+    public function setDateOfBirth($dateOfBirth): static
+    {
+        $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    public function getSex(): ?string
+    {
+        return $this->sex;
+    }
+
+    public function setSex(?string $sex): static
+    {
+        $this->sex = $sex;
 
         return $this;
     }
@@ -356,6 +388,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
 
 }

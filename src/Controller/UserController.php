@@ -326,7 +326,6 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        // $exercices = $er->findAll();
         if (!$tracking) {
             $tracking = new Tracking();
         }

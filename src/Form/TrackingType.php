@@ -19,22 +19,41 @@ class TrackingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('height', TextType::class)
-            ->add('weight', TextType::class)
-            ->add('age', TextType::class)
-            ->add('sex', ChoiceType::class, [
-                'choices' => [
-                    'male'=> 'male',
-                    'female' => 'female',
+            ->add('height', TextType::class, [
+                'attr' => [
+                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'placeholder' => 'Height',
                 ]
             ])
+            ->add('weight', TextType::class, [
+                'attr' => [
+                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'placeholder' => 'Weight',
+                ]
+            ])
+            // ->add('age', TextType::class, [
+            //     'attr' => [
+            //         'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+            //         'placeholder' => 'Age',
+            //     ]
+            // ])
+            // ->add('sex', ChoiceType::class, [
+            //     'choices' => [
+            //         'male'=> 'male',
+            //         'female' => 'female',
+            //     ],
+            //     'attr' => [
+            //         'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+            //     ],
+            //     'row_attr' => ['class' => 'flex flex-col w-full'],
+            // ])
             // ->add('userTracked', EntityType::class, [
             //     'class' => User::class,
             //     'choice_label' => 'id',
             // ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary'
+                    'class' => 'w-fit px-4 py-2 rounded-2xl bg-tertiary drop-shadow-xl hover:bg-quinary flex-end duration-150'
                 ]
             ])
         ;
