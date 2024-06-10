@@ -131,16 +131,30 @@ INSERT INTO `performance` (`id`, `user_performing_id`, `exercice_mesured_id`, `p
 	(4, 1, 191, '105', '2024-06-08 00:00:00' ),
 	(5, 1, 191, '110', '2024-06-08 00:00:00' );
 
+
+-- Listage des données de la table musclemind.tag : ~3 rows (environ)
+INSERT INTO `tag` (`id`, `label`) VALUES
+	(1, 'weight lifting'),
+	(2, 'health'),
+	(3, 'nutrition');
+
+-- Listage des données de la table musclemind.tracking : ~3 rows (environ)
+INSERT INTO `tracking` (`id`, `user_tracked_id`, `height`, `weight`, `date_of_tracking`) VALUES
+	(2, 1, '185', '85', '23', '0', '2024-04-28 21:50:08'),
+	(3, 1, '185', '89', '23', '0', '2024-04-28 22:20:16'),
+	(4, 1, '186', '89', '23', '0', '2024-04-30 20:22:59');
+
+-- Listage des données de la table musclemind.user : ~1 rows (environ)
+INSERT INTO `user` (`id`, `username`, `email`, `date_of_birth`, `sex`, `roles`, `password`, `score`, `is_verified`) VALUES
+	(1, 'aminebncd', 'aminebncd_pro@hotmail.com', '2001-01-15 00:00:00', 'male', '["ROLE_ADMIN", "ROLE_MODERATOR"]', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 15210, 1);
+
+
 -- Listage des données de la table musclemind.program : ~3 rows (environ)
 INSERT INTO `program` (`id`, `creator_id`, `muscle_group_targeted_id`, `secondary_muscle_group_targeted_id`, `title`) VALUES
 	(15, 1, 1, 2, 'seance pec de folie'),
 	(16, 1, 7, 8, 'jambes avant bras'),
 	(17, 1, 5, 3, 'dos biceps'),
 	(18, 1, 1, 4, 'program test');
-
--- Listage des données de la table musclemind.reset_password_request : ~0 rows (environ)
-
--- Listage des données de la table musclemind.ressource : ~0 rows (environ)
 
 -- Listage des données de la table musclemind.session : ~21 rows (environ)
 INSERT INTO `session` (`id`, `program_id`, `user_id`, `date_session`) VALUES
@@ -165,23 +179,6 @@ INSERT INTO `session` (`id`, `program_id`, `user_id`, `date_session`) VALUES
 	(250, 16, 1, '2024-06-24 14:47:40'),
 	(251, 16, 1, '2024-06-27 14:47:40'),
 	(252, 16, 1, '2024-07-01 14:47:40');
-
--- Listage des données de la table musclemind.tag : ~3 rows (environ)
-INSERT INTO `tag` (`id`, `label`) VALUES
-	(1, 'weight lifting'),
-	(2, 'health'),
-	(3, 'nutrition');
-
--- Listage des données de la table musclemind.tracking : ~3 rows (environ)
-INSERT INTO `tracking` (`id`, `user_tracked_id`, `height`, `weight`, `date_of_tracking`) VALUES
-	(2, 1, '185', '85', '23', '0', '2024-04-28 21:50:08'),
-	(3, 1, '185', '89', '23', '0', '2024-04-28 22:20:16'),
-	(4, 1, '186', '89', '23', '0', '2024-04-30 20:22:59');
-
--- Listage des données de la table musclemind.user : ~1 rows (environ)
-INSERT INTO `user` (`id`, `username`, `email`, `roles`, `password`, `score`, `is_verified`, `sex`, `date_of_birth`) VALUES
-	(1, 'aminebncd', 'aminebncd_pro@hotmail.com', '["ROLE_ADMIN", "ROLE_MODERATOR"]', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 15210, 1);
-
 -- Listage des données de la table musclemind.workout_plan : ~17 rows (environ)
 INSERT INTO `workout_plan` (`id`, `exercice_id`, `program_id`, `number_of_repetitions`, `weights_used`) VALUES
 	(19, 191, 15, 12, 60),

@@ -94,6 +94,11 @@ class ChartService
             throw new \InvalidArgumentException('User cannot be null');
         }
 
+        if ($user->getPerformances()->isEmpty()) {
+            return $this->generateTestChart();
+        }
+    
+
         $performances = $user->getPerformances()->toArray();
 
         $performanceLabels = array_map(fn($performance) => $performance->getDateOfPerformance(), $performances);
