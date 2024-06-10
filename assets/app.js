@@ -1,3 +1,4 @@
+import './bootstrap.js';
 // assets/app.js 
 import { Application } from '@hotwired/stimulus';
 import { definitionsFromContext } from 'stimulus/webpack-helpers';
@@ -10,8 +11,7 @@ const context = require.context('./controllers', true, /\.js$/);
 const application = Application.start();
 application.load(definitionsFromContext(context));
 
-// Import other necessary files
-import './bootstrap.js';
+// Import other necessary files
 import './styles/app.css';
 
 

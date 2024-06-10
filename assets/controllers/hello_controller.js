@@ -1,23 +1,16 @@
-// assets/controllers/hello_controller.js
 import { Controller } from '@hotwired/stimulus';
-import Chart from '@symfony/ux-chartjs';
 
+/*
+ * This is an example Stimulus controller!
+ *
+ * Any element with a data-controller="hello" attribute will cause
+ * this controller to be executed. The name "hello" comes from the filename:
+ * hello_controller.js -> "hello"
+ *
+ * Delete this file or adapt it for your use!
+ */
 export default class extends Controller {
-  connect() {
-    const canvas = this.element.querySelector('canvas');
-    const chartData = JSON.parse(this.element.getAttribute('data-chart-data'));
-    const chartType = this.element.getAttribute('data-chart-type');
-
-    if (!canvas || !chartData || !chartType) {
-      console.error('Missing canvas element, chart data, or chart type');
-      return;
+    connect() {
+        this.element.textContent = 'Hello Stimulus! Edit me in assets/controllers/hello_controller.js';
     }
-
-    new Chart(canvas, {
-      type: chartType,
-      data: chartData
-    });
-  }
 }
-
-console.log('hello_controller.js loaded!');
