@@ -134,8 +134,8 @@ class UserController extends AbstractController
 
 
 
-    #[Route('/user/updateUsername/{id}', name: 'app_user_updateUsername')]
-    public function updateUsername(Request $request, 
+    #[Route('/user/updateProfile/{id}', name: 'app_user_updateProfile')]
+    public function updateProfile(Request $request, 
                                 UserRepository $ur,
                                 EntityManagerInterface $em,
                                 User $user = null): Response
@@ -147,21 +147,19 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        // dd($user->getUsername());
 
         if ($form->isSubmitted() 
-            && $form->isValid() 
-                && ($user->getUsername() !== $form->getData()->getUsername())) {
-                    dd($form->getData());
+            && $form->isValid()) {
+                    // dd($form->getData());
             $em->persist($user);
             $em->flush();
             
             return $this->redirectToRoute('app_user');
         }
 
-        return $this->render('user/updateUsername.html.twig', [
+        return $this->render('user/updateProfile.html.twig', [
             'user' => $user,
-            'updateUsernameForm' => $form,
+            'updateProfileForm' => $form,
             'controller_name' => 'UserController',
         ]);
     }
@@ -324,6 +322,11 @@ class UserController extends AbstractController
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
+        }
+
+        if ($this->getUser()->getSex() === null || $this->getUser()->getDateOfBirth() === null){
+            $this->addflash('error', 'Please fill in your profile first');
+            return $this->redirectToRoute('app_user_updateProfile', ['id' => $this->getUser()->getId()]);
         }
 
         if (!$tracking) {

@@ -3,7 +3,7 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
-<a href="{{path ('app_user_updateUsername', {'id': user.id}) }}">update username</a> 
+<a href="{{path ('app_user_updateProfile', {'id': user.id}) }}">update Profile infos</a> 
 <a href="{{path ('app_register_updateEmail', {'id': user.id}) }}">update email</a> 
 <a href="{{path ('app_register_updatePassword', {'id': user.id}) }}">update password</a> <br>
 <a href="{{path ('app_user_delete', {'id': user.id}) }}">delete account</a> <br>
@@ -56,6 +56,7 @@
                     <div class="mt-4">
                         <p class="text-lg">
 
+                            {{user.age}} years old <br>
                             {{latestTracking.height}}cm <br>
                             {{latestTracking.weight}}kg <br>
                             <div class="w-full flex items-center justify-around mt-4 max-md:flex-col">

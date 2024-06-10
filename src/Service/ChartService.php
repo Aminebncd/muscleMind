@@ -32,6 +32,17 @@ class ChartService
                 ],
             ],
         ]);
+        $chart->setOptions([
+            'plugins' => [
+                'zoom' => [
+                    'zoom' => [
+                        'wheel' => ['enabled' => true],
+                        'pinch' => ['enabled' => true],
+                        'mode' => 'xy',
+                    ],
+                ],
+            ],
+        ]);
 
         return $chart;
     }
@@ -50,11 +61,8 @@ class ChartService
 
         // tbh there's no need to track your height, age, etc. in a fitness app
         // the weight is enough
-
         $trackingLabels = array_map(fn($tracking) => $tracking->getDateOfTracking(), $trackings);
-        // $trackingHeights = array_map(fn($tracking) => $tracking->getHeight(), $trackings);
         $trackingWeights = array_map(fn($tracking) => $tracking->getWeight(), $trackings);
-        // $trackingAges = array_map(fn($tracking) => $tracking->getAge(), $trackings);
 
         $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
