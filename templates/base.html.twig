@@ -61,13 +61,13 @@
 
 
 
-        {# {% block javascripts %} #}
+        {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
-            {# <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> #}
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
             <script src="{{ asset('js/main.js') }}"></script>
             <script src="https://kit.fontawesome.com/a99d4df9ac.js" crossorigin="anonymous"></script>
-            {# <script type="text/javascript" src="{{ asset('tarteaucitron/tarteaucitron.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('tarteaucitron/tarteaucitron.js') }}"></script>
             <script type="text/javascript">
                 document.addEventListener('DOMContentLoaded', function() {
                     tarteaucitron.init({
@@ -113,9 +113,9 @@
                     tarteaucitron.user.analyticsMore = function () { /* optional ga.push() */ };
                     (tarteaucitron.job = tarteaucitron.job || []).push('analytics');
                 });
-            </script> #}
+            </script>
 
             {# {% block importmap %}{{ importmap('app') }}{% endblock %} #}
-        {# {% endblock %} #}
+        {% endblock %}
     </body>
 </html>

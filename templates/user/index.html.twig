@@ -73,8 +73,8 @@
                 </div>
                 <div>
                     {# CHART OF SHAPE VISUALIZATION GOES HERE #}
-                    <div style="width: 600px;">
-                        {{ render_chart(trackingChart, {'class': 'my-chart'}) }}
+                    <div style="width: 600px;" class="bg-tertiary/10 p-4 rounded backdrop-blur-md">
+                        {{ render_chart(trackingChart) }}
                     </div>
                 </div>
             </div>
@@ -82,8 +82,8 @@
                 <p class="text-lg font-medium">Track your progress here!</p>
                 <div class="mt-4">
                     {# CHART OF PERFORMANCE VISUALIZATION GOES HERE #}
-                    <div style="width: 600px;">
-                        {{ render_chart(performanceChart, {'class': 'my-chart'}) }}
+                    <div style="width: 600px;" class="bg-tertiary/10 p-4 rounded backdrop-blur-md">
+                        {{ render_chart(performanceChart) }}
                     </div>
                 </div>
             </div>

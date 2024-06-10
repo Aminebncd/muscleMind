@@ -44,32 +44,31 @@ class ChartService
     
         $trackings = $user->getTrackings()->toArray();
 
+        // tbh there's no need to track your height, age, etc. in a fitness app
+        // the weight is enough
+
         $trackingLabels = array_map(fn($tracking) => $tracking->getDateOfTracking(), $trackings);
-        $trackingHeights = array_map(fn($tracking) => $tracking->getHeight(), $trackings);
+        // $trackingHeights = array_map(fn($tracking) => $tracking->getHeight(), $trackings);
         $trackingWeights = array_map(fn($tracking) => $tracking->getWeight(), $trackings);
-        $trackingAges = array_map(fn($tracking) => $tracking->getAge(), $trackings);
+        // $trackingAges = array_map(fn($tracking) => $tracking->getAge(), $trackings);
 
         $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
             'labels' => $trackingLabels,
             'datasets' => [
                 [
-                    'label' => 'Height',
-                    'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
-                    'borderColor' => 'rgba(75, 192, 192, 1)',
-                    'data' => $trackingHeights,
-                ],
-                [
                     'label' => 'Weight',
                     'backgroundColor' => 'rgba(153, 102, 255, 0.2)',
                     'borderColor' => 'rgba(153, 102, 255, 1)',
                     'data' => $trackingWeights,
                 ],
-                [
-                    'label' => 'Age',
-                    'backgroundColor' => 'rgba(255, 159, 64, 0.2)',
-                    'borderColor' => 'rgba(255, 159, 64, 1)',
-                    'data' => $trackingAges,
+            ],
+        ]);
+        $chart->setOptions([
+            'scales' => [
+                'y' => [
+                    'suggestedMin' => 0,
+                    'suggestedMax' => (max($trackingWeights) + 30),
                 ],
             ],
         ]);
@@ -77,7 +76,7 @@ class ChartService
         return $chart;
     }
 
-    public function getPerformanceChart(User $user): Chart
+    public function getPerformanceChart(User $user = null): Chart
     {
         if ($user === null) {
             throw new \InvalidArgumentException('User cannot be null');
@@ -105,10 +104,19 @@ class ChartService
             $datasets[$exercise]['data'][] = $performanceRecords[$index];
         }
 
-        $chart = $this->chartBuilder->createChart(Chart::TYPE_BAR);
+        $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
             'labels' => $performanceLabels,
             'datasets' => array_values($datasets),
+        ]);
+
+        $chart->setOptions([
+            'scales' => [
+                'y' => [
+                    'suggestedMin' => 0,
+                    'suggestedMax' => 300,
+                ],
+            ],
         ]);
 
         return $chart;
