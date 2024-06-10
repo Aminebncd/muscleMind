@@ -25,7 +25,7 @@ class ChartService
             'labels' => $labels,
             'datasets' => [
                 [
-                    'label' => 'Test Data',
+                    'label' => 'tracking example',
                     'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
                     'borderColor' => 'rgba(75, 192, 192, 1)',
                     'data' => $data,
@@ -40,6 +40,10 @@ class ChartService
     {
         if ($user === null) {
             throw new \InvalidArgumentException('User cannot be null');
+        }
+
+        if ($user->getTrackings()->isEmpty()) {
+            return $this->generateTestChart();
         }
     
         $trackings = $user->getTrackings()->toArray();
@@ -114,7 +118,7 @@ class ChartService
             'scales' => [
                 'y' => [
                     'suggestedMin' => 0,
-                    'suggestedMax' => 300,
+                    'suggestedMax' => (max($performanceRecords) + 30),
                 ],
             ],
         ]);

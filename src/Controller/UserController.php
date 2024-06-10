@@ -66,15 +66,10 @@ class UserController extends AbstractController
         $equiv = $this->displayEquivalent($user);
         $activity = $this->getActivity($user, $sr, 365);
 
-        // why doesn't this work? i don't know
-        // i'm losing it over here
-        // the chart service is working, the data is passed correctly
-        // but the chart is not displayed
-        // i hate symfony. i hate php.
+        // works fine now
         $trackingChart = $this->chartService->getTrackingChart($user);
         $performanceChart = $this->chartService->getPerformanceChart($user);
 
-        // everything is working fine, except the charts
         // dd($equiv);
         // dd($activity);
         // dd($trackingChart);
@@ -89,7 +84,6 @@ class UserController extends AbstractController
             'latestTracking' => $latestTracking, 
             'trackingChart' => $trackingChart,
             'performanceChart' => $performanceChart,
-            'controller_name' => 'UserController',
         ]);
     }
 
@@ -288,7 +282,6 @@ class UserController extends AbstractController
     public function newEditPerf(Request $request,
                             Performance $perf,
                             EntityManagerInterface $em, 
-                            // ExerciceRepository $er,
                             User $user = null): Response
     {
         if (!$this->getUser()) {
@@ -304,9 +297,10 @@ class UserController extends AbstractController
 
         if ($perfForm->isSubmitted() && $perfForm->isValid()) {
             $perf->setUserPerforming($this->getUser());
-            
+            $perf->setDateOfPerformance(new \DateTime);
             $em->persist($perf);
             $em->flush();
+
             
             return $this->redirectToRoute('app_user');
         }

@@ -1,19 +1,14 @@
 
 // just to ensure that the dom is fully loaded before running the script
-document.addEventListener('DOMContentLoaded', (event) => {
+// document.addEventListener('DOMContentLoaded', (event) => {
     console.log("ici");
+    // window.location.reload(true);
 
-    // had an issue with the activity and progress buttons
-    // they were not working properly because the script was also looking
-    // for the front and back buttons which were not present in the activity page
-    // that led to the whole script being ignored
-    // so now I'm checking if the buttons are present before adding the event listeners
-    // works fine now
-    // i love javascript
-    let activityButton = document.getElementById('activityButton');
-    let progressButton = document.getElementById('progressButton');
-    let frontBtn = document.getElementById('frontBtn');
-    let backBtn = document.getElementById('backBtn');
+
+    var activityButton = document.getElementById('activityButton');
+    var progressButton = document.getElementById('progressButton');
+    var frontBtn = document.getElementById('frontBtn');
+    var backBtn = document.getElementById('backBtn');
 
     if (activityButton && progressButton) {
         activityButton.addEventListener('click', function() {
@@ -44,4 +39,4 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     console.log("la");
-});
+// });

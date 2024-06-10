@@ -3,10 +3,10 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
-{# <a href="{{path ('app_user_updateUsername', {'id': user.id}) }}">update username</a> 
+<a href="{{path ('app_user_updateUsername', {'id': user.id}) }}">update username</a> 
 <a href="{{path ('app_register_updateEmail', {'id': user.id}) }}">update email</a> 
 <a href="{{path ('app_register_updatePassword', {'id': user.id}) }}">update password</a> <br>
-<a href="{{path ('app_user_delete', {'id': user.id}) }}">delete account</a> <br> #}
+<a href="{{path ('app_user_delete', {'id': user.id}) }}">delete account</a> <br>
 
 
 
@@ -31,22 +31,19 @@
                     </p>
                 </div>
             </div>
-
-                <div class="overflow-x-auto flex justify-center">
-                    <div class="max-w-[750px] w-[750px] gap-1 flex flex-wrap flex-col h-24 mt-12 mb-4 relative">
-                        <div class="grid grid-cols-12 absolute -top-[22px] -left-[16px] w-[750px]  text-center">
-                            {% set months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'] %}
-                            {% for month in months %}
-                                <div class="text-sm">{{ month }}</div>
-                            {% endfor %}
-                        </div>
-                        {% for date, count in activity %}
-                            <div class=" w-[10px] h-[10px] rounded-[2px] {{ count > 0 ? 'bg-quinary' : 'bg-gray-800' }}"></div>
+            <div class="overflow-x-auto flex justify-center">
+                <div class="max-w-[750px] w-[750px] gap-1 flex flex-wrap flex-col h-24 mt-12 mb-4 relative">
+                    <div class="grid grid-cols-12 absolute -top-[22px] -left-[16px] w-[750px]  text-center">
+                        {% set months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'] %}
+                        {% for month in months %}
+                            <div class="text-sm">{{ month }}</div>
                         {% endfor %}
                     </div>
+                    {% for date, count in activity %}
+                        <div class=" w-[10px] h-[10px] rounded-[2px] {{ count > 0 ? 'bg-quinary' : 'bg-gray-800' }}"></div>
+                    {% endfor %}
                 </div>
-
- 
+            </div>
         </div>
         
         <div id="PROGRESS" class="w-10/12 max-w-[1200px]">
@@ -68,7 +65,7 @@
                         </p>
                     </div>
                     {% else %}
-                    <p>Wanna track your progress? add your trackings <a href="{{ path ('app_user_newTrack')}}"> here</a>!</p>
+                    <p class="text-xl font-medium">Wanna track your progress? add your trackings <a href="{{ path ('app_user_newTrack')}}"> here</a>!</p>
                     {% endif %}
                 </div>
                 <div>
@@ -79,7 +76,8 @@
                 </div>
             </div>
             <div class="flex flex-row justify-between mt-14 items-center">
-                <p class="text-lg font-medium">Track your progress here!</p>
+                <p class="text-lg font-medium">Track your progress here!</p>    
+                <a href="{{ path('app_user_newPerf')}}">test</a>
                 <div class="mt-4">
                     {# CHART OF PERFORMANCE VISUALIZATION GOES HERE #}
                     <div style="width: 600px;" class="bg-tertiary/10 p-4 rounded backdrop-blur-md">
@@ -90,9 +88,6 @@
         </div>
         
     
-        
-        
-
 
 
 
