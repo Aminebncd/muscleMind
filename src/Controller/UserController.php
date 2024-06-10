@@ -31,19 +31,6 @@ class UserController extends AbstractController
         $this->chartService = $chartService;
     }
 
-    #[Route('/user/test', name: 'test_chart')]
-    public function testChart(ChartService $chartService): Response
-    {
-        $testChart = $chartService->generateTestChart();
-        // dd($testChart);
-        // i'm going to lose my mind
-        // i need to sleep
-        
-        return $this->render('user/test_chart.html.twig', [
-            'testChart' => $testChart,
-        ]);
-    }
-    
     // gathers all the connected user's data to display them
     #[Route('/user/myProfile', name: 'app_user')]
     public function index(Request $request, 
@@ -359,46 +346,46 @@ class UserController extends AbstractController
     
 
     
-    #[Route('/admin/deleteTrack/{id}', name: 'app_user_deleteTrack')]
-    public function deleteTrack(Request $request, 
-                            TrackingRepository $tr,
-                            EntityManagerInterface $em,
-                            Tracking $tracking = null): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
+    // #[Route('/admin/deleteTrack/{id}', name: 'app_user_deleteTrack')]
+    // public function deleteTrack(Request $request, 
+    //                         TrackingRepository $tr,
+    //                         EntityManagerInterface $em,
+    //                         Tracking $tracking = null): Response
+    // {
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('app_login');
+    //     }
         
         
-        $em->remove($tracking);
-        $em->flush();
+    //     $em->remove($tracking);
+    //     $em->flush();
 
-        return $this->redirectToRoute('app_user');
-    }
+    //     return $this->redirectToRoute('app_user');
+    // }
 
-    #[Route('/admin/deletePerf/{id}', name: 'app_user_deletePerf')]
-    public function deletePerf(Request $request, 
-                            Performance $perf,
-                            EntityManagerInterface $em,
-                            Performance $performance = null): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-        $user = $this->getUser();
+    // #[Route('/admin/deletePerf/{id}', name: 'app_user_deletePerf')]
+    // public function deletePerf(Request $request, 
+    //                         Performance $perf,
+    //                         EntityManagerInterface $em,
+    //                         Performance $performance = null): Response
+    // {
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('app_login');
+    //     }
+    //     $user = $this->getUser();
 
-        // For whatever reason, unless i nullify the relationship between 
-        // the exercice and the performance, i get an error
+    //     // For whatever reason, unless i nullify the relationship between 
+    //     // the exercice and the performance, i get an error
 
-        $performance->setExerciceMesured(null);
-        $user->removePerformance($performance);
+    //     $performance->setExerciceMesured(null);
+    //     $user->removePerformance($performance);
 
-        $em->persist($user);
-        $em->flush();
-        // $em->remove($performance);
-        // $em->flush();
+    //     $em->persist($user);
+    //     $em->flush();
+    //     // $em->remove($performance);
+    //     // $em->flush();
 
-        return $this->redirectToRoute('app_user');
-    }
+    //     return $this->redirectToRoute('app_user');
+    // }
     
 }

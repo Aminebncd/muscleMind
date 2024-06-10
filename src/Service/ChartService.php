@@ -79,7 +79,7 @@ class ChartService
         $chart->setOptions([
             'scales' => [
                 'y' => [
-                    'suggestedMin' => 0,
+                    'suggestedMin' => (min($trackingWeights) - 30),
                     'suggestedMax' => (max($trackingWeights) + 30),
                 ],
             ],
@@ -125,7 +125,7 @@ class ChartService
         $chart->setOptions([
             'scales' => [
                 'y' => [
-                    'suggestedMin' => 0,
+                    'suggestedMin' => (min($performanceRecords) - 20),
                     'suggestedMax' => (max($performanceRecords) + 30),
                 ],
             ],

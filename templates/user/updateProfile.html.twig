@@ -10,11 +10,11 @@
 
     {% set lastWarningMessage = app.flashes('error') | last %}
     
-                {% if lastWarningMessage is not empty %}
-                    <div class="alert alert-warning bg-violet-500 text-center text-white rounded-lg px-8 py-4 mt-8">
-                        {{ lastWarningMessage }}
-                    </div>
-                {% endif %}
+        {% if lastWarningMessage is not empty %}
+            <div class="alert alert-warning bg-violet-500 text-center text-white rounded-lg px-8 py-4 mt-8">
+                {{ lastWarningMessage }}
+            </div>
+        {% endif %}
 
     {{ form_start(updateProfileForm) }}
     {{ form_end(updateProfileForm) }}

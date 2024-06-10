@@ -173,13 +173,13 @@ INSERT INTO `tag` (`id`, `label`) VALUES
 	(3, 'nutrition');
 
 -- Listage des données de la table musclemind.tracking : ~3 rows (environ)
-INSERT INTO `tracking` (`id`, `user_tracked_id`, `height`, `weight`, `age`, `sex`, `date_of_tracking`) VALUES
+INSERT INTO `tracking` (`id`, `user_tracked_id`, `height`, `weight`, `date_of_tracking`) VALUES
 	(2, 1, '185', '85', '23', '0', '2024-04-28 21:50:08'),
 	(3, 1, '185', '89', '23', '0', '2024-04-28 22:20:16'),
 	(4, 1, '186', '89', '23', '0', '2024-04-30 20:22:59');
 
 -- Listage des données de la table musclemind.user : ~1 rows (environ)
-INSERT INTO `user` (`id`, `username`, `email`, `roles`, `password`, `score`, `is_verified`) VALUES
+INSERT INTO `user` (`id`, `username`, `email`, `roles`, `password`, `score`, `is_verified`, `sex`, `date_of_birth`) VALUES
 	(1, 'aminebncd', 'aminebncd_pro@hotmail.com', '["ROLE_ADMIN", "ROLE_MODERATOR"]', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 15210, 1);
 
 -- Listage des données de la table musclemind.workout_plan : ~17 rows (environ)
