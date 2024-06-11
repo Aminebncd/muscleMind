@@ -4,7 +4,11 @@
 
 {% block body %}
 
-{% if ressource %}   
+{% if ressource %}  
+
+<a href="{{path ('app_ressource_edit', {'id' : ressource.id} )}}">edit ressource</a>
+<a href="{{path ('app_ressource_delete', {'id' : ressource.id} )}}">delete ressource</a>
+
     {{ ressource.title }} <br>
     {{ ressource.content }} <br>
     {{ ressource.link }} <br>

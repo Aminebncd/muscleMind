@@ -27,9 +27,11 @@ class RessourceController extends AbstractController
         }
 
 
-        $ressources = $rr->findAll();
+        // $ressources = $rr->findAll();
+        $ressources = $rr->findBy([], ['createdAt' => 'DESC']);
         $tags = $tr->findAll();
 
+        
 
         return $this->render('ressource/index.html.twig', [
             'ressources' => $ressources,

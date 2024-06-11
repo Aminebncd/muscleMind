@@ -43,6 +43,42 @@ class Tag
         return $this;
     }
 
+    public function tagColor (): string
+    {
+
+        $tag = $this->getLabel();
+
+        switch ($tag) {
+            case 'weight lifting':
+                return 'quinary';
+            case 'health':
+                return 'quaternary';
+            case 'nutrition':
+                return 'senary';
+            
+            default:
+                return 'quinary';
+        }
+    }
+
+    public function tagTextColor (): string
+    {
+
+        $tag = $this->getLabel();
+
+        switch ($tag) {
+            case 'weight lifting':
+                return 'white';
+            case 'health':
+                return 'black';
+            case 'nutrition':
+                return 'white';
+            
+            default:
+                return 'white';
+        }
+    }
+
     /**
      * @return Collection<int, Ressources>
      */
