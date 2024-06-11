@@ -4,12 +4,31 @@
 
 {% block body %}
 
-{% if tag %}   
-    {{tag}} <br><br>
+{% if tag %}  
+    <h2 class="text-center font-bold text-xl px-2 py-4">Ressources under tag :</h2> 
+    <h1 class="text-center font-bold text-2xl px-2 py-4 mb-8">{{tag}}</h1>
 
-    {% for ressource in tag.ressources %}
-        <a href="{{path ('app_ressource_detailsRessource', {'id' : ressource.id})}}">{{ressource}}</a> <br>
+    {% if tag.ressources %}
+    <div class="w-5/6">
+
+        <div class="bg-secondary/60 rounded-lg p-8">
+            <ul>
+                {% for ressource in tag.ressources %}
+            <li>
+                <div class="bg-primary/60 rounded-lg py-4 px-6 mb-4">
+                    <a class="text-lg font-medium mb-8" href="{{path ('app_ressource_detailsRessource', {'id' : ressource.id})}}">{{ressource}}</a>
+                <a class="line-clamp-3	" href="{{path ('app_ressource_detailsRessource', {'id' : ressource.id})}}">{{ressource.content}}</a>
+            </div>
+        </li>
     {% endfor %}
+    </ul>
+        {% else %} 
+        <p>No ressources found</p>
+    </div>
+</div>
+    {% endif %}
+    <a href="{{ path('app_ressource') }}">back to index</a>
+
 
 {% endif %}
 

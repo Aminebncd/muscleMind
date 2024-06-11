@@ -4,22 +4,37 @@
 
 {% block body %}
 
-{% if tags %}
-    <ul>
-        {% for tag in tags %}
-            <li><a href="{{path ('app_ressource_detailsTag', {'id' : tag.id})}}">{{tag}}</a></li>
-        {% endfor %}
-    </ul>
+{% if is_granted('ROLE_ADMIN') %}   
+            <div class="w-full flex justify-center">
+                <a class="m px-4 py-2 rounded-2xl w-fit bg-secondary drop-shadow-xl hover:bg-quaternary hover:text-black duration-150" href="{{ path('app_ressource_new') }}">Create new</a>
+            </div>
+        {% endif %}
 
-    {% if ressources %}
-    <ul>
-        {% for ressource in ressources %}
-            <li><a href="{{path ('app_ressource_detailsRessource', {'id' : ressource.id})}}">{{ressource}}</a></li>
-        {% endfor %}
-    </ul>
-    {% else %}
-        <p>No ressources found</p>
-    {% endif %}
+{% if tags %}
+<div class="w-5/6">
+    <ul class="flex flex-row justify-center my-8">
+            {% for tag in tags %}
+                <li><a class="no-underline px-4 py-2 mx-2 rounded-2xl bg-quinary drop-shadow-xl hover:text-black hover:bg-quaternary duration-150" href="{{path ('app_ressource_detailsTag', {'id' : tag.id})}}">{{tag}}</a></li>
+            {% endfor %}
+        </ul>
+
+        {% if ressources %}
+        <div class="bg-secondary/60 rounded-lg p-8">
+            <ul>
+                {% for ressource in ressources %}
+                    <li>
+                        <div class="bg-primary/60 rounded-lg py-4 px-6 mb-4">
+                            <a class="text-lg font-medium pb-8" href="{{path ('app_ressource_detailsRessource', {'id' : ressource.id})}}">{{ressource}}</a>
+                            <a class="line-clamp-3	" href="{{path ('app_ressource_detailsRessource', {'id' : ressource.id})}}">{{ressource.content}}</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% else %} 
+            <p>No ressources found</p>
+        </div>
+        {% endif %}
+    </div>
 {% endif %}
 
 

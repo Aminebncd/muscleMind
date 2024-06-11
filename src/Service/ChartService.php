@@ -80,7 +80,16 @@ class ChartService
             'scales' => [
                 'y' => [
                     'suggestedMin' => (min($trackingWeights) - 30),
-                    'suggestedMax' => (max($trackingWeights) + 30),
+                    'suggestedMax' => (max($trackingWeights) + 20),
+                ],
+            ],
+            'plugins' => [
+                'zoom' => [
+                    'zoom' => [
+                        'wheel' => ['enabled' => true],
+                        'pinch' => ['enabled' => true],
+                        'mode' => 'xy',
+                    ],
                 ],
             ],
         ]);
@@ -132,6 +141,15 @@ class ChartService
                 'y' => [
                     'suggestedMin' => (min($performanceRecords) - 20),
                     'suggestedMax' => (max($performanceRecords) + 30),
+                ],
+            ],
+            'plugins' => [
+                'zoom' => [
+                    'zoom' => [
+                        'wheel' => ['enabled' => true],
+                        'pinch' => ['enabled' => true],
+                        'mode' => 'xy',
+                    ],
                 ],
             ],
         ]);

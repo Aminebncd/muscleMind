@@ -22,17 +22,23 @@ class UserActivityService
         $currentYear = date('Y');
         $startDate = new DateTime("$currentYear-01-01");
         $endDate = new DateTime("$currentYear-12-31");
-    
+        $now = (new DateTime())->format('Y-m-d');
+
         $sessions = $sessionRepository->findByUserAndDateRange($user, $startDate, $endDate);
-    
-        $activity = [];
-        foreach ($sessions as $session) {
-            $date = $session->getDateSession()->format('Y-m-d');
+
+    $activity = [];
+    foreach ($sessions as $session) {
+        $sessionDate = $session->getDateSession();
+        $date = $sessionDate->format('Y-m-d');
+        
+        // Verifies if the session date is in the past
+        if ($sessionDate <= $now) {
             if (!isset($activity[$date])) {
                 $activity[$date] = 0;
             }
             $activity[$date]++;
         }
+    }
     
         // Generate activity array using a helper method
         return self::generateActivityArray($startDate, $endDate, $activity);

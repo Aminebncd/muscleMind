@@ -73,11 +73,10 @@ class RessourceController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        if ($ressource->getAuthor() !== $this->getUser() 
-            || !in_array('ROLE_MODERATOR', $this->getUser()->getRoles())){
-        
-            return $this->redirectToRoute('app_home');
-        }
+        // if ($ressource->getAuthor() !== $this->getUser() 
+        //     || !in_array('ROLE_MODERATOR', $this->getUser()->getRoles())){
+        //     return $this->redirectToRoute('app_home');
+        // }
         // same logic as in my TrainingController
         $isEdit = ($ressource !== null);
 
