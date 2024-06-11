@@ -154,7 +154,7 @@ class HomeController extends AbstractController
 
 
     
-    // delete a Session, pretty straightforward
+    // deletes a Session, pretty straightforward
     #[Route('/delete/{id}', name: 'app_home_deleteSession')]
     public function removeSession(Session $session = null, 
                             EntityManagerInterface $em,

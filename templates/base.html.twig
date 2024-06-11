@@ -9,66 +9,8 @@
         {{ encore_entry_link_tags('app') }}
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         {% endblock %}
-        {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
 
-        {% endblock %}
-    </head>
-
-    <body>
-
-        
-        <div class="navbar-up">
-            <a class="font-bold text-2xl group" href="{{ path('app_home') }}">
-                <span class="group-hover:text-quinary duration-200">Muscle</span><span class="group-hover:text-quaternary duration-200">Mind</span>
-                </a>
-            {% if app.user %}
-            <nav>
-                <a href="{{path('app_logout')}}">Logout</a>
-                <a href="#">Settings</a>
-            </nav>
-            {% endif %}
-            {# <nav class="min-md:hidden">
-                <a href="{{ path('app_muscle') }}">anatomy</a>
-                <a href="{{ path('app_training') }}">program</a>
-                <a href="{{ path('app_home') }}">home</a>
-                <a href="{{ path('app_user') }}">My Profile</a>
-                <a href="{{ path('app_ressource') }}">ressources</a>
-                <a href="{{ path('app_exercice') }}">exercices</a>
-            </nav> #}
-        </div>
-        
-        <main class="my-32 h-auto">
-            {% block body %}{% endblock %}
-        </main>
-
-        {% if app.user %}
-        <div class="navbar-down">
-            <nav class="max-sm:hidden">
-                <a href="{{ path('app_muscle') }}">anatomy</a>
-                <a href="{{ path('app_training') }}">program</a>
-                <a href="{{ path('app_home') }}">home</a>
-                <a href="{{ path('app_user') }}">My Profile</a>
-                <a href="{{ path('app_ressource') }}">ressources</a>
-                <a href="{{ path('app_exercice') }}">exercices</a>
-            </nav>
-        </div>
-        {% endif %}
-        
-
-
-
-
-
-
-
-
-
-
-        {# {% block javascripts %} #}
-            {# <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> #}
-            <script src="{{ asset('js/main.js') }}"></script>
-            <script src="https://kit.fontawesome.com/a99d4df9ac.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/a99d4df9ac.js" crossorigin="anonymous"></script>
             <script type="text/javascript" src="{{ asset('tarteaucitron/tarteaucitron.js') }}"></script>
             <script type="text/javascript">
                 document.addEventListener('DOMContentLoaded', function() {
@@ -116,8 +58,65 @@
                     (tarteaucitron.job = tarteaucitron.job || []).push('analytics');
                 });
             </script>
+    </head>
 
+    <body>
+
+        
+        <div class="navbar-up">
+            <a class="font-bold text-2xl group" href="{{ path('app_home') }}">
+                <span class="group-hover:text-quinary duration-200">Muscle</span><span class="group-hover:text-quaternary duration-200">Mind</span>
+                </a>
+            {% if app.user %}
+            <nav>
+                <a href="{{path('app_logout')}}">Logout</a>
+                <a href="#">Settings</a>
+            </nav>
+            {% endif %}
+            {# <nav class="min-md:hidden">
+                <a href="{{ path('app_muscle') }}">anatomy</a>
+                <a href="{{ path('app_training') }}">program</a>
+                <a href="{{ path('app_home') }}">home</a>
+                <a href="{{ path('app_user') }}">My Profile</a>
+                <a href="{{ path('app_ressource') }}">ressources</a>
+                <a href="{{ path('app_exercice') }}">exercices</a>
+            </nav> #}
+        </div>
+
+
+        
+        <main class="my-32 h-auto">
+            {% block body %}{% endblock %}
+        </main>
+
+        {% if app.user %}
+        <div class="navbar-down">
+            <nav class="max-sm:hidden">
+                <a href="{{ path('app_muscle') }}">anatomy</a>
+                <a href="{{ path('app_training') }}">program</a>
+                <a href="{{ path('app_home') }}">home</a>
+                <a href="{{ path('app_user') }}">My Profile</a>
+                <a href="{{ path('app_ressource') }}">ressources</a>
+                <a href="{{ path('app_exercice') }}">exercices</a>
+            </nav>
+        </div>
+        {% endif %}
+        
+
+
+
+
+
+
+
+
+
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+            {# <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> #}
+            <script src="{{ asset('js/main.js') }}"></script>
             {# {% block importmap %}{{ importmap('app') }}{% endblock %} #}
-        {# {% endblock %} #}
+        {% endblock %}
     </body>
 </html>

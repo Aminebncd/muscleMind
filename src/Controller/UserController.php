@@ -230,25 +230,25 @@ class UserController extends AbstractController
 
 
     // deletes the user
-    #[Route('/user/deleteUser/{id}', name: 'app_user_delete')]
-    public function deleteUser(Request $request, 
-                            UserRepository $ur,
-                            EntityManagerInterface $em,
-                            User $user = null): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
+    // #[Route('/user/deleteUser/{id}', name: 'app_user_delete')]
+    // public function deleteUser(Request $request, 
+    //                         UserRepository $ur,
+    //                         EntityManagerInterface $em,
+    //                         User $user = null): Response
+    // {
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('app_login');
+    //     }
 
-        if ($user !== $this->getUser() || !in_array('ROLE_ADMIN', $user->getRoles())){
-            return $this->redirectToRoute('app_home');
-        }
+    //     if ($user !== $this->getUser() || !in_array('ROLE_ADMIN', $user->getRoles())){
+    //         return $this->redirectToRoute('app_home');
+    //     }
         
-        $em->remove($user);
-        $em->flush();
+    //     $em->remove($user);
+    //     $em->flush();
 
-        return $this->redirectToRoute('app_user_list');
-    }
+    //     return $this->redirectToRoute('app_user_list');
+    // }
 
 
 
@@ -346,46 +346,46 @@ class UserController extends AbstractController
     
 
     
-    // #[Route('/admin/deleteTrack/{id}', name: 'app_user_deleteTrack')]
-    // public function deleteTrack(Request $request, 
-    //                         TrackingRepository $tr,
-    //                         EntityManagerInterface $em,
-    //                         Tracking $tracking = null): Response
-    // {
-    //     if (!$this->getUser()) {
-    //         return $this->redirectToRoute('app_login');
-    //     }
+    #[Route('/admin/deleteTrack/{id}', name: 'app_user_deleteTrack')]
+    public function deleteTrack(Request $request, 
+                            TrackingRepository $tr,
+                            EntityManagerInterface $em,
+                            Tracking $tracking = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         
         
-    //     $em->remove($tracking);
-    //     $em->flush();
+        $em->remove($tracking);
+        $em->flush();
 
-    //     return $this->redirectToRoute('app_user');
-    // }
+        return $this->redirectToRoute('app_user');
+    }
 
-    // #[Route('/admin/deletePerf/{id}', name: 'app_user_deletePerf')]
-    // public function deletePerf(Request $request, 
-    //                         Performance $perf,
-    //                         EntityManagerInterface $em,
-    //                         Performance $performance = null): Response
-    // {
-    //     if (!$this->getUser()) {
-    //         return $this->redirectToRoute('app_login');
-    //     }
-    //     $user = $this->getUser();
+    #[Route('/admin/deletePerf/{id}', name: 'app_user_deletePerf')]
+    public function deletePerf(Request $request, 
+                            Performance $perf,
+                            EntityManagerInterface $em,
+                            Performance $performance = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        $user = $this->getUser();
 
-    //     // For whatever reason, unless i nullify the relationship between 
-    //     // the exercice and the performance, i get an error
+        // For whatever reason, unless i nullify the relationship between 
+        // the exercice and the performance, i get an error
 
-    //     $performance->setExerciceMesured(null);
-    //     $user->removePerformance($performance);
+        $performance->setExerciceMesured(null);
+        $user->removePerformance($performance);
 
-    //     $em->persist($user);
-    //     $em->flush();
-    //     // $em->remove($performance);
-    //     // $em->flush();
+        $em->persist($user);
+        $em->flush();
+        // $em->remove($performance);
+        // $em->flush();
 
-    //     return $this->redirectToRoute('app_user');
-    // }
+        return $this->redirectToRoute('app_user');
+    }
     
 }

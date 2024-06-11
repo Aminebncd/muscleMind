@@ -141,8 +141,6 @@ class EquivalentService
                 return ['name' => $equivalent['name'], 'image' => $equivalent['image']];
             }
         }
-
-        // return "No equivalent found";
     }
 
     public function __tostring()
