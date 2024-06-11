@@ -21,8 +21,13 @@
         {% if ressources %}
         <div class="bg-secondary/60 rounded-lg p-8 backdrop-blur-md drop-shadow-xl">
 
-            <div class="w-full flex justify-center">
-                <a class="mb-8 px-4 py-2 rounded-2xl w-full bg-secondary drop-shadow-xl hover:bg-tertiary duration-150" href="{{ path('app_ressource_new') }}">Create new</a>
+            <div class="w-full flex justify-end">
+                
+
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="mb-8 px-4 py-2 rounded-2xl w-fit bg-secondary drop-shadow-xl hover:bg-tertiary duration-150" href="{{ path('app_ressource_new') }}">Create new</a>
+            {% endif %}            
             </div>
 
             <ul>

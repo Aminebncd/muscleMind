@@ -14,7 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Listage des données de la table musclemind.doctrine_migration_versions : ~9 rows (environ)
+-- Listage des données de la table musclemind.doctrine_migration_versions : ~1 rows (environ)
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20240413214807', '2024-04-13 21:48:11', 510),
 	('DoctrineMigrations\\Version20240413214908', '2024-04-13 21:49:13', 56),
@@ -26,9 +26,10 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 	('DoctrineMigrations\\Version20240524160459', '2024-05-24 16:05:07', 83),
 	('DoctrineMigrations\\Version20240531070850', '2024-05-31 07:08:54', 1626),
 	('DoctrineMigrations\\Version20240605123700', '2024-06-05 12:37:08', 133),
-	('DoctrineMigrations\\Version20240606085929', '2024-06-06 08:59:55', 90);
+	('DoctrineMigrations\\Version20240606085929', '2024-06-06 08:59:55', 90),
+	('DoctrineMigrations\\Version20240611063908', '2024-06-11 06:39:21', 843);
 
--- Listage des données de la table musclemind.exercice : ~58 rows (environ)
+-- Listage des données de la table musclemind.exercice : ~0 rows (environ)
 INSERT INTO `exercice` (`id`, `target_id`, `secondary_target_id`, `exercice_name`, `exercice_function`, `how_to_perform`, `pro_tip`, `video_explication`) VALUES
 	(142, 7, 18, 'Dumbbell Hammer Curls', 'Isolation exercise for the biceps, targeting both the biceps and the brachialis with dumbbells held in a neutral grip.', 'Stand up straight with a dumbbell in each hand, your arms fully extended and your palms facing your torso. Curl the weights while keeping your upper arms stationary until your biceps are fully contracted and the dumbbells are at shoulder level. Hold the contracted position for a brief pause as you squeeze your biceps. Slowly begin to bring the dumbbells back to the starting position.', 'Maintain a neutral wrist position throughout the movement to maximize engagement of the brachialis and minimize strain on the wrists.', NULL),
 	(143, 6, 7, 'Barbell Spider Curls', 'Isolation exercise for the biceps, performed lying prone on an incline bench with arms hanging straight down, curling the barbell upwards.', 'Lie face down on an incline bench with your chest against the bench and your feet firmly on the floor. Let your arms hang down holding a barbell. Curl the barbell up as high as you can, squeezing your biceps at the top of the movement. Slowly lower the barbell back to the starting position.', 'Focus on slow, controlled movements to maximize bicep engagement and prevent momentum from aiding the lift.', NULL),
@@ -91,7 +92,7 @@ INSERT INTO `exercice` (`id`, `target_id`, `secondary_target_id`, `exercice_name
 
 -- Listage des données de la table musclemind.messenger_messages : ~0 rows (environ)
 
--- Listage des données de la table musclemind.muscle : ~21 rows (environ)
+-- Listage des données de la table musclemind.muscle : ~0 rows (environ)
 INSERT INTO `muscle` (`id`, `muscle_group_id`, `muscle_name`, `muscle_function`) VALUES
 	(1, 1, 'Pectoralis Major', 'Located in the chest area, attached to the sternum, clavicle, and ribs. Primary function is to bring the upper arm across the body, as in pressing movements like chest press and push-ups.'),
 	(2, 1, 'Pectoralis Minor', 'Located beneath the pectoralis major, attached to the ribs. Assists in pulling the shoulder forward and down.'),
@@ -115,7 +116,7 @@ INSERT INTO `muscle` (`id`, `muscle_group_id`, `muscle_name`, `muscle_function`)
 	(20, 8, 'Forearm Flexors', 'retjhrte'),
 	(21, 7, 'calves', 'zrgzrg');
 
--- Listage des données de la table musclemind.muscle_group : ~8 rows (environ)
+-- Listage des données de la table musclemind.muscle_group : ~0 rows (environ)
 INSERT INTO `muscle_group` (`id`, `muscle_group`, `muscle_group_image`, `muscle_group_svg_front`, `muscle_group_svg_back`) VALUES
 	(1, 'CHEST', 'chest.webp', 'chest.svg', NULL),
 	(2, 'TRICEPS', 'triceps.webp', 'triceps.svg', ''),
@@ -126,60 +127,186 @@ INSERT INTO `muscle_group` (`id`, `muscle_group`, `muscle_group_image`, `muscle_
 	(7, 'LEGS', 'legs.webp', 'legs.svg', 'legs_b.svg'),
 	(8, 'FOREARMS', 'forearms.webp', 'forearms.svg', 'forearms_b.svg');
 
--- Listage des données de la table musclemind.performance : ~2 rows (environ)
+-- Listage des données de la table musclemind.performance : ~0 rows (environ)
 INSERT INTO `performance` (`id`, `user_performing_id`, `exercice_mesured_id`, `personnal_record`, `date_of_performance`) VALUES
-	(4, 1, 191, '105', '2024-06-08 00:00:00' ),
-	(5, 1, 191, '110', '2024-06-08 00:00:00' );
+	(6, 1, 191, '110', '2024-06-11 07:12:06');
 
-
--- Listage des données de la table musclemind.tag : ~3 rows (environ)
-INSERT INTO `tag` (`id`, `label`) VALUES
-	(1, 'weight lifting'),
-	(2, 'health'),
-	(3, 'nutrition');
-
--- Listage des données de la table musclemind.user : ~1 rows (environ)
-INSERT INTO `user` (`id`, `username`, `email`, `date_of_birth`, `sex`, `roles`, `password`, `score`, `is_verified`) VALUES
-	(1, 'aminebncd', 'aminebncd_pro@hotmail.com', '2001-01-15 00:00:00', 'male', '["ROLE_ADMIN", "ROLE_MODERATOR"]', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 15210, 1);
-
--- Listage des données de la table musclemind.tracking : ~3 rows (environ)
-INSERT INTO `tracking` (`id`, `user_tracked_id`, `height`, `weight`, `date_of_tracking`) VALUES
-	(2, 1, '185', '85', '23', '0', '2024-04-28 21:50:08'),
-	(3, 1, '185', '89', '23', '0', '2024-04-28 22:20:16'),
-	(4, 1, '186', '89', '23', '0', '2024-04-30 20:22:59');
-
-
--- Listage des données de la table musclemind.program : ~3 rows (environ)
+-- Listage des données de la table musclemind.program : ~0 rows (environ)
 INSERT INTO `program` (`id`, `creator_id`, `muscle_group_targeted_id`, `secondary_muscle_group_targeted_id`, `title`) VALUES
 	(15, 1, 1, 2, 'seance pec de folie'),
 	(16, 1, 7, 8, 'jambes avant bras'),
 	(17, 1, 5, 3, 'dos biceps'),
 	(18, 1, 1, 4, 'program test');
 
--- Listage des données de la table musclemind.session : ~21 rows (environ)
+-- Listage des données de la table musclemind.reset_password_request : ~0 rows (environ)
+
+-- Listage des données de la table musclemind.ressource : ~17 rows (environ)
+INSERT INTO `ressource` (`id`, `author_id`, `tag_id`, `content`, `link`, `title`, `created_at`, `updated_at`, `is_published`) VALUES
+	(1, 1, 1, 'Taking care of your mental and emotional well-being is just as important as taking care of your physical body. Here are ten tips to help you cultivate better mental and emotional health...', NULL, '10 Tips for Improving Your Mental and Emotional Well-being', '2024-06-11 11:23:58', '2024-06-11 11:23:58', 1),
+	(2, 1, 1, 'Regular exercise is crucial for maintaining good physical and mental health. Incorporating weightlifting into your fitness routine can help you build muscle, improve bone density, and boost your metabolism...', NULL, 'The Benefits of Weightlifting for Better Physical Fitness', '2024-06-11 11:23:58', '2024-06-11 11:23:58', 1),
+	(3, 1, 1, 'Good nutrition is essential for overall health and well-being. Eating a balanced diet that includes a variety of fruits, vegetables, whole grains, and lean proteins can help you maintain a healthy weight and reduce your risk of chronic diseases...', NULL, 'The Importance of Nutrition for Optimal Health', '2024-05-19 11:23:58', '2024-06-11 11:23:58', 1),
+	(5, 1, 1, 'Maintaining strong social connections is essential for mental and emotional well-being. Spending time with friends and loved ones can provide support, reduce feelings of loneliness, and improve your overall quality of life...', NULL, 'The Importance of Social Connections for Mental Health', '2024-06-11 11:23:58', '2024-06-11 11:23:58', 1),
+	(6, 1, 2, 'Superfoods are nutrient-rich foods that offer numerous health benefits. Incorporating these foods into your diet can help you improve your overall health and prevent diseases...', NULL, 'Superfoods to Add to Your Diet for Better Health', '2024-05-11 11:23:58', '2024-06-11 11:23:58', 1),
+	(7, 1, 2, 'Eating a balanced diet that includes plenty of fruits, vegetables, whole grains, and lean proteins is essential for maintaining good health. Avoiding processed foods, sugary drinks, and excessive amounts of salt and sugar can help you stay healthy and prevent chronic diseases...', NULL, 'Tips for Maintaining a Healthy Diet', '2024-06-05 11:23:58', '2024-06-11 11:23:58', 1),
+	(8, 1, 2, 'Antioxidants are compounds that help protect your cells from damage caused by free radicals. Including foods rich in antioxidants, such as berries, nuts, seeds, and leafy greens, in your diet can help support your overall health and well-being...', NULL, 'Foods High in Antioxidants for Radiant Skin', '2024-06-04 11:23:58', '2024-06-11 11:23:58', 1),
+	(9, 1, 2, 'Proper hydration is essential for good health. Drinking enough water throughout the day can help keep your body hydrated, improve digestion, flush out toxins, and support healthy skin...', NULL, 'The Importance of Hydration for Overall Health', '2024-05-09 11:23:58', '2024-06-11 11:23:58', 1),
+	(10, 1, 2, 'Eating a diet rich in fiber can have numerous health benefits, including improved digestion, reduced risk of heart disease, and better weight management. Foods high in fiber include fruits, vegetables, whole grains, nuts, and seeds...', NULL, 'The Benefits of a High-Fiber Diet for Health', '2024-06-02 11:23:58', '2024-06-11 11:23:58', 1),
+	(11, 1, 3, 'Weightlifting is a versatile strength training exercise that offers many health and fitness benefits. By lifting weights regularly and with proper form, you can strengthen your muscles, improve your bone density, and boost your metabolism...', NULL, 'The Benefits of Weightlifting for Better Physical Fitness', '2024-06-11 11:23:58', '2024-06-11 11:23:58', 1),
+	(12, 1, 3, 'Incorporating weightlifting into your fitness routine can help you achieve your fitness goals faster. Whether you want to build muscle, burn fat, or improve your overall strength and endurance, weightlifting can help you get there...', NULL, 'How to Incorporate Weightlifting into Your Workout Routine', '2024-05-03 11:23:58', '2024-06-11 11:23:58', 1),
+	(13, 1, 3, 'Resistance training, such as weightlifting, can help improve your overall athletic performance. By increasing your strength, power, and muscular endurance, you can perform better in sports and other physical activities...', NULL, 'The Role of Weightlifting in Improving Athletic Performance', '2024-05-30 11:23:58', '2024-06-11 11:23:58', 1),
+	(14, 1, 3, 'Weightlifting isn\'t just for bodybuilders. It\'s a beneficial form of exercise for people of all ages and fitness levels. Whether you\'re a beginner or an experienced lifter, you can enjoy the many benefits of weightlifting, including increased muscle tone, improved posture, and enhanced metabolic health...', NULL, 'Why Everyone Should Try Weightlifting', '2024-05-28 11:23:58', '2024-06-11 11:23:58', 1),
+	(15, 1, 3, 'Strength training, such as weightlifting, can help reduce your risk of injury by strengthening your muscles and improving your joint stability. By incorporating weightlifting into your fitness routine, you can build a stronger, more resilient body that\'s better equipped to handle the physical demands of everyday life...', NULL, 'How Weightlifting Can Help Prevent Injuries', '2024-04-24 11:23:58', '2024-06-11 11:23:58', 1),
+	(16, 1, 1, 'In today\'s fast-paced world, stress has become an all-too-common part of everyday life. From work pressures to personal responsibilities, many people find themselves constantly battling stress and anxiety. One effective method to combat these issues is through the practice of meditation. Meditation, an ancient practice with roots in various cultures and religions, offers numerous benefits for mental and emotional well-being.\n\nUnderstanding Meditation\n\nMeditation involves focusing the mind on a particular object, thought, or activity to achieve a mentally clear and emotionally calm state. There are various types of meditation, including mindfulness meditation, transcendental meditation, and guided meditation, each with its own techniques and goals. Despite the differences, the core principle remains the same: to quiet the mind and achieve a state of relaxation and awareness.\n\nBenefits of Meditation\n\n1. Reduces Stress: One of the most well-documented benefits of meditation is its ability to reduce stress. By focusing on the present moment and letting go of worries about the past or future, meditation helps to calm the mind and reduce the body\'s stress response. Studies have shown that regular meditation can lower cortisol levels, the hormone associated with stress, leading to a more relaxed state.\n\n2. Improves Emotional Health: Meditation can significantly enhance emotional well-being. It promotes a positive outlook on life, increases self-awareness, and helps in managing negative emotions. People who meditate regularly report feeling more content and emotionally stable.\n\n3. Enhances Concentration and Focus: Meditation trains the mind to stay focused on a single point of reference. This practice can improve attention span and cognitive function, making it easier to concentrate on tasks and improve productivity.\n\n4. Promotes Physical Health: The benefits of meditation extend beyond mental health. It can lower blood pressure, improve heart rate, and boost the immune system. By reducing stress, meditation also helps to prevent stress-related illnesses and promotes overall physical health.\n\nHow to Get Started\n\nStarting a meditation practice is simple and doesn\'t require any special equipment. Here are some basic steps to begin:\n\n1. Find a Quiet Space: Choose a place where you won\'t be disturbed. This could be a quiet room in your house, a peaceful spot in a park, or any place where you feel comfortable.\n\n2. Sit Comfortably: Find a comfortable position. You can sit on a chair, on the floor, or even lie down if that\'s more comfortable. The key is to maintain a position where you can stay still and relaxed.\n\n3. Focus on Your Breath: Close your eyes and take deep breaths. Focus on the sensation of your breath entering and leaving your body. If your mind starts to wander, gently bring your focus back to your breath.\n\n4. Start Small: Begin with short sessions, such as 5-10 minutes a day. As you become more comfortable with the practice, you can gradually increase the duration.\n\n5. Be Patient: Meditation is a skill that takes time to develop. Don\'t get discouraged if you find it difficult at first. With regular practice, it will become easier and more beneficial.\n\nConclusion\n\nMeditation is a powerful tool for managing stress and improving overall well-being. By incorporating meditation into your daily routine, you can experience a more relaxed, focused, and emotionally balanced life. Whether you\'re dealing with everyday stressors or seeking to enhance your mental health, meditation offers a simple and effective solution.', NULL, 'The Role of Meditation in Stress Reduction', '2024-05-26 11:23:58', '2024-06-11 11:23:58', 1),
+	(17, 1, 1, 'Sleep is an essential component of overall health and well-being, yet it is often overlooked or sacrificed in our busy lives. The importance of sleep extends far beyond merely feeling rested; it plays a critical role in maintaining mental health. Poor sleep can lead to a variety of mental health issues, while good sleep can enhance cognitive function, emotional stability, and overall quality of life.\n\nUnderstanding the Sleep Cycle\n\nSleep is divided into several stages, including light sleep, deep sleep, and REM (rapid eye movement) sleep. Each stage serves a unique function and is essential for various aspects of physical and mental health. During deep sleep, the body repairs and regenerates tissues, builds bone and muscle, and strengthens the immune system. REM sleep, on the other hand, is crucial for cognitive functions such as memory consolidation and learning.\n\nMental Health Benefits of Sleep\n\n1. Enhances Cognitive Function: Adequate sleep is vital for cognitive processes. It improves memory, problem-solving skills, and the ability to learn new information. During sleep, the brain processes and stores information from the day, making it easier to recall and use that information later.\n\n2. Stabilizes Mood: Sleep has a profound impact on mood regulation. Insufficient sleep can lead to irritability, mood swings, and an increased risk of mental health disorders such as depression and anxiety. Good sleep helps maintain emotional stability and resilience.\n\n3. Reduces Stress: Sleep is a natural stress reliever. During sleep, the body reduces levels of stress hormones like cortisol. Lack of sleep, on the other hand, can trigger the body\'s stress response, leading to increased anxiety and tension.\n\n4. Supports Mental Health Treatment: For individuals undergoing treatment for mental health disorders, sleep is a crucial component of recovery. Good sleep can enhance the effectiveness of therapy and medication, and improve overall treatment outcomes.\n\nConsequences of Poor Sleep\n\nPoor sleep, whether due to insomnia, sleep apnea, or other sleep disorders, can have severe consequences for mental health. Chronic sleep deprivation has been linked to a higher risk of developing mental health disorders, impaired cognitive function, and decreased quality of life. Common consequences of poor sleep include:\n\n- Increased Anxiety and Depression: Lack of sleep can exacerbate symptoms of anxiety and depression, making it harder to cope with daily challenges.\n- Cognitive Impairment: Sleep deprivation affects attention, alertness, concentration, and decision-making abilities. This can lead to mistakes, accidents, and reduced productivity.\n- Weakened Immune System: Poor sleep weakens the immune system, making the body more susceptible to infections and illnesses.\n\nTips for Improving Sleep Quality\n\nImproving sleep quality requires adopting healthy sleep habits and creating an environment conducive to restful sleep. Here are some tips to help you get better sleep:\n\n1. Maintain a Regular Sleep Schedule: Go to bed and wake up at the same time every day, even on weekends. This helps regulate your body\'s internal clock and improves sleep quality.\n\n2. Create a Relaxing Bedtime Routine: Engage in calming activities before bed, such as reading, taking a warm bath, or practicing relaxation techniques like deep breathing or meditation.\n\n3. Optimize Your Sleep Environment: Make your bedroom a comfortable and inviting place to sleep. Keep the room cool, dark, and quiet, and invest in a comfortable mattress and pillows.\n\n4. Limit Exposure to Screens: Reduce screen time before bed, as the blue light emitted by phones, tablets, and computers can interfere with your body\'s natural sleep-wake cycle.\n\n5. Watch Your Diet: Avoid large meals, caffeine, and alcohol close to bedtime, as these can disrupt sleep. Instead, opt for light snacks if you\'re hungry before bed.\n\nConclusion\n\nSleep is a cornerstone of mental health, playing a critical role in cognitive function, emotional stability, and overall well-being. Prioritizing good sleep habits and creating a sleep-friendly environment can significantly improve your mental health and quality of life. Remember, sleep is not a luxury but a necessity for maintaining mental and physical health.', NULL, 'The Importance of Sleep for Mental Health', '2024-04-26 11:23:58', '2024-06-11 11:23:58', 1),
+	(18, 1, 1, 'Physical activity is widely recognized for its benefits to physical health, but its impact on emotional well-being is equally profound. Regular exercise can enhance mood, reduce symptoms of depression and anxiety, and improve overall mental health. Understanding the connection between physical activity and emotional well-being can help individuals harness the power of exercise to enhance their quality of life.\n\nThe Science Behind Exercise and Emotional Well-being\n\nWhen you engage in physical activity, your body undergoes various physiological changes that positively affect your mental state. Here are some key mechanisms through which exercise influences emotional well-being:\n\n1. Release of Endorphins: Physical activity triggers the release of endorphins, also known as "feel-good" hormones. Endorphins act as natural painkillers and mood elevators, creating a sense of happiness and euphoria often referred to as the "runner\'s high."\n\n2. Reduction of Stress Hormones: Exercise helps reduce levels of stress hormones like cortisol and adrenaline. Lower levels of these hormones lead to a calmer and more relaxed state of mind.\n\n3. Improved Brain Function: Regular exercise enhances brain function by promoting the growth of new neurons and increasing blood flow to the brain. This can improve cognitive abilities, enhance memory, and boost overall brain health.\n\n4. Regulation of Sleep: Exercise can improve sleep quality, which is crucial for emotional well-being. Better sleep helps regulate mood, reduce stress, and improve overall mental health.\n\nEmotional Benefits of Physical Activity\n\n1. Reduces Symptoms of Depression and Anxiety: Exercise is a powerful tool for managing symptoms of depression and anxiety. It helps release tension, reduces feelings of worry, and promotes a sense of calm. Many mental health professionals recommend physical activity as part of a comprehensive treatment plan for these conditions.\n\n2. Enhances Mood: Regular physical activity is associated with improved mood and a greater sense of happiness. It helps combat feelings of sadness, frustration, and irritability, contributing to a more positive outlook on life.\n\n3. Boosts Self-esteem: Exercise can improve self-esteem and body image. Achieving fitness goals, whether big or small, fosters a sense of accomplishment and confidence. Feeling better about one\'s physical appearance and capabilities translates to a more positive self-view.\n\n4. Provides Social Interaction: Participating in group exercise activities or sports offers social benefits that can alleviate feelings of loneliness and isolation. Building connections through shared physical activity fosters a sense of community and support.\n\nHow to Incorporate Physical Activity into Your Life\n\n1. Choose Activities You Enjoy: Finding an activity that you enjoy increases the likelihood that you will stick with it. Whether it\'s running, swimming, dancing, or playing a sport, choose something that makes you feel good.\n\n2. Set Realistic Goals: Start with small, achievable goals and gradually increase the intensity and duration of your workouts. Setting and achieving these goals provides a sense of accomplishment and motivates you to keep going.\n\n3. Make it a Routine: Incorporate physical activity into your daily routine. Whether it\'s a morning jog, a lunchtime walk, or an evening yoga session, consistency is key to reaping the benefits of exercise.\n\n4. Stay Active Throughout the Day: Look for opportunities to be active, even in small ways. Take the stairs instead of the elevator, walk or bike to work, or engage in active hobbies like gardening or playing with your pets.\n\nConclusion\n\nPhysical activity is a powerful tool for enhancing emotional well-being. By understanding and harnessing the mental health benefits of exercise, you can improve your mood, reduce symptoms of depression and anxiety, and boost your overall quality of life. Remember, the key is to find activities you enjoy and make them a regular part of your routine. With consistent effort, you can achieve a healthier, happier, and more emotionally balanced life.', NULL, 'How Physical Activity Influences Emotional Well-being', '2024-04-27 11:23:58', '2024-06-11 11:23:58', 1);
+
+-- Listage des données de la table musclemind.session : ~0 rows (environ)
 INSERT INTO `session` (`id`, `program_id`, `user_id`, `date_session`) VALUES
-	(232, 15, 1, '2024-05-30 21:22:05'),
-	(233, 15, 1, '2024-06-03 21:22:05'),
-	(234, 15, 1, '2024-06-06 21:22:05'),
-	(235, 17, 1, '2024-06-01 14:47:29'),
-	(236, 17, 1, '2024-06-05 14:47:29'),
-	(237, 17, 1, '2024-06-08 14:47:29'),
-	(238, 17, 1, '2024-06-12 14:47:29'),
-	(239, 17, 1, '2024-06-15 14:47:29'),
-	(240, 17, 1, '2024-06-19 14:47:29'),
-	(241, 17, 1, '2024-06-22 14:47:29'),
-	(242, 17, 1, '2024-06-26 14:47:29'),
-	(243, 17, 1, '2024-06-29 14:47:29'),
-	(244, 16, 1, '2024-06-03 14:47:40'),
-	(245, 16, 1, '2024-06-06 14:47:40'),
-	(246, 16, 1, '2024-06-10 14:47:40'),
-	(247, 16, 1, '2024-06-13 14:47:40'),
-	(248, 16, 1, '2024-06-17 14:47:40'),
-	(249, 16, 1, '2024-06-20 14:47:40'),
-	(250, 16, 1, '2024-06-24 14:47:40'),
-	(251, 16, 1, '2024-06-27 14:47:40'),
-	(252, 16, 1, '2024-07-01 14:47:40');
--- Listage des données de la table musclemind.workout_plan : ~17 rows (environ)
+	(254, 17, 1, '2024-06-17 08:43:32'),
+	(255, 17, 1, '2024-06-20 08:43:32'),
+	(256, 17, 1, '2024-06-24 08:43:32'),
+	(257, 17, 1, '2024-06-27 08:43:32'),
+	(258, 17, 1, '2024-07-01 08:43:32'),
+	(259, 17, 1, '2024-07-04 08:43:32'),
+	(260, 17, 1, '2024-07-08 08:43:32'),
+	(261, 17, 1, '2024-07-11 08:43:32'),
+	(262, 17, 1, '2024-07-15 08:43:32'),
+	(263, 17, 1, '2024-07-18 08:43:32'),
+	(264, 17, 1, '2024-07-22 08:43:32'),
+	(265, 17, 1, '2024-07-25 08:43:32'),
+	(266, 17, 1, '2024-07-29 08:43:32'),
+	(267, 17, 1, '2024-08-01 08:43:32'),
+	(268, 17, 1, '2024-08-05 08:43:32'),
+	(269, 17, 1, '2024-08-08 08:43:32'),
+	(270, 17, 1, '2024-08-12 08:43:32'),
+	(271, 17, 1, '2024-08-15 08:43:32'),
+	(272, 17, 1, '2024-08-19 08:43:32'),
+	(273, 17, 1, '2024-08-22 08:43:32'),
+	(274, 17, 1, '2024-08-26 08:43:32'),
+	(275, 17, 1, '2024-08-29 08:43:32'),
+	(276, 17, 1, '2024-09-02 08:43:32'),
+	(277, 17, 1, '2024-09-05 08:43:32'),
+	(278, 17, 1, '2024-09-09 08:43:32'),
+	(279, 17, 1, '2024-09-12 08:43:32'),
+	(280, 17, 1, '2024-09-16 08:43:32'),
+	(281, 17, 1, '2024-09-19 08:43:32'),
+	(282, 17, 1, '2024-09-23 08:43:32'),
+	(283, 17, 1, '2024-09-26 08:43:32'),
+	(284, 17, 1, '2024-09-30 08:43:32'),
+	(285, 17, 1, '2024-10-03 08:43:32'),
+	(286, 17, 1, '2024-10-07 08:43:32'),
+	(287, 17, 1, '2024-10-10 08:43:32'),
+	(288, 17, 1, '2024-10-14 08:43:32'),
+	(289, 17, 1, '2024-10-17 08:43:32'),
+	(290, 17, 1, '2024-10-21 08:43:32'),
+	(291, 17, 1, '2024-10-24 08:43:32'),
+	(292, 17, 1, '2024-10-28 08:43:32'),
+	(293, 17, 1, '2024-10-31 08:43:32'),
+	(294, 17, 1, '2024-11-04 08:43:32'),
+	(295, 17, 1, '2024-11-07 08:43:32'),
+	(296, 17, 1, '2024-11-11 08:43:32'),
+	(297, 17, 1, '2024-11-14 08:43:32'),
+	(298, 17, 1, '2024-11-18 08:43:32'),
+	(299, 17, 1, '2024-11-21 08:43:32'),
+	(300, 17, 1, '2024-11-25 08:43:32'),
+	(301, 17, 1, '2024-11-28 08:43:32'),
+	(302, 17, 1, '2024-12-02 08:43:32'),
+	(303, 17, 1, '2024-12-05 08:43:32'),
+	(304, 17, 1, '2024-12-09 08:43:32'),
+	(305, 15, 1, '2024-06-14 08:43:45'),
+	(306, 15, 1, '2024-06-21 08:43:45'),
+	(307, 15, 1, '2024-06-28 08:43:45'),
+	(308, 15, 1, '2024-07-05 08:43:45'),
+	(309, 15, 1, '2024-07-12 08:43:45'),
+	(310, 15, 1, '2024-07-19 08:43:45'),
+	(311, 15, 1, '2024-07-26 08:43:45'),
+	(312, 15, 1, '2024-08-02 08:43:45'),
+	(313, 15, 1, '2024-08-09 08:43:45'),
+	(314, 15, 1, '2024-08-16 08:43:45'),
+	(315, 15, 1, '2024-08-23 08:43:45'),
+	(316, 15, 1, '2024-08-30 08:43:45'),
+	(317, 15, 1, '2024-09-06 08:43:45'),
+	(318, 15, 1, '2024-09-13 08:43:45'),
+	(319, 15, 1, '2024-09-20 08:43:45'),
+	(320, 15, 1, '2024-09-27 08:43:45'),
+	(321, 15, 1, '2024-10-04 08:43:45'),
+	(322, 15, 1, '2024-10-11 08:43:45'),
+	(323, 15, 1, '2024-10-18 08:43:45'),
+	(324, 15, 1, '2024-10-25 08:43:45'),
+	(325, 15, 1, '2024-11-01 08:43:45'),
+	(326, 15, 1, '2024-11-08 08:43:45'),
+	(327, 15, 1, '2024-11-15 08:43:45'),
+	(328, 15, 1, '2024-11-22 08:43:45'),
+	(329, 15, 1, '2024-11-29 08:43:45'),
+	(330, 15, 1, '2024-12-06 08:43:45'),
+	(332, 15, 1, '2024-06-18 08:43:58'),
+	(333, 15, 1, '2024-06-25 08:43:58'),
+	(334, 15, 1, '2024-07-02 08:43:58'),
+	(335, 15, 1, '2024-07-09 08:43:58'),
+	(336, 15, 1, '2024-07-16 08:43:58'),
+	(337, 15, 1, '2024-07-23 08:43:58'),
+	(338, 15, 1, '2024-07-30 08:43:58'),
+	(339, 15, 1, '2024-08-06 08:43:58'),
+	(340, 15, 1, '2024-08-13 08:43:58'),
+	(341, 15, 1, '2024-08-20 08:43:58'),
+	(342, 15, 1, '2024-08-27 08:43:58'),
+	(343, 15, 1, '2024-09-03 08:43:58'),
+	(344, 15, 1, '2024-09-10 08:43:58'),
+	(345, 15, 1, '2024-09-17 08:43:58'),
+	(346, 15, 1, '2024-09-24 08:43:58'),
+	(347, 15, 1, '2024-10-01 08:43:58'),
+	(348, 15, 1, '2024-10-08 08:43:58'),
+	(349, 15, 1, '2024-10-15 08:43:58'),
+	(350, 15, 1, '2024-10-22 08:43:58'),
+	(351, 15, 1, '2024-10-29 08:43:58'),
+	(352, 15, 1, '2024-11-05 08:43:58'),
+	(353, 15, 1, '2024-11-12 08:43:58'),
+	(354, 15, 1, '2024-11-19 08:43:58'),
+	(355, 15, 1, '2024-11-26 08:43:58'),
+	(356, 15, 1, '2024-12-03 08:43:58'),
+	(357, 15, 1, '2024-12-10 08:43:58'),
+	(358, 16, 1, '2024-06-15 08:44:12'),
+	(359, 16, 1, '2024-06-22 08:44:12'),
+	(360, 16, 1, '2024-06-29 08:44:12'),
+	(361, 16, 1, '2024-07-06 08:44:12'),
+	(362, 16, 1, '2024-07-13 08:44:12'),
+	(363, 16, 1, '2024-07-20 08:44:12'),
+	(364, 16, 1, '2024-07-27 08:44:12'),
+	(365, 16, 1, '2024-08-03 08:44:12'),
+	(366, 16, 1, '2024-08-10 08:44:12'),
+	(367, 16, 1, '2024-08-17 08:44:12'),
+	(368, 16, 1, '2024-08-24 08:44:12'),
+	(369, 16, 1, '2024-08-31 08:44:12'),
+	(370, 16, 1, '2024-09-07 08:44:12'),
+	(371, 16, 1, '2024-09-14 08:44:12'),
+	(372, 16, 1, '2024-09-21 08:44:12'),
+	(373, 16, 1, '2024-09-28 08:44:12'),
+	(374, 16, 1, '2024-10-05 08:44:12'),
+	(375, 16, 1, '2024-10-12 08:44:12'),
+	(376, 16, 1, '2024-10-19 08:44:12'),
+	(377, 16, 1, '2024-10-26 08:44:12'),
+	(378, 16, 1, '2024-11-02 08:44:12'),
+	(379, 16, 1, '2024-11-09 08:44:12'),
+	(380, 16, 1, '2024-11-16 08:44:12'),
+	(381, 16, 1, '2024-11-23 08:44:12'),
+	(382, 16, 1, '2024-11-30 08:44:12'),
+	(383, 16, 1, '2024-12-07 08:44:12');
+
+-- Listage des données de la table musclemind.tag : ~0 rows (environ)
+INSERT INTO `tag` (`id`, `label`) VALUES
+	(1, 'weight lifting'),
+	(2, 'health'),
+	(3, 'nutrition');
+
+-- Listage des données de la table musclemind.tracking : ~0 rows (environ)
+INSERT INTO `tracking` (`id`, `user_tracked_id`, `height`, `weight`, `date_of_tracking`) VALUES
+	(2, 1, '185', '85', '2024-04-28 21:50:08');
+
+-- Listage des données de la table musclemind.user : ~0 rows (environ)
+INSERT INTO `user` (`id`, `username`, `email`, `date_of_birth`, `sex`, `roles`, `password`, `score`, `is_verified`) VALUES
+	(1, 'aminebncd', 'aminebncd_pro@hotmail.com', '2001-01-15 00:00:00', 'male', '["ROLE_ADMIN", "ROLE_MODERATOR"]', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 0, 1);
+
+-- Listage des données de la table musclemind.workout_plan : ~0 rows (environ)
 INSERT INTO `workout_plan` (`id`, `exercice_id`, `program_id`, `number_of_repetitions`, `weights_used`) VALUES
 	(19, 191, 15, 12, 60),
 	(37, 191, 15, 10, 80),

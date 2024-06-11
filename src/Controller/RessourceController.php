@@ -113,7 +113,7 @@ class RessourceController extends AbstractController
 
 
     // deletes a ressource
-    #[Route('/ressource/{id}/delete', name: 'app_ressource_delete')]
+    #[Route('/ressource/{id}/delete', name: 'app_ressource_delete', methods: ['DELETE'])]
     public function deleteRessource(Ressource $ressource,
                                     EntityManagerInterface $em): Response
     {
@@ -124,6 +124,8 @@ class RessourceController extends AbstractController
         if ($ressource->getAuthor() !== $this->getUser() || !in_array('ROLE_MODERATOR', $this->getUser()->getRoles())){
             return $this->redirectToRoute('app_home');
         }
+
+        // dd('prout');
 
         $em->remove($ressource);
         $em->flush();
