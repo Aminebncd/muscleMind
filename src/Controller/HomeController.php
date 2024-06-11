@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Program;
 use App\Entity\Session;
-use App\Form\SessionType;
-use App\Form\ScheduleType;
+// use App\Form\SessionType;
+// use App\Form\ScheduleType;
+use App\Form\AutoScheduleType;
+use App\Form\ManualScheduleType;
 use App\Repository\UserRepository;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -91,10 +93,69 @@ class HomeController extends AbstractController
     // i will try to make it annual so each year you can either reprogram everything
     // or try a new workout split (program)
 
+    // #[Route('/newSession', name: 'app_home_newSession')]
+    // public function newSession(Request $request,
+    //                             EntityManagerInterface $em, 
+    //                             SessionRepository $sessionRepository): Response
+    // {
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('app_login');
+    //     }
+
+    //     $user = $this->getUser();
+
+    //     $scheduleForm = $this->createForm(ScheduleType::class);
+    //     $scheduleForm->handleRequest($request);
+
+    //     if ($scheduleForm->isSubmitted() && $scheduleForm->isValid()) {
+    //         $formData = $scheduleForm->getData();
+
+    //         // as always, i gather the formData
+    //         $selectedProgram = $formData['program'];
+    //         $selectedDaysOfWeek = $formData['daysOfWeek'];
+
+    //         // i initialise the starting point
+    //         $startDate = new \DateTimeImmutable();
+
+    //         // then i determine the endpoint, 12 months from now
+    //         // $endDate = $startDate->add(new \DateInterval('P12M'));
+
+    //         // this one is just for testing purposes
+    //         $endDate = $startDate->add(new \DateInterval('P1M'));
+
+    //         // i loop on every monday from start to end
+    //         $currentDate = $startDate;
+    //         while ($currentDate <= $endDate) {
+    //             // verifies if the selected day exists in our choice array
+    //             // i also verify if the day already has a session scheduled
+    //             if (in_array($currentDate->format('N'), $selectedDaysOfWeek )
+    //                 && (!$sessionRepository->findOneBy(['dateSession' => $currentDate])) ) {
+    //                 // Create a new session
+    //                 $session = new Session();
+    //                 $session->setUser($user);
+    //                 $session->setProgram($selectedProgram);
+    //                 $session->setDateSession($currentDate);
+                    
+    //                 $em->persist($session);
+    //             }
+    //             // then i go to the next day
+    //             $currentDate = $currentDate->add(new \DateInterval('P1D'));
+    //         }
+
+    //         $em->flush();
+
+    //         return $this->redirectToRoute('app_home');
+    //     }
+
+    //     return $this->render('home/newSession.html.twig', [
+    //         'user' => $user,
+    //         'scheduleForm' => $scheduleForm->createView(),
+    //         'controller_name' => 'HomeController',
+    //     ]);
+    // }
+
     #[Route('/newSession', name: 'app_home_newSession')]
-    public function newSession(Request $request,
-                                EntityManagerInterface $em, 
-                                SessionRepository $sessionRepository): Response
+    public function newSession(Request $request, EntityManagerInterface $em, SessionRepository $sessionRepository): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -102,55 +163,68 @@ class HomeController extends AbstractController
 
         $user = $this->getUser();
 
-        $scheduleForm = $this->createForm(ScheduleType::class);
-        $scheduleForm->handleRequest($request);
+        // Formulaires
+        $manualForm = $this->createForm(ManualScheduleType::class);
+        $autoForm = $this->createForm(AutoScheduleType::class);
 
-        if ($scheduleForm->isSubmitted() && $scheduleForm->isValid()) {
-            $formData = $scheduleForm->getData();
+        $manualForm->handleRequest($request);
+        $autoForm->handleRequest($request);
 
-            // as always, i gather the formData
+        // Planification manuelle
+        if ($manualForm->isSubmitted() && $manualForm->isValid()) {
+            $formData = $manualForm->getData();
+            $dates = $formData['dates'];
+            $program = $formData['program'];
+
+            foreach ($dates as $date) {
+                if (!$sessionRepository->findOneBy(['dateSession' => $date, 'user' => $user])) {
+                    $session = new Session();
+                    $session->setUser($user);
+                    $session->setProgram($program);
+                    $session->setDateSession($date);
+                    $em->persist($session);
+                }
+            }
+
+            $em->flush();
+            return $this->redirectToRoute('app_home');
+        }
+
+        // Planification automatique
+        if ($autoForm->isSubmitted() && $autoForm->isValid()) {
+            $formData = $autoForm->getData();
             $selectedProgram = $formData['program'];
             $selectedDaysOfWeek = $formData['daysOfWeek'];
+            $duration = $formData['duration'];
 
-            // i initialise the starting point
             $startDate = new \DateTimeImmutable();
+            $endDate = $startDate->add(new \DateInterval($duration));
 
-            // then i determine the endpoint, 12 months from now
-            // $endDate = $startDate->add(new \DateInterval('P12M'));
-
-            // this one is just for testing purposes
-            $endDate = $startDate->add(new \DateInterval('P1M'));
-
-            // i loop on every monday from start to end
             $currentDate = $startDate;
             while ($currentDate <= $endDate) {
-                // verifies if the selected day exists in our choice array
-                // i also verify if the day already has a session scheduled
-                if (in_array($currentDate->format('N'), $selectedDaysOfWeek )
-                    && (!$sessionRepository->findOneBy(['dateSession' => $currentDate])) ) {
-                    // Create a new session
+                if (in_array($currentDate->format('N'), $selectedDaysOfWeek)
+                    && !$sessionRepository->findOneBy(['dateSession' => $currentDate, 'user' => $user])) {
                     $session = new Session();
                     $session->setUser($user);
                     $session->setProgram($selectedProgram);
                     $session->setDateSession($currentDate);
-                    
                     $em->persist($session);
                 }
-                // then i go to the next day
                 $currentDate = $currentDate->add(new \DateInterval('P1D'));
             }
 
             $em->flush();
-
             return $this->redirectToRoute('app_home');
         }
 
         return $this->render('home/newSession.html.twig', [
             'user' => $user,
-            'scheduleForm' => $scheduleForm->createView(),
-            'controller_name' => 'HomeController',
+            'manualForm' => $manualForm->createView(),
+            'autoForm' => $autoForm->createView(),
         ]);
     }
+
+
 
 
     
