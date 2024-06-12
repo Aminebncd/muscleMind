@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+
+    
+<a href="{{path ('app_user_updateProfile', {'id': user.id}) }}">update profile infos</a> 
+<a href="{{path ('app_register_updateEmail', {'id': user.id}) }}">update email</a> 
+<a href="{{path ('app_register_updatePassword', {'id': user.id}) }}">update password</a> <br>
+<a href="{{path ('app_user_delete', {'id': user.id}) }}">delete account</a> <br>
+
+{% endblock %}

@@ -25,6 +25,9 @@ class Muscle
     #[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'target')]
     private Collection $exercices;
 
+    #[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'secondaryTarget')]
+    private Collection $subExercices;
+
     #[ORM\ManyToOne(inversedBy: 'muscles')]
     #[ORM\JoinColumn(nullable: false)]
     private ?MuscleGroup $muscleGroup = null;
