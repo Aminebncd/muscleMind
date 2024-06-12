@@ -482,7 +482,7 @@ class TrainingController extends AbstractController
     // this function renders the view
     // the FormInterface type hinting is necessary for the render() method
 
-    protected function renderTrainingView(FormInterface $formAddProgram, 
+    private function renderTrainingView(FormInterface $formAddProgram, 
                                             FormInterface $formAddWorkout, 
                                             Program $program, bool $isEdit) {
         $workoutPlans = $program->getWorkoutPlans();

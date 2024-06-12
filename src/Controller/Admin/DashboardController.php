@@ -2,13 +2,18 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Tag;
 use App\Entity\User;
+use App\Entity\Muscle;
+use App\Entity\Exercice;
 use App\Entity\Ressource;
+use App\Entity\MuscleGroup;
 use App\Controller\Admin\UserCrudController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
@@ -38,9 +43,9 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
+
+            // you can include HTML contents too (e.g. to link to an image)
             ->setTitle('MuscleMind')
-              // you can include HTML contents too (e.g. to link to an image)
-            //   ->setTitle('<img src="..."> ACME <span class="text-small">Corp.</span>')
 
               // by default EasyAdmin displays a black square as its default favicon;
               // use this method to display a custom favicon: the given path is passed
@@ -66,7 +71,7 @@ class DashboardController extends AbstractDashboardController
               // by default, users can select between a "light" and "dark" mode for the
               // backend interface. Call this method if you prefer to disable the "dark"
               // mode for any reason (e.g. if your interface customizations are not ready for it)
-              ->disableDarkMode()
+              // ->disableDarkMode()
   
               // by default, all backend URLs are generated as absolute URLs. If you
               // need to generate relative URLs instead, call this method
@@ -96,9 +101,15 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+
         // yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
         yield MenuItem::linkToCrud('Ressources', 'fa fa-book', Ressource::class);
+        yield MenuItem::linkToCrud('Tags', 'fa fa-tags', Tag::class);
+        yield MenuItem::linkToCrud('Muscle Groups', 'fa fa-dumbbell', MuscleGroup::class);
+        yield MenuItem::linkToCrud('Muscles', 'fa fa-dumbbell', Muscle::class);
+        yield MenuItem::linkToCrud('Exercices', 'fa fa-dumbbell', Exercice::class);
+    
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
 
 

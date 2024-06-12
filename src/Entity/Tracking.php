@@ -110,4 +110,9 @@ class Tracking
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->weight.'kg ('.$this->dateOfTracking->format('d.m.Y').')';
+    }
+
 }

@@ -4,6 +4,12 @@
 
 {% block body %}
 
+{% for tracking in trackings %}
+    {{tracking}} <br>
+{% endfor %}
 
+{% for perf in performances %}
+    {{perf}} <br>
+{% endfor %}
 
 {% endblock %}

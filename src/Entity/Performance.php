@@ -68,21 +68,21 @@ class Performance
 
         return $this;
     }
-
-    public function __tostring()
-    {
-        return $this->personnalRecord."kg : ".$this->exerciceMesured;
-    }
-
+    
     public function getDateOfPerformance(): ?string
     {
         return $this->dateOfPerformance->format('d/m/Y') ;
     }
-
+        
     public function setDateOfPerformance($dateOfPerformance): static
     {
         $this->dateOfPerformance = $dateOfPerformance;
-
+        
         return $this;
+    }
+        
+    public function __tostring()
+    {
+        return $this->personnalRecord."kg : ".$this->exerciceMesured;
     }
 }

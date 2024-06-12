@@ -266,7 +266,8 @@ class UserController extends AbstractController
     #[Route('/user/newPerf', name: 'app_user_newPerf')]
     public function newEditPerf(Request $request,
                             Performance $perf,
-                            EntityManagerInterface $em, 
+                            EntityManagerInterface $em,
+                            ExerciceRepository $er, 
                             User $user = null): Response
     {
         if (!$this->getUser()) {
@@ -277,7 +278,12 @@ class UserController extends AbstractController
             $perf = new Performance();
         }
 
-        $perfForm = $this->createForm(PerfType::class, $perf);
+        // we gather the exercices ordered by name
+        $exercices = $er->findBy([], ['exerciceName' => 'ASC']);
+
+        $perfForm = $this->createForm(PerfType::class, $perf, [
+            'exercices' => $exercices,
+        ]);
         $perfForm->handleRequest($request);
 
         if ($perfForm->isSubmitted() && $perfForm->isValid()) {
@@ -389,8 +395,8 @@ class UserController extends AbstractController
     }
 
     // lists every entry of the user's trackings and performances
-    #[Route('/user/listEntries', name: 'app_user_listEntries')]
-    public function listEntries(Request $request): Response
+    #[Route('/user/listEntries/{id}', name: 'app_user_listEntries')]
+    public function listEntries(Request $request, User $user): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
