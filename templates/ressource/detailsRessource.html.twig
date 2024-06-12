@@ -23,7 +23,7 @@
 {% if ressource %}
     <div class="bg-secondary/60 rounded-lg p-8 backdrop-blur-md drop-shadow-xl w-10/12">
         <h1 class="text-2xl font-bold mb-4">{{ ressource.title }}</h1>
-        <p class="mb-6">{{ ressource.content }}</p>
+        <p class="mb-6">{{ ressource.content | raw  }}</p>
         {% if ressource.link %}
             <a class="text-blue-500 hover:underline" href="{{ ressource.link }}" target="_blank">Show source</a>
         {% endif %}

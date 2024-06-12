@@ -10,7 +10,8 @@
         {{ encore_entry_link_tags('app') }}
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         {% endblock %}
-
+        
+        {{ encore_entry_script_tags('app') }}
         <script src="https://kit.fontawesome.com/a99d4df9ac.js" crossorigin="anonymous"></script>
             <script type="text/javascript" src="{{ asset('tarteaucitron/tarteaucitron.js') }}"></script>
             <script type="text/javascript">
@@ -114,7 +115,6 @@
 
 
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
             {# <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> #}
             <script src="{{ asset('js/main.js') }}"></script>
             {# {% block importmap %}{{ importmap('app') }}{% endblock %} #}
