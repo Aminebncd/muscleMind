@@ -8,6 +8,7 @@ use App\Form\RessourceType;
 use App\Repository\TagRepository;
 use App\Repository\RessourceRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,6 +21,7 @@ class RessourceController extends AbstractController
     #[Route('/ressource', name: 'app_ressource')]
     public function index(RessourceRepository $rr,
                             TagRepository $tr,
+                            PaginatorInterface $paginator,
                             Request $request): Response
     {
         if(!$this->getUser()) {
@@ -28,7 +30,12 @@ class RessourceController extends AbstractController
 
 
         // $ressources = $rr->findAll();
-        $ressources = $rr->findBy([], ['createdAt' => 'DESC']);
+        // $ressources = $rr->findBy([], ['createdAt' => 'DESC']);
+        $ressources = $paginator->paginate(
+            $rr->findBy([], ['createdAt' => 'DESC']),
+            $request->query->getInt('page', 1),
+            5
+        );
         $tags = $tr->findAll();
 
         
