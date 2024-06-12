@@ -63,6 +63,11 @@ class Ressource
         return $this->content;
     }
 
+    public function getTruncatedContent(int $length): string
+    {
+        return substr($this->content, 0, $length);
+    }
+
     public function setContent(string $content): static
     {
         $this->content = $content;
