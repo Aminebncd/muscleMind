@@ -202,7 +202,7 @@ class UserController extends AbstractController
 
         $users = $ur->findAll();
 
-        return $this->render('user/listUsers.html.twig', [
+        return $this->render('admin/listUsers.html.twig', [
             'users' => $users,
             // 'sessions' => $sessions,
             'controller_name' => 'UserController',
@@ -221,7 +221,7 @@ class UserController extends AbstractController
         }
 
 
-        return $this->render('user/detailsUser.html.twig', [
+        return $this->render('admin/detailsUser.html.twig', [
             'user' => $user,
             // 'sessions' => $sessions,
             'controller_name' => 'UserController',
@@ -230,25 +230,25 @@ class UserController extends AbstractController
 
 
     // deletes the user
-    // #[Route('/user/deleteUser/{id}', name: 'app_user_delete')]
-    // public function deleteUser(Request $request, 
-    //                         UserRepository $ur,
-    //                         EntityManagerInterface $em,
-    //                         User $user = null): Response
-    // {
-    //     if (!$this->getUser()) {
-    //         return $this->redirectToRoute('app_login');
-    //     }
+    #[Route('/user/deleteUser/{id}', name: 'app_user_delete')]
+    public function deleteUser(Request $request, 
+                            UserRepository $ur,
+                            EntityManagerInterface $em,
+                            User $user = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
 
-    //     if ($user !== $this->getUser() || !in_array('ROLE_ADMIN', $user->getRoles())){
-    //         return $this->redirectToRoute('app_home');
-    //     }
+        if ($user !== $this->getUser() || !in_array('ROLE_ADMIN', $user->getRoles())){
+            return $this->redirectToRoute('app_home');
+        }
         
-    //     $em->remove($user);
-    //     $em->flush();
+        $em->remove($user);
+        $em->flush();
 
-    //     return $this->redirectToRoute('app_user_list');
-    // }
+        return $this->redirectToRoute('app_user_list');
+    }
 
 
 
@@ -386,6 +386,24 @@ class UserController extends AbstractController
         // $em->flush();
 
         return $this->redirectToRoute('app_user');
+    }
+
+    // lists every entry of the user's trackings and performances
+    #[Route('/user/listEntries', name: 'app_user_listEntries')]
+    public function listEntries(Request $request): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $performances = $this->getUser()->getPerformances();
+        $trackings = $this->getUser()->getTrackings();
+
+        return $this->render('user/listEntries.html.twig', [
+            'trackings' => $trackings,
+            'performances' => $performances,
+            'controller_name' => 'UserController',
+        ]);
     }
     
 }

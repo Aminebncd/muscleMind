@@ -18,7 +18,7 @@ class UserCrudController extends AbstractCrudController
         return User::class;
     }
 
-    
+    // honestly i won't ever use it, but it's here for the sake of the example
     public function configureFields(string $pageName): iterable
     {
         return [
