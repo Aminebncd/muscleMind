@@ -22,16 +22,19 @@
                     {% set target = exercice.target %}
                 {% endif %}
 
+                <hr class="my-1 border-white/10">
                 <li> 
-                    <div class="flex justify-between">
+                    <div class="flex justify-between items-center">
                         <a class="hover:font-medium hover:text-quinary " href="{{path ('app_exercice_details', {'id': exercice.id} )}}">{{exercice}}</a> 
                         <div>
                             {% if is_granted('ROLE_ADMIN') %}   
-                                <a class="text-quinary hover:font-medium duration-150" href="{{path ('app_exercice_edit', {'id': exercice.id} )}}">edit</a> | 
-                                <a class="text-quaternary hover:font-medium hover:text-red-600 duration-150"  href="{{path ('app_exercice_delete', {'id': exercice.id})}}">delete</a>
+                                <a class="text-tertiary hover:font-medium hover:text-yellow-300 duration-150 text-lg" href="{{path ('app_exercice_edit', {'id': exercice.id} )}}"><i class="fa-solid fa-pen-to-square"></i></a> - 
+                                <a class="text-tertiary hover:font-medium hover:text-red-600 duration-150 text-lg"  href="{{path ('app_exercice_delete', {'id': exercice.id})}}"><i class="fa-solid fa-trash-can"></i></a>
                             {% endif %}
                         </div>
                     </div>
+                    <hr class="my-1 border-white/10">
+
                 </li>
 
             {% endfor %}
