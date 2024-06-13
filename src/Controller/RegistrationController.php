@@ -45,8 +45,15 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+        
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
+            // this is a honeypot field to prevent spam
+            if ($form['honeypot']->getData() !== '') {
+                // throw an exception if the honeypot field is filled
+                $this->addFlash('error', 'Bot detected.');
+                return $this->redirectToRoute('app_register');           
+            }
             // dd($form->getData());
             $user->setScore(0);
             $user->setIsVerified(false);
