@@ -13,111 +13,113 @@
         
         {{ encore_entry_script_tags('app') }}
         <script src="https://kit.fontawesome.com/a99d4df9ac.js" crossorigin="anonymous"></script>
-            <script type="text/javascript" src="{{ asset('tarteaucitron/tarteaucitron.js') }}"></script>
-            <script type="text/javascript">
-                document.addEventListener('DOMContentLoaded', function() {
-                    tarteaucitron.init({
-                        "privacyUrl": "", /* Privacy policy url */
-                        "bodyPosition": "bottom", /* or top to bring it as first element for accessibility */
-                        "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
-                        "cookieName": "tarteaucitron", /* Cookie name */
-                        "orientation": "middle", /* Banner position (top - bottom) */
-                        "groupServices": false, /* Group services by category */
-                        "showDetailsOnClick": true, /* Click to expand the description */
-                        "serviceDefaultState": "wait", /* Default state (true - wait - false) */
-                        "showAlertSmall": false, /* Show the small banner on bottom right */
-                        "cookieslist": false, /* Show the cookie list */
-                        "closePopup": false, /* Show a close X on the banner */
-                        "showIcon": true, /* Show cookie icon to manage cookies */
-                        //"iconSrc": "", /* Optionnal: URL or base64 encoded image */
-                        "iconPosition": "BottomRight", /* BottomRight, BottomLeft, TopRight and TopLeft */
-                        "adblocker": false, /* Show a Warning if an adblocker is detected */
-                        "DenyAllCta": true, /* Show the deny all button */
-                        "AcceptAllCta": true, /* Show the accept all button when highPrivacy on */
-                        "highPrivacy": true, /* HIGHLY RECOMMANDED Disable auto consent */
-                        "alwaysNeedConsent": false, /* Ask the consent for "Privacy by design" services */
-                        "handleBrowserDNTRequest": false, /* If Do Not Track == 1, disallow all */
-                        "removeCredit": false, /* Remove credit link */
-                        "moreInfoLink": true, /* Show more info link */
-                        "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
-                        "useExternalJs": false, /* If false, the tarteaucitron.js file will be loaded */
-                        //"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for multisite */
-                        "readmoreLink": "", /* Change the default readmore link */
-                        "mandatory": true, /* Show a message about mandatory cookies */
-                        "mandatoryCta": true, /* Show the disabled accept button when mandatory on */
-                        //"customCloserId": "", /* Optional a11y: Custom element ID used to open the panel */
-                        "googleConsentMode": true, /* Enable Google Consent Mode v2 for Google ads and GA4 */
-                        "partnersList": false, /* Show the number of partners on the popup/middle banner */
-                        "lang": "en" /* Définir explicitement la langue */
-                    });
-
-                    tarteaucitron.user.analyticsUa = 'UA-XXXXXXXX-X';
-                    tarteaucitron.user.analyticsMore = function () { /* optional ga.push() */ };
-                    tarteaucitron.user.analyticsUaCreate = { /* optional create configuration */ };
-                    tarteaucitron.user.analyticsAnonymizeIp = true;
-                    tarteaucitron.user.analyticsPageView = { /* optional pageview configuration */ };
-                    tarteaucitron.user.analyticsMore = function () { /* optional ga.push() */ };
-                    (tarteaucitron.job = tarteaucitron.job || []).push('analytics');
+        <script type="text/javascript" src="{{ asset('tarteaucitron/tarteaucitron.js') }}"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                tarteaucitron.init({
+                    "privacyUrl": "", /* Privacy policy url */
+                    "bodyPosition": "bottom", /* or top to bring it as first element for accessibility */
+                    "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
+                    "cookieName": "tarteaucitron", /* Cookie name */
+                    "orientation": "middle", /* Banner position (top - bottom) */
+                    "groupServices": false, /* Group services by category */
+                    "showDetailsOnClick": true, /* Click to expand the description */
+                    "serviceDefaultState": "wait", /* Default state (true - wait - false) */
+                    "showAlertSmall": true, /* Show the small banner on bottom right */
+                    "cookieslist": false, /* Show the cookie list */
+                    "closePopup": false, /* Show a close X on the banner */
+                    "showIcon": true, /* Show cookie icon to manage cookies */
+                    //"iconSrc": "", /* Optionnal: URL or base64 encoded image */
+                    "iconPosition": "BottomRight", /* BottomRight, BottomLeft, TopRight and TopLeft */
+                    "adblocker": false, /* Show a Warning if an adblocker is detected */
+                    "DenyAllCta": true, /* Show the deny all button */
+                    "AcceptAllCta": true, /* Show the accept all button when highPrivacy on */
+                    "highPrivacy": true, /* HIGHLY RECOMMANDED Disable auto consent */
+                    "alwaysNeedConsent": false, /* Ask the consent for "Privacy by design" services */
+                    "handleBrowserDNTRequest": false, /* If Do Not Track == 1, disallow all */
+                    "removeCredit": false, /* Remove credit link */
+                    "moreInfoLink": true, /* Show more info link */
+                    "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
+                    "useExternalJs": false, /* If false, the tarteaucitron.js file will be loaded */
+                    //"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for multisite */
+                    "readmoreLink": "", /* Change the default readmore link */
+                    "mandatory": true, /* Show a message about mandatory cookies */
+                    "mandatoryCta": true, /* Show the disabled accept button when mandatory on */
+                    //"customCloserId": "", /* Optional a11y: Custom element ID used to open the panel */
+                    "googleConsentMode": true, /* Enable Google Consent Mode v2 for Google ads and GA4 */
+                    "partnersList": false, /* Show the number of partners on the popup/middle banner */
+                    "lang": "en" /* Définir explicitement la langue */
                 });
-            </script>
+
+                tarteaucitron.user.analyticsUa = 'UA-XXXXXXXX-X';
+                tarteaucitron.user.analyticsMore = function () { /* optional ga.push() */ };
+                tarteaucitron.user.analyticsUaCreate = { /* optional create configuration */ };
+                tarteaucitron.user.analyticsAnonymizeIp = true;
+                tarteaucitron.user.analyticsPageView = { /* optional pageview configuration */ };
+                tarteaucitron.user.analyticsMore = function () { /* optional ga.push() */ };
+                (tarteaucitron.job = tarteaucitron.job || []).push('analytics');
+                
+            });
+        </script>
     </head>
 
-    <body>
 
-        
-        <div class="navbar-up">
-            <a class="font-bold text-2xl   group" href="{{ path('app_home') }}">
+    <body class="relative">
+
+        <div class="fixed z-40 top-0 left-0 w-full flex justify-between items-center bg-primary p-4 shadow-md">
+            <a class="font-bold text-2xl group" href="{{ path('app_landing') }}">
                 <span class="group-hover:text-quinary duration-200">Muscle</span><span class="group-hover:text-quaternary duration-200">Mind</span>
-                </a>
-            {% if app.user %}
+            </a>
+            <button id="burger-menu" class="text-3xl focus:outline-none">&#9776;</button>
+        </div>
+    
+        <div id="menu" class="z-50 fixed top-0 right-0 h-full w-64 rounded bg-primary/80 text-white p-4 menu menu-open backdrop-blur-lg">
+            <button id="close-menu" class="w-full text-3xl text-end text-white focus:outline-none mb-4"><i class="fa-solid fa-xmark"></i></button>
             <nav>
-                <a href="{{path('app_logout')}}">Logout</a>
-                <a href="#">Settings</a>
+                {% if app.user %}
+                <div class="bg-secondary/40 p-2 my-6 rounded-xl">
+                    <a href="{{ path('app_user') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">My Profile</a>
+                    <a href="{{ path('app_home') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Home</a>
+                </div>
+                <div class="bg-secondary/40 p-2 my-6 rounded-xl">
+                    <a href="{{ path('app_training') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Program</a>
+                    <a href="{{ path('app_muscle') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Anatomy</a>
+                    <a href="{{ path('app_exercice') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Exercises</a>
+                    <a href="{{ path('app_ressource') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Resources</a>
+                </div>
+                <div class="bg-secondary/40 p-2 my-6 rounded-xl">
+                    <a href="#" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Settings</a>
+                    <a href="{{path('app_logout')}}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Logout</a>
+                </div>
+                {% else %}
+                <div class="bg-secondary/40 p-2 my-6 rounded-xl">
+                    <a href="{{ path('app_login') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Login</a>
+                    <a href="{{ path('app_register') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Register</a>
+                </div>
+                {% endif %}
+                <div class="bg-secondary/40 p-2 my-6 rounded-xl">
+                    <a href="#" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">About Us</a>
+                    <a href="#" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Contact</a>
+                </div>
+                <div class="bg-secondary/40 p-2 my-6 rounded-xl flex justify-around">
+                    <a href="https://facebook.com" class="w-full block py-2 px-4 rounded-full hover:text-blue-900" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://twitter.com" class="w-full block py-2 px-4  rounded-full hover:text-cyan-500" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="https://instagram.com" class="w-full block py-2 px-4  rounded-full hover:text-pink-900" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://linkedin.com" class="w-full block py-2 px-4  rounded-full hover:text-blue-600" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
             </nav>
-            {% endif %}
-            {# <nav class="min-md:hidden">
-                <a href="{{ path('app_muscle') }}">anatomy</a>
-                <a href="{{ path('app_training') }}">program</a>
-                <a href="{{ path('app_home') }}">home</a>
-                <a href="{{ path('app_user') }}">My Profile</a>
-                <a href="{{ path('app_ressource') }}">ressources</a>
-                <a href="{{ path('app_exercice') }}">exercices</a>
-            </nav> #}
         </div>
 
-
-        
         <main class="my-32 h-auto">
             {% block body %}{% endblock %}
         </main>
 
-        {% if app.user %}
-        <div class="navbar-down">
-            <nav class="max-sm:hidden">
-                <a href="{{ path('app_muscle') }}">anatomy</a>
-                <a href="{{ path('app_training') }}">program</a>
-                <a href="{{ path('app_home') }}">home</a>
-                <a href="{{ path('app_user') }}">My Profile</a>
-                <a href="{{ path('app_ressource') }}">ressources</a>
-                <a href="{{ path('app_exercice') }}">exercices</a>
-            </nav>
-        </div>
-        {% endif %}
-        
-
-
-
-
-
-
-
-
-
 
         {% block javascripts %}
             {# <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> #}
-            <script src="{{ asset('js/main.js') }}"></script>
             {# {% block importmap %}{{ importmap('app') }}{% endblock %} #}
-        {% endblock %}
+            {# <script src="{{ asset('js/main.js') }}"></script> #}
+            {% endblock %}
+            <script src="{{ asset('js/main.js') }}"></script>
     </body>
 </html>

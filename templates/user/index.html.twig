@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}MuscleMind{% endblock %}
 
 {% block body %}
 {# <a href="{{path ('app_user_updateProfile', {'id': user.id}) }}">update profile infos</a> 
@@ -106,7 +106,10 @@
                 </div>
             </div>
 
-            <a href="{{ path ('app_user_listEntries', {'id': user.id}) }}">test</a>
+
+            <div class="w-full flex justify-center mt-6">
+                <a class="text-white underline text-lg hover:text-xl hover:font-semibold duration-150" href="{{ path ('app_user_listEntries', {'id': user.id}) }}">List of your entries</a>
+            </div>
         </div>
         
     

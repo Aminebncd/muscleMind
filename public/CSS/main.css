@@ -44,7 +44,7 @@ main {
 
 
 
-.navbar-up {
+/* .navbar-up {
     z-index: 1000;
     background-color: #07080d;
     position: fixed;
@@ -65,6 +65,15 @@ main {
     width: 100%;
     padding: 1.5rem;
     text-align: center;
+} */
+
+.menu {
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0);
+}
+    
+.menu-open {
+    transform: translateX(100%);
 }
 
 .stroke {
@@ -83,14 +92,5 @@ main {
     display: none;
 }
 
-
-
-.my-chart {
-    /* z-index: 1000; */
-    /* padding: 8rem; */
-    /* background-color: var(--secondary-color); */
-    /* border-radius:  5px; */
-    /* background: #ff0000; */
-}
 
 

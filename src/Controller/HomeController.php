@@ -22,13 +22,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
 
+    // returns the landing page of the app
+    #[Route('/', name: 'app_landing')]
+    public function landing(): Response
+    {
+        return $this->render('home/landing.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
+
+
     // lists every session and program created by the user
     // also my default route
-    #[Route('/', name: 'app_home')]
+    #[Route('/home', name: 'app_home')]
     public function index(Request $request): Response
     {
         if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_landing');
         }
 
 

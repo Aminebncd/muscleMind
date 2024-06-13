@@ -2,7 +2,20 @@
 // just to ensure that the dom is fully loaded before running the script
 // document.addEventListener('DOMContentLoaded', (event) => {
     console.log("ici");
-    // window.location.reload(true);
+    
+    var burgerMenu = document.getElementById('burger-menu');
+    var closeMenu = document.getElementById('close-menu');
+    var menu = document.getElementById('menu');
+    
+    burgerMenu.addEventListener('click', () => {
+    menu.classList.remove('menu-open');
+    console.log("ici3");
+    });
+    
+    closeMenu.addEventListener('click', () => {
+        menu.classList.add('menu-open');
+        console.log("ici4");
+    });
 
 
     var activityButton = document.getElementById('activityButton');
