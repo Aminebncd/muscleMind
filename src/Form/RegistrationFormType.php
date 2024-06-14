@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -15,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 
 class RegistrationFormType extends AbstractType
 {
@@ -62,6 +64,12 @@ class RegistrationFormType extends AbstractType
                 ],
                 'row_attr' => ['class' => 'w-full'],
             ])
+            // ->add('captcha', Recaptcha3Type::class, [
+            //     'constraints' => new Recaptcha3(),
+            //     'action_name' => 'homepage',
+            //     // 'script_nonce_csp' => $nonceCSP,
+            //     'locale' => 'en',
+            // ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -72,6 +80,10 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['class' => 'form-checkbox mx-2 h-4 w-4 text-blue-600'],
                 'row_attr' => ['class' => 'my-4 flex items-center justify-center w-full'],
             ])
+
+
+
+
             ->add('honeypot', HiddenType::class, [
                 'mapped' => false,
                 'attr' => [
@@ -79,7 +91,8 @@ class RegistrationFormType extends AbstractType
                 ],
                 'label' => false, 
                 'required' => false, 
-            ]);
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
