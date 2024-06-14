@@ -146,4 +146,21 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
+
+    // returns the settings page
+    #[Route('/settings', name: 'app_settings')]
+    public function settings(): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_landing');
+        }
+
+        $user = $this->getUser();
+
+        return $this->render('settings/index.html.twig', [
+            'user' => $user,
+            'controller_name' => 'HomeController',
+        ]);
+    }
+
 }

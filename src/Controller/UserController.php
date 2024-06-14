@@ -63,11 +63,15 @@ class UserController extends AbstractController
         // dd($performanceChart);
 
         $latestTracking = $tr->getLatest($user);
+        $bmr = $this->calculateBMR($user, $tr);
+        $bmi = $this->calculateBMI($user, $tr);
 
         return $this->render('user/index.html.twig', [
             'user' => $user,
             'equiv' => $equiv, 
             'activity' => $activity,
+            'bmr' => $bmr,
+            'bmi' => $bmi,
             'latestTracking' => $latestTracking, 
             'trackingChart' => $trackingChart,
             'performanceChart' => $performanceChart,
@@ -137,59 +141,65 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() 
             && $form->isValid()) {
-                    // dd($form->getData());
+
+                if ($form->getData()->getSex() === 'I would rather not say' 
+                || $form->getData()->getDateOfBirth() === null){
+                    $user->setSex(null);
+                    $user->setDateOfBirth(null);
+                }
+
             $em->persist($user);
             $em->flush();
             
             return $this->redirectToRoute('app_user');
         }
 
-        return $this->render('user/updateProfile.html.twig', [
+        return $this->render('settings/updateProfile.html.twig', [
             'user' => $user,
             'updateProfileForm' => $form,
             'controller_name' => 'UserController',
         ]);
     }
 
+    // no
+    // // grants the admin role to a user
+    // #[Route('/admin/makeAdmin/{id}', name: 'app_user_makeAdmin')]
+    // public function makeAdmin(Request $request, 
+    //                             UserRepository $ur,
+    //                             EntityManagerInterface $em,
+    //                             User $user = null): Response
+    // {
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('app_login');
+    //     }
+    //     if (!$user) {
+    //         return $this->redirectToRoute('app_user_list');
+    //     }
+    //     $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+    //     $em->persist($user);
+    //     $em->flush();
+    //     return $this->redirectToRoute('app_user_list');
+    // }
 
-    // grants the admin role to a user
-    #[Route('/admin/makeAdmin/{id}', name: 'app_user_makeAdmin')]
-    public function makeAdmin(Request $request, 
-                                UserRepository $ur,
-                                EntityManagerInterface $em,
-                                User $user = null): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-        if (!$user) {
-            return $this->redirectToRoute('app_user_list');
-        }
-        $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
-        $em->persist($user);
-        $em->flush();
-        return $this->redirectToRoute('app_user_list');
-    }
-
-
-    // grants the moderator role to a user
-    #[Route('/admin/makeMod/{id}', name: 'app_user_makeMod')]
-    public function makeMod(Request $request, 
-                                UserRepository $ur,
-                                EntityManagerInterface $em,
-                                User $user = null): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-        if (!$user) {
-            return $this->redirectToRoute('app_user_list');
-        }
-        $user->setRoles(['ROLE_USER', 'ROLE_MODERATOR']);
-        $em->persist($user);
-        $em->flush();
-        return $this->redirectToRoute('app_user_list');
-    }
+    // absolutely not
+    // // grants the moderator role to a user
+    // #[Route('/admin/makeMod/{id}', name: 'app_user_makeMod')]
+    // public function makeMod(Request $request, 
+    //                             UserRepository $ur,
+    //                             EntityManagerInterface $em,
+    //                             User $user = null): Response
+    // {
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('app_login');
+    //     }
+    //     if (!$user) {
+    //         return $this->redirectToRoute('app_user_list');
+    //     }
+    //     $user->setRoles(['ROLE_USER', 'ROLE_MODERATOR']);
+    //     $em->persist($user);
+    //     $em->flush();
+    //     return $this->redirectToRoute('app_user_list');
+    // }
     
 
     // lists the existing users
@@ -318,7 +328,7 @@ class UserController extends AbstractController
         }
 
         if ($this->getUser()->getSex() === null || $this->getUser()->getDateOfBirth() === null){
-            $this->addflash('error', 'Please fill in your profile first');
+            $this->addflash('error', 'Please fill in your profile first, the data will only be used to give you numerical insights on your progress and metabolical needs.');
             return $this->redirectToRoute('app_user_updateProfile', ['id' => $this->getUser()->getId()]);
         }
 
@@ -347,6 +357,40 @@ class UserController extends AbstractController
             'trackingForm' => $trackingForm,
             'controller_name' => 'UserController',
         ]);
+    }
+
+
+    // this function will calculate the user's BMI
+    // and return it
+    private function calculateBMI(User $user, TrackingRepository $tr,
+    )
+    {
+        $height = ($tr->getLatest($user)->getHeight()/100);
+        $weight = $tr->getLatest($user)->getWeight();
+        $bmi = round(($weight / ($height * $height)), 1);
+        // $bmi = ($weight / ($height * $height));
+        return $bmi;
+    }
+
+
+    // this function will calculate the user's BMR
+    // and return it
+    private function calculateBMR(User $user, TrackingRepository $tr)
+    {
+        if ( $tr->getLatest($user) === null
+            || $user->getSex() === null
+                || $user->getDateOfBirth() === null){
+                    $this->addflash('error', 'Please fill in your profile first, the data will only be used to give you numerical insights on your progress and metabolical needs.');
+                    return $this->redirectToRoute('app_user_updateProfile', ['id' => $this->getUser()->getId()]);
+        }
+
+        $height = $tr->getLatest($user)->getHeight();
+        $weight = $tr->getLatest($user)->getWeight();
+        $age = $user->getDateOfBirth()->diff(new \DateTime)->y;
+        $sex = $user->getSex();
+
+        $bmr = (10 * $weight) + (6.25 * $height) - (5 * $age);
+        return $bmr;
     }
 
     

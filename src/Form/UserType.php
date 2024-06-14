@@ -24,6 +24,8 @@ class UserType extends AbstractType
             ])
             ->add('dateOfBirth', DateType::class, [
                 'widget' => 'single_text',
+                'data' => null,
+                'required' => false, 
                 'attr' => [
                     'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                     'placeholder' => 'Date of birth',
@@ -36,7 +38,7 @@ class UserType extends AbstractType
                     'I would rather not say' => null,
                 ],
                 'placeholder' => 'Select an option',
-                'required' => false, // This makes the field optional
+                'required' => false, 
                 'attr' => [
                     'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                 ],
