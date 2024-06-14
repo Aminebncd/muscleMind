@@ -19,41 +19,47 @@ class UpdatePasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('oldPassword', PasswordType::class, [
-            'mapped' => false,
-            'attr' => ['class' => 'form-control'],
-            'constraints' => [
-                new NotBlank(),
-            ],
-        ])
-        ->add('newPassword', RepeatedType::class, [
-            // instead of being set onto the object directly,
-            // this is read and encoded in the controller
-            'mapped' => false,
-            'type' => PasswordType::class,
-            'invalid_message' => 'The password fields must match.',
-            'options' => ['attr' => ['class' => 'password-field']],
-            'required' => true,
-            'first_options'  => ['label' => 'Password'],
-            'second_options' => ['label' => 'Repeat Password'],
-            'constraints' => [
-                new NotBlank(),
-                // je laisse la regex pour plus tard le temps de faire mes tests, 
-                // une fois activée elle necessitera des 12 caracteres minimum,
-                // 1 minuscule, 1 majuscule, 1 chiffre et 1 caractere special comme le recommande la CNIL
-                // new Regex([
-                //     'match' => true,
-                //     'pattern' => '/^(?=.+[$&+,:;=?@#|<>.-^*()%!])(?=.+[0-9])(?=.+[a-z])(?=.+[A-Z]).{12,}$/',
-                // ]),
-            ],
-            'attr' => ['class' => 'form-control'],
-        ])
-
-        ->add('valider', SubmitType::class, [
-            'attr' => [
-                'class' => 'btn btn-primary'
-            ]
-        ]);
+            ->add('oldPassword', PasswordType::class, [
+                'mapped' => false,
+                'label' => 'Old Password',
+                'attr' => [
+                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'placeholder' => 'Old Password',
+                ],
+                'constraints' => [
+                    new NotBlank(),
+                ],
+            ])
+            ->add('newPassword', RepeatedType::class, [
+                'mapped' => false,
+                'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match.',
+                'options' => [
+                    'attr' => [
+                        'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                        'placeholder' => 'New Password',
+                    ],
+                ],
+                'required' => true,
+                'first_options'  => ['label' => 'Password'],
+                'second_options' => ['label' => 'Repeat Password'],
+                'constraints' => [
+                    new NotBlank(),
+                    // Leave the regex for later as per the comment
+                    // new Regex([
+                    //     'match' => true,
+                    //     'pattern' => '/^(?=.+[$&+,:;=?@#|<>.-^*()%!])(?=.+[0-9])(?=.+[a-z])(?=.+[A-Z]).{12,}$/',
+                    // ]),
+                ],
+                'attr' => [
+                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                ],
+            ])
+            ->add('valider', SubmitType::class, [
+                'attr' => [
+                    'class' => 'w-fit px-4 py-2 rounded-2xl bg-tertiary drop-shadow-xl hover:bg-quinary flex-end duration-150'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -63,3 +69,4 @@ class UpdatePasswordType extends AbstractType
         ]);
     }
 }
+

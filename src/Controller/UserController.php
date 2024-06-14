@@ -52,6 +52,8 @@ class UserController extends AbstractController
         
         $equiv = $this->displayEquivalent($user);
         $activity = $this->getActivity($user, $sr, 365);
+        $test = $this->getActivityLevel($user, $sr);
+        // dd($test);
 
         // works fine now
         $trackingChart = $this->chartService->getTrackingChart($user);
@@ -63,15 +65,15 @@ class UserController extends AbstractController
         // dd($performanceChart);
 
         $latestTracking = $tr->getLatest($user);
-        $bmr = $this->calculateBMR($user, $tr);
-        $bmi = $this->calculateBMI($user, $tr);
+        $bmr = $this->calculateBMR($user, $tr, $sr);
+        // $bmi = $this->calculateBMI($user, $tr);
 
         return $this->render('user/index.html.twig', [
             'user' => $user,
             'equiv' => $equiv, 
             'activity' => $activity,
             'bmr' => $bmr,
-            'bmi' => $bmi,
+            // 'bmi' => $bmi,
             'latestTracking' => $latestTracking, 
             'trackingChart' => $trackingChart,
             'performanceChart' => $performanceChart,
@@ -374,8 +376,11 @@ class UserController extends AbstractController
 
 
     // this function will calculate the user's BMR
+    // this function will also take into account the user's last week of activity (if there is any)
+    // to multiply the BMR by the activity factor
+    // hence giving the user a more accurate BMR
     // and return it
-    private function calculateBMR(User $user, TrackingRepository $tr)
+    private function calculateBMR(User $user, TrackingRepository $tr, SessionRepository $sr)
     {
         if ( $tr->getLatest($user) === null
             || $user->getSex() === null
@@ -390,7 +395,51 @@ class UserController extends AbstractController
         $sex = $user->getSex();
 
         $bmr = (10 * $weight) + (6.25 * $height) - (5 * $age);
+
+        $bmr *= $this->getActivityLevel($user, $sr);
+
         return $bmr;
+    }
+
+    
+    // to apply a coefficient to the user's BMR (calculated in the UserController)
+    // i'll take the user's last week of activity and check how many sessions he programmed
+    // by checking with a simple count how many were programmed
+    // using that i'll make a switch that'll apply a coefficient to the BMR
+    private function getActivityLevel(User $user, SessionRepository $sr)
+    {
+        $activityLevel = 0;
+        $today = new \DateTime();
+        $lastWeek = $today->modify('-7 days');
+        // dd($today);
+
+        $sessions = $sr->findByUserAndDateRange($user, $lastWeek, new \DateTime());
+
+        $activityLevel = count($sessions);
+        
+        switch ($activityLevel) {
+            case 0:
+                return 1;
+                break;
+            case 1:
+                return 1.1;
+                break;
+            case 2:
+                return 1.22;
+                break;
+            case 3:
+                return 1.33;
+                break;
+            case 4:
+                return 1.44;
+                break;
+            case 5:
+                return 1.55;
+                break;
+            default:
+                return 1;
+                break;
+        }
     }
 
     

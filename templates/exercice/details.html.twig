@@ -8,7 +8,7 @@
 
     <h1 class="text-3xl font-bold">{{ exercice }}</h1>
 
-    <p>{{ exercice.exerciceFunction }}</p> <br>
+    <p>{{ exercice.exerciceFunction |raw }}</p> <br>
         {% if exercice.isIsolationExercice %}
         {# <p>{{ exercice.target }}</p> <br> #}
         
@@ -486,8 +486,8 @@
 
 
     
-    <p>{{ exercice.howToPerform}}</p> <br>
-    <p>{{ exercice.proTip}}</p> <br>
+    <p>{{ exercice.howToPerform |raw}}</p> <br>
+    <p>{{ exercice.proTip |raw}}</p> <br>
     {% if exercice.videoExplication %}
         <video controls autoplay>
             <source src="{{ exercice.videoExplication}}"  type="video/mp4">
