@@ -58,7 +58,7 @@ class ExerciceController extends AbstractController
             return $this->redirectToRoute('app_exercice');
         }
 
-        return $this->render('exercice/new.html.twig', [
+        return $this->render('admin/newExercice.html.twig', [
             'controller_name' => 'ExerciceController',
             'exerciceForm' => $exerciceForm->createView(),
         ]);

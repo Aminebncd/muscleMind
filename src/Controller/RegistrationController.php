@@ -50,14 +50,16 @@ class RegistrationController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // $score = $recaptcha3Validator->getLastResponse()->getScore();
-            dd($form['honeypot']->getData());
+            $score = $recaptcha3Validator->getLastResponse()->getScore();
+            // dd($form['honeypot']->getData());
+            
             // this is a honeypot field to prevent spam
-            if ($form['honeypot']->getData() !== '') {
-                // throw an error if the honeypot field is filled
-                $this->addFlash('error', 'Bot detected.');
-                return $this->redirectToRoute('app_register');           
-            }
+            // since i added reCaptcha, i don't need this anymore
+            // if ($form['honeypot']->getData() !== '') {
+            //     // throw an error if the honeypot field is filled
+            //     $this->addFlash('error', 'Bot detected.');
+            //     return $this->redirectToRoute('app_register');           
+            // }
             // dd($form->getData());
             $user->setScore(0);
             $user->setIsVerified(false);

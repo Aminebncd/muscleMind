@@ -130,7 +130,7 @@ class MuscleController extends AbstractController
         }
         
 
-        return $this->render('muscle/new.html.twig', [
+        return $this->render('admin/newMuscle.html.twig', [
             'muscleForm' => $form->createView(),      
             'controller_name' => 'MuscleController',
         ]);

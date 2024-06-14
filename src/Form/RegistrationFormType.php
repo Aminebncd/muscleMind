@@ -64,12 +64,12 @@ class RegistrationFormType extends AbstractType
                 ],
                 'row_attr' => ['class' => 'w-full'],
             ])
-            // ->add('captcha', Recaptcha3Type::class, [
-            //     'constraints' => new Recaptcha3(),
-            //     'action_name' => 'homepage',
-            //     // 'script_nonce_csp' => $nonceCSP,
-            //     'locale' => 'en',
-            // ])
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => new Recaptcha3(),
+                'action_name' => 'homepage',
+                // 'script_nonce_csp' => $nonceCSP,
+                'locale' => 'en',
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -83,15 +83,15 @@ class RegistrationFormType extends AbstractType
 
 
 
-
-            ->add('honeypot', HiddenType::class, [
-                'mapped' => false,
-                'attr' => [
-                    'class' => 'hidden',
-                ],
-                'label' => false, 
-                'required' => false, 
-            ])
+            // useless now
+            // ->add('honeypot', HiddenType::class, [
+            //     'mapped' => false,
+            //     'attr' => [
+            //         'class' => 'hidden',
+            //     ],
+            //     'label' => false, 
+            //     'required' => false, 
+            // ])
             ;
     }
 

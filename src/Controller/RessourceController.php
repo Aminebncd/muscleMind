@@ -112,7 +112,7 @@ class RessourceController extends AbstractController
             return $this->redirectToRoute('app_ressource');
         }
 
-        return $this->render('ressource/newRessource.html.twig', [
+        return $this->render('admin/newRessource.html.twig', [
             'formAddRessource' => $form->createView(),
         ]);
     }
