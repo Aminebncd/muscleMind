@@ -87,6 +87,15 @@
                     <a href="{{ path('app_exercice') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Exercises</a>
                     <a href="{{ path('app_ressource') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Resources</a>
                 </div>
+                {% if is_granted('ROLE_ADMIN') %}   
+                <div class="bg-secondary/40 p-2 my-6 rounded-xl">
+                    <a href="{{ path('app_admin_dashboard') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Admin</a>
+                    <a href="{{ path('app_user_list') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">List users</a>
+                    <a href="{{ path('app_exercice_new') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">New Exercice</a>
+                    <a href="{{ path('app_muscle_new') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">New Muscle</a>
+                    <a href="{{ path('app_ressource_new') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">New Ressource</a>
+                </div>    
+                {% endif %}
                 <div class="bg-secondary/40 p-2 my-6 rounded-xl">
                     <a href="{{path('app_settings')}}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Settings</a>
                     <a href="{{path('app_logout')}}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Logout</a>

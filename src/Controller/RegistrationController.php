@@ -141,7 +141,7 @@ class RegistrationController extends AbstractController
             );
         }
         
-        return $this->render('registration/updateEmail.html.twig', [
+        return $this->render('settings/updateEmail.html.twig', [
             'user' => $user,
             'updateEmailForm' => $form,
         ]);
@@ -183,7 +183,7 @@ class RegistrationController extends AbstractController
             }
         }
 
-        return $this->render('registration/updatePassword.html.twig', [
+        return $this->render('settings/updatePassword.html.twig', [
         'user' => $user,
         'updatePasswordForm' => $form,
         ]);

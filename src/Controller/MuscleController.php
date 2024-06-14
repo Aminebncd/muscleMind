@@ -104,9 +104,9 @@ class MuscleController extends AbstractController
     // that won't happen a lot given that the database is already fairly complete
     // and the human body won't (hopefully) change much in the future :
     // but that still could be useful
-    #[Route('/admin/muscle/add', name: 'app_muscle_add')]
+    #[Route('/admin/muscle/new', name: 'app_muscle_new')]
     #[Route('/admin/muscle/edit/{id}', name: 'app_muscle_edit')]
-    public function addEditMuscle(Request $request, 
+    public function newEditMuscle(Request $request, 
                                     MuscleGroupRepository $muscleGroupRepository,
                                     MuscleRepository $muscleRepository,
                                     EntityManagerInterface $entityManager,

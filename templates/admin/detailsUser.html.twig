@@ -8,8 +8,8 @@
     <p class="text-xl font-medium mb-12">
         {{user}} - {{user.email}} - {{user.score}}
     </p>
-            <a class="w-fit py-3 px-5 my-2 bg-tertiary rounded-lg hover:scale-105 hover:bg-yellow-400 hover:text-black duration-150 shadow-lg" href="{{path ('app_user_makeAdmin' ,{'id': user.id})}}">make Admin</a> <br>
-            <a class="w-fit py-3 px-5 my-2 bg-tertiary rounded-lg hover:scale-105 hover:bg-yellow-400 hover:text-black duration-150 shadow-lg" href="{{path ('app_user_makeMod' ,{'id': user.id})}}">make Moderator</a> <br>
+            {# <a class="w-fit py-3 px-5 my-2 bg-tertiary rounded-lg hover:scale-105 hover:bg-yellow-400 hover:text-black duration-150 shadow-lg" href="{{path ('app_user_makeAdmin' ,{'id': user.id})}}">make Admin</a> <br>
+            <a class="w-fit py-3 px-5 my-2 bg-tertiary rounded-lg hover:scale-105 hover:bg-yellow-400 hover:text-black duration-150 shadow-lg" href="{{path ('app_user_makeMod' ,{'id': user.id})}}">make Moderator</a> <br> #}
             <a class="w-fit py-3 px-5 my-2 bg-tertiary rounded-lg hover:scale-105 hover:bg-green-400 hover:text-black duration-150 shadow-lg" href="{{path ('app_user_updateProfile', {'id': user.id}) }}">update profile infos</a><br>
             <a class="w-fit py-3 px-5 my-2 bg-tertiary rounded-lg hover:scale-105 hover:bg-green-400 hover:text-black duration-150 shadow-lg" href="{{path ('app_register_updateEmail', {'id': user.id}) }}">update email</a><br>
             <a class="w-fit py-3 px-5 my-2 bg-tertiary rounded-lg hover:scale-105 hover:bg-green-400 hover:text-black duration-150 shadow-lg" href="{{path ('app_register_updatePassword', {'id': user.id}) }}">update password</a><br><br>
