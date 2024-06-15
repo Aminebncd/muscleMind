@@ -81,11 +81,11 @@
                         </p>
                     {% endif %}
                 </div>
-                <div>
+                <div class="w-full max-w-[600px]">
                     Base metabollic rate : (approx.) {{bmr}}cal <br>
                     <a class="text-sm text-quaternary hover:text-lg hover:underline duration-150" href="https://envisionfitnessmn.com/about/blog/entryid/15/basal-metabolic-rate-what-is-it-and-why-its-important#:~:text=Knowing%20your%20Basal%20Metabolic%20Rate,BMR%20(or%20maintenance%20calories).">why is it useful ?</a>
                     {# CHART OF SHAPE VISUALIZATION GOES HERE #}
-                    <div style="width: 600px;" class="bg-tertiary/10 p-4 rounded backdrop-blur-md">
+                    <div class="bg-tertiary/10 p-4 rounded backdrop-blur-md">
                         {{ render_chart(trackingChart) }}
                     </div>
                 </div>
@@ -102,9 +102,9 @@
                         </p>    
                     {% endif %}
                 </div>
-                <div class="mt-4">
+                <div class="w-full max-w-[600px]">
                     {# CHART OF PERFORMANCE VISUALIZATION GOES HERE #}
-                    <div style="width: 600px;" class="bg-tertiary/10 p-4 rounded backdrop-blur-md">
+                    <div class="bg-tertiary/10 p-4 rounded backdrop-blur-md">
                         {{ render_chart(performanceChart) }}
                     </div>
                 </div>
