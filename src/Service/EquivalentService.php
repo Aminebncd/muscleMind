@@ -11,7 +11,7 @@ class EquivalentService
                 "name" => "200 - 300 laptops",
                 "min_points" => 200,
                 "max_points" => 300,
-                "image" => "https://example.com/images/laptops.jpg"
+                "image" => "https://www.amazon.fr/s?k=ordinateur+portable+samsung&__mk_fr_FR=%C3%85M%C3%85%C5%BD%C3%95%C3%91"
             ],
             [
                 "name" => "70 - 100 cats",
@@ -71,7 +71,7 @@ class EquivalentService
                 "name" => "20 - 30 motorcycles",
                 "min_points" => 20000,
                 "max_points" => 50000,
-                "image" => "https://example.com/images/motorcycles.jpg"
+                "image" => "https://img1.picmix.com/output/stamp/normal/6/5/1/5/1905156_867bd.png"
             ],
             [
                 "name" => "1 - 2 small houses",
