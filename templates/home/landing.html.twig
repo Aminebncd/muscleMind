@@ -5,12 +5,12 @@
 {% block body %}
  <!-- Header Section -->
  <header class="w-full -mt-16 bg-secondary text-white text-center flex flex-col justify-between">
-    <div class="flex flex-row  items-center h-full  ">
-        <div  class="w-full h-full ">
-            <img  class="h-full object-cover  " src="{{ asset('img/landing/test.png')}}" alt="MuscleMind">
+    <div class="flex flex-row">
+        {# <div  class="w-full h-full "> #}
+            <img  class="w-2/3 object-cover   " src="{{ asset('img/landing/test.png')}}" alt="MuscleMind">
             {# <img src="{{ asset('img/landing/landing-image.png') }}" alt="MuscleMind" class="w-1/2"> #}
-       </div>
-       <div class="w-1/2 flex flex-col justify-end mr-10">
+       {# </div> #}
+       <div class="w-1/2 flex flex-col my-auto justify-end mr-10 py-4">
            <h1 class="text-5xl font-bold text-end  pt-8">MuscleMind</h1>
            <p class="mt-2 text-lg text-end">Your personalized fitness companion</p>
        
@@ -26,6 +26,17 @@
 
 <!-- Features Section -->
 <section class="text-center my-16">
+    <div>
+        {# <h2 class="text-3xl font-bold mb-4">Features</h2> #}
+        <p class="mb-6">MuscleMind offers a range of features to help you achieve your fitness goals.</p>
+    </div>
+
+    <div>
+        <p>create your programs</p>
+        <p>learn about your body</p>
+        <p>track your progress</p>
+    </div>
+
 
 
 </section>
