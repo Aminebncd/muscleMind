@@ -64,7 +64,7 @@
                                     <a href="{{ path('app_exercice_details', {'id': workout.exercice.id}) }}" class="text-quinary hover:underline">{{ workout.exercice.exerciceName }}</a> 
                                     : {{ workout.numberOfRepetitions }} reps of {{ workout.weightsUsed }}kgs
                                 </span>
-                                <a href="{{ path('removeWP_Program', {'program': program.id, 'workoutPlan': workout.id}) }}" class="text-red-500 hover:scale-110"><i class="fa-regular fa-square-minus"></i></a>
+                                <a href="{{ path('removeWP_Program', {'program': program.id, 'workoutPlan': workout.id}) }}" class="text-red-500 hover:scale-110 duration-100"><i class="fa-regular fa-square-minus"></i></a>
                             </p>
                         {% else %}
                             <p class="text-white flex justify-between">

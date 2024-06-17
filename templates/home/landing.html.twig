@@ -1,10 +1,78 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ExerciceController!{% endblock %}
+{% block title %}Welcome to MuscleMind{% endblock %}
 
 {% block body %}
+{# <div class="min-h-screen flex flex-col items-center bg-quinary">
+    <!-- Header Section -->
+    <header class="w-full py-8 bg-primary text-white text-center">
+        <h1 class="text-5xl font-bold">MuscleMind</h1>
+        <p class="mt-2 text-lg">Your personalized fitness companion</p>
+    </header>
 
+    <!-- Main Section -->
+    <main class="flex-grow w-full flex flex-col items-center justify-center">
+        <!-- Hero Section -->
+        <section class="text-center my-16">
+            <h2 class="text-4xl font-bold mb-6">Transform Your Fitness Journey</h2>
+            <p class="mb-8 text-lg">Create custom workouts, track progress, and understand your muscles better.</p>
+            <a href="{{ path('app_register') }}" class="px-8 py-4 bg-secondary text-white rounded-full hover:bg-tertiary duration-150">Get Started</a>
+        </section>
 
+        <!-- Features Carousel -->
+        <section class="w-full bg-secondary py-16">
+            <div class="max-w-6xl mx-auto">
+                <div id="featuresCarousel" class="carousel slide relative" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="flex flex-col items-center">
+                                    <img src="/path/to/workout_image.jpg" alt="Workout" class="rounded-lg shadow-lg mb-4">
+                                    <h3 class="text-2xl font-semibold mb-2">Custom Workouts</h3>
+                                    <p>Create and customize your own workout sessions easily.</p>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <img src="/path/to/progress_image.jpg" alt="Progress" class="rounded-lg shadow-lg mb-4">
+                                    <h3 class="text-2xl font-semibold mb-2">Track Progress</h3>
+                                    <p>Monitor your fitness journey and see your improvements over time.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="flex flex-col items-center">
+                                    <img src="/path/to/anatomy_image.jpg" alt="Anatomy" class="rounded-lg shadow-lg mb-4">
+                                    <h3 class="text-2xl font-semibold mb-2">Anatomy Model</h3>
+                                    <p>Access a simplified anatomical model to better understand muscle functions.</p>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <img src="/path/to/community_image.jpg" alt="Community" class="rounded-lg shadow-lg mb-4">
+                                    <h3 class="text-2xl font-semibold mb-2">Join the Community</h3>
+                                    <p>Connect with other fitness enthusiasts and share your progress.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#featuresCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#featuresCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </section>
 
+        <!-- Call to Action Section -->
+        <section class="text-center my-16">
+            <h2 class="text-3xl font-bold mb-4">Ready to get started?</h2>
+            <p class="mb-6">Join MuscleMind today and take your fitness journey to the next level.</p>
+            <a href="{{ path('app_register') }}" class="px-8 py-4 bg-secondary text-white rounded-full hover:bg-tertiary duration-150">Sign Up Now</a>
+        </section>
+    </main>
 
+   
+</div> #}
 {% endblock %}
