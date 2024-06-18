@@ -13,11 +13,16 @@
     {{ form_row(registrationForm.username) }}
     {{ form_row(registrationForm.email) }}
     {{ form_row(registrationForm.plainPassword) }}
+    <p>Your passorwd should include :</p>
+    <ul>
+        <li>At least 12 characters</li>
+        <li>At least one upper case character</li>
+        <li>At least one number</li>
+        <li>At least one special character</li>
+    </ul>
     {# {{ form_row(registrationForm.captcha)}} #}
     {{ form_row(registrationForm.agreeTerms) }}
     
-       
-  
     
     <div class="flex justify-center">
         <button type="submit" class="w-3/5 px-4 py-2 mb-8 bg-blue-600 text-white rounded-lg">Register</button>
