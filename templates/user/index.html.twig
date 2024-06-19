@@ -11,18 +11,18 @@
             console.error('One of the scores is invalid.');
             return;
         }
-    
+
         let currentScore = oldScore;
         const increment = (newScore - oldScore) / 100;
-    
+
         if (isNaN(increment)) {
             console.error('Increment is invalid.');
             return;
         }
-    
+
         const scoreElement = document.getElementById('user-score');
         const differenceElement = document.getElementById('score-difference');
-    
+
         function updateScore() {
             currentScore += increment;
             scoreElement.innerText = Math.round(currentScore);
@@ -41,19 +41,18 @@
 
         updateScore();
     }
-    
-    document.addEventListener('DOMContentLoaded', () => {
+
+    (function() {
         const oldScore = parseInt('{{ oldScore }}', 10);
         const newScore = parseInt('{{ newScore }}', 10);
         const scoreDifference = parseInt('{{ scoreDifference }}', 10);
-    
-        // Vérifier que les valeurs sont valides avant d'appeler animateScore
+
         if (!isNaN(oldScore) && !isNaN(newScore) && !isNaN(scoreDifference)) {
             animateScore(oldScore, newScore, scoreDifference);
         } else {
             console.error('Invalid values.');
         }
-    });
+    })();
 </script>
 
 <div class="w-10/12 max-w-[1200px] flex flex-row justify-between mt-14 items-center">
