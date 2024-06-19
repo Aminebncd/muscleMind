@@ -34,7 +34,7 @@
                 {% set lastWarningMessage = app.flashes('warning') | last %}
     
                 {% if lastWarningMessage is not empty %}
-                    <div class="alert alert-warning bg-yellow-500 text-center text-white rounded-lg px-8 py-4 mt-8">
+                    <div class="alert alert-warning bg-yellow-500 text-center text-black rounded-lg px-8 py-4 mt-8">
                         {{ lastWarningMessage }}
                     </div>
                 {% endif %}
@@ -46,10 +46,14 @@
                 {% set lastExercice = null %}
 
                 {% for workout in workoutPlans %}
+                {% if loop.first %}
+                    {{  workout.exercice.target }}
+                    {% endif %}
                 
                 {% if lastExercice is not same as(workout.exercice) %}
                     {% if not loop.first %}
                     </div> 
+                    {{  workout.exercice.target }}
                     {% endif %}
                 
                     <div class="my-8 px-8 py-4 rounded-lg bg-primary/60">
@@ -76,10 +80,6 @@
                             </p>
                         {% endif %}
                     </div>
-
-                    {# {% if not loop.last %}
-                        <hr class="border-t border-gray-300/25 my-1">
-                    {% endif %} #}
                 {% endfor %}
                 {% if lastExercice is not null %}
                     </div> 

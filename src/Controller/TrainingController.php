@@ -205,7 +205,7 @@ class TrainingController extends AbstractController
             }
         }
     
-        $maxOccurrencesPerMuscleGroup = 15;
+        $maxOccurrencesPerMuscleGroup = 5;
     
         foreach ($muscleGroupOccurrences as $muscleGroup => $occurrences) {
             if ($occurrences >= $maxOccurrencesPerMuscleGroup) {
