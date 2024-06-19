@@ -22,6 +22,7 @@ class ChartService
 
         $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
+            
             'labels' => $labels,
             'datasets' => [
                 [
@@ -31,6 +32,7 @@ class ChartService
                     'data' => $data,
                 ],
             ],
+            
         ]);
         $chart->setOptions([
             'plugins' => [
@@ -48,54 +50,69 @@ class ChartService
     }
 
     public function getTrackingChart(User $user = null): Chart
-    {
-        if ($user === null) {
-            throw new \InvalidArgumentException('User cannot be null');
-        }
-
-        if ($user->getTrackings()->isEmpty()) {
-            return $this->generateTestChart();
-        }
-    
-        $trackings = $user->getTrackings()->toArray();
-
-        // tbh there's no need to track your height, age, etc. in a fitness app
-        // the weight is enough
-        $trackingLabels = array_map(fn($tracking) => $tracking->getDateOfTracking(), $trackings);
-        $trackingWeights = array_map(fn($tracking) => $tracking->getWeight(), $trackings);
-
-        $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
-        $chart->setData([
-            'labels' => $trackingLabels,
-            'datasets' => [
-                [
-                    'label' => 'Weight',
-                    'backgroundColor' => 'rgba(153, 102, 255, 0.2)',
-                    'borderColor' => 'rgba(153, 102, 255, 1)',
-                    'data' => $trackingWeights,
-                ],
-            ],
-        ]);
-        $chart->setOptions([
-            'scales' => [
-                'y' => [
-                    'suggestedMin' => (min($trackingWeights) - 30),
-                    'suggestedMax' => (max($trackingWeights) + 20),
-                ],
-            ],
-            'plugins' => [
-                'zoom' => [
-                    'zoom' => [
-                        'wheel' => ['enabled' => true],
-                        'pinch' => ['enabled' => true],
-                        'mode' => 'xy',
-                    ],
-                ],
-            ],
-        ]);
-
-        return $chart;
+{
+    if ($user === null) {
+        throw new \InvalidArgumentException('User cannot be null');
     }
+
+    if ($user->getTrackings()->isEmpty()) {
+        return $this->generateTestChart();
+    }
+
+    $trackings = $user->getTrackings()->toArray();
+
+    // tbh there's no need to track your height, age, etc. in a fitness app
+    // the weight is enough
+    $trackingLabels = array_map(fn($tracking) => $tracking->getDateOfTracking(), $trackings);
+    $trackingWeights = array_map(fn($tracking) => $tracking->getWeight(), $trackings);
+
+    $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
+    $chart->setData([
+        'labels' => $trackingLabels,
+        'datasets' => [
+            [
+                'label' => 'Weight',
+                'backgroundColor' => 'rgba(153, 102, 255, 0.2)',
+                'borderColor' => 'rgba(153, 102, 255, 1)',
+                'data' => $trackingWeights,
+            ],
+        ],
+    ]);
+    $chart->setOptions([
+        'scales' => [
+            'x' => [
+                'grid' => [
+                    'color' => 'rgba(100, 100, 100, 0.1)', 
+                ],
+                'ticks' => [
+                    'color' => 'rgba(255, 255, 255, 0.5)', 
+                ],
+            ],
+            'y' => [
+                'suggestedMin' => (min($trackingWeights) - 30),
+                'suggestedMax' => (max($trackingWeights) + 20),
+                'grid' => [
+                    'color' => 'rgba(100, 100, 100, 0.3)', 
+                ],
+                'ticks' => [
+                    'color' => 'rgba(255, 255, 255, 0.5)', 
+                ],
+            ],
+        ],
+        'plugins' => [
+            'zoom' => [
+                'zoom' => [
+                    'wheel' => ['enabled' => true],
+                    'pinch' => ['enabled' => true],
+                    'mode' => 'xy',
+                ],
+            ],
+        ],
+    ]);
+
+    return $chart;
+}
+
 
     public function getPerformanceChart(User $user = null): Chart
     {
@@ -138,9 +155,23 @@ class ChartService
 
         $chart->setOptions([
             'scales' => [
+                'x' => [
+                    'grid' => [
+                        'color' => 'rgba(100, 100, 100, 0.1)', 
+                    ],
+                    'ticks' => [
+                        'color' => 'rgba(255, 255, 255, 0.5)', 
+                    ],
+                ],
                 'y' => [
                     'suggestedMin' => (min($performanceRecords) - 20),
                     'suggestedMax' => (max($performanceRecords) + 30),
+                    'grid' => [
+                        'color' => 'rgba(100, 100, 100, 0.3)', 
+                    ],
+                    'ticks' => [
+                        'color' => 'rgba(255, 255, 255, 0.5)', 
+                    ],
                 ],
             ],
             'plugins' => [

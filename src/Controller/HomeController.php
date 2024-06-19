@@ -98,6 +98,8 @@ class HomeController extends AbstractController
             $selectedDaysOfWeek = $formData['daysOfWeek'];
             $duration = $formData['duration'];
 
+            // just to test
+            // $startDate = new \DateTimeImmutable('2024-2-14');
             $startDate = new \DateTimeImmutable();
             $endDate = $startDate->add(new \DateInterval($duration));
 

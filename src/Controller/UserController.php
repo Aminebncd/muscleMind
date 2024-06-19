@@ -33,51 +33,51 @@ class UserController extends AbstractController
 
     // gathers all the connected user's data to display them
     #[Route('/user/myProfile', name: 'app_user')]
-public function index(Request $request, 
-                      UserRepository $ur,
-                      SessionRepository $sr,
-                      EntityManagerInterface $em,
-                      TrackingRepository $tr,
-                      ChartService $chartService): Response
-{
-    if (!$this->getUser()) {
-        return $this->redirectToRoute('app_login');
+    public function index(Request $request, 
+                        UserRepository $ur,
+                        SessionRepository $sr,
+                        EntityManagerInterface $em,
+                        TrackingRepository $tr,
+                        ChartService $chartService): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $user = $this->getUser();
+        $oldScore = $user->getScore();  
+
+        $this->updateScore($user);
+
+        $newScore = $user->getScore(); 
+        $scoreDifference = $newScore - $oldScore;  
+
+        $em->persist($user);
+        $em->flush();
+        
+        $equiv = $this->displayEquivalent($user);
+        $activity = $this->getActivity($user, $sr, 365);
+        $test = $this->getActivityLevel($user, $sr);
+
+        $trackingChart = $this->chartService->getTrackingChart($user);
+        $performanceChart = $this->chartService->getPerformanceChart($user);
+
+        $latestTracking = $tr->getLatest($user);
+        $bmr = $this->calculateBMR($user, $tr, $sr);
+
+        return $this->render('user/index.html.twig', [
+            'user' => $user,
+            'equiv' => $equiv, 
+            'activity' => $activity,
+            'bmr' => $bmr,
+            'latestTracking' => $latestTracking, 
+            'trackingChart' => $trackingChart,
+            'performanceChart' => $performanceChart,
+            'oldScore' => $oldScore, 
+            'newScore' => $newScore,   
+            'scoreDifference' => $scoreDifference
+        ]);
     }
-
-    $user = $this->getUser();
-    $oldScore = $user->getScore();  // Store the old score
-
-    $this->updateScore($user);
-
-    $newScore = $user->getScore();  // Get the new score after updating
-    $scoreDifference = $newScore - $oldScore;  // Calculate the score difference
-
-    $em->persist($user);
-    $em->flush();
-    
-    $equiv = $this->displayEquivalent($user);
-    $activity = $this->getActivity($user, $sr, 365);
-    $test = $this->getActivityLevel($user, $sr);
-
-    $trackingChart = $this->chartService->getTrackingChart($user);
-    $performanceChart = $this->chartService->getPerformanceChart($user);
-
-    $latestTracking = $tr->getLatest($user);
-    $bmr = $this->calculateBMR($user, $tr, $sr);
-
-    return $this->render('user/index.html.twig', [
-        'user' => $user,
-        'equiv' => $equiv, 
-        'activity' => $activity,
-        'bmr' => $bmr,
-        'latestTracking' => $latestTracking, 
-        'trackingChart' => $trackingChart,
-        'performanceChart' => $performanceChart,
-        'oldScore' => $oldScore,  // Pass the old score to the template
-        'newScore' => $newScore,   // Pass the new score to the template
-        'scoreDifference' => $scoreDifference  // Pass the score difference to the template
-    ]);
-}
     
 
 
@@ -503,6 +503,99 @@ public function index(Request $request,
             'performances' => $performances,
             'controller_name' => 'UserController',
         ]);
+    }
+
+    // this function deletes every performance of the user
+    #[Route('/user/deleteAllPerf/{id}', name: 'app_user_deleteAllPerf')]
+    public function deleteAllPerf(Request $request, 
+                            EntityManagerInterface $em,
+                            User $user = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $performances = $this->getUser()->getPerformances();
+
+        foreach ($performances as $performance) {
+            $this->getUser()->removePerformance($performance);
+            $em->remove($performance);
+        }
+
+        $em->persist($this->getUser());
+        $em->flush();
+
+        return $this->redirectToRoute('app_user');
+    }
+
+    // this function deletes every tracking of the user
+    #[Route('/user/deleteAllTrack/{id}', name: 'app_user_deleteAllTrack')]
+    public function deleteAllTrack(Request $request, 
+                            EntityManagerInterface $em,
+                            User $user = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $trackings = $this->getUser()->getTrackings();
+
+        foreach ($trackings as $tracking) {
+            $this->getUser()->removeTracking($tracking);
+            $em->remove($tracking);
+        }
+
+        $em->persist($this->getUser());
+        $em->flush();
+
+        return $this->redirectToRoute('app_user');
+    }
+
+    // this function deletes every session of the user
+    #[Route('/user/deleteAllSessions/{id}', name: 'app_user_deleteAllSessions')]
+    public function deleteAllSessions(Request $request, 
+                            EntityManagerInterface $em,
+                            User $user = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $sessions = $this->getUser()->getSessions();
+
+        foreach ($sessions as $session) {
+            $this->getUser()->removeSession($session);
+            $em->remove($session);
+        }
+
+        $em->persist($this->getUser());
+        $em->flush();
+
+        return $this->redirectToRoute('app_user');
+    }
+    
+
+    // this function deletes every program of the user
+    #[Route('/user/deleteAllPrograms/{id}', name: 'app_user_deleteAllPrograms')]
+    public function deleteAllPrograms(Request $request, 
+                            EntityManagerInterface $em,
+                            User $user = null): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $programs = $this->getUser()->getPrograms();
+
+        foreach ($programs as $program) {
+            $this->getUser()->removeProgram($program);
+            $em->remove($program);
+        }
+
+        $em->persist($this->getUser());
+        $em->flush();
+
+        return $this->redirectToRoute('app_user');
     }
     
 }

@@ -8,7 +8,7 @@
     {# <p class="">Your score: <strong>{{ user.score }}</strong></p> #}
 
     <div class=" mb-8 hover:scale-105 duration-150">
-        <a href="{{ path('app_home_newSession') }}" class="no-underline px-4 py-2 rounded-2xl bg-tertiary drop-shadow-xl hover:bg-quinary duration-150">
+        <a href="{{ path('app_home_newSession') }}" class="no-underline px-4 py-2 text-xl font-medium rounded-2xl bg-tertiary drop-shadow-xl hover:bg-quinary duration-150">
             Schedule your training sessions
         </a>
     </div>
@@ -17,9 +17,9 @@
     {% if sessions|length > 0 %}
         <p>your next sessions : </p>
         {% for session in sessions|sort((a, b) => a.dateSession <=> b.dateSession)|slice(0, 5) %}
-        <div class="bg-black/75 rounded-lg m-5 max-w-3xl max-h-3/5 max-sm:w-4/5 drop-shadow-xl relative">
+        <div class="bg-nav backdrop-blur-lg rounded-lg m-5 max-w-3xl max-h-3/5 max-sm:w-4/5 drop-shadow-xl relative">
             <div class="p-2 flex justify-between w-full">
-                <a class="text-white text-lg hover:text-quaternary duration-150" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{session}}</a>
+                <a class="text-white text-lg hover:text-quaternary hover:text-xl duration-150" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{session}}</a>
                 <a class="text-end hover:text-red-700 duration-150" href="{{ path('app_home_deleteSession', {'id': session.id}) }}">delete</a>
             </div>
             <div class="flex items-center overflow-hidden max-sm:flex-col">
@@ -40,7 +40,7 @@
         
         {% endfor %}
     {% else %}
-        <p>you have no scheduled sessions</p>
+        <p class="text-lg text-center font-medium">you have no scheduled sessions</p>
     {% endif %}
 
 

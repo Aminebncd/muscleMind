@@ -23,8 +23,8 @@ class UserActivityService
         $startDate = new DateTime("$currentYear-01-01");
         $endDate = new DateTime("$currentYear-12-31");
         // just for testing purposes
-        $now = new DateTime('2024-10-31');
-        // $now = (new DateTime())->format('Y-m-d');
+        // $now = new DateTime('2024-8-31');
+        $now = (new DateTime());
 
         $sessions = $sessionRepository->findByUserAndDateRange($user, $startDate, $endDate);
 

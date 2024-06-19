@@ -71,7 +71,7 @@ class Performance
     
     public function getDateOfPerformance(): ?string
     {
-        return $this->dateOfPerformance->format('d/m/Y') ;
+        return $this->dateOfPerformance->format('d.m.Y') ;
     }
         
     public function setDateOfPerformance($dateOfPerformance): static

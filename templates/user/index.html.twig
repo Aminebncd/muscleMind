@@ -88,14 +88,16 @@
             </div>
 
                 {% if equiv %}
-                <p  class="text-lg text-center mb-2"> or <br><br>
+                <p  class="text-lg text-center my-2"> or <br><br>
                     {{ equiv.name }}
                 </p>
+                <img class="mx-auto" src="{{ equiv.image }}" alt="">
                 {% else %}
+                <p class="text-lg text-center my-2">
                     each time you complete a workout, your score increases by the total amount of weights lifted!
+                </p>
                 {% endif %}
 
-            <img class="mx-auto" src="{{ equiv.image }}" alt="">
         </div>
     </div>
 </div>

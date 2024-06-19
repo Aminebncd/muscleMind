@@ -23,6 +23,26 @@
                 </a>
             </li>
             <li>
+                <a class="block px-4 py-2 rounded-2xl bg-senary text-black font-medium hover:bg-red-600 duration-150 drop-shadow-xl" href="{{ path('app_user_deleteAllPerf', {'id': user.id}) }}">
+                    Delete Performances
+                </a>
+            </li>
+            <li>
+                <a class="block px-4 py-2 rounded-2xl bg-senary text-black font-medium hover:bg-red-600 duration-150 drop-shadow-xl" href="{{ path('app_user_deleteAllTrack', {'id': user.id}) }}">
+                    Delete Trackings
+                </a>
+            </li>
+            <li>
+                <a class="block px-4 py-2 rounded-2xl bg-senary text-black font-medium hover:bg-red-600 duration-150 drop-shadow-xl" href="{{ path('app_user_deleteAllSessions', {'id': user.id}) }}">
+                    Delete Sessions
+                </a>
+            </li>
+            <li>
+                <a class="block px-4 py-2 rounded-2xl bg-senary text-black font-medium hover:bg-red-600 duration-150 drop-shadow-xl" href="{{ path('app_user_deleteAllPrograms', {'id': user.id}) }}">
+                    Delete Programs
+                </a>
+            </li>
+            <li>
                 <a class="block px-4 py-2 rounded-2xl bg-red-600 text-white hover:bg-red-800 duration-150 drop-shadow-xl" href="{{ path('app_user_delete', {'id': user.id}) }}">
                     Delete Account
                 </a>
