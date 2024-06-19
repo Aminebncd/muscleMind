@@ -33,52 +33,52 @@ class UserController extends AbstractController
 
     // gathers all the connected user's data to display them
     #[Route('/user/myProfile', name: 'app_user')]
-    public function index(Request $request, 
-                        UserRepository $ur,
-                        SessionRepository $sr,
-                        EntityManagerInterface $em,
-                        TrackingRepository $tr,
-                        ChartService $chartService): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-
-        $user = $this->getUser();
-        $this->updateScore($user);
-
-        $em->persist($user);
-        $em->flush();
-        
-        $equiv = $this->displayEquivalent($user);
-        $activity = $this->getActivity($user, $sr, 365);
-        $test = $this->getActivityLevel($user, $sr);
-        // dd($test);
-
-        // works fine now
-        $trackingChart = $this->chartService->getTrackingChart($user);
-        $performanceChart = $this->chartService->getPerformanceChart($user);
-
-        // dd($equiv);
-        // dd($activity);
-        // dd($trackingChart);
-        // dd($performanceChart);
-
-        $latestTracking = $tr->getLatest($user);
-        $bmr = $this->calculateBMR($user, $tr, $sr);
-        // $bmi = $this->calculateBMI($user, $tr);
-
-        return $this->render('user/index.html.twig', [
-            'user' => $user,
-            'equiv' => $equiv, 
-            'activity' => $activity,
-            'bmr' => $bmr,
-            // 'bmi' => $bmi,
-            'latestTracking' => $latestTracking, 
-            'trackingChart' => $trackingChart,
-            'performanceChart' => $performanceChart,
-        ]);
+public function index(Request $request, 
+                      UserRepository $ur,
+                      SessionRepository $sr,
+                      EntityManagerInterface $em,
+                      TrackingRepository $tr,
+                      ChartService $chartService): Response
+{
+    if (!$this->getUser()) {
+        return $this->redirectToRoute('app_login');
     }
+
+    $user = $this->getUser();
+    $oldScore = $user->getScore();  // Store the old score
+
+    $this->updateScore($user);
+
+    $newScore = $user->getScore();  // Get the new score after updating
+    $scoreDifference = $newScore - $oldScore;  // Calculate the score difference
+
+    $em->persist($user);
+    $em->flush();
+    
+    $equiv = $this->displayEquivalent($user);
+    $activity = $this->getActivity($user, $sr, 365);
+    $test = $this->getActivityLevel($user, $sr);
+
+    $trackingChart = $this->chartService->getTrackingChart($user);
+    $performanceChart = $this->chartService->getPerformanceChart($user);
+
+    $latestTracking = $tr->getLatest($user);
+    $bmr = $this->calculateBMR($user, $tr, $sr);
+
+    return $this->render('user/index.html.twig', [
+        'user' => $user,
+        'equiv' => $equiv, 
+        'activity' => $activity,
+        'bmr' => $bmr,
+        'latestTracking' => $latestTracking, 
+        'trackingChart' => $trackingChart,
+        'performanceChart' => $performanceChart,
+        'oldScore' => $oldScore,  // Pass the old score to the template
+        'newScore' => $newScore,   // Pass the new score to the template
+        'scoreDifference' => $scoreDifference  // Pass the score difference to the template
+    ]);
+}
+    
 
 
 

@@ -3,6 +3,7 @@
 // document.addEventListener('DOMContentLoaded', (event) => {
     console.log("ici");
     
+    // open and close my nav bar
     var burgerMenu = document.getElementById('burger-menu');
     var closeMenu = document.getElementById('close-menu');
     var menu = document.getElementById('menu');
@@ -18,6 +19,10 @@
     });
 
 
+
+
+
+    // display the progress / activity section or the front / back view section
     var activityButton = document.getElementById('activityButton');
     var progressButton = document.getElementById('progressButton');
     var frontBtn = document.getElementById('frontBtn');
@@ -53,6 +58,12 @@
 
     console.log("la");
     
+
+
+
+
+
+    // simple carousel
     var currentIndex = 0;
     
     function showSlide(index) {
@@ -77,5 +88,5 @@
         showSlide(currentIndex - 1);
     }
 
-    console.log("encore la");
+
 // });
