@@ -17,7 +17,7 @@
     </head>
 
 
-    <body class="relative">
+    <body class="relative h-auto">
 
         <div class="fixed z-40 top-0 left-0 w-full flex justify-between items-center bg-primary p-4 shadow-md">
             <a class="font-bold text-2xl group" href="{{ path('app_landing') }}">
@@ -26,45 +26,45 @@
             <button id="burger-menu" class="text-3xl focus:outline-none">&#9776;</button>
         </div>
     
-        <div id="menu" class="z-50 fixed top-0 right-0 h-full w-64 rounded bg-primary/80 text-white p-4 menu menu-open backdrop-blur-lg">
+        <div id="menu" class="z-50 fixed top-0 right-0 h-full w-64 rounded bg-primary/40 text-white p-4 menu menu-open backdrop-blur-lg">
             <button id="close-menu" class="w-full text-3xl text-end text-white focus:outline-none mb-4"><i class="fa-solid fa-xmark"></i></button>
             <nav>
                 {% if app.user %}
-                <div class="bg-secondary/40 p-2 my-6 rounded-xl">
-                    <a href="{{ path('app_user') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">My Profile</a>
-                    <a href="{{ path('app_home') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Home</a>
+                <div class="bg-secondary/60 p-2 my-6 rounded-xl">
+                    <a href="{{ path('app_user') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">My Profile</a>
+                    <a href="{{ path('app_home') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Home</a>
                 </div>
-                <div class="bg-secondary/40 p-2 my-6 rounded-xl">
-                    <a href="{{ path('app_training') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Program</a>
-                    <a href="{{ path('app_muscle') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Anatomy</a>
-                    <a href="{{ path('app_exercice') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Exercises</a>
-                    <a href="{{ path('app_ressource') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Resources</a>
+                <div class="bg-secondary/60 p-2 my-6 rounded-xl">
+                    <a href="{{ path('app_training') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Program</a>
+                    <a href="{{ path('app_muscle') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Anatomy</a>
+                    <a href="{{ path('app_exercice') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Exercises</a>
+                    <a href="{{ path('app_ressource') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Resources</a>
                 </div>
                 {% if is_granted('ROLE_ADMIN') %}   
-                <div class="bg-secondary/40 p-2 my-6 rounded-xl">
-                    <a href="{{ path('app_admin_dashboard') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Admin</a>
-                    <a href="{{ path('app_user_list') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">List users</a>
-                    <a href="{{ path('app_exercice_new') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">New Exercice</a>
-                    <a href="{{ path('app_muscle_new') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">New Muscle</a>
-                    <a href="{{ path('app_ressource_new') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">New Ressource</a>
+                <div class="bg-secondary/60 p-2 my-6 rounded-xl">
+                    <a href="{{ path('app_admin_dashboard') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Admin</a>
+                    <a href="{{ path('app_user_list') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">List users</a>
+                    <a href="{{ path('app_exercice_new') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">New Exercice</a>
+                    <a href="{{ path('app_muscle_new') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">New Muscle</a>
+                    <a href="{{ path('app_ressource_new') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">New Ressource</a>
                 </div>    
                 {% endif %}
-                <div class="bg-secondary/40 p-2 my-6 rounded-xl">
-                    <a href="{{path('app_settings')}}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Settings</a>
-                    <a href="{{path('app_logout')}}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Logout</a>
+                <div class="bg-secondary/60 p-2 my-6 rounded-xl">
+                    <a href="{{path('app_settings')}}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Settings</a>
+                    <a href="{{path('app_logout')}}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Logout</a>
                 </div>
                 {% else %}
-                <div class="bg-secondary/40 p-2 my-6 rounded-xl">
-                    <a href="{{ path('app_login') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Login</a>
-                    <a href="{{ path('app_register') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Register</a>
+                <div class="bg-secondary/60 p-2 my-6 rounded-xl">
+                    <a href="{{ path('app_login') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Login</a>
+                    <a href="{{ path('app_register') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Register</a>
                 </div>
                 {% endif %}
-                <div class="bg-secondary/40 p-2 my-6 rounded-xl">
-                    <a href="#" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">About Us</a>
-                    <a href="#" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Contact</a>
-                    <a href="{{path('app_legal')}}" class="w-full block py-1 px-6 rounded-lg hover:bg-secondary">Legal Mentions</a>
+                <div class="bg-secondary/60 p-2 my-6 rounded-xl">
+                    <a href="#" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">About Us</a>
+                    <a href="#" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Contact</a>
+                    <a href="{{path('app_legal')}}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Legal Mentions</a>
                 </div>
-                <div class="bg-secondary/40 p-2 my-6 rounded-xl flex justify-around">
+                <div class="bg-secondary/60 p-2 my-6 rounded-xl flex justify-around">
                     <a href="https://facebook.com" class="w-full block py-2 px-4 rounded-full hover:text-blue-900" target="_blank" aria-label="Facebook">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>

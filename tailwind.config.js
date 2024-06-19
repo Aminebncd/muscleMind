@@ -8,12 +8,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#07080d',
-        secondary: '#17263a',
-        tertiary: '#3d6389',
-        quaternary: '#f6cbf4',
-        quinary: '#2d78c7',
-        senary: '#06B388',
+        primary: '#000814',     // Conservée : Noir très foncé
+        secondary: '#001d3d',   // Bleu marine très foncé
+        tertiary: '#003566',    // Bleu nuit
+        quaternary: '#f6cbf4',  // Conservée : Rose pâle
+        quinary: '#00a6fb',     // Conservée : Bleu moyen
+        senary: '#ffc300',      // Bleu-gris clair pour contraste
       },
     },
   },
