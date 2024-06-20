@@ -14,23 +14,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Listage des données de la table musclemind.doctrine_migration_versions : ~13 rows (environ)
+-- Listage des données de la table musclemind.doctrine_migration_versions : ~1 rows (environ)
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-	('DoctrineMigrations\\Version20240413214807', '2024-04-13 21:48:11', 510),
-	('DoctrineMigrations\\Version20240413214908', '2024-04-13 21:49:13', 56),
-	('DoctrineMigrations\\Version20240419161528', '2024-04-19 16:15:34', 70),
-	('DoctrineMigrations\\Version20240428193542', '2024-04-28 19:35:48', 50),
-	('DoctrineMigrations\\Version20240428194821', '2024-04-28 19:49:46', 33),
-	('DoctrineMigrations\\Version20240521075309', '2024-05-22 08:45:14', 50),
-	('DoctrineMigrations\\Version20240523082833', '2024-05-24 16:05:06', 57),
-	('DoctrineMigrations\\Version20240524160459', '2024-05-24 16:05:07', 83),
-	('DoctrineMigrations\\Version20240531070850', '2024-05-31 07:08:54', 1626),
-	('DoctrineMigrations\\Version20240605123700', '2024-06-05 12:37:08', 133),
-	('DoctrineMigrations\\Version20240606085929', '2024-06-06 08:59:55', 90),
-	('DoctrineMigrations\\Version20240611063908', '2024-06-11 06:39:21', 843),
-	('DoctrineMigrations\\Version20240612062855', '2024-06-12 06:29:01', 1453);
+	('DoctrineMigrations\\Version20240612062855', '2024-06-20 11:41:54', 1195);
 
--- Listage des données de la table musclemind.exercice : ~58 rows (environ)
+-- Listage des données de la table musclemind.exercice : ~0 rows (environ)
 INSERT INTO `exercice` (`id`, `target_id`, `secondary_target_id`, `exercice_name`, `exercice_function`, `how_to_perform`, `pro_tip`, `video_explication`) VALUES
 	(142, 7, 18, 'Dumbbell Hammer Curls', 'Isolation exercise for the biceps, targeting both the biceps and the brachialis with dumbbells held in a neutral grip.', 'Stand up straight with a dumbbell in each hand, your arms fully extended and your palms facing your torso. Curl the weights while keeping your upper arms stationary until your biceps are fully contracted and the dumbbells are at shoulder level. Hold the contracted position for a brief pause as you squeeze your biceps. Slowly begin to bring the dumbbells back to the starting position.', 'Maintain a neutral wrist position throughout the movement to maximize engagement of the brachialis and minimize strain on the wrists.', NULL),
 	(143, 6, 7, 'Barbell Spider Curls', 'Isolation exercise for the biceps, performed lying prone on an incline bench with arms hanging straight down, curling the barbell upwards.', 'Lie face down on an incline bench with your chest against the bench and your feet firmly on the floor. Let your arms hang down holding a barbell. Curl the barbell up as high as you can, squeezing your biceps at the top of the movement. Slowly lower the barbell back to the starting position.', 'Focus on slow, controlled movements to maximize bicep engagement and prevent momentum from aiding the lift.', NULL),
@@ -93,7 +81,7 @@ INSERT INTO `exercice` (`id`, `target_id`, `secondary_target_id`, `exercice_name
 
 -- Listage des données de la table musclemind.messenger_messages : ~0 rows (environ)
 
--- Listage des données de la table musclemind.muscle : ~22 rows (environ)
+-- Listage des données de la table musclemind.muscle : ~0 rows (environ)
 INSERT INTO `muscle` (`id`, `muscle_group_id`, `muscle_name`, `muscle_function`) VALUES
 	(1, 1, 'Pectoralis Major', 'Located in the chest area, attached to the sternum, clavicle, and ribs. Primary function is to bring the upper arm across the body, as in pressing movements like chest press and push-ups.'),
 	(2, 1, 'Pectoralis Minor', 'Located beneath the pectoralis major, attached to the ribs. Assists in pulling the shoulder forward and down.'),
@@ -118,7 +106,7 @@ INSERT INTO `muscle` (`id`, `muscle_group_id`, `muscle_name`, `muscle_function`)
 	(21, 7, 'calves', 'zrgzrg'),
 	(22, 7, 'Glutes', '<div>blablablabla</div>');
 
--- Listage des données de la table musclemind.muscle_group : ~8 rows (environ)
+-- Listage des données de la table musclemind.muscle_group : ~0 rows (environ)
 INSERT INTO `muscle_group` (`id`, `muscle_group`, `muscle_group_image`, `muscle_group_svg_front`, `muscle_group_svg_back`) VALUES
 	(1, 'CHEST', 'chest.webp', 'chest.svg', NULL),
 	(2, 'TRICEPS', 'triceps.webp', 'triceps.svg', ''),
@@ -129,7 +117,7 @@ INSERT INTO `muscle_group` (`id`, `muscle_group`, `muscle_group_image`, `muscle_
 	(7, 'LEGS', 'legs.webp', 'legs.svg', 'legs_b.svg'),
 	(8, 'FOREARMS', 'forearms.webp', 'forearms.svg', 'forearms_b.svg');
 
--- Listage des données de la table musclemind.performance : ~2 rows (environ)
+-- Listage des données de la table musclemind.performance : ~0 rows (environ)
 INSERT INTO `performance` (`id`, `user_performing_id`, `exercice_mesured_id`, `personnal_record`, `date_of_performance`) VALUES
 	(6, 1, 191, '110', '2024-06-11 07:12:06'),
 	(7, 1, 191, '120', '2024-06-12 11:51:32'),
@@ -140,7 +128,7 @@ INSERT INTO `performance` (`id`, `user_performing_id`, `exercice_mesured_id`, `p
 	(12, 1, 191, '125', '2024-06-19 07:59:16'),
 	(13, 1, 157, '170', '2024-06-19 07:59:54');
 
--- Listage des données de la table musclemind.program : ~4 rows (environ)
+-- Listage des données de la table musclemind.program : ~0 rows (environ)
 INSERT INTO `program` (`id`, `creator_id`, `muscle_group_targeted_id`, `secondary_muscle_group_targeted_id`, `title`) VALUES
 	(15, 1, 1, 2, 'seance pec de folie'),
 	(16, 1, 7, 8, 'jambes avant bras'),
@@ -149,7 +137,7 @@ INSERT INTO `program` (`id`, `creator_id`, `muscle_group_targeted_id`, `secondar
 
 -- Listage des données de la table musclemind.reset_password_request : ~0 rows (environ)
 
--- Listage des données de la table musclemind.ressource : ~17 rows (environ)
+-- Listage des données de la table musclemind.ressource : ~0 rows (environ)
 INSERT INTO `ressource` (`id`, `author_id`, `tag_id`, `content`, `link`, `title`, `created_at`, `updated_at`, `is_published`) VALUES
 	(1, 1, 1, '<div><strong>Taking care of your mental and emotional well-being</strong> is just as important as taking care of your physical body. <em>Here are ten tips to help you cultivate better</em> mental and emotional health...</div>', NULL, '10 Tips for Improving Your Mental and Emotional Well-being', '2024-06-11 11:23:58', '2024-06-11 11:23:58', 1),
 	(2, 1, 1, 'Regular exercise is crucial for maintaining good physical and mental health. Incorporating weightlifting into your fitness routine can help you build muscle, improve bone density, and boost your metabolism...', NULL, 'The Benefits of Weightlifting for Better Physical Fitness', '2024-06-11 11:23:58', '2024-06-11 11:23:58', 1),
@@ -169,7 +157,7 @@ INSERT INTO `ressource` (`id`, `author_id`, `tag_id`, `content`, `link`, `title`
 	(17, 1, 1, 'Sleep is an essential component of overall health and well-being, yet it is often overlooked or sacrificed in our busy lives. The importance of sleep extends far beyond merely feeling rested; it plays a critical role in maintaining mental health. Poor sleep can lead to a variety of mental health issues, while good sleep can enhance cognitive function, emotional stability, and overall quality of life.\n\nUnderstanding the Sleep Cycle\n\nSleep is divided into several stages, including light sleep, deep sleep, and REM (rapid eye movement) sleep. Each stage serves a unique function and is essential for various aspects of physical and mental health. During deep sleep, the body repairs and regenerates tissues, builds bone and muscle, and strengthens the immune system. REM sleep, on the other hand, is crucial for cognitive functions such as memory consolidation and learning.\n\nMental Health Benefits of Sleep\n\n1. Enhances Cognitive Function: Adequate sleep is vital for cognitive processes. It improves memory, problem-solving skills, and the ability to learn new information. During sleep, the brain processes and stores information from the day, making it easier to recall and use that information later.\n\n2. Stabilizes Mood: Sleep has a profound impact on mood regulation. Insufficient sleep can lead to irritability, mood swings, and an increased risk of mental health disorders such as depression and anxiety. Good sleep helps maintain emotional stability and resilience.\n\n3. Reduces Stress: Sleep is a natural stress reliever. During sleep, the body reduces levels of stress hormones like cortisol. Lack of sleep, on the other hand, can trigger the body\'s stress response, leading to increased anxiety and tension.\n\n4. Supports Mental Health Treatment: For individuals undergoing treatment for mental health disorders, sleep is a crucial component of recovery. Good sleep can enhance the effectiveness of therapy and medication, and improve overall treatment outcomes.\n\nConsequences of Poor Sleep\n\nPoor sleep, whether due to insomnia, sleep apnea, or other sleep disorders, can have severe consequences for mental health. Chronic sleep deprivation has been linked to a higher risk of developing mental health disorders, impaired cognitive function, and decreased quality of life. Common consequences of poor sleep include:\n\n- Increased Anxiety and Depression: Lack of sleep can exacerbate symptoms of anxiety and depression, making it harder to cope with daily challenges.\n- Cognitive Impairment: Sleep deprivation affects attention, alertness, concentration, and decision-making abilities. This can lead to mistakes, accidents, and reduced productivity.\n- Weakened Immune System: Poor sleep weakens the immune system, making the body more susceptible to infections and illnesses.\n\nTips for Improving Sleep Quality\n\nImproving sleep quality requires adopting healthy sleep habits and creating an environment conducive to restful sleep. Here are some tips to help you get better sleep:\n\n1. Maintain a Regular Sleep Schedule: Go to bed and wake up at the same time every day, even on weekends. This helps regulate your body\'s internal clock and improves sleep quality.\n\n2. Create a Relaxing Bedtime Routine: Engage in calming activities before bed, such as reading, taking a warm bath, or practicing relaxation techniques like deep breathing or meditation.\n\n3. Optimize Your Sleep Environment: Make your bedroom a comfortable and inviting place to sleep. Keep the room cool, dark, and quiet, and invest in a comfortable mattress and pillows.\n\n4. Limit Exposure to Screens: Reduce screen time before bed, as the blue light emitted by phones, tablets, and computers can interfere with your body\'s natural sleep-wake cycle.\n\n5. Watch Your Diet: Avoid large meals, caffeine, and alcohol close to bedtime, as these can disrupt sleep. Instead, opt for light snacks if you\'re hungry before bed.\n\nConclusion\n\nSleep is a cornerstone of mental health, playing a critical role in cognitive function, emotional stability, and overall well-being. Prioritizing good sleep habits and creating a sleep-friendly environment can significantly improve your mental health and quality of life. Remember, sleep is not a luxury but a necessity for maintaining mental and physical health.', NULL, 'The Importance of Sleep for Mental Health', '2024-04-26 11:23:58', '2024-06-11 11:23:58', 1),
 	(18, 1, 2, '<h1>Physical activity is widely recognized for its benefits to physical health, but its impact on emotional well-being is equally profound. Regular exercise can enhance mood, reduce symptoms of depression and anxiety, and improve overall mental health. Understanding the connection between physical activity and emotional well-being can help individuals harness the power of exercise to enhance their quality of life.</h1><div><br></div><h1><strong>The Science Behind Exercise and Emotional Well-being</strong></h1><div><br>When you engage in physical activity, your body undergoes various <em>physiological </em>changes that positively affect your mental state. Here are some key mechanisms through which exercise influences emotional well-being:<br><br><strong>1. Release of Endorphins:</strong> Physical activity triggers the release of endorphins, also known as "feel-good" hormones. Endorphins act as natural painkillers and mood elevators, creating a sense of happiness and euphoria often referred to as the "runner\'s high."<br><br><strong>2. Reduction of Stress Hormones:</strong> Exercise helps reduce levels of stress hormones like cortisol and adrenaline. Lower levels of these hormones lead to a calmer and more relaxed state of mind.<br><br><strong>3. Improved Brain Function:</strong> Regular exercise enhances brain function by promoting the growth of new neurons and increasing blood flow to the brain. This can improve cognitive abilities, enhance memory, and boost overall brain health.<br><br><strong>4. Regulation of Sleep</strong>: Exercise can improve sleep quality, which is crucial for emotional well-being. Better sleep helps regulate mood, reduce stress, and improve overall mental health.<br><br></div><h1><strong>Emotional Benefits of Physical Activity</strong></h1><div><br><strong>1. Reduces Symptoms of Depression and Anxiety:</strong> Exercise is a powerful tool for managing symptoms of depression and anxiety. It helps release tension, reduces feelings of worry, and promotes a sense of calm. Many mental health professionals recommend physical activity as part of a comprehensive treatment plan for these conditions.<br><br><strong>2. Enhances Mood:</strong> Regular physical activity is associated with improved mood and a greater sense of happiness. It helps combat feelings of sadness, frustration, and irritability, contributing to a more positive outlook on life.<br><br><strong>3. Boosts Self-esteem:</strong> Exercise can improve self-esteem and body image. Achieving fitness goals, whether big or small, fosters a sense of accomplishment and confidence. Feeling better about one\'s physical appearance and capabilities translates to a more positive self-view.<br><br><strong>4. Provides Social Interaction</strong>: Participating in group exercise activities or sports offers social benefits that can alleviate feelings of loneliness and isolation. Building connections through shared physical activity fosters a sense of community and support.<br><br></div><h1><strong>How to Incorporate Physical Activity into Your Life</strong></h1><div><br><strong>1. Choose Activities You Enjoy:</strong> Finding an activity that you enjoy increases the likelihood that you will stick with it. Whether it\'s running, swimming, dancing, or playing a sport, choose something that makes you feel good.<br><br><strong>2. Set Realistic Goals:</strong> Start with small, achievable goals and gradually increase the intensity and duration of your workouts. Setting and achieving these goals provides a sense of accomplishment and motivates you to keep going.<br><br><strong>3. Make it a Routine:</strong> Incorporate physical activity into your daily routine. Whether it\'s a morning jog, a lunchtime walk, or an evening yoga session, consistency is key to reaping the benefits of exercise.<br><br><strong>4. Stay Active Throughout the Day:</strong> Look for opportunities to be active, even in small ways. Take the stairs instead of the elevator, walk or bike to work, or engage in active hobbies like gardening or playing with your pets.<br><br></div><h1>Conclusion</h1><div><br>Physical activity is a powerful tool for enhancing emotional well-being. By understanding and harnessing the mental health benefits of exercise, you can improve your mood, reduce symptoms of depression and anxiety, and boost your overall quality of life. Remember, the key is to find activities you enjoy and make them a regular part of your routine. With consistent effort, you can achieve a healthier, happier, and more emotionally balanced life.</div>', 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9902068/#:~:text=Numerous%20psychological%20effects%2C%20such%20as,and%20physical%20diseases%20%5B9%5D.', 'How Physical Activity Influences Emotional Well-being', '2024-04-27 11:23:58', '2024-06-11 11:23:58', 1);
 
--- Listage des données de la table musclemind.session : ~128 rows (environ)
+-- Listage des données de la table musclemind.session : ~0 rows (environ)
 INSERT INTO `session` (`id`, `program_id`, `user_id`, `date_session`) VALUES
 	(384, 15, 1, '2024-02-15 00:00:00'),
 	(385, 15, 1, '2024-02-19 00:00:00'),
@@ -487,13 +475,13 @@ INSERT INTO `session` (`id`, `program_id`, `user_id`, `date_session`) VALUES
 	(697, 17, 1, '2025-02-08 00:00:00'),
 	(698, 17, 1, '2025-02-12 00:00:00');
 
--- Listage des données de la table musclemind.tag : ~3 rows (environ)
+-- Listage des données de la table musclemind.tag : ~0 rows (environ)
 INSERT INTO `tag` (`id`, `label`) VALUES
 	(1, 'weight lifting'),
 	(2, 'health'),
 	(3, 'nutrition');
 
--- Listage des données de la table musclemind.tracking : ~6 rows (environ)
+-- Listage des données de la table musclemind.tracking : ~0 rows (environ)
 INSERT INTO `tracking` (`id`, `user_tracked_id`, `height`, `weight`, `date_of_tracking`) VALUES
 	(2, 1, '185', '85', '2024-04-28 21:50:08'),
 	(3, 1, '186', '75', '2024-06-12 06:36:25'),
@@ -504,10 +492,10 @@ INSERT INTO `tracking` (`id`, `user_tracked_id`, `height`, `weight`, `date_of_tr
 
 -- Listage des données de la table musclemind.user : ~2 rows (environ)
 INSERT INTO `user` (`id`, `username`, `email`, `date_of_birth`, `sex`, `roles`, `password`, `score`, `is_verified`) VALUES
-	(1, 'aminebncd', 'aminebncd_pro@hotmail.com', '2001-01-15 00:00:00', 'male', '{"0": "ROLE_ADMIN", "2": "ROLE_MODERATOR"}', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 320220, 1),
+	(1, 'aminebncd', 'aminebncd_pro@hotmail.com', '2001-01-15 00:00:00', 'male', '{"0": "ROLE_ADMIN", "2": "ROLE_MODERATOR"}', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 326535, 1),
 	(2, 'test', 'test@test.com', NULL, NULL, '["ROLE_USER"]', '$2y$13$7oAcsERQ8D7CBYqwu5GwQu.ZQeXun9VPhtJVWbrybWbhz2VB/lvIG', 0, 0);
 
--- Listage des données de la table musclemind.workout_plan : ~21 rows (environ)
+-- Listage des données de la table musclemind.workout_plan : ~0 rows (environ)
 INSERT INTO `workout_plan` (`id`, `exercice_id`, `program_id`, `number_of_repetitions`, `weights_used`) VALUES
 	(19, 191, 15, 12, 60),
 	(37, 191, 15, 10, 80),

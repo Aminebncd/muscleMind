@@ -20,12 +20,6 @@ class Tracking
     #[ORM\Column(length: 3, nullable: true)]
     private ?string $weight = null;
 
-    // #[ORM\Column(length: 3, nullable: true)]
-    // private ?string $age = null;
-
-    // #[ORM\Column(length: 20, nullable: true)]
-    // private ?string $sex = null;
-
     #[ORM\ManyToOne(inversedBy: 'trackings')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userTracked = null;
@@ -61,30 +55,6 @@ class Tracking
 
         return $this;
     }
-
-    // public function getAge(): ?string
-    // {
-    //     return $this->age;
-    // }
-
-    // public function setAge(?string $age): static
-    // {
-    //     $this->age = $age;
-
-    //     return $this;
-    // }
-
-    // public function getSex(): ?string
-    // {
-    //     return $this->sex;
-    // }
-
-    // public function setSex(?string $sex): static
-    // {
-    //     $this->sex = $sex;
-
-    //     return $this;
-    // }
 
     public function getUserTracked(): ?User
     {

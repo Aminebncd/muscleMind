@@ -5,6 +5,7 @@
 {% block body %}
 
 <script>
+
     function animateScore(oldScore, newScore, scoreDifference) {
         console.log("function animateScore() called.");
         if (isNaN(oldScore) || isNaN(newScore) || isNaN(scoreDifference)) {
@@ -43,16 +44,15 @@
     }
 
     (function() {
+        
         const oldScore = parseInt('{{ oldScore }}', 10);
         const newScore = parseInt('{{ newScore }}', 10);
         const scoreDifference = parseInt('{{ scoreDifference }}', 10);
 
-        if (!isNaN(oldScore) && !isNaN(newScore) && !isNaN(scoreDifference)) {
-            animateScore(oldScore, newScore, scoreDifference);
-        } else {
-            console.error('Invalid values.');
-        }
+        animateScore(oldScore, newScore, scoreDifference);
+       
     })();
+
 </script>
 
 <div class="w-10/12 max-w-[1200px] flex flex-row justify-between mt-14 items-center">
@@ -83,7 +83,10 @@
     <div class="w-full flex flex-col justify-center">
         <div class="mt-4  flex flex-col items-center">
             <div class="flex text-nowrap">
-                <p class="text-2xl text-center">Your score: <span id="user-score">{{ oldScore }}</span></p><span id="score-difference" style="opacity: 0; transition: opacity 1s;">+{{ scoreDifference }}</span>
+                <p class="text-2xl text-center">Your score: 
+                    <span id="user-score">{{ oldScore }}</span>
+                </p>
+                <span id="score-difference" class="text-senary" style="opacity: 0; transition: opacity 1s;">+{{ scoreDifference }}</span>
             </div>
 
                 {% if equiv %}

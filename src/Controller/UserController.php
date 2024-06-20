@@ -47,14 +47,11 @@ class UserController extends AbstractController
         $user = $this->getUser();
         $oldScore = $user->getScore();  
 
-        $this->updateScore($user);
+        $this->updateScore($user, $em);
 
         $newScore = $user->getScore(); 
         $scoreDifference = $newScore - $oldScore;  
 
-        $em->persist($user);
-        $em->flush();
-        
         $equiv = $this->displayEquivalent($user);
         $activity = $this->getActivity($user, $sr, 365);
         $test = $this->getActivityLevel($user, $sr);
@@ -86,7 +83,7 @@ class UserController extends AbstractController
 
     // factorized it for better readability
     // updates the user's score based on the sessions he has done
-    private function updateScore(User $user) {
+    private function updateScore(User $user,EntityManagerInterface $em) {
         $sessions = $user->getSessions();
         $totalScore = 0;
         $now = new \DateTime;
@@ -102,6 +99,8 @@ class UserController extends AbstractController
         }
 
         $user->setScore($totalScore);
+        $em->persist($user);
+        $em->flush();
     }
 
 

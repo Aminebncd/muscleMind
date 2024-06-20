@@ -56,7 +56,9 @@ class HomeController extends AbstractController
     }
 
     #[Route('/newSession', name: 'app_home_newSession')]
-    public function newSession(Request $request, EntityManagerInterface $em, SessionRepository $sessionRepository): Response
+    public function newSession(Request $request, 
+                                EntityManagerInterface $em, 
+                                SessionRepository $sessionRepository): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -127,6 +129,37 @@ class HomeController extends AbstractController
         ]);
     }
 
+    // returns the edit page of a session
+    #[Route('/editSession/{id}', name: 'app_home_editSession')]
+    public function editSession(Session $session = null, 
+                                EntityManagerInterface $em, 
+                                Request $request): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $user = $this->getUser();
+
+        if ($session->getUser() != $user || !$session) {
+            return $this->redirectToRoute('app_home');
+        }
+
+        $form = $this->createForm(ManualScheduleType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($session);
+            $em->flush();
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('home/editSession.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
 
 
 
@@ -134,8 +167,8 @@ class HomeController extends AbstractController
     // deletes a Session, pretty straightforward
     #[Route('/delete/{id}', name: 'app_home_deleteSession')]
     public function removeSession(Session $session = null, 
-                            EntityManagerInterface $em,
-                            Request $request)
+                                EntityManagerInterface $em,
+                                Request $request)
     {
 
         if (!$this->getUser()) {

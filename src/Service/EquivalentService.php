@@ -95,7 +95,7 @@ class EquivalentService
                 "name" => "7 - 8 private jets",
                 "min_points" => 300000,
                 "max_points" => 400000,
-                "image" => "https://example.com/images/private_jets.jpg"
+                "image" => "https://pngimg.com/uploads/plane/plane_PNG101267.png"
             ],
             [
                 "name" => "1 skyscraper",
