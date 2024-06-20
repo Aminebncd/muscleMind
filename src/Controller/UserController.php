@@ -53,7 +53,7 @@ class UserController extends AbstractController
         $scoreDifference = $newScore - $oldScore;  
 
          // Log des scores pour le débogage
-        error_log("Old Score: $oldScore, New Score: $newScore, Score Difference: $scoreDifference");
+        // error_log("Old Score: $oldScore, New Score: $newScore, Score Difference: $scoreDifference");
 
 
         $equiv = $this->displayEquivalent($user);
@@ -63,8 +63,14 @@ class UserController extends AbstractController
         $trackingChart = $this->chartService->getTrackingChart($user);
         $performanceChart = $this->chartService->getPerformanceChart($user);
 
-        $latestTracking = $tr->getLatest($user);
-        $bmr = $this->calculateBMR($user, $tr, $sr);
+        if ($user->getTrackings() == null) {
+            $latestTracking = null;
+        } else {
+            $latestTracking = $tr->getLatest($user);
+            $bmr = $this->calculateBMR($user, $tr, $sr);
+        }
+
+        dd($bmr);
 
         return $this->render('user/index.html.twig', [
             'user' => $user,
