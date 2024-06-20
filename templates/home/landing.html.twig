@@ -4,7 +4,7 @@
 
 {% block body %}
 {# Header Section #}
-<header class="w-full -mt-16 bg-tertiary/40 backdrop-blur-md text-white text-center flex flex-col justify-between">
+<header class="w-full -mt-16 bg-tertiary/40 backdrop-blur-md py-12 text-white text-center flex flex-col justify-between">
     <div class="flex flex-row">
         <div class="w-2/3 max-md:hidden">
             <img class="w-full h-full object-cover" src="{{ asset('img/landing/landing.webp') }}" alt="MuscleMind">
@@ -17,8 +17,8 @@
             <button href="{{ path('app_register') }}" class="mr-10 w-3/4 mx-auto text-center px-8 py-4 mb-8 bg-quinary text-white font-bold rounded-lg hover:bg-quaternary hover:text-black transition duration-150 transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none shadow-xl">Get Started</button>
         </div>
     </div>
-    <div class="w-full bg-primary h-24"></div>
 </header>
+<div class="w-full bg-primary h-24"></div>
 
 {# Features Section #}
 <section class="text-center py-12 bg-secondary backdrop-blur-md overflow-hidden shadow-xl">

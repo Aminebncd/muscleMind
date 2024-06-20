@@ -61,7 +61,7 @@ class Tracking
         return $this->userTracked;
     }
 
-    public function setUserTracked(User $userTracked): static
+    public function setUserTracked(?User $userTracked): static
     {
         $this->userTracked = $userTracked;
 
