@@ -52,6 +52,10 @@ class UserController extends AbstractController
         $newScore = $user->getScore(); 
         $scoreDifference = $newScore - $oldScore;  
 
+         // Log des scores pour le débogage
+        error_log("Old Score: $oldScore, New Score: $newScore, Score Difference: $scoreDifference");
+
+
         $equiv = $this->displayEquivalent($user);
         $activity = $this->getActivity($user, $sr, 365);
         $test = $this->getActivityLevel($user, $sr);
@@ -163,6 +167,7 @@ class UserController extends AbstractController
     }
 
     // no
+
     // // grants the admin role to a user
     // #[Route('/admin/makeAdmin/{id}', name: 'app_user_makeAdmin')]
     // public function makeAdmin(Request $request, 
@@ -183,6 +188,7 @@ class UserController extends AbstractController
     // }
 
     // absolutely not
+
     // // grants the moderator role to a user
     // #[Route('/admin/makeMod/{id}', name: 'app_user_makeMod')]
     // public function makeMod(Request $request, 

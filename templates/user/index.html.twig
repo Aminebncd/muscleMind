@@ -4,57 +4,6 @@
 
 {% block body %}
 
-<script>
-
-    function animateScore(oldScore, newScore, scoreDifference) {
-        console.log("function animateScore() called.");
-        if (isNaN(oldScore) || isNaN(newScore) || isNaN(scoreDifference)) {
-            console.error('One of the scores is invalid.');
-            return;
-        }
-
-        let currentScore = oldScore;
-        const increment = (newScore - oldScore) / 100;
-
-        if (isNaN(increment)) {
-            console.error('Increment is invalid.');
-            return;
-        }
-
-        const scoreElement = document.getElementById('user-score');
-        const differenceElement = document.getElementById('score-difference');
-
-        function updateScore() {
-            currentScore += increment;
-            scoreElement.innerText = Math.round(currentScore);
-            if (currentScore < newScore) {
-                requestAnimationFrame(updateScore);
-            } else {
-                scoreElement.innerText = newScore; 
-                differenceElement.innerText = `+${scoreDifference}`;
-                differenceElement.style.opacity = 1;
-                setTimeout(() => {
-                    differenceElement.style.transition = 'opacity 1s';
-                    differenceElement.style.opacity = 0;
-                }, 3000); 
-            }
-        }
-
-        updateScore();
-    }
-
-    (function() {
-        
-        const oldScore = parseInt('{{ oldScore }}', 10);
-        const newScore = parseInt('{{ newScore }}', 10);
-        const scoreDifference = parseInt('{{ scoreDifference }}', 10);
-
-        animateScore(oldScore, newScore, scoreDifference);
-       
-    })();
-
-</script>
-
 <div class="w-10/12 max-w-[1200px] flex flex-row justify-between mt-14 items-center">
     <span class="text-3xl font-semibold">{{ user }}</span>
     <div class="flex flex-col justify-center">
@@ -161,5 +110,48 @@
         <a class="text-white underline text-lg hover:text-xl hover:font-semibold duration-150" href="{{ path('app_user_listEntries', {'id': user.id}) }}">List of your entries</a>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function animateScore(oldScore, newScore, scoreDifference) {
+            let currentScore = oldScore;
+            const increment = (newScore - oldScore) / 100;
+
+            const scoreElement = document.getElementById('user-score');
+            const differenceElement = document.getElementById('score-difference');
+
+            function updateScore() {
+                currentScore += increment;
+                scoreElement.innerText = Math.round(currentScore);
+                if (currentScore < newScore) {
+                    requestAnimationFrame(updateScore);
+                } else {
+                    scoreElement.innerText = newScore; 
+                    differenceElement.innerText = `+${scoreDifference}`;
+                    differenceElement.style.opacity = 1;
+                    setTimeout(() => {
+                        differenceElement.style.transition = 'opacity 1s';
+                        differenceElement.style.opacity = 0;
+                    }, 3000); 
+                }
+            }
+
+            updateScore();
+        }
+
+        (function() {
+            const oldScore = parseInt('{{ oldScore }}', 10);
+            const newScore = parseInt('{{ newScore }}', 10);
+            const scoreDifference = parseInt('{{ scoreDifference }}', 10);
+
+            // Log des valeurs pour le débogage
+            console.log("Old Score:", oldScore);
+            console.log("New Score:", newScore);
+            console.log("Score Difference:", scoreDifference);
+
+            animateScore(oldScore, newScore, scoreDifference);
+        })();
+    });
+</script>
 
 {% endblock %}
