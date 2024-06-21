@@ -16,6 +16,7 @@ use App\Repository\SessionRepository;
 use App\Repository\ExerciceRepository;
 use App\Repository\TrackingRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -45,7 +46,10 @@ class UserController extends AbstractController
         }
 
         $user = $this->getUser();
-        $oldScore = $user->getScore();  
+        $oldScore = $user->getScore();
+        // $user->setSex(null);
+        
+        // dd($user->getSex());
 
         $this->updateScore($user, $em);
 
@@ -63,14 +67,26 @@ class UserController extends AbstractController
         $trackingChart = $this->chartService->getTrackingChart($user);
         $performanceChart = $this->chartService->getPerformanceChart($user);
 
-        if ($user->getTrackings() == null) {
-            $latestTracking = null;
-        } else {
-            $latestTracking = $tr->getLatest($user);
-            $bmr = $this->calculateBMR($user, $tr, $sr);
+        $response = new Response();
+        if ($user->getSex() === null || $user->getDateOfBirth() === null) {
+            $lastReminder = $request->cookies->get('profile_reminder');
+            $currentDate = new \DateTime();
+
+            if (!$lastReminder || new \DateTime($lastReminder) <= $currentDate->modify('-7 days')) {
+                $this->addFlash('message', 'In order to get your BMR, you need to fill in your profile first and add your sex and age. The data will only be used to give you numerical insights on your progress and metabolical needs.');
+
+                $cookie = new Cookie('profile_reminder', (new \DateTime())->format('Y-m-d'), strtotime('+7 days'));
+                $response->headers->setCookie($cookie);
+            }
         }
 
-        dd($bmr);
+        if ($tr->getLatest($user) !== null) {
+            $latestTracking = $tr->getLatest($user);
+            $bmr = $this->calculateBMR($user, $tr, $sr);
+        } else {
+            $latestTracking = null;
+            $bmr = null;
+        }
 
         return $this->render('user/index.html.twig', [
             'user' => $user,
@@ -153,9 +169,11 @@ class UserController extends AbstractController
         if ($form->isSubmitted() 
             && $form->isValid()) {
 
-                if ($form->getData()->getSex() === 'I would rather not say' 
-                || $form->getData()->getDateOfBirth() === null){
+                if ($form->getData()->getSex() === 'I would rather not say' ){
                     $user->setSex(null);
+                }
+
+                if ($form->getData()->getDateOfBirth() === null){
                     $user->setDateOfBirth(null);
                 }
 
@@ -171,6 +189,8 @@ class UserController extends AbstractController
             'controller_name' => 'UserController',
         ]);
     }
+
+
 
     // no
 
@@ -215,6 +235,7 @@ class UserController extends AbstractController
     // }
     
 
+    
     // lists the existing users
     #[Route('/admin/listUsers', name: 'app_user_list')]
     public function listUsers(Request $request, UserRepository $ur): Response
@@ -393,11 +414,8 @@ class UserController extends AbstractController
     // and return it
     private function calculateBMR(User $user, TrackingRepository $tr, SessionRepository $sr)
     {
-        if ( $tr->getLatest($user) === null
-            || $user->getSex() === null
-                || $user->getDateOfBirth() === null){
-                    $this->addflash('error', 'Please fill in your profile first, the data will only be used to give you numerical insights on your progress and metabolical needs.');
-                    return $this->redirectToRoute('app_user_updateProfile', ['id' => $this->getUser()->getId()]);
+        if ($user->getSex() === null || $user->getDateOfBirth() === null) {
+            return null;
         }
 
         $height = $tr->getLatest($user)->getHeight();
@@ -419,39 +437,31 @@ class UserController extends AbstractController
     // using that i'll make a switch that'll apply a coefficient to the BMR
     private function getActivityLevel(User $user, SessionRepository $sr)
     {
-        $activityLevel = 0;
+        $activityLevel = 5;
         $today = new \DateTime();
-        $lastWeek = $today->modify('-7 days');
-        // dd($today);
-
-        $sessions = $sr->findByUserAndDateRange($user, $lastWeek, new \DateTime());
-
+        $lastWeek = (new \DateTime())->modify('-14 days');
+    
+        $sessions = $sr->findByUserAndDateRange($user, $lastWeek, $today);
+    
         $activityLevel = count($sessions);
         
-        switch ($activityLevel) {
-            case 0:
-                return 1;
-                break;
-            case 1:
-                return 1.1;
-                break;
-            case 2:
-                return 1.22;
-                break;
-            case 3:
-                return 1.33;
-                break;
-            case 4:
-                return 1.44;
-                break;
-            case 5:
-                return 1.55;
-                break;
-            default:
-                return 1;
-                break;
+        if ($activityLevel == 0) {
+            return 1;
+        } elseif ($activityLevel >= 10) {
+            return 1.55;
+        } elseif ($activityLevel >= 8) {
+            return 1.44;
+        } elseif ($activityLevel >= 6) {
+            return 1.33;
+        } elseif ($activityLevel >= 4) {
+            return 1.22;
+        } elseif ($activityLevel >= 2) {
+            return 1.1;
+        } else {
+            return 1;
         }
     }
+    
 
     
 

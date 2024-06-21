@@ -54,6 +54,11 @@
 </div>
 
 <div id="PROGRESS" class="w-10/12 max-w-[1200px]">
+        {% for message in app.flashes('message') %}
+            <div class="alert alert-info">
+                {{ message }}
+            </div>
+        {% endfor %}
     <div class="flex flex-row justify-between mt-14 items-center max-md:flex-col">
         <div class="w-1/3 flex flex-col p-2 max-md:w-full">
             {% if latestTracking %}
@@ -63,7 +68,9 @@
                 <div class="mt-4">
                     <p class="text-lg">
                         Last time you tracked your shape, you were: <br><br>
+                        {% if user.dateOfBirth %}
                         {{ user.age }} years old <br>
+                        {% endif %}
                         {{ latestTracking.height }}cm <br>
                         {{ latestTracking.weight }}kg <br>
                         <div class="w-full flex items-center justify-around mt-4 max-md:flex-col">
@@ -80,8 +87,10 @@
             {% endif %}
         </div>
         <div class="w-full max-w-[600px]">
+            {% if bmr %}
             Base metabolic rate: (approx.) {{ bmr }}cal <br>
             <a class="text-sm text-quaternary hover:text-lg hover:underline duration-150" href="https://envisionfitnessmn.com/about/blog/entryid/15/basal-metabolic-rate-what-is-it-and-why-its-important#:~:text=Knowing%20your%20Basal%20Metabolic%20Rate,BMR%20(or%20maintenance%20calories).">Why is it useful?</a>
+            {% endif %}
             <div class="bg-tertiary/10 p-4 rounded backdrop-blur-md">
                 {{ render_chart(trackingChart) }}
             </div>
@@ -112,7 +121,6 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
         function animateScore(oldScore, newScore, scoreDifference) {
             let currentScore = oldScore;
             const increment = (newScore - oldScore) / 100;
@@ -151,7 +159,6 @@
 
             animateScore(oldScore, newScore, scoreDifference);
         })();
-    });
 </script>
 
 {% endblock %}
