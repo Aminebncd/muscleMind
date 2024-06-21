@@ -7,10 +7,10 @@
 <div class="flex w-full  max-md:flex-col max-md:items-center">
 
     <div class="container mx-auto  mt-24 px-4 ">
-        <div class="bg-primary/60 p-1 rounded-lg w-full max-w-screen-md flex flex-col mx-auto backdrop-blur-md">
+        <div class="dark:bg-primary/60 p-1 rounded-lg w-full max-w-screen-md flex flex-col mx-auto backdrop-blur-md">
         <h1 class="text-4xl font-bold mb-8 p-4 text-center">Details of the {{ muscleGroup}} muscle group</h1>
     
-            <div class="bg-primary/60 p-4 rounded-lg w-5/6 max-w-screen-md flex flex-col mx-auto">
+            <div class="dark:bg-primary/60 p-4 rounded-lg w-5/6 max-w-screen-md flex flex-col mx-auto">
                 <p class="font-semibold text-lg mb-2">Muscles composing the group</p>
             
                 <ul class="list-disc pl-5 mb-1">
@@ -21,7 +21,7 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div class="bg-primary/60 p-4 rounded-lg w-5/6 max-w-screen-md flex flex-col my-10 mx-auto">
+            <div class="dark:bg-primary/60 p-4 rounded-lg w-5/6 max-w-screen-md flex flex-col my-10 mx-auto">
                 <p class="font-semibold text-lg mb-2">Exercises :</p>
                 <ul class="list-disc pl-5 mb-4">
                     {% for exercice in exercices %}

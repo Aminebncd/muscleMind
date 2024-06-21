@@ -21,7 +21,7 @@ class ManualScheduleType extends AbstractType
                 // 'multiple' => true,
                 // 'label' => 'Chose the date of the session',
                 'attr' => [
-                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                     'placeholder' => 'Chose the date of the session',
                 ],
                 'row_attr' => [
@@ -31,14 +31,14 @@ class ManualScheduleType extends AbstractType
                 'class' => Program::class,
                 'choice_label' => 'title',
                 'attr' => [
-                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                 ],
                 'label' => 'Program scheduled',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Schedule',
                 'attr' => [
-                    'class' => 'w-fit px-4 py-2 rounded-2xl bg-tertiary drop-shadow-xl hover:bg-quinary flex-end duration-150'
+                    'class' => 'w-fit px-4 py-2 rounded-2xl dark:bg-tertiary drop-shadow-xl hover:bg-quinary flex-end duration-150'
                 ]
             ])
         ;

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="bg-secondary/50 p-8 rounded-lg w-5/6 mt-10 max-w-screen-lg  backdrop-blur-md">
+    <div class="dark:bg-secondary/50 p-8 rounded-lg w-5/6 mt-10 max-w-screen-lg  backdrop-blur-md">
 
         <h1 class="text-center font-bold text-2xl px-2 py-4">Schedule your training sessions !</h1>
 
@@ -12,14 +12,14 @@
             </div>
         {% endif %}
 
-        <div class="mb-8 bg-primary/50 p-4 rounded-lg mt-4">
+        <div class="mb-8 dark:bg-primary/50 p-4 rounded-lg mt-4">
             <h2 class=" font-bold text-xl px-2 py-4" >Manual planning</h2>
             {{ form_start(manualForm) }}
             {# {{ form_widget(manualForm) }} #}
             {{ form_end(manualForm)}}
         </div>
 
-        <div class="mb-8 bg-primary/50 p-4 rounded-lg mt-4">
+        <div class="mb-8 dark:bg-primary/50 p-4 rounded-lg mt-4">
             <h2 class=" font-bold text-xl px-2 py-4">Batch planning</h2>
             {{ form_start(autoForm) }}
             {{ form_end(autoForm) }}

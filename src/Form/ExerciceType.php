@@ -20,14 +20,14 @@ class ExerciceType extends AbstractType
             ->add('exerciceName', TextType::class, [
                 'label' => 'Exercice Name',
                 'attr' => [
-                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                     'placeholder' => 'Exercice Name',
                 ]
             ])
             ->add('exerciceFunction', TextareaType::class, [
                 'label' => 'Exercice Function',
                 'attr' => [
-                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                     'placeholder' => 'Exercice Function',
                 ]
             ])
@@ -36,7 +36,7 @@ class ExerciceType extends AbstractType
                 'choice_label' => 'muscleName',
                 'label' => 'Target Muscle',
                 'attr' => [
-                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8 mt-1',
+                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8 mt-1',
                     'placeholder' => 'Target Muscle'
                 ],
                 'row_attr' => ['class' => 'flex flex-col w-full'],
@@ -48,14 +48,14 @@ class ExerciceType extends AbstractType
                 'required' => false,
                 'label' => 'Secondary Target Muscle',
                 'attr' => [
-                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8 mt-1',
+                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8 mt-1',
                     'placeholder' => 'Secondary Target Muscle'
                 ],
                 'row_attr' => ['class' => 'flex flex-col w-full'],
             ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
-                    'class' => 'w-fit px-4 py-2 rounded-2xl bg-tertiary drop-shadow-xl hover:bg-quinary flex-end duration-150'
+                    'class' => 'w-fit px-4 py-2 rounded-2xl dark:bg-tertiary drop-shadow-xl hover:bg-quinary flex-end duration-150'
                 ]
             ])
         ;

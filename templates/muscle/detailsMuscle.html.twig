@@ -3,7 +3,7 @@
 {% block title %}Hello MuscleController!{% endblock %}
 
 {% block body %}
-<div class="container bg-primary/60 p-8 rounded-lg w-full max-w-screen-md flex flex-col mx-auto backdrop-blur-md">
+<div class="container dark:bg-primary/60 p-8 rounded-lg w-full max-w-screen-md flex flex-col mx-auto backdrop-blur-md">
     <h1 class="text-4xl font-bold mb-4">Muscle details 
         <a class="text-tertiary hover:font-medium hover:text-yellow-300 duration-150 text-xl hover:text-2xl" href="{{path ('app_muscle_edit', {'id': muscle.id} )}}"><i class="fa-solid fa-pen-to-square"></i></a> 
                 <a class="text-tertiary hover:font-medium hover:text-red-600 duration-150 text-xl hover:text-2xl"  href="{{path ('app_muscle_delete', {'id': muscle.id})}}"><i class="fa-solid fa-trash-can"></i></a>

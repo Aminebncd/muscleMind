@@ -23,7 +23,7 @@ class ProgramType extends AbstractType
         $builder
         
             ->add('title', TextType::class, [
-                'attr' => ['class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'],
+                'attr' => ['class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'],
                 'label' => 'Program title :',
                 'row_attr' => ['class' => 'w-full mx-auto px-4'],
             ])
@@ -32,7 +32,7 @@ class ProgramType extends AbstractType
                 'class' => MuscleGroup::class,
                 'choice_label' => 'muscleGroup',
                 'attr' => [
-                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-quinary mb-8',
+                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-quinary mb-8',
                     'placeholder' => 'Muscle group targeted'
                 ],
                 'choice_attr' => function($choice, $key, $value) {
@@ -46,7 +46,7 @@ class ProgramType extends AbstractType
                 'class' => MuscleGroup::class,
                 'choice_label' => 'muscleGroup',
                 'attr' => [
-                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-quaternary mb-8',
+                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-quaternary mb-8',
                     'placeholder' => 'Secondary muscle group targeted'
                 ],
                 'choice_attr' => function($choice, $key, $value) {
@@ -57,7 +57,7 @@ class ProgramType extends AbstractType
             ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
-                    'class' => 'px-4 py-2 rounded-2xl bg-tertiary drop-shadow-xl hover:bg-quinary duration-150'
+                    'class' => 'px-4 py-2 rounded-2xl dark:bg-tertiary drop-shadow-xl hover:bg-quinary duration-150'
                 ]
             ]);
         ;

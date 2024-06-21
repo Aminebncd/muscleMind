@@ -18,9 +18,9 @@ module.exports = {
         quinary: '#00a6fb',    
         senary: '#ffc300', 
 
-        nav_light: '#0077b6', 
-        primary_light: '#48cae4',    
-        secondary_light: '#90e0ef',   
+        nav_light: '#2f6a87', 
+        primary_light: '#6eb2cc',    
+        secondary_light: '#e7e7e7',   
         tertiary_light: '#ade8f4',   
         quaternary_light: '#f6cbf4',  
         quinary_light: '#00a6fb',    

@@ -23,7 +23,7 @@ class UpdatePasswordType extends AbstractType
                 'mapped' => false,
                 'label' => 'Old Password',
                 'attr' => [
-                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                     'placeholder' => 'Old Password',
                 ],
                 'constraints' => [
@@ -36,7 +36,7 @@ class UpdatePasswordType extends AbstractType
                 'invalid_message' => 'The password fields must match.',
                 'options' => [
                     'attr' => [
-                        'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                        'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                         'placeholder' => 'New Password',
                     ],
                 ],
@@ -52,12 +52,12 @@ class UpdatePasswordType extends AbstractType
                     // ]),
                 ],
                 'attr' => [
-                    'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                 ],
             ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
-                    'class' => 'w-fit px-4 py-2 rounded-2xl bg-tertiary drop-shadow-xl hover:bg-quinary flex-end duration-150'
+                    'class' => 'w-fit px-4 py-2 rounded-2xl dark:bg-tertiary drop-shadow-xl hover:bg-quinary flex-end duration-150'
                 ]
             ]);
     }

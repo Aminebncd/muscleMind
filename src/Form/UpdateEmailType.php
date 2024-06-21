@@ -20,7 +20,7 @@ class UpdateEmailType extends AbstractType
                 'type' => EmailType::class,
                 'first_options'  => [
                     'attr' => [
-                        'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                        'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                         'placeholder' => 'New Email',
                     ],
                     'label' => 'New Email',
@@ -28,7 +28,7 @@ class UpdateEmailType extends AbstractType
                 ],
                 'second_options' => [
                     'attr' => [
-                        'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                        'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                         'placeholder' => 'Confirm New Email',
                     ],
                     'label' => 'Confirm New Email',
@@ -38,7 +38,7 @@ class UpdateEmailType extends AbstractType
             ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
-                    'class' => 'w-fit px-4 py-2 rounded-2xl bg-tertiary drop-shadow-xl hover:bg-quinary flex-end duration-150'
+                    'class' => 'w-fit px-4 py-2 rounded-2xl dark:bg-tertiary drop-shadow-xl hover:bg-quinary flex-end duration-150'
                 ]
             ]);
     }

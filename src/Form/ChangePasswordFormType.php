@@ -22,7 +22,7 @@ class ChangePasswordFormType extends AbstractType
                 'options' => [
                     'attr' => [
                         'autocomplete' => 'new-password',
-                        'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                        'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                         'placeholder' => 'New Password',
                     ],
                 ],
@@ -47,14 +47,14 @@ class ChangePasswordFormType extends AbstractType
                     ],
                     'label' => 'New Password',
                     'attr' => [
-                        'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                        'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                         'placeholder' => 'New Password',
                     ],
                 ],
                 'second_options' => [
                     'label' => 'Repeat Password',
                     'attr' => [
-                        'class' => 'text-white bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                        'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                         'placeholder' => 'Repeat Password',
                     ],
                 ],
