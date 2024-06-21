@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="light-theme dark-theme">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -51,9 +51,16 @@
                 </label>
 
                 <script>
-                function toggleLightMode() {
-                    document.documentElement.classList.toggle('light-theme');
-                }
+                        var checkbox = document.querySelector('.theme-switch__checkbox');
+                        var root = document.documentElement;
+                    
+                        checkbox.addEventListener('change', function() {
+                        if (checkbox.checked) {
+                            root.classList.remove('light-theme');
+                        } else {
+                            root.classList.add('light-theme');
+                        }
+                        });
                 </script>
                   
                 {% if app.user %}

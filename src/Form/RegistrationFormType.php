@@ -24,17 +24,17 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'attr' => ['class' => 'w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8', 'placeholder' => 'Username'],
+                'attr' => ['class' => 'w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white mb-8', 'placeholder' => 'Username'],
                 'label' => false,
             ])
             ->add('email', RepeatedType::class, [
                 'type' => EmailType::class,
                 'first_options'  => [
-                    'attr' => ['class' => 'w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600', 'placeholder' => 'Email'],
+                    'attr' => ['class' => 'w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white', 'placeholder' => 'Email'],
                     'label' => false,
                 ],
                 'second_options' => [
-                    'attr' => ['class' => 'w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8', 'placeholder' => 'Confirm email'],
+                    'attr' => ['class' => 'w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white mb-8', 'placeholder' => 'Confirm email'],
                     'label' => false,
                 ],
                 'invalid_message' => 'The emails must match.',
@@ -47,11 +47,11 @@ class RegistrationFormType extends AbstractType
                 'options' => ['attr' => ['class' => '']],
                 'required' => true,
                 'first_options'  => [
-                    'attr' => ['class' => 'w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600', 'placeholder' => 'Password'],
+                    'attr' => ['class' => 'w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white', 'placeholder' => 'Password'],
                     'label' => false,
                 ],
                 'second_options' => [
-                    'attr' => ['class' => 'w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8', 'placeholder' => 'Confirm password'],
+                    'attr' => ['class' => 'w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white mb-8', 'placeholder' => 'Confirm password'],
                     'label' => false,
                 ],
                 'constraints' => [

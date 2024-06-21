@@ -29,6 +29,16 @@
     --quinary: var(--quinary-light);
     --senary: var(--senary-light);
   }
+
+  [data-theme='dark'] {
+    --nav: var(--nav);
+    --primary: var(--primary);
+    --secondary: var(--secondary);
+    --tertiary: var(--tertiary);
+    --quaternary: var(--quaternary);
+    --quinary: var(--quinary);
+    --senary: var(--senary);
+  }
   
 
 
@@ -134,7 +144,7 @@ main {
 
 
 .theme-switch {
-    --toggle-size: 30px;
+    --toggle-size: 40px;
     /* the size is adjusted using font-size,
        this is not transform scale,
        so you can choose any size */
@@ -182,6 +192,21 @@ main {
     position: relative;
   }
   
+  .theme-switch__circle-container {
+    left: var(--circle-container-offset);
+  }
+  
+  .theme-switch__checkbox:checked + .theme-switch__container {
+    background-color: var(--container-light-bg);
+  }
+  
+  .theme-switch__checkbox:checked + .theme-switch__container .theme-switch__circle-container {
+    left: calc(100% - var(--circle-container-offset) - var(--circle-container-diameter));
+  }
+
+/* Ajoutez d'autres styles ici pour les animations et les effets */
+
+
   .theme-switch__container::before {
     content: "";
     position: absolute;

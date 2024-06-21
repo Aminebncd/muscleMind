@@ -15,7 +15,7 @@
             <ul>
                 {% for ressource in tag.ressources %}
             <li>
-                <div class="dark:bg-primary/60 rounded-lg py-4 px-6 mb-4">
+                <div class="dark:bg-primary/60 light:bg-primary_light/60 rounded-lg py-4 px-6 mb-4">
                     <a class="text-lg font-medium mb-8" href="{{path ('app_ressource_detailsRessource', {'id' : ressource.id})}}">{{ressource}}</a>
                 <a class="line-clamp-3	" href="{{path ('app_ressource_detailsRessource', {'id' : ressource.id})}}">{{ressource.content}}</a>
             </div>

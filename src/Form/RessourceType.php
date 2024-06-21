@@ -23,29 +23,29 @@ class RessourceType extends AbstractType
                 'class' => Tag::class,
                 'choice_label' => 'label',
                 'attr' => [
-                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border dark:border-primary light:border-primary_light w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white mb-8'
                 ],
                 'label' => 'Tag :',
                 'row_attr' => ['class' => 'w-1/2 mx-auto px-4'],
             ])
             ->add('title', TextType::class, [
                 'attr' => [
-                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-quinary mb-8'
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border dark:border-primary light:border-primary_light w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-quinary mb-8'
                 ]
             ])
             ->add('content', TextareaType::class, [
                 'attr' => [
-                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-quaternary mb-8'
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border dark:border-primary light:border-primary_light w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-quaternary mb-8'
                 ]
             ])
             ->add('link', TextType::class, [
                 'attr' => [
-                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border dark:border-primary light:border-primary_light w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white mb-8'
                 ]
             ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
-                    'class' => 'px-4 py-2 rounded-2xl dark:bg-tertiary drop-shadow-xl hover:bg-quinary duration-150'
+                    'class' => 'px-4 py-2 rounded-2xl dark:bg-tertiary light:bg-tertiary_lightdrop-shadow-xl hover:bg-quinary duration-150'
                 ]
             ]);
     }

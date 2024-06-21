@@ -24,7 +24,7 @@
                 {% endfor %}
             </div>
             {% for date, count in activity %}
-                <div class="w-[10px] h-[10px] rounded-[2px] {{ count > 0 ? 'bg-quinary' : 'bg-gray-800' }}"></div>
+                <div class="w-[10px] h-[10px] rounded-[2px] {{ count > 0 ? 'dark:bg-quinary light:bg-quaternary' : 'dark:bg-gray-800 light:bg-gray-400' }}"></div>
             {% endfor %}
         </div>
     </div>
@@ -74,7 +74,7 @@
                         {{ latestTracking.height }}cm <br>
                         {{ latestTracking.weight }}kg <br>
                         <div class="w-full flex items-center justify-around mt-4 max-md:flex-col">
-                            <a class="w-fit mx-2 text-center no-underline px-5 py-3 rounded dark:bg-tertiary drop-shadow-xl hover:bg-quinary duration-150 max-md:w-full max-md:mt-2" href="{{ path('app_user_newTrack') }}"><i class="fa-solid fa-plus"></i></a>
+                            <a class="w-fit mx-2 text-center no-underline px-5 py-3 rounded dark:bg-tertiary light:bg-tertiary_lightdrop-shadow-xl hover:bg-quinary duration-150 max-md:w-full max-md:mt-2" href="{{ path('app_user_newTrack') }}"><i class="fa-solid fa-plus"></i></a>
                             <a class="w-fit mx-2 text-center no-underline border-2 border-quaternary border-offset-2 text-quaternary hover:bg-quaternary hover:text-black duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path('app_user_editTrack', {'id': latestTracking.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
                             <a class="w-fit mx-2 text-center no-underline border-2 border-red-500 border-offset-2 text-red-500 hover:bg-red-500 hover:dark:text-white light:text-black duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path('app_user_deleteTrack', {'id': latestTracking.id}) }}"><i class="fa-solid fa-minus"></i></a>
                         </div>
