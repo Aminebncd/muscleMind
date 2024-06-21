@@ -28,12 +28,12 @@
     </div>
 
     <div class="flex justify-center">
-        <button class="w-3/5 px-4 py-2 mb-8 dark:bg-tertiary drop-shadow-xl hover:bg-quinary duration-150 text-white rounded-lg" type="submit">
+        <button class="w-3/5 px-4 py-2 mb-8 dark:bg-tertiary drop-shadow-xl hover:bg-quinary duration-150 dark:text-white light:text-black rounded-lg" type="submit">
             Log in!
         </button>
     </div>
     
-    <p class="text-center">First time here? <a class="text-quinary hover:text-white" href="{{path('app_register')}}">Sign up!</a></p>
-    <p class="text-center">Forgot your password? <a class="text-quaternary hover:text-white" href="{{path('app_forgot_password_request')}}">Let's change it!</a></p>
+    <p class="text-center">First time here? <a class="text-quinary hover:dark:text-white light:text-black" href="{{path('app_register')}}">Sign up!</a></p>
+    <p class="text-center">Forgot your password? <a class="text-quaternary hover:dark:text-white light:text-black" href="{{path('app_forgot_password_request')}}">Let's change it!</a></p>
 </form>
 {% endblock %}

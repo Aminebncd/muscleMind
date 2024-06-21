@@ -23,24 +23,24 @@ class RessourceType extends AbstractType
                 'class' => Tag::class,
                 'choice_label' => 'label',
                 'attr' => [
-                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'
                 ],
                 'label' => 'Tag :',
                 'row_attr' => ['class' => 'w-1/2 mx-auto px-4'],
             ])
             ->add('title', TextType::class, [
                 'attr' => [
-                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-quinary mb-8'
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-quinary mb-8'
                 ]
             ])
             ->add('content', TextareaType::class, [
                 'attr' => [
-                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-quaternary mb-8'
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-quaternary mb-8'
                 ]
             ])
             ->add('link', TextType::class, [
                 'attr' => [
-                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'
                 ]
             ])
             ->add('valider', SubmitType::class, [

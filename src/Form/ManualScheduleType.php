@@ -21,7 +21,7 @@ class ManualScheduleType extends AbstractType
                 // 'multiple' => true,
                 // 'label' => 'Chose the date of the session',
                 'attr' => [
-                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                     'placeholder' => 'Chose the date of the session',
                 ],
                 'row_attr' => [
@@ -31,7 +31,7 @@ class ManualScheduleType extends AbstractType
                 'class' => Program::class,
                 'choice_label' => 'title',
                 'attr' => [
-                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                 ],
                 'label' => 'Program scheduled',
             ])

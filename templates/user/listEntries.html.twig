@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container mx-auto px-4">
         <h2 class="text-2xl font-bold my-4">Trackings</h2>
-        <table class="min-w-full dark:bg-secondary/40 backdrop-blur-md border border-primary rounded-lg shadow-lg">
+        <table class="min-w-full dark:bg-secondary/40 light:bg-secondary_light/40 backdrop-blur-md border border-primary rounded-lg shadow-lg">
             <thead>
                 <tr class="">
                     {# <th class="px-4 py-2 border-b">ID</th> #}
@@ -17,13 +17,13 @@
             </thead>
             <tbody>
                 {% for tracking in trackings %}
-                    <tr class=" even:dark:bg-tertiary/40 backdrop-blur-md odd:dark:bg-secondary/40">
+                    <tr class=" even:dark:bg-tertiary/40 backdrop-blur-md odd:dark:bg-secondary/40 light:bg-secondary_light/40">
                         {# <td class="px-4 py-2">{{ tracking.id }}</td> #}
                         <td class="px-4 py-2  text-start">{{ tracking.weight }}kg</td>
                         <td class="px-4 py-2  text-start">{{ tracking.dateOfTracking}}</td>
                         <td class="px-4 py-2 text-end">
                             <a class="w-fit text-center no-underline text-quaternary hover:bg-quaternary hover:text-black  duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path ('app_user_editTrack', {'id': tracking.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a class="w-fit text-center no-underline  text-red-500 hover:bg-red-500 hover:text-white  duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path ('app_user_deleteTrack', {'id': tracking.id}) }}"><i class="fa-solid fa-minus"></i></a>
+                            <a class="w-fit text-center no-underline  text-red-500 hover:bg-red-500 hover:dark:text-white light:text-black  duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path ('app_user_deleteTrack', {'id': tracking.id}) }}"><i class="fa-solid fa-minus"></i></a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -31,7 +31,7 @@
         </table>
 
         <h2 class="text-2xl font-bold my-4">Performances</h2>
-        <table class="min-w-full dark:bg-secondary/40 backdrop-blur-md border border-primary rounded-lg shadow-lg">
+        <table class="min-w-full dark:bg-secondary/40 light:bg-secondary_light/40 backdrop-blur-md border border-primary rounded-lg shadow-lg">
             <thead>
                 <tr class="">
                     {# <th class="px-4 py-2">ID</th> #}
@@ -43,14 +43,14 @@
             </thead>
             <tbody>
                 {% for perf in performances %}
-                    <tr class="even:dark:bg-tertiary/40 backdrop-blur-md odd:dark:bg-secondary/40 ">
+                    <tr class="even:dark:bg-tertiary/40 backdrop-blur-md odd:dark:bg-secondary/40 light:bg-secondary_light/40 ">
                         {# <td class="px-4 py-2">{{ perf.id }}</td> #}
                         <td class="px-4 py-2  text-start">{{ perf.exerciceMesured }}</td>
                         <td class="px-4 py-2  text-start">{{ perf.personnalRecord }}</td>
                         <td class="px-4 py-2  text-start">{{ perf.dateOfPerformance }}</td>
                         <td class="px-4 py-2 text-end">
                             <a class="w-fit text-center no-underline text-quaternary hover:bg-quaternary hover:text-black  duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path ('app_user_editPerf', {'id': perf.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a class="w-fit text-center no-underline  text-red-500 hover:bg-red-500 hover:text-white  duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path ('app_user_deletePerf', {'id': perf.id}) }}"><i class="fa-solid fa-minus"></i></a>
+                            <a class="w-fit text-center no-underline  text-red-500 hover:bg-red-500 hover:dark:text-white light:text-black  duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path ('app_user_deletePerf', {'id': perf.id}) }}"><i class="fa-solid fa-minus"></i></a>
                         </td>
                     </tr>
                 {% endfor %}

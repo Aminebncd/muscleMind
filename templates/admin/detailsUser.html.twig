@@ -14,7 +14,7 @@
             <a class="w-fit py-3 px-5 my-2 dark:bg-tertiary rounded-lg hover:scale-105 hover:bg-green-400 hover:text-black duration-150 shadow-lg" href="{{path ('app_register_updateEmail', {'id': user.id}) }}">update email</a><br>
             <a class="w-fit py-3 px-5 my-2 dark:bg-tertiary rounded-lg hover:scale-105 hover:bg-green-400 hover:text-black duration-150 shadow-lg" href="{{path ('app_register_updatePassword', {'id': user.id}) }}">update password</a><br><br>
             
-            <a class="w-fit py-3 px-5 my-2 dark:bg-tertiary rounded-lg hover:scale-105 hover:bg-red-600 hover:text-white duration-150 shadow-lg" href="{{path ('app_user_delete' ,{'id': user.id})}}">delete user</a> <br>
+            <a class="w-fit py-3 px-5 my-2 dark:bg-tertiary rounded-lg hover:scale-105 hover:bg-red-600 hover:dark:text-white light:text-black duration-150 shadow-lg" href="{{path ('app_user_delete' ,{'id': user.id})}}">delete user</a> <br>
 
             <a class="mt-12 hover:scale-105 duration-150" href="{{ path('app_user_list') }}"><i class="fa-solid fa-arrow-left"></i>  Back to index</a>
 </div>

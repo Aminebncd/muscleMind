@@ -20,14 +20,14 @@ class MuscleType extends AbstractType
             ->add('muscleName', TextType::class, [
                 'label' => 'Muscle Name',
                 'attr' => [
-                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                     'placeholder' => 'Muscle Name',
                 ]
             ])
             ->add('muscleFunction', TextareaType::class, [
                 'label' => 'Muscle Function',
                 'attr' => [
-                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                     'placeholder' => 'Muscle Function',
                 ]
             ])
@@ -36,7 +36,7 @@ class MuscleType extends AbstractType
                 'choice_label' => 'muscleGroup',
                 'label' => 'Muscle Group',
                 'attr' => [
-                    'class' => 'text-white dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8 mt-1',
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8 mt-1',
                     'placeholder' => 'Muscle Group'
                 ],
                 'row_attr' => ['class' => 'flex flex-col w-full'],

@@ -7,7 +7,7 @@
 
         {% set lastWarningMessage = app.flashes('error') | last %}
         {% if lastWarningMessage is not empty %}
-            <div class="alert alert-warning bg-violet-500 text-center text-white rounded-lg px-8 py-4 mt-8">
+            <div class="alert alert-warning bg-violet-500 text-center dark:text-white light:text-black rounded-lg px-8 py-4 mt-8">
                 {{ lastWarningMessage }}
             </div>
         {% endif %}

@@ -19,15 +19,15 @@
 
     <body class="relative h-auto dark:bg-primary">
 
-        <div class="fixed z-40 top-0 left-0 w-full flex justify-between items-center dark:bg-nav px-4 py-6 shadow-md">
+        <div class="fixed z-40 top-0 left-0 w-full flex justify-between items-center dark:bg-nav light:bg-nav_light px-4 py-6 shadow-md">
             <a class="font-bold text-3xl group" href="{{ path('app_landing') }}">
                 <span class="group-hover:text-quinary duration-200">Muscle</span><span class="group-hover:text-quaternary duration-200">Mind</span>
             </a>
             <button id="burger-menu" class="text-3xl focus:outline-none">&#9776;</button>
         </div>
     
-        <div id="menu" class="z-50 fixed top-0 right-0 h-full w-64 rounded bg-nav/40 text-white p-4 menu menu-open backdrop-blur-lg">
-            <button id="close-menu" class="w-full text-4xl text-end text-white focus:outline-none mb-4 mt-2"><i class="fa-solid fa-xmark"></i></button>
+        <div id="menu" class="z-50 fixed top-0 right-0 h-full w-64 rounded dark:bg-nav light:bg-nav_light/40 dark:text-white light:text-black p-4 menu menu-open backdrop-blur-lg">
+            <button id="close-menu" class="w-full text-4xl text-end dark:text-white light:text-black focus:outline-none mb-4 mt-2"><i class="fa-solid fa-xmark"></i></button>
             <nav>
                 <label class="theme-switch">
                     <input onclick="toggleLightMode()" type="checkbox" class="theme-switch__checkbox">
@@ -57,18 +57,18 @@
                 </script>
                   
                 {% if app.user %}
-                <div class="dark:bg-secondary/40 p-2 my-6 rounded-xl">
+                <div class="dark:bg-secondary/40 light:bg-secondary_light/40 p-2 my-6 rounded-xl">
                     <a href="{{ path('app_user') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">My Profile</a>
                     <a href="{{ path('app_home') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Home</a>
                 </div>
-                <div class="dark:bg-secondary/40 p-2 my-6 rounded-xl">
+                <div class="dark:bg-secondary/40 light:bg-secondary_light/40 p-2 my-6 rounded-xl">
                     <a href="{{ path('app_training') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Program</a>
                     <a href="{{ path('app_muscle') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Anatomy</a>
                     <a href="{{ path('app_exercice') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Exercises</a>
                     <a href="{{ path('app_ressource') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Resources</a>
                 </div>
                 {% if is_granted('ROLE_ADMIN') %}   
-                <div class="dark:bg-secondary/40 p-2 my-6 rounded-xl">
+                <div class="dark:bg-secondary/40 light:bg-secondary_light/40 p-2 my-6 rounded-xl">
                     <a href="{{ path('app_admin_dashboard') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Admin</a>
                     <a href="{{ path('app_user_list') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">List users</a>
                     <a href="{{ path('app_exercice_new') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">New Exercice</a>
@@ -76,22 +76,22 @@
                     <a href="{{ path('app_ressource_new') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">New Ressource</a>
                 </div>    
                 {% endif %}
-                <div class="dark:bg-secondary/40 p-2 my-6 rounded-xl">
+                <div class="dark:bg-secondary/40 light:bg-secondary_light/40 p-2 my-6 rounded-xl">
                     <a href="{{path('app_settings')}}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Settings</a>
                     <a href="{{path('app_logout')}}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Logout</a>
                 </div>
                 {% else %}
-                <div class="dark:bg-secondary/40 p-2 my-6 rounded-xl">
+                <div class="dark:bg-secondary/40 light:bg-secondary_light/40 p-2 my-6 rounded-xl">
                     <a href="{{ path('app_login') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Login</a>
                     <a href="{{ path('app_register') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Register</a>
                 </div>
                 {% endif %}
-                <div class="dark:bg-secondary/40 p-2 my-6 rounded-xl">
+                <div class="dark:bg-secondary/40 light:bg-secondary_light/40 p-2 my-6 rounded-xl">
                     <a href="#" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">About Us</a>
                     <a href="#" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Contact</a>
                     <a href="{{path('app_legal')}}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">Legal Mentions</a>
                 </div>
-                <div class="dark:bg-secondary/40 p-2 my-6 rounded-xl flex justify-around">
+                <div class="dark:bg-secondary/40 light:bg-secondary_light/40 p-2 my-6 rounded-xl flex justify-around">
                     <a href="https://facebook.com" class="w-full block py-2 px-4 rounded-full hover:text-blue-900" target="_blank" aria-label="Facebook">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
@@ -112,7 +112,7 @@
             {% block body %}{% endblock %}
         </main>
 
-        <footer class="w-full fixed bottom-0 py-6 bg-nav text-white text-center">
+        <footer class="w-full fixed bottom-0 py-6 dark:bg-nav light:bg-nav_light dark:text-white light:text-black text-center">
             <p>&copy; 2024 MuscleMind. All rights reserved.</p>
         </footer>
 

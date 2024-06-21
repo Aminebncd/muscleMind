@@ -12,6 +12,6 @@
     <p class="text-lg mb-2">Name: <span class="font-medium">{{ muscle}}</span></p>
     <p class="text-lg mb-2">Function: <span class="font-medium">{{muscle.muscleFunction}}</span></p>
 
-    <a href="{{ path('app_muscleGroup_details', {'id' : muscleGroup.id}) }}" class="mx-auto text-white hover:underline duration-150"><i class="fa-solid fa-arrow-left"></i>  Back to muscle group</a>
+    <a href="{{ path('app_muscleGroup_details', {'id' : muscleGroup.id}) }}" class="mx-auto dark:text-white light:text-black hover:underline duration-150"><i class="fa-solid fa-arrow-left"></i>  Back to muscle group</a>
 </div>
 {% endblock %}
