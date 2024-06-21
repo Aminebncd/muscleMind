@@ -3,15 +3,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-    --primary-color: #07080d;
-    --secondary-color: #17263a;
-    --tertiary-color: #3d6389;
-    --quaternary-color: #f6cbf4;
-    --quinary-color: #2d78c7;
-
-    --white: #ffffff;
-    --black: #000000;
-}
+    --nav: #07080d;
+    --primary: #000814;
+    --secondary: #001d3d;
+    --tertiary: #003566;
+    --quaternary: #f6cbf4;
+    --quinary: #00a6fb;
+    --senary: #ffc300;
+  
+    --nav-light: #0077b6;
+    --primary-light: #48cae4;
+    --secondary-light: #90e0ef;
+    --tertiary-light: #ade8f4;
+    --quaternary-light: #f6cbf4;
+    --quinary-light: #00a6fb;
+    --senary-light: #ffc300;
+  }
+  
+  [data-theme='light'] {
+    --nav: var(--nav-light);
+    --primary: var(--primary-light);
+    --secondary: var(--secondary-light);
+    --tertiary: var(--tertiary-light);
+    --quaternary: var(--quaternary-light);
+    --quinary: var(--quinary-light);
+    --senary: var(--senary-light);
+  }
+  
 
 
 body::before {
@@ -27,7 +45,7 @@ body::before {
 }
 
 body {
-    background-color: var(--primary-color);
+    /* background-color: var(--primary); */
     color: aliceblue;
     font-family: "Montserrat", sans-serif;
     position: relative; 

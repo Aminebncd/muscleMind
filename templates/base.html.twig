@@ -17,9 +17,9 @@
     </head>
 
 
-    <body class="relative h-auto">
+    <body class="relative h-auto bg-primary">
 
-        <div class="fixed z-40 top-0 left-0 w-full flex justify-between items-center bg-nav px-4 py-6 shadow-md">
+        <div class="fixed z-40 top-0 left-0 w-full flex justify-between items-center dark:bg-nav px-4 py-6 shadow-md">
             <a class="font-bold text-3xl group" href="{{ path('app_landing') }}">
                 <span class="group-hover:text-quinary duration-200">Muscle</span><span class="group-hover:text-quaternary duration-200">Mind</span>
             </a>
@@ -29,6 +29,14 @@
         <div id="menu" class="z-50 fixed top-0 right-0 h-full w-64 rounded bg-nav/40 text-white p-4 menu menu-open backdrop-blur-lg">
             <button id="close-menu" class="w-full text-4xl text-end text-white focus:outline-none mb-4 mt-2"><i class="fa-solid fa-xmark"></i></button>
             <nav>
+                <button onclick="toggleLightMode()">Toggle Light Mode</button>
+
+<script>
+  function toggleLightMode() {
+    document.documentElement.classList.toggle('light-theme');
+  }
+</script>
+                  
                 {% if app.user %}
                 <div class="bg-secondary/40 p-2 my-6 rounded-xl">
                     <a href="{{ path('app_user') }}" class="w-full block py-1 px-6 rounded-lg hover:bg-quinary/40">My Profile</a>
