@@ -3,41 +3,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-    --nav: #07080d;
-    --primary: #000814;
-    --secondary: #001d3d;
-    --tertiary: #003566;
-    --quaternary: #f6cbf4;
-    --quinary: #00a6fb;
-    --senary: #ffc300;
+    --nav-color: #07080d;
+    --primary-color: #000814;
+    --secondary-color: #001d3d;
+    --tertiary-color: #003566;
+    --quaternary-color: #f6cbf4;
+    --quinary-color: #00a6fb;
+    --senary-color: #ffc300;
   
-    --nav-light: #0077b6;
-    --primary-light: #48cae4;
-    --secondary-light: #90e0ef;
-    --tertiary-light: #ade8f4;
-    --quaternary-light: #f6cbf4;
-    --quinary-light: #00a6fb;
-    --senary-light: #ffc300;
+    --nav-light-color: #0077b6;
+    --primary-light-color: #48cae4;
+    --secondary-light-color: #90e0ef;
+    --tertiary-light-color: #ade8f4;
+    --quaternary-light-color: #f6cbf4;
+    --quinary-light-color: #00a6fb;
+    --senary-light-color: #ffc300;
   }
   
   [data-theme='light'] {
-    --nav: var(--nav-light);
-    --primary: var(--primary-light);
-    --secondary: var(--secondary-light);
-    --tertiary: var(--tertiary-light);
-    --quaternary: var(--quaternary-light);
-    --quinary: var(--quinary-light);
-    --senary: var(--senary-light);
+    --nav-color: var(--nav-light);
+    --primary-color: var(--primary-light);
+    --secondary-color: var(--secondary-light);
+    --tertiary-color: var(--tertiary-light);
+    --quaternary-color: var(--quaternary-light);
+    --quinary-color: var(--quinary-light);
+    --senary-color: var(--senary-light);
   }
 
   [data-theme='dark'] {
-    --nav: var(--nav);
-    --primary: var(--primary);
-    --secondary: var(--secondary);
-    --tertiary: var(--tertiary);
-    --quaternary: var(--quaternary);
-    --quinary: var(--quinary);
-    --senary: var(--senary);
+    --nav-color: var(--nav);
+    --primary-color: var(--primary);
+    --secondary-color: var(--secondary);
+    --tertiary-color: var(--tertiary);
+    --quaternary-color: var(--quaternary);
+    --quinary-color: var(--quinary);
+    --senary-color: var(--senary);
   }
   
 
