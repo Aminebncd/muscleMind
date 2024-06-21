@@ -23,7 +23,7 @@ class UpdatePasswordType extends AbstractType
                 'mapped' => false,
                 'label' => 'Old Password',
                 'attr' => [
-                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                     'placeholder' => 'Old Password',
                 ],
                 'constraints' => [
@@ -36,7 +36,7 @@ class UpdatePasswordType extends AbstractType
                 'invalid_message' => 'The password fields must match.',
                 'options' => [
                     'attr' => [
-                        'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                        'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                         'placeholder' => 'New Password',
                     ],
                 ],
@@ -52,7 +52,7 @@ class UpdatePasswordType extends AbstractType
                     // ]),
                 ],
                 'attr' => [
-                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                 ],
             ])
             ->add('valider', SubmitType::class, [

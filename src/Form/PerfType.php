@@ -23,7 +23,7 @@ class PerfType extends AbstractType
             ->add('personnalRecord', NumberType::class, [
                 'label' => 'Personnal Record',
                 'attr' => [
-                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                     'placeholder' => 'Personnal Record',
                 ]
             ])
@@ -33,7 +33,7 @@ class PerfType extends AbstractType
                 'choices' => $exercices,
                 'label' => 'Exercice',
                 'attr' => [
-                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8 mt-1',
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8 mt-1',
                     'placeholder' => 'Exercice'
                 ],
                 'row_attr' => ['class' => 'flex flex-col w-full'],

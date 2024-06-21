@@ -28,7 +28,7 @@ class WorkoutType extends AbstractType
             'label' => false,
             'attr' => [
                 'placeholder' => 'Number of repetitions',
-                'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'
+                'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'
             ],
             'row_attr' => ['class' => 'flex flex-col w-full'],
         ])
@@ -37,7 +37,7 @@ class WorkoutType extends AbstractType
             'label' => false,
             'attr' => [
                 'placeholder' => 'Weights used',
-                'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'
+                'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8'
             ],
             'row_attr' => ['class' => 'flex flex-col w-full'],
         ])
@@ -47,7 +47,7 @@ class WorkoutType extends AbstractType
             'choices' => $allExercises,
             'label' => 'Exercice',
             'attr' => [
-                'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8 mt-1',
+                'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8 mt-1',
                 'placeholder' => 'Exercice'
             ],
             'row_attr' => ['class' => 'flex flex-col w-full'],

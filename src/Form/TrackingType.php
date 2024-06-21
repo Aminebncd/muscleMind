@@ -21,19 +21,19 @@ class TrackingType extends AbstractType
         $builder
             ->add('height', TextType::class, [
                 'attr' => [
-                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                     'placeholder' => 'Height',
                 ]
             ])
             ->add('weight', TextType::class, [
                 'attr' => [
-                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
                     'placeholder' => 'Weight',
                 ]
             ])
             // ->add('age', TextType::class, [
             //     'attr' => [
-            //         'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+            //         'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
             //         'placeholder' => 'Age',
             //     ]
             // ])
@@ -43,7 +43,7 @@ class TrackingType extends AbstractType
             //         'female' => 'female',
             //     ],
             //     'attr' => [
-            //         'class' => 'dark:text-white light:text-black dark:bg-primary/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
+            //         'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border border-primary w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 mb-8',
             //     ],
             //     'row_attr' => ['class' => 'flex flex-col w-full'],
             // ])

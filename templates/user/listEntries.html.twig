@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 {% for tracking in trackings %}
-                    <tr class=" even:dark:bg-tertiary/40 backdrop-blur-md odd:dark:bg-secondary/40 light:bg-secondary_light/40">
+                    <tr class=" even:dark:bg-tertiary/40 light:bg-tertiary_light/40 backdrop-blur-md odd:dark:bg-secondary/40 light:bg-secondary_light/40">
                         {# <td class="px-4 py-2">{{ tracking.id }}</td> #}
                         <td class="px-4 py-2  text-start">{{ tracking.weight }}kg</td>
                         <td class="px-4 py-2  text-start">{{ tracking.dateOfTracking}}</td>
@@ -43,7 +43,7 @@
             </thead>
             <tbody>
                 {% for perf in performances %}
-                    <tr class="even:dark:bg-tertiary/40 backdrop-blur-md odd:dark:bg-secondary/40 light:bg-secondary_light/40 ">
+                    <tr class="even:dark:bg-tertiary/40 light:bg-tertiary_light/40 backdrop-blur-md odd:dark:bg-secondary/40 light:bg-secondary_light/40 ">
                         {# <td class="px-4 py-2">{{ perf.id }}</td> #}
                         <td class="px-4 py-2  text-start">{{ perf.exerciceMesured }}</td>
                         <td class="px-4 py-2  text-start">{{ perf.personnalRecord }}</td>
