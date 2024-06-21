@@ -15,8 +15,25 @@ module.exports = {
         quaternary: '#f6cbf4',  
         quinary: '#00a6fb',    
         senary: '#ffc300', 
+
+        nav_light:'#0077b6', 
+        primary_light: '#48cae4',    
+        secondary_light: '#90e0ef',   
+        tertiary_light: '#ade8f4',   
+        quaternary_light: '#f6cbf4',  
+        quinary_light: '#00a6fb',    
+        senary_light: '#ffc300', 
       },
     },
   },
-  plugins: [],
+  plugins: [themeVariants({
+    themes: {
+      light: {
+        mediaQuery: prefersLight /* "@media (prefers-color-scheme: light)" */,
+      },
+      dark: {
+        mediaQuery: prefersDark /* "@media (prefers-color-scheme: dark)" */,
+      },
+    },
+  }),],
 }
