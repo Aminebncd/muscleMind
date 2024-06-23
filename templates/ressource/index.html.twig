@@ -8,7 +8,7 @@
 <div class="w-5/6 flex flex-col justify-center mt-24 h-full">
     <ul class="flex flex-row justify-center my-8">
             {% for tag in tags %}
-                <li class="hover:scale-105 duration-150"><a class="no-underline px-4 py-2 mx-2 rounded-2xl bg-{{tag.tagColor}} text-{{tag.tagTextColor}} drop-shadow-xl hover:scale-105 duration-150" href="{{path ('app_ressource_detailsTag', {'id' : tag.id})}}">{{tag}}</a></li>
+                <li class="hover:scale-105 duration-150"><a class="no-underline px-4 py-2 mx-2 rounded-2xl bg-{{tag.tagColor}} text-black font-bold drop-shadow-xl hover:scale-105 duration-150" href="{{path ('app_ressource_detailsTag', {'id' : tag.id})}}">{{tag}}</a></li>
             {% endfor %}
         </ul>
 
@@ -18,14 +18,14 @@
             <div class="w-full flex justify-end">
             
             {% if is_granted('ROLE_ADMIN') %}
-                <a class="mb-8 px-4 py-2 rounded-2xl w-fit dark:bg-secondary drop-shadow-xl hover:dark:bg-tertiary light:bg-tertiary_lightduration-150" href="{{ path('app_ressource_new') }}">Create new</a>
+                <a class="mb-8 px-4 py-2 rounded-2xl w-fit dark:bg-secondary light:bg-secondary_light drop-shadow-xl hover:dark:bg-tertiary hover:light:bg-tertiary_light duration-150" href="{{ path('app_ressource_new') }}">Create new</a>
             {% endif %}            
             </div>
 
             <ul>
                 {% for ressource in ressources %}
                     <li>
-                        <div class="dark:bg-primary/70 rounded-lg py-4 px-6 mb-4 hover:scale-105 hover:outline hover:outline-{{ressource.tag.tagColor}} duration-150 drop-shadow-xl">
+                        <div class="dark:bg-primary/70 light:bg-primary_light/70 rounded-lg py-4 px-6 mb-4 hover:scale-105 hover:outline hover:outline-{{ressource.tag.tagColor}} duration-150 drop-shadow-xl">
                             <div class="bg-{{ressource.tag.tagColor}} rounded-full p-2 w-2 mb-2"></div>
                             <a class="text-lg font-medium" href="{{ path ('app_ressource_detailsRessource', {'id' : ressource.id}) }}">{{ressource}}</a>
                             <a class="line-clamp-3 mt-6" href="{{ path ('app_ressource_detailsRessource', {'id' : ressource.id}) }}">{{ressource.getTruncatedContent(250) | raw }}</a>

@@ -8,7 +8,7 @@
         <h1 class="text-2xl font-bold mb-6">User List</h1>
         <ul class="space-y-4">
             {% for user in users %}
-                <li class="dark:bg-primary/70 rounded-lg py-4 px-6 hover:scale-105 hover:outline hover:outline-secondary duration-150 drop-shadow-xl">
+                <li class="dark:bg-primary/70 light:bg-primary_light/70 rounded-lg py-4 px-6 hover:scale-105 hover:outline hover:outline-secondary duration-150 drop-shadow-xl">
                     <a class="text-lg font-medium" href="{{ path('app_user_details', {'id': user.id}) }}">{{ user }}</a>
                 </li>
             {% endfor %}

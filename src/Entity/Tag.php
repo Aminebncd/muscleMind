@@ -61,23 +61,23 @@ class Tag
         }
     }
 
-    public function tagTextColor (): string
-    {
+    // public function tagTextColor (): string
+    // {
 
-        $tag = $this->getLabel();
+    //     $tag = $this->getLabel();
 
-        switch ($tag) {
-            case 'weight lifting':
-                return 'white';
-            case 'health':
-                return 'black';
-            case 'nutrition':
-                return 'white';
+    //     switch ($tag) {
+    //         case 'weight lifting':
+    //             return 'white';
+    //         case 'health':
+    //             return 'black';
+    //         case 'nutrition':
+    //             return 'white';
             
-            default:
-                return 'white';
-        }
-    }
+    //         default:
+    //             return 'white';
+    //     }
+    // }
 
     /**
      * @return Collection<int, Ressources>
