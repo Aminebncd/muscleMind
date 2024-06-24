@@ -43,6 +43,11 @@ class Session
         return $this;
     }
 
+    public function getDateFormatted(): string
+    {
+        return $this->dateSession->format('d.m.Y');
+    }
+
     public function getProgram(): ?Program
     {
         return $this->program;

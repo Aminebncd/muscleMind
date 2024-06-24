@@ -4,13 +4,12 @@
 
 {% block body %}
 
-<div class="container bg-primary/60 p-8 rounded-lg w-full max-w-screen-md flex flex-col mx-auto backdrop-blur-md shadow-lg	">
+<div class="container dark:bg-primary/60 light:bg-primary_light/60 p-8 rounded-lg w-full max-w-screen-md flex flex-col mx-auto backdrop-blur-md shadow-lg	">
 
     <h1 class="text-3xl font-bold">{{ exercice }}</h1>
 
     <p>{{ exercice.exerciceFunction |raw }}</p> <br>
         {% if exercice.isIsolationExercice %}
-        {# <p>{{ exercice.target }}</p> <br> #}
         
         <div class="w-full flex ">
             <svg id="Frontview" 

@@ -8,7 +8,7 @@
     {# <p class="">Your score: <strong>{{ user.score }}</strong></p> #}
 
     <div class=" mb-8 hover:scale-105 duration-150">
-        <a href="{{ path('app_home_newSession') }}" class="no-underline px-4 py-2 text-xl font-medium rounded-2xl dark:bg-tertiary light:bg-tertiary_lightdrop-shadow-xl hover:bg-quinary duration-100">
+        <a href="{{ path('app_home_newSession') }}" class="no-underline px-4 py-2 text-xl font-medium rounded-2xl dark:bg-tertiary light:bg-tertiary_light drop-shadow-xl hover:bg-quinary duration-100">
             Schedule your training sessions
         </a>
     </div>
@@ -37,12 +37,14 @@
             </div>
         </div>
         
-        
         {% endfor %}
-    {% else %}
+        <div class="w-full flex justify-center mt-6">
+            <a class="dark:text-white light:text-black underline text-lg hover:text-xl hover:font-semibold duration-150" href="{{ path('app_home_sessions') }}">List of your sessions</a>
+        </div>
+        {% else %}
         <p class="text-lg text-center font-medium">you have no scheduled sessions</p>
-    {% endif %}
-
+        {% endif %}
+        
 
 
 

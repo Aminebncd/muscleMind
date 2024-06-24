@@ -8,17 +8,14 @@
         <table class="min-w-full dark:bg-secondary/40 light:bg-secondary_light/40 backdrop-blur-md border dark:border-primary light:border-primary_light rounded-lg shadow-lg">
             <thead>
                 <tr class="">
-                    {# <th class="px-4 py-2 border-b">ID</th> #}
                     <th class="px-4 py-2 text-start">Weight</th>
                     <th class="px-4 py-2 text-start">Date</th>
                     <th class="px-4 py-2 text-end">Actions</th>
-                    {# <th class="px-4 py-2">Détails</th> #}
                 </tr>
             </thead>
             <tbody>
                 {% for tracking in trackings %}
-                    <tr class=" even:dark:bg-tertiary/40 light:bg-tertiary_light/40 backdrop-blur-md odd:dark:bg-secondary/40 light:bg-secondary_light/40">
-                        {# <td class="px-4 py-2">{{ tracking.id }}</td> #}
+                    <tr class=" even:dark:bg-tertiary/40 even:light:bg-tertiary_light/40 backdrop-blur-md odd:dark:bg-secondary/40 odd:light:bg-secondary_light/40">
                         <td class="px-4 py-2  text-start">{{ tracking.weight }}kg</td>
                         <td class="px-4 py-2  text-start">{{ tracking.dateOfTracking}}</td>
                         <td class="px-4 py-2 text-end">
@@ -34,7 +31,6 @@
         <table class="min-w-full dark:bg-secondary/40 light:bg-secondary_light/40 backdrop-blur-md border dark:border-primary light:border-primary_light rounded-lg shadow-lg">
             <thead>
                 <tr class="">
-                    {# <th class="px-4 py-2">ID</th> #}
                     <th class="px-4 py-2  text-start">Exercice</th>
                     <th class="px-4 py-2  text-start">Weight</th>
                     <th class="px-4 py-2  text-start">Date</th>
@@ -43,8 +39,7 @@
             </thead>
             <tbody>
                 {% for perf in performances %}
-                    <tr class="even:dark:bg-tertiary/40 light:bg-tertiary_light/40 backdrop-blur-md odd:dark:bg-secondary/40 light:bg-secondary_light/40 ">
-                        {# <td class="px-4 py-2">{{ perf.id }}</td> #}
+                    <tr class="even:dark:bg-tertiary/40 even:light:bg-tertiary_light/40 backdrop-blur-md odd:dark:bg-secondary/40 odd:light:bg-secondary_light/40 ">
                         <td class="px-4 py-2  text-start">{{ perf.exerciceMesured }}</td>
                         <td class="px-4 py-2  text-start">{{ perf.personnalRecord }}</td>
                         <td class="px-4 py-2  text-start">{{ perf.dateOfPerformance }}</td>

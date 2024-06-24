@@ -66,14 +66,14 @@ class HomeController extends AbstractController
 
         $user = $this->getUser();
 
-        // Formulaires
+        // Forms
         $manualForm = $this->createForm(ManualScheduleType::class);
         $autoForm = $this->createForm(AutoScheduleType::class);
 
         $manualForm->handleRequest($request);
         $autoForm->handleRequest($request);
 
-        // Planification manuelle
+        // single date planning
         if ($manualForm->isSubmitted() && $manualForm->isValid()) {
             $formData = $manualForm->getData();
             $dates = $formData['dates'];
@@ -93,7 +93,7 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        // Planification automatique
+        // batch planning
         if ($autoForm->isSubmitted() && $autoForm->isValid()) {
             $formData = $autoForm->getData();
             $selectedProgram = $formData['program'];
@@ -126,6 +126,24 @@ class HomeController extends AbstractController
             'user' => $user,
             'manualForm' => $manualForm->createView(),
             'autoForm' => $autoForm->createView(),
+        ]);
+    }
+
+    // lists every session
+    #[Route('/sessions', name: 'app_home_sessions')]
+    public function sessions(): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_landing');
+        }
+
+        $user = $this->getUser();
+        $sessions = $user->getSessions();
+
+        return $this->render('home/sessions.html.twig', [
+            'user' => $user,
+            'sessions' => $sessions,
+            'controller_name' => 'HomeController',
         ]);
     }
 

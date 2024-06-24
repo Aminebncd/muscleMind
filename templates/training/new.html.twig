@@ -6,7 +6,7 @@
 
     {% if edit %}
         <div class="dark:bg-secondary/60 light:bg-secondary_light/60 p-8 rounded-lg w-5/6 mt-10 max-w-screen-lg  backdrop-blur-md	">
-            <div class="mb-8 px-8 py-4 rounded-lg dark:bg-primary/60 light:bg-primary_light/60">
+            <div class="mb-8 px-8 py-4 rounded-lg dark:dark:bg-primary/60 light:bg-primary_light/60 light:bg-primary_light/60">
                 <h1 class="text-center font-bold text-2xl px-2 py-4 mb-14">Now compose your own workout session!</h1>
                 <div class="text-center mb-4">
                     <p class="dark:text-white light:text-black text-3xl mb-8">{{ program }}</p>
@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="my-8 px-8 py-4 rounded-lg dark:bg-primary/60 light:bg-primary_light/60">
+            <div class="my-8 px-8 py-4 rounded-lg dark:dark:bg-primary/60 light:bg-primary_light/60 light:bg-primary_light/60">
                 <h2 class="text-center font-bold text-xl mt-4 mb-6">Plan your workout!</h2>
                 
                 {{ form_start(formAddWorkout) }}
@@ -41,7 +41,7 @@
             </div>
 
             {% if workoutPlans|length > 0 %}
-                <div class=" px-8 py-4 rounded-lg dark:bg-primary/60 light:bg-primary_light/60">
+                <div class=" px-8 py-4 rounded-lg dark:dark:bg-primary/60 light:bg-primary_light/60 ">
 
                 {% set lastExercice = null %}
 
@@ -56,7 +56,7 @@
                     {{  workout.exercice.target }}
                     {% endif %}
                 
-                    <div class="my-8 px-8 py-4 rounded-lg dark:bg-primary/60 light:bg-primary_light/60">
+                    <div class="my-8 px-8 py-4 rounded-lg dark:dark:bg-primary/60  light:bg-primary_light/60">
                     {% set lastExercice = workout.exercice %}
                 {% endif %}
             
@@ -98,10 +98,10 @@
     {% else %}
 
         <div class="dark:bg-secondary/60 light:bg-secondary_light/60 p-8 rounded-lg w-5/6 mt-10 max-w-screen-lg  backdrop-blur-md">
-            <div class="my-1 px-8 py-6 mb-4 rounded-lg dark:bg-primary/60 light:bg-primary_light/60">
+            <div class="my-1 px-8 py-6 mb-4 rounded-lg dark:dark:bg-primary/60 light:bg-primary_light/60 light:bg-primary_light/60">
                 <h1 class="text-center font-bold text-2xl px-2 py-4">First choose what you wanna work !</h1>
             </div>
-            <div class="my-1 px-8 py-6 rounded-lg dark:bg-primary/60 light:bg-primary_light/60">
+            <div class="my-1 px-8 py-6 rounded-lg dark:dark:bg-primary/60 light:bg-primary_light/60 light:bg-primary_light/60">
                 {{ form_start(formAddProgram) }}
                 {{ form_row(formAddProgram.title) }}
                 <div class="flex flex-row justify-between">
