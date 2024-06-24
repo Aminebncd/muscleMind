@@ -4,7 +4,7 @@
 
 {% block body %}
 {# Header Section #}
-<header class="w-full -mt-16 dark:bg-tertiary/40 light:bg-tertiary_light/10 backdrop-blur-md py-12 dark:text-white light:text-black text-center flex flex-col justify-between">
+<header class="w-full -mt-16 dark:bg-tertiary/40 light:bg-tertiary_light/10 backdrop-blur-md py-12 dark:text-white light:text-black text-center flex flex-col justify-between shadow-xl">
     <div class="flex flex-row">
         <div class="w-2/3 max-md:hidden">
             <img class="w-full h-full object-cover" src="{{ asset('img/landing/landing.webp') }}" alt="MuscleMind">
@@ -18,10 +18,10 @@
         </div>
     </div>
 </header>
-<div class="w-full dark:bg-primary light:bg-primary_light h-24"></div>
+<div class="w-full dark:bg-primary light:bg-secondary_light py-12 shadow-xl"></div>
 
 {# Features Section #}
-<section class="text-center py-16 dark:bg-secondary light:bg-secondary_light backdrop-blur-md overflow-hidden shadow-xl">
+<section class="text-center py-16 dark:bg-secondary light:bg-primary_light backdrop-blur-md overflow-hidden shadow-xl">
     <div>
         <h2 class="text-5xl font-bold mb-4 dark:text-white light:text-black">Features</h2>
         <p class="light:font-bold mb-12 dark:text-white light:text-black">MuscleMind offers a range of features to help you achieve your fitness goals.</p>
@@ -31,32 +31,30 @@
         <div class="carousel flex transition-transform duration-500 ease-in-out">
             {# Slide 1 #}
             <div class="min-w-full flex flex-col items-center px-4">
-                <h3 class="text-2xl font-bold mb-2 text-quinary light:stroke">Create Your Programs</h3>
+                <h3 class="text-3xl font-bold mb-2 text-quinary stroke">Create Your Programs</h3>
                 <p class="light:font-bold dark:text-white light:text-black">Design custom workout plans tailored to your needs.</p>
-                <img class="mt-4 object-cover rounded-lg w-[600px] h-auto shadow-2xl" src="{{ asset('img/landing/program_creation.png') }}" alt="Create Programs">
+                <img class="mt-4 object-cover rounded-lg w-[600px] h-auto shadow-xl" src="{{ asset('img/landing/program_creation.png') }}" alt="Create Programs">
             </div>
+
             {# Slide 2 #}
             <div class="min-w-full flex flex-col items-center px-4">
-                <h3 class="text-2xl font-bold mb-2 text-quaternary light:stroke">Learn About Your Body</h3>
+                <h3 class="text-3xl font-bold mb-2 text-quaternary stroke">Learn About Your Body</h3>
                 <p class="light:font-bold dark:text-white light:text-black">Gain insights into your muscle groups and overall fitness.</p>
-                <img class="mt-4 object-cover rounded-lg w-[600px] h-auto shadow-2xl" src="{{ asset('img/landing/anatomy.png') }}" alt="Learn About Your Body">
+                <img class="mt-4 object-cover rounded-lg w-[600px] h-auto shadow-xl" src="{{ asset('img/landing/anatomy.png') }}" alt="Learn About Your Body">
             </div>
+
             {# Slide 3 #}
             <div class="min-w-full flex flex-col items-center px-4">
-                <h3 class="text-2xl font-bold mb-2 text-senary light:stroke">Track Your Progress</h3>
+                <h3 class="text-3xl font-bold mb-2 text-senary stroke">Track Your Progress</h3>
                 <p class="light:font-bold dark:text-white light:text-black">Monitor your improvements and stay motivated.</p>
-                <img class="mt-4 object-cover rounded-lg w-[600px] h-auto shadow-2xl" src="{{ asset('img/landing/tracking_page.png') }}" alt="Track Progress">
+                <img class="mt-4 object-cover rounded-lg w-[600px] h-auto shadow-xl" src="{{ asset('img/landing/tracking_page.png') }}" alt="Track Progress">
             </div>
         </div>
         {# Navigation buttons #}
-        <button class="absolute left-20 top-1/2 transform -translate-y-1/2 bg-quinary dark:text-white light:text-black hover:bg-quaternary hover:scale-105 hover:text-black duration-150 shadow-lg px-4 py-2 rounded-full focus:outline-none" onclick="prevSlide()" aria-label="Previous Slide">&#10094;</button>
+        <button class="absolute left-20 top-1/2 transform -translate-y-1/2 bg-quinary dark:text-white light:text-black hover:bg-quaternary hover:scale-105 hover:text-black duration-150 shaùdow-lg px-4 py-2 rounded-full focus:outline-none" onclick="prevSlide()" aria-label="Previous Slide">&#10094;</button>
         <button class="absolute right-20 top-1/2 transform -translate-y-1/2 bg-quinary dark:text-white light:text-black hover:bg-quaternary hover:scale-105 hover:text-black duration-150 shadow-lg px-4 py-2 rounded-full focus:outline-none" onclick="nextSlide()" aria-label="Next Slide">&#10095;</button>
     </div>
 </section>
-
-{# <div class="w-full py-3 dark:bg-secondary flex justify-center">
-    <hr class="w-3/4 text-gray-600 p-2">
-</div> #}
 
 {# Testimonials Section #}
 <section class="w-full text-center py-16 dark:bg-tertiary light:bg-tertiary_light backdrop-blur-md shadow-xl">
@@ -81,7 +79,7 @@
 </section>
 
 {# Pricing Section #}
-<section class="w-full text-center py-12 dark:bg-primary light:bg-primary_light rounded-lg backdrop-blur-md shadow-xl">
+<section class="w-full text-center py-12 dark:bg-primary light:bg-primary_light backdrop-blur-md shadow-xl">
     <div>
         <h2 class="text-5xl font-bold mb-4 dark:text-white light:text-black">Pricing</h2>
         <p class="light:font-bold mb-12 dark:text-white light:text-black">Choose a plan that fits your needs.</p>
@@ -111,7 +109,7 @@
 {# Call to Action Section #}
 <section class="text-center bg-quaternary w-full py-12 shadow-xl">
     <h2 class="text-5xl font-bold mb-4 text-primary">Ready to get started?</h2>
-    <p class="light:font-bold mb-6 text-primary">Join MuscleMind today and take your fitness journey to the next level.</p>
+    <p class="font-bold mb-6 text-primary">Join MuscleMind today and take your fitness journey to the next level.</p>
     <button href="{{ path('app_register') }}" class="w-fit hover:scale-105 mx-auto text-center px-8 py-4 mb-8 bg-quinary dark:text-white light:text-black font-bold rounded-lg hover:bg-senary hover:text-black duration-150 shadow-lg">Register Now</button>
 </section>
 

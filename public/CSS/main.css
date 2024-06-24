@@ -105,15 +105,9 @@ main {
 }
 
 .stroke {
-    text-shadow:
-        1px 0 var(--black),
-        -1px 0 var(--black),
-        0 1px var(--black),
-        0 -1px var(--black),
-        1px 1px var(--black),
-        -1px -1px var(--black),
-        1px -1px var(--black),
-        -1px 1px var(--black);
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: rgb(48, 48, 48);
+  paint-order: stroke fill;
 }
         
 #PROGRESS {
