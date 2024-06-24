@@ -51,16 +51,36 @@
                 </label>
 
                 <script>
-                        var checkbox = document.querySelector('.theme-switch__checkbox');
-                        var root = document.documentElement;
-                    
-                        checkbox.addEventListener('change', function() {
-                        if (checkbox.checked) {
+                    var checkbox = document.querySelector('.theme-switch__checkbox');
+                    var root = document.documentElement;
+            
+                    // apply theme depending on toggler state
+                    function applyTheme(isDark) {
+                        if (isDark) {
                             root.classList.remove('light-theme');
+                            root.classList.add('dark-theme');
                         } else {
+                            root.classList.remove('dark-theme');
                             root.classList.add('light-theme');
                         }
-                        });
+                    }
+            
+                    // get the saved theme from localStorage
+                    var isDarkMode = localStorage.getItem('darkMode') === 'true';
+            
+                    // apply the saved theme
+                    applyTheme(isDarkMode);
+                    
+                    // update the toggler state
+                    checkbox.checked = isDarkMode;
+            
+                    checkbox.addEventListener('change', function() {
+                        var isChecked = checkbox.checked;
+                        applyTheme(isChecked);
+            
+                        // save the theme to localStorage
+                        localStorage.setItem('darkMode', isChecked);
+                    });
                 </script>
                   
                 {% if app.user %}
