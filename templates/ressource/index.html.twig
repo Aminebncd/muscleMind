@@ -26,15 +26,15 @@
                 {% for ressource in ressources %}
                     <li>
                         <div class="dark:bg-primary/70 light:bg-primary_light/70 rounded-lg py-4 px-6 mb-4 hover:scale-105 hover:outline hover:outline-{{ressource.tag.tagColor}} duration-150 drop-shadow-xl">
-                            <div class="bg-{{ressource.tag.tagColor}} rounded-full p-2 w-2 mb-2"></div>
-                            <a class="text-lg font-medium" href="{{ path ('app_ressource_detailsRessource', {'id' : ressource.id}) }}">{{ressource}}</a>
-                            <a class="line-clamp-3 mt-6" href="{{ path ('app_ressource_detailsRessource', {'id' : ressource.id}) }}">{{ressource.getTruncatedContent(250) | raw }}</a>
+                            <div class="bg-{{ressource.tag.tagColor}} light:border-[1px] border-gray-600 rounded-full p-2 w-2 mb-2"></div>
+                            <a class="text-lg dark:text-white light:text-black font-semibold" href="{{ path ('app_ressource_detailsRessource', {'id' : ressource.id}) }}">{{ressource}}</a>
+                            <a class="line-clamp-3 mt-6 dark:text-white light:text-black" href="{{ path ('app_ressource_detailsRessource', {'id' : ressource.id}) }}">{{ressource.getTruncatedContent(250) | raw }}</a>
                         </div>
                     </li>
                 {% endfor %}
             </ul>
             <div class="w-full flex justify-center mt-8">
-                <nav class="pagination">
+                <nav class="pagination ">
                     {{ knp_pagination_render(ressources) }}
                 </nav>
             </div>

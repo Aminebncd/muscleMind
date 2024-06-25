@@ -4,7 +4,7 @@
 
 {% block body %}
 {# Header Section #}
-<header class="w-full -mt-16 dark:bg-tertiary/40 light:bg-tertiary_light/10 backdrop-blur-md py-12 dark:text-white light:text-black text-center flex flex-col justify-between shadow-xl">
+<header class="w-full -mt-16 dark:bg-tertiary light:bg-primary_light backdrop-blur-md py-12 dark:text-white light:text-black text-center flex flex-col justify-between shadow-xl">
     <div class="flex flex-row">
         <div class="w-2/3 max-md:hidden">
             <img class="w-full h-full object-cover" src="{{ asset('img/landing/landing.webp') }}" alt="MuscleMind">
@@ -31,21 +31,21 @@
         <div class="carousel flex transition-transform duration-500 ease-in-out">
             {# Slide 1 #}
             <div class="min-w-full flex flex-col items-center px-4">
-                <h3 class="text-3xl font-bold mb-2 text-quinary stroke">Create Your Programs</h3>
+                <h3 class="text-3xl font-bold mb-2 dark:text-quinary light:text-black light:bg-quinary light:px-2">Create Your Programs</h3>
                 <p class="light:font-bold dark:text-white light:text-black">Design custom workout plans tailored to your needs.</p>
                 <img class="mt-4 object-cover rounded-lg w-[600px] h-auto shadow-xl" src="{{ asset('img/landing/program_creation.png') }}" alt="Create Programs">
             </div>
 
             {# Slide 2 #}
             <div class="min-w-full flex flex-col items-center px-4">
-                <h3 class="text-3xl font-bold mb-2 text-quaternary stroke">Learn About Your Body</h3>
+                <h3 class="text-3xl font-bold mb-2 dark:text-quaternary light:text-black light:bg-quaternary light:px-2">Learn About Your Body</h3>
                 <p class="light:font-bold dark:text-white light:text-black">Gain insights into your muscle groups and overall fitness.</p>
                 <img class="mt-4 object-cover rounded-lg w-[600px] h-auto shadow-xl" src="{{ asset('img/landing/anatomy.png') }}" alt="Learn About Your Body">
             </div>
 
             {# Slide 3 #}
             <div class="min-w-full flex flex-col items-center px-4">
-                <h3 class="text-3xl font-bold mb-2 text-senary stroke">Track Your Progress</h3>
+                <h3 class="text-3xl font-bold mb-2 dark:text-senary light:text-black light:bg-senary light:px-2">Track Your Progress</h3>
                 <p class="light:font-bold dark:text-white light:text-black">Monitor your improvements and stay motivated.</p>
                 <img class="mt-4 object-cover rounded-lg w-[600px] h-auto shadow-xl" src="{{ asset('img/landing/tracking_page.png') }}" alt="Track Progress">
             </div>

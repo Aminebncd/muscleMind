@@ -101,7 +101,7 @@ class EquivalentService
                 "name" => "1 skyscraper",
                 "min_points" => 400000,
                 "max_points" => 500000,
-                "image" => "https://example.com/images/skyscraper.jpg"
+                "image" => "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1ebd221d-3581-4775-8f4c-086c377bc4c3/ddut8yz-7ad551df-02ca-41aa-88b8-0a3eb7b65e89.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzFlYmQyMjFkLTM1ODEtNDc3NS04ZjRjLTA4NmMzNzdiYzRjM1wvZGR1dDh5ei03YWQ1NTFkZi0wMmNhLTQxYWEtODhiOC0wYTNlYjdiNjVlODkucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.zS1Y4Dd6wJT_TI4q7i9hHrmPAwGfaCR7FNHD7OO2ZRA"
             ],
             [
                 "name" => "10 - 15 cruise ships",
