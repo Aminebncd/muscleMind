@@ -5,19 +5,19 @@
 {% block body %}
 
 {% if tag %}  
-    <h2 class="text-center font-bold text-xl px-2 py-4">Ressources under tag :</h2> 
-    <h1 class="text-center font-bold text-2xl px-2 py-4 mb-8">{{tag}}</h1>
+    <h2 class="text-center font-bold text-xl px-2 py-4 dark:text-white light:text-black ">Ressources under tag :</h2> 
+    <h1 class="text-center font-bold text-2xl  mb-8 dark:text-{{tag.tagColor}} light:text-black light:bg-{{tag.tagColor}} light:px-2">{{tag}}</h1>
 
     {% if tag.ressources %}
     <div class="w-5/6">
 
-        <div class="dark:bg-secondary/60 light:bg-secondary_light/60 rounded-lg p-8">
+        <div class="dark:bg-secondary/60 light:bg-secondary_light/60 dark:text-white light:text-black rounded-lg p-8">
             <ul>
                 {% for ressource in tag.ressources %}
             <li>
-                <div class="dark:dark:bg-primary/60 light:bg-primary_light/60 light:bg-primary_light/60 rounded-lg py-4 px-6 mb-4">
-                    <a class="text-lg font-medium mb-8" href="{{path ('app_ressource_detailsRessource', {'id' : ressource.id})}}">{{ressource}}</a>
-                <a class="line-clamp-3	" href="{{path ('app_ressource_detailsRessource', {'id' : ressource.id})}}">{{ressource.content}}</a>
+                <div class="dark:bg-primary/70 light:bg-primary_light/70 rounded-lg py-4 px-6 mb-4 hover:scale-105 hover:outline hover:outline-{{ressource.tag.tagColor}} duration-150 drop-shadow-xl">
+                <a class="text-lg dark:text-white light:text-black font-semibold" href="{{ path ('app_ressource_detailsRessource', {'id' : ressource.id}) }}">{{ressource}}</a>
+                <a class="line-clamp-3	" href="{{path ('app_ressource_detailsRessource', {'id' : ressource.id})}}">{{ressource.getTruncatedContent(250) | raw }}</a>
             </div>
         </li>
     {% endfor %}
@@ -27,7 +27,7 @@
     </div>
 </div>
     {% endif %}
-    <a href="{{ path('app_ressource') }}">back to index</a>
+    <a href="{{ path('app_ressource') }}"><i class="fa-solid fa-arrow-left"></i>back to index</a>
 
 
 {% endif %}

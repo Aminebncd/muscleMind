@@ -20,7 +20,7 @@
     --senary-light-color: #ffc300;
   }
   
-  [data-theme='light'] {
+  /* [data-theme='light'] {
     --nav-color: var(--nav-light);
     --primary-color: var(--primary-light);
     --secondary-color: var(--secondary-light);
@@ -38,7 +38,7 @@
     --quaternary-color: var(--quaternary);
     --quinary-color: var(--quinary);
     --senary-color: var(--senary);
-  }
+  } */
   
 
 
@@ -126,11 +126,11 @@ main {
     padding: 10px 15px;
     text-decoration: none;
     font-weight: 700;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s ;
 }
 
 .pagination .current, .pagination a:hover {
-    /* background-color: var(--secondary-color); */
+    background-color: var(--secondary-color);
     color: white;
     border-radius: 25px;
 }

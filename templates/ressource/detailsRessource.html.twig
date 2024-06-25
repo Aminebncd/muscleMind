@@ -6,15 +6,15 @@
 
 {% if is_granted('ROLE_ADMIN') %}   
     <div class="flex justify-end mb-4">
-        <a class="px-4 py-2 dark:bg-tertiary light:bg-tertiary_light font-medium dark:text-white light:text-black rounded-lg hover:scale-105 dark:light:hover:bg-yellow-500 duration-150" href="{{path ('app_ressource_edit', {'id' : ressource.id} )}}">Modify ressource</a>
-        <a class="px-4 py-2 dark:bg-tertiary light:bg-tertiary_light font-medium dark:text-white light:text-black rounded-lg hover:scale-105 dark:light:hover:bg-red-600 duration-150 ml-2" href="{{path ('app_ressource_delete', {'id' : ressource.id} )}}">Delete ressource</a>
+        <a class="px-4 py-2 dark:bg-tertiary light:bg-tertiary_light font-bold dark:text-white light:text-black rounded-lg hover:scale-105 dark:light:hover:bg-yellow-500 duration-150" href="{{path ('app_ressource_edit', {'id' : ressource.id} )}}">Modify ressource</a>
+        <a class="px-4 py-2 dark:bg-tertiary light:bg-tertiary_light font-bold dark:text-white light:text-black rounded-lg hover:scale-105 dark:light:hover:bg-red-600 duration-150 ml-2" href="{{path ('app_ressource_delete', {'id' : ressource.id} )}}">Delete ressource</a>
     </div>
 {% endif %}
 
 {% if ressource %}
     <div class="dark:bg-secondary/60 light:bg-secondary_light/60 rounded-lg p-8 backdrop-blur-md drop-shadow-xl w-10/12">
         <h1 class="text-2xl dark:text-white light:text-black font-bold mb-4">{{ ressource.title }}</h1>
-        <div class="rounded-lg dark:text-white light:text-black">
+        <div class="rounded-lg dark:text-white light:text-black dark:bg-primary light:bg-primary_light p-4">
             {# <p class="mb-6 dark:text-white light:text-black"> #}
                 {{ ressource.content | raw }}
             {# </p> #}
@@ -26,6 +26,6 @@
 {% else %}
     <p>Ressource non trouvée</p>
 {% endif %}   
-<a href="{{ path ('app_ressource')}}">back to index</a>
+<a href="{{ path ('app_ressource')}}"><i class="fa-solid fa-arrow-left"></i>back to index</a>
 
 {% endblock %}

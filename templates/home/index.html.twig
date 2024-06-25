@@ -19,19 +19,19 @@
         {% for session in sessions|sort((a, b) => a.dateSession <=> b.dateSession)|slice(0, 5) %}
         <div class="dark:bg-nav light:bg-nav_light backdrop-blur-lg rounded-lg m-5 max-w-3xl max-h-3/5 max-sm:w-4/5 drop-shadow-xl relative">
             <div class="p-2 flex justify-between w-full">
-                <a class="dark:text-white light:text-black text-lg hover:text-quaternary hover:text-xl duration-150" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{session}}</a>
-                <a class="text-end hover:text-red-700 duration-150" href="{{ path('app_home_deleteSession', {'id': session.id}) }}">delete</a>
+                <a class="text-white font-semibold text-lg hover:text-quaternary hover:text-xl duration-150" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{session}}</a>
+                <a class="text-end hover:text-red-700 duration-150" href="{{ path('app_home_deleteSession', {'id': session.id}) }}"><i class="fa-solid fa-trash"></i></a>
             </div>
             <div class="flex items-center overflow-hidden max-sm:flex-col">
                 <a class="relative h-auto w-1/2 object-cover hover:ease-out hover:scale-105 duration-100 max-sm:w-full max-sm:h-1/6 group" href="{{ path('app_muscleGroup_details', {'id': session.program.muscleGroupTargeted.id })}}">
                     <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-bl-lg hover:opacity-80 transition-opacity duration-300"></div>
-                    <span class="dark:text-white light:text-black font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:block ">{{session.program.muscleGroupTargeted}}</span>
+                    <span class="text-white  font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:block ">{{session.program.muscleGroupTargeted}}</span>
                     <img class="rounded-bl-lg max-sm:rounded-none" src="{{ asset('img/muscleGroups/' ~ session.program.muscleGroupTargeted.muscleGroupImage ) }}" alt="{{session.program.muscleGroupTargeted.muscleGroupImage()}}">
                 </a>
         
                 <a class="relative h-auto w-1/2 object-cover hover:ease-out hover:scale-105 duration-100 max-sm:w-full max-sm:h-1/6 group" href="{{ path('app_muscleGroup_details', {'id': session.program.secondaryMuscleGroupTargeted.id })}}">
                     <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-br-lg hover:opacity-80 transition-opacity duration-300"></div>
-                    <span class="dark:text-white light:text-black font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:block">{{session.program.secondaryMuscleGroupTargeted}}</span>
+                    <span class="text-white  font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:block">{{session.program.secondaryMuscleGroupTargeted}}</span>
                     <img class="rounded-br-lg max-sm:rounded-b-lg" src="{{ asset('img/muscleGroups/' ~ session.program.secondaryMuscleGroupTargeted.muscleGroupImage ) }}" alt="{{session.program.secondaryMuscleGroupTargeted.muscleGroupImage()}}">
                 </a>
             </div>
