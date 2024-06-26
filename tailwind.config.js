@@ -20,7 +20,7 @@ module.exports = {
         senary: '#ffc300', 
 
         nav_light: '#083d77', 
-        primary_light: '#ebebd3',    
+        primary_light: '#f0ead6 ',    
         secondary_light: '#f4d35e',   
         tertiary_light: '#ee964b',   
         // quaternary_light: '#C669C2',  

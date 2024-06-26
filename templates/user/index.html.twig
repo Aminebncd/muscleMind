@@ -5,91 +5,105 @@
 {% block body %}
 
 <div class="w-10/12 max-w-[1200px] flex flex-row justify-between mt-14 items-center">
-    <span class="text-3xl font-semibold">{{ user }}</span>
+    <span class="text-3xl font-semibold dark:text-white light:text-black">{{ user }}</span>
     <div class="flex flex-col justify-center">
-        <button id="activityButton" class="font-medium text-lg">Your activity</button>
-        <hr class="w-full my-2">
-        <button id="progressButton" class="font-medium text-lg">Your progress</button>
+        <button id="activityButton" class="font-semibold text-lg dark:text-white light:text-black">Your
+            activity</button>
+        <hr class="w-full my-2 dark:bg-white light:bg-black">
+        <button id="progressButton" class="font-semibold text-lg dark:text-white light:text-black">Your
+            progress</button>
     </div>
 </div>
 
 <div id="ACTIVITY" class="w-10/12 max-w-[1200px]">
-    <p class="text-xl font-medium">Your activity</p>
-    <div class="overflow-x-auto flex justify-center">
-        <div class="max-w-[750px] w-[750px] gap-1 flex flex-wrap flex-col h-24 mt-12 mb-4 relative">
-            <div class="grid grid-cols-12 absolute -top-[22px] -left-[16px] w-[750px] text-center">
+    <p class="text-xl font-medium dark:text-white light:text-black mb-12">Your activity</p>
+    <div class="light:bg-black/90 max-w-[750px] mx-auto px-2  rounded-lg overflow-x-auto flex justify-center">
+        <div class=" max-w-[750px] w-[750px] gap-1 flex flex-wrap flex-col h-24 mt-8 mb-2 relative">
+            <div class="grid grid-cols-12 absolute -top-[22px] -left-[16px] w-[750px] font-medium text-center">
                 {% set months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'] %}
                 {% for month in months %}
-                    <div class="text-sm">{{ month }}</div>
+                <div class="text-sm">{{ month }}</div>
                 {% endfor %}
             </div>
             {% for date, count in activity %}
-                <div class="w-[10px] h-[10px] rounded-[2px] {{ count > 0 ? 'dark:bg-quinary light:bg-quaternary' : 'dark:bg-gray-800 light:bg-gray-400' }}"></div>
+            <div
+                class="w-[10px] h-[10px] rounded-[2px] {{ count > 0 ? 'dark:bg-quinary light:bg-quaternary' : 'bg-gray-700' }}">
+            </div>
             {% endfor %}
         </div>
     </div>
 
-    <div class="w-full flex flex-col justify-center">
-        <div class="mt-4  flex flex-col items-center">
-            <div class="flex text-nowrap">
-                <p class="text-2xl text-center">Your score: 
+    <div class="w-full flex flex-col justify-center ">
+        <div class="mt-4  flex flex-col items-center ">
+            <div class="flex text-nowrap light:bg-black/80 px-2">
+                <p class="text-2xl text-center font-medium ">Your score:
                     <span id="user-score">{{ oldScore }}</span>
                 </p>
-                <span id="score-difference" class="text-senary" style="opacity: 0; transition: opacity 1s;">+{{ scoreDifference }}</span>
+                <span id="score-difference" class="text-senary" style="opacity: 0; transition: opacity 1s;">+{{
+                    scoreDifference }}</span>
             </div>
 
-                {% if equiv %}
-                <p  class="text-lg text-center my-2"> or <br><br>
-                    {{ equiv.name }}
-                </p>
-                <img class="mx-auto w-1/2" src="{{ equiv.image }}" alt="">
-                {% else %}
-                <p class="text-lg text-center my-2">
-                    each time you complete a workout, your score increases by the total amount of weights lifted!
-                </p>
-                {% endif %}
+            {% if equiv %}
+            <p class="text-2xl font-medium text-center my-1 dark:text-white light:text-black"> or <br><br>
+                {{ equiv.name }}
+            </p>
+            <img class="mx-auto w-1/2" src="{{ equiv.image }}" alt="">
+            {% else %}
+            <p class="text-lg text-center my-2">
+                each time you complete a workout, your score increases by the total amount of weights lifted!
+            </p>
+            {% endif %}
 
         </div>
     </div>
 </div>
 
-<div id="PROGRESS" class="w-10/12 max-w-[1200px]">
-        {% for message in app.flashes('message') %}
-            <div class="alert alert-info">
-                {{ message }}
-            </div>
-        {% endfor %}
+<div id="PROGRESS" class="w-10/12 max-w-[1200px] dark:text-white light:text-black">
+    {% for message in app.flashes('message') %}
+    <div class="alert alert-info">
+        {{ message }}
+    </div>
+    {% endfor %}
     <div class="flex flex-row justify-between mt-14 items-center max-md:flex-col">
         <div class="w-1/3 flex flex-col p-2 max-md:w-full">
             {% if latestTracking %}
-                <p class="text-lg font-medium">See some change? keep track
-                    <a class="text-quaternary hover:text-xl hover:font-semibold duration-150" href="{{ path('app_user_newTrack') }}"> here</a>!
-                </p>
-                <div class="mt-4">
-                    <p class="text-lg">
-                        Last time you tracked your shape, you were: <br><br>
-                        {% if user.dateOfBirth %}
-                        {{ user.age }} years old <br>
-                        {% endif %}
-                        {{ latestTracking.height }}cm <br>
-                        {{ latestTracking.weight }}kg <br>
-                        <div class="w-full flex items-center justify-around mt-4 max-md:flex-col">
-                            <a class="w-fit mx-2 text-center no-underline px-5 py-3 rounded dark:bg-tertiary light:bg-tertiary_lightdrop-shadow-xl hover:bg-quinary duration-150 max-md:w-full max-md:mt-2" href="{{ path('app_user_newTrack') }}"><i class="fa-solid fa-plus"></i></a>
-                            <a class="w-fit mx-2 text-center no-underline border-2 border-quaternary border-offset-2 text-quaternary hover:bg-quaternary hover:text-black duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path('app_user_editTrack', {'id': latestTracking.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a class="w-fit mx-2 text-center no-underline border-2 border-red-500 border-offset-2 text-red-500 hover:bg-red-500 hover:dark:text-white light:text-black duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path('app_user_deleteTrack', {'id': latestTracking.id}) }}"><i class="fa-solid fa-minus"></i></a>
-                        </div>
-                    </p>
+            <p class="text-lg font-medium light:font-bold">See some change? keep track
+                <a class="light:bg-quaternary px-1 dark:text-quaternary light:text-black hover:text-xl duration-150"
+                    href="{{ path('app_user_newTrack') }}"> here</a>!
+            </p>
+            <div class="mt-4">
+                <p class="text-lg">
+                    Last time you tracked your shape, you were: <br><br>
+                    {% if user.dateOfBirth %}
+                    {{ user.age }} years old <br>
+                    {% endif %}
+                    {{ latestTracking.height }}cm <br>
+                    {{ latestTracking.weight }}kg <br>
+                <div class="w-full flex items-center justify-around mt-4 max-md:flex-col">
+                    <a class="w-fit mx-2 text-center no-underline px-5 py-3 rounded dark:bg-tertiary light:bg-tertiary_lightdrop-shadow-xl hover:bg-quinary duration-150 max-md:w-full max-md:mt-2"
+                        href="{{ path('app_user_newTrack') }}"><i class="fa-solid fa-plus"></i></a>
+                    <a class="w-fit mx-2 text-center no-underline border-2 border-quaternary border-offset-2 text-quaternary hover:bg-quaternary hover:text-black duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2"
+                        href="{{ path('app_user_editTrack', {'id': latestTracking.id}) }}"><i
+                            class="fa-solid fa-pen-to-square"></i></a>
+                    <a class="w-fit mx-2 text-center no-underline border-2 border-red-500 border-offset-2 text-red-500 hover:bg-red-500 hover:dark:text-white light:text-black duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2"
+                        href="{{ path('app_user_deleteTrack', {'id': latestTracking.id}) }}"><i
+                            class="fa-solid fa-minus"></i></a>
                 </div>
-            {% else %}
-                <p class="text-lg font-medium">Wanna track your progress? add your trackings 
-                    <a class="text-quaternary hover:text-xl hover:font-semibold duration-150" href="{{ path('app_user_newTrack') }}"> here</a>!
                 </p>
+            </div>
+            {% else %}
+            <p class="text-lg font-medium">Wanna track your progress? add your trackings
+                <a class="text-quaternary hover:text-xl hover:font-semibold duration-150"
+                    href="{{ path('app_user_newTrack') }}"> here</a>!
+            </p>
             {% endif %}
         </div>
         <div class="w-full max-w-[600px]">
             {% if bmr %}
             Base metabolic rate: (approx.) {{ bmr }}cal <br>
-            <a class="text-sm text-quaternary hover:text-lg hover:underline duration-150" href="https://envisionfitnessmn.com/about/blog/entryid/15/basal-metabolic-rate-what-is-it-and-why-its-important#:~:text=Knowing%20your%20Basal%20Metabolic%20Rate,BMR%20(or%20maintenance%20calories).">Why is it useful?</a>
+            <a class="text-sm text-quaternary hover:text-lg hover:underline duration-150"
+                href="https://envisionfitnessmn.com/about/blog/entryid/15/basal-metabolic-rate-what-is-it-and-why-its-important#:~:text=Knowing%20your%20Basal%20Metabolic%20Rate,BMR%20(or%20maintenance%20calories).">Why
+                is it useful?</a>
             {% endif %}
             <div class="dark:bg-tertiary/10 p-4 rounded backdrop-blur-md">
                 {{ render_chart(trackingChart) }}
@@ -99,13 +113,15 @@
     <div class="flex flex-row justify-between mt-14 items-center max-md:flex-col">
         <div class="w-1/3 flex flex-col p-2 max-md:w-full">
             {% if user.performances|length > 0 %}
-                <p class="text-lg font-medium">Made some progress? add entries to your performances
-                    <a class="text-quinary hover:text-xl hover:font-semibold duration-150" href="{{ path('app_user_newPerf') }}">here</a>!
-                </p>    
+            <p class="text-lg font-medium">Made some progress? add entries to your performances
+                <a class="text-quinary hover:text-xl hover:font-semibold duration-150"
+                    href="{{ path('app_user_newPerf') }}">here</a>!
+            </p>
             {% else %}
-                <p class="text-lg font-medium">Wanna track your performance? Register your performances
-                    <a class="text-quinary hover:text-xl hover:font-semibold duration-150" href="{{ path('app_user_newPerf') }}">here</a>!
-                </p>    
+            <p class="text-lg font-medium">Wanna track your performance? Register your performances
+                <a class="text-quinary hover:text-xl hover:font-semibold duration-150"
+                    href="{{ path('app_user_newPerf') }}">here</a>!
+            </p>
             {% endif %}
         </div>
         <div class="w-full max-w-[600px]">
@@ -116,49 +132,50 @@
     </div>
 
     <div class="w-full flex justify-center mt-6">
-        <a class="dark:text-white light:text-black underline text-lg hover:text-xl hover:font-semibold duration-150" href="{{ path('app_user_listEntries', {'id': user.id}) }}">List of your entries</a>
+        <a class="dark:text-white light:text-black underline text-lg hover:text-xl hover:font-semibold duration-150"
+            href="{{ path('app_user_listEntries', {'id': user.id}) }}">List of your entries</a>
     </div>
 </div>
 
 <script>
-        function animateScore(oldScore, newScore, scoreDifference) {
-            let currentScore = oldScore;
-            const increment = (newScore - oldScore) / 100;
+    function animateScore(oldScore, newScore, scoreDifference) {
+        let currentScore = oldScore;
+        const increment = (newScore - oldScore) / 100;
 
-            const scoreElement = document.getElementById('user-score');
-            const differenceElement = document.getElementById('score-difference');
+        const scoreElement = document.getElementById('user-score');
+        const differenceElement = document.getElementById('score-difference');
 
-            function updateScore() {
-                currentScore += increment;
-                scoreElement.innerText = Math.round(currentScore);
-                if (currentScore < newScore) {
-                    requestAnimationFrame(updateScore);
-                } else {
-                    scoreElement.innerText = newScore; 
-                    differenceElement.innerText = `+${scoreDifference}`;
-                    differenceElement.style.opacity = 1;
-                    setTimeout(() => {
-                        differenceElement.style.transition = 'opacity 1s';
-                        differenceElement.style.opacity = 0;
-                    }, 3000); 
-                }
+        function updateScore() {
+            currentScore += increment;
+            scoreElement.innerText = Math.round(currentScore);
+            if (currentScore < newScore) {
+                requestAnimationFrame(updateScore);
+            } else {
+                scoreElement.innerText = newScore;
+                differenceElement.innerText = `+${scoreDifference}`;
+                differenceElement.style.opacity = 1;
+                setTimeout(() => {
+                    differenceElement.style.transition = 'opacity 1s';
+                    differenceElement.style.opacity = 0;
+                }, 3000);
             }
-
-            updateScore();
         }
 
-        (function() {
-            const oldScore = parseInt('{{ oldScore }}', 10);
-            const newScore = parseInt('{{ newScore }}', 10);
-            const scoreDifference = parseInt('{{ scoreDifference }}', 10);
+        updateScore();
+    }
 
-            // Log des valeurs pour le débogage
-            console.log("Old Score:", oldScore);
-            console.log("New Score:", newScore);
-            console.log("Score Difference:", scoreDifference);
+    (function () {
+        const oldScore = parseInt('{{ oldScore }}', 10);
+        const newScore = parseInt('{{ newScore }}', 10);
+        const scoreDifference = parseInt('{{ scoreDifference }}', 10);
 
-            animateScore(oldScore, newScore, scoreDifference);
-        })();
+        // Log des valeurs pour le débogage
+        console.log("Old Score:", oldScore);
+        console.log("New Score:", newScore);
+        console.log("Score Difference:", scoreDifference);
+
+        animateScore(oldScore, newScore, scoreDifference);
+    })();
 </script>
 
 {% endblock %}
