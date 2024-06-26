@@ -53,6 +53,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isVerified = null;
 
+    #[ORM\Column]
+    private ?int $lastResetYear = null;
+
+
 
 
     #[ORM\OneToMany(targetEntity: Tracking::class, mappedBy: 'userTracked', orphanRemoval: true, cascade: ['persist', 'remove'])]
@@ -70,6 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Ressource::class, mappedBy: 'Author', cascade: ['persist'])]
     private Collection $ressources;
 
+    
 
 
 
@@ -224,6 +229,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getLastResetYear(): ?int
+    {
+        return $this->lastResetYear;
+    }
+
+    public function setLastResetYear(int $lastResetYear): static
+    {
+        $this->lastResetYear = $lastResetYear;
 
         return $this;
     }
@@ -398,4 +415,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+   
 }

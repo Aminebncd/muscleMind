@@ -109,25 +109,51 @@ class UserController extends AbstractController
 
     // factorized it for better readability
     // updates the user's score based on the sessions he has done
-    private function updateScore(User $user,EntityManagerInterface $em) {
-        $sessions = $user->getSessions();
-        $totalScore = 0;
-        $now = new \DateTime;
+    private function updateScore(User $user, EntityManagerInterface $em)
+{
+    $sessions = $user->getSessions();
+    $totalScore = 0;
+    $now = new \DateTime;
+    $currentYear = (int) $now->format('Y');
 
+    // Check if we need to reset the score and remove old sessions
+    if ($user->getLastResetYear() !== $currentYear) {
+        // Reset the score
+        $user->setScore(0);
+        $user->setLastResetYear($currentYear);
+
+        // Remove sessions from the previous years
         foreach ($sessions as $session) {
-            if($session->getDateSession() <= $now) {
-                $program = $session->getProgram();
-                $workoutPlans = $program->getWorkoutPlans();
-                foreach ($workoutPlans as $workoutPlan) {
-                    $totalScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
-                }
+            $sessionYear = (int) $session->getDateSession()->format('Y');
+            if ($sessionYear < $currentYear) {
+                $em->remove($session);
             }
         }
 
-        $user->setScore($totalScore);
-        $em->persist($user);
+        // Flush the removal of old sessions
         $em->flush();
+        
+        // Refresh the user's sessions to exclude the removed ones
+        $em->refresh($user);
+        $sessions = $user->getSessions();
     }
+
+    // Calculate the new total score based on the remaining sessions
+    foreach ($sessions as $session) {
+        if ($session->getDateSession() <= $now) {
+            $program = $session->getProgram();
+            $workoutPlans = $program->getWorkoutPlans();
+            foreach ($workoutPlans as $workoutPlan) {
+                $totalScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
+            }
+        }
+    }
+
+    $user->setScore($totalScore);
+    $em->persist($user);
+    $em->flush();
+}
+
 
 
 

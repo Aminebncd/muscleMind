@@ -4,7 +4,7 @@ const { themeVariants } = require("tailwindcss-theme-variants");
 module.exports = {
   content: [
     "./assets/*.js",
-    "./public/img/*.svg",
+    "./assets/img/*.svg",
     "./templates/**/*.html.twig",
     "./src/Form/*.php",
   ],
