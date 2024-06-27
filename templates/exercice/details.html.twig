@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<div class="container dark:bg-primary/60 light:bg-primary_light/60 p-8 rounded-lg w-full max-w-screen-md flex flex-col mx-auto backdrop-blur-md shadow-lg	">
+<div class="container dark:bg-primary/60 light:bg-primary_light/60 dark:text-white light:text-black p-8 rounded-lg w-full max-w-screen-md flex flex-col mx-auto backdrop-blur-md shadow-lg	">
 
     <h1 class="text-3xl font-bold">{{ exercice }}</h1>
 
@@ -499,12 +499,12 @@
     <div class="flex justify-between mt-6">
         <div>
             {% if is_granted('ROLE_ADMIN') %}   
-                <a class="text-tertiary hover:font-medium hover:text-yellow-300 duration-150 text-xl hover:text-2xl" href="{{path ('app_exercice_edit', {'id': exercice.id} )}}"><i class="fa-solid fa-pen-to-square"></i></a> 
+                <a class="text-tertiary hover:font-medium hover:text-yellow-500 duration-150 text-xl hover:text-2xl" href="{{path ('app_exercice_edit', {'id': exercice.id} )}}"><i class="fa-solid fa-pen-to-square"></i></a> 
                 <a class="text-tertiary hover:font-medium hover:text-red-600 duration-150 text-xl hover:text-2xl"  href="{{path ('app_exercice_delete', {'id': exercice.id})}}"><i class="fa-solid fa-trash-can"></i></a>
             {% endif %}
         </div>
     
-        <a href="{{ path('app_exercice') }}"><i class="fa-solid fa-arrow-left"></i>  Back to index</a>
+        <a href="{{ path('app_exercice') }}" class=" font-semibold hover:underline duration-150"><i class="fa-solid fa-arrow-left"></i>  Back to index</a>
     </div>
 </div>
 

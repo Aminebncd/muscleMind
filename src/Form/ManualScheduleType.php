@@ -38,7 +38,7 @@ class ManualScheduleType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Schedule',
                 'attr' => [
-                    'class' => 'w-fit px-4 py-2 rounded-2xl dark:bg-tertiary light:bg-tertiary_lightdrop-shadow-xl hover:bg-quinary flex-end duration-150'
+                    'class' => 'font-bold px-4 py-2 rounded-2xl w-fit dark:bg-tertiary light:bg-tertiary_light drop-shadow-xl dark:hover:bg-quinary light:hover:bg-senary duration-150'
                 ]
             ])
         ;

@@ -24,7 +24,6 @@ class WorkoutType extends AbstractType
 
         $builder
         ->add('numberOfRepetitions', NumberType::class, [
-            // 'label' => 'Number of repetitions',
             'label' => false,
             'attr' => [
                 'placeholder' => 'Number of repetitions',
@@ -33,7 +32,6 @@ class WorkoutType extends AbstractType
             'row_attr' => ['class' => 'flex flex-col w-full'],
         ])
         ->add('weightsUsed', NumberType::class, [
-            // 'label' => 'Weights used',
             'label' => false,
             'attr' => [
                 'placeholder' => 'Weights used',
@@ -54,7 +52,7 @@ class WorkoutType extends AbstractType
         ])
         ->add('valider', SubmitType::class, [
             'attr' => [
-                'class' => 'w-fit px-4 py-2 rounded-2xl dark:bg-tertiary light:bg-tertiary_lightdrop-shadow-xl hover:bg-quinary duration-150'
+                'class' => 'font-bold px-4 py-2 rounded-2xl w-fit dark:bg-tertiary light:bg-tertiary_light drop-shadow-xl dark:hover:bg-quinary light:hover:bg-senary duration-150'
             ],
             'row_attr' => ['class' => 'flex justify-end '],
         ]);

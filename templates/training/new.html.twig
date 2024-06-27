@@ -56,7 +56,7 @@
                     {{  workout.exercice.target }}
                     {% endif %}
                 
-                    <div class="my-8 px-8 py-4 rounded-lg dark:dark:bg-primary/60  light:bg-primary_light/60">
+                    <div class="mb-8 mt-2 px-8 py-4 rounded-lg dark:dark:bg-primary/60  light:bg-primary_light/60">
                     {% set lastExercice = workout.exercice %}
                 {% endif %}
             
@@ -65,7 +65,7 @@
                         {% if workout.exercice.target.muscleGroup == program.muscleGroupTargeted %}
                             <p class="dark:text-white light:text-black font-semibold flex justify-between">
                                 <span>
-                                    <a href="{{ path('app_exercice_details', {'id': workout.exercice.id}) }}" class="dark:text-quinary hover:underline">{{ workout.exercice.exerciceName }}</a> 
+                                    <a href="{{ path('app_exercice_details', {'id': workout.exercice.id}) }}" class="dark:text-quinary light:text-black light:bg-quinary light:px-2 hover:underline">{{ workout.exercice.exerciceName }}</a> 
                                     : {{ workout.numberOfRepetitions }} reps of {{ workout.weightsUsed }}kgs
                                 </span>
                                 <a href="{{ path('removeWP_Program', {'program': program.id, 'workoutPlan': workout.id}) }}" class="text-red-500 hover:scale-110 duration-100"><i class="fa-regular fa-square-minus"></i></a>
@@ -73,7 +73,7 @@
                         {% else %}
                             <p class="dark:text-white light:text-black font-semibold flex justify-between">
                                 <span>
-                                    <a href="{{ path('app_exercice_details', {'id': workout.exercice.id}) }}" class="text-quaternary hover:underline">{{ workout.exercice.exerciceName }}</a> 
+                                    <a href="{{ path('app_exercice_details', {'id': workout.exercice.id}) }}" class="dark:text-quaternary light:text-black light:bg-quaternary light:px-2 hover:underline">{{ workout.exercice.exerciceName }}</a> 
                                     : {{ workout.numberOfRepetitions }} reps of {{ workout.weightsUsed }}kgs
                                 </span>
                                 <a href="{{ path('removeWP_Program', {'program': program.id, 'workoutPlan': workout.id}) }}" class="text-red-500 hover:scale-110"><i class="fa-regular fa-square-minus"></i></a>
