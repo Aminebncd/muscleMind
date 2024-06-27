@@ -15,11 +15,18 @@
     --primary-light-color: #48cae4;
     --secondary-light-color: #90e0ef;
     --tertiary-light-color: #ade8f4;
-    --quaternary-light-color: #f6cbf4;
+    /* --quaternary-light-color: #f6cbf4;
     --quinary-light-color: #00a6fb;
-    --senary-light-color: #ffc300;
+    --senary-light-color: #ffc300; */
   }
   
+  .dark-theme {
+    --secondary-color: var(--secondary-color);
+  }
+
+  .light-theme {
+    --secondary-color: var(--secondary-light-color);
+  }
   /* [data-theme='light'] {
     --nav-color: var(--nav-light);
     --primary-color: var(--primary-light);
@@ -70,30 +77,6 @@ main {
     align-items: center;
 }
 
-
-
-/* .navbar-up {
-    z-index: 1000;
-    background-color: #07080d;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1.5rem;
-}
-
-.navbar-down {
-    
-    z-index: 1000;
-    background-color: #07080d;
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    padding: 1.5rem;
-    text-align: center;
-} */
 
 .menu {
     transition: transform 0.3s ease-in-out;
