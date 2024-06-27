@@ -86,12 +86,12 @@
                 {% endif %}
             {% endif %}
             <div class="w-full flex justify-end dark:text-white light:text-black"font-semibold >
-                <button 
+                <a       
                 class="border-2 border-red-500 border-offset-2 text-end text-red-500 hover:bg-red-500 hover:dark:text-white light:text-black font-semibold transition duration-200 ease-in-out px-4 py-2 rounded"
                 aria-label="Delete program"
                 href='{{ path('app_training_delete', {'id' : program.id})}}'>
                 Delete Program
-            </button>
+                </a>
             </div>
         </div>
 
