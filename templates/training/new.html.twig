@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="my-8 px-8 py-4 rounded-lg dark:dark:bg-primary/60 light:bg-primary_light/60 light:bg-primary_light/60">
+            <div class="my-8 px-8 py-4 rounded-lg dark:dark:bg-primary/60 light:bg-primary_light/60">
                 <h2 class="text-center font-bold text-xl mt-4 mb-6">Plan your workout!</h2>
                 
                 {{ form_start(formAddWorkout) }}
@@ -48,7 +48,7 @@
                 {% for workout in workoutPlans %}
                 {% if loop.first %}
                     {{  workout.exercice.target }}
-                    {% endif %}
+                {% endif %}
                 
                 {% if lastExercice is not same as(workout.exercice) %}
                     {% if not loop.first %}

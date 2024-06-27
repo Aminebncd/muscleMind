@@ -5,49 +5,59 @@
 {% block body %}
 
 
-<div class="container dark:bg-secondary/60 light:bg-secondary_light/60 p-8 rounded-lg w-10/12 max-w-screen-md flex flex-col mx-auto backdrop-blur-md shadow-lg	">
+    <div
+        class="container dark:bg-secondary/60 light:bg-secondary_light/60 p-8 rounded-lg w-10/12 flex flex-col mx-auto backdrop-blur-md shadow-lgdark:text-white light:text-black">
         <h1 class="text-3xl text-center font-bold">Exercice list</h1>
-        <h2 class="text-lg text-center font-medium mt-3">looking for a specific exercice ? Find every one of them here grouped by target muscle !</h2>
+        <h2 class="text-lg text-center font-semibold mt-3 mb-12">looking for a specific exercice ? Find every one of them here
+            grouped by target muscle !</h2>
         <ul>
             {# here i'll separate them into divs to group the ones with the same target muscle #}
             {% set target = null %}
             {% for exercice in exercices %}
+                {% if loop.first %}
+                    <a href="{{path ('app_muscle_details', {'id' : exercice.target.id } )}}" class="hover:underline text-xl font-semibold">{{ exercice.target }}</a>
+                {% endif %}
                 {% if target is not same as(exercice.target) %}
-
                     {% if not loop.first %}
-                        </div> 
+                        </div>
+                        <a href="{{path ('app_muscle_details', {'id' : exercice.target.id } )}}" class="hover:underline text-xl font-semibold">{{ exercice.target }}</a>
                     {% endif %}
 
-                    <div class="my-8 px-8 py-4 rounded-lg dark:dark:bg-primary/60 light:bg-primary_light/60 light:bg-primary_light/60">
+                    <div class="mb-8 mt-2 px-8 py-4 rounded-lg dark:dark:bg-primary/60 light:bg-primary_light/60">
                     {% set target = exercice.target %}
                 {% endif %}
-
                 <hr class="my-1 border-white/10">
-                <li> 
-                    <div class="flex justify-between items-center">
-                        <a class="hover:font-medium hover:text-quinary " href="{{path ('app_exercice_details', {'id': exercice.id} )}}">{{exercice}}</a> 
-                        <div>
-                            {% if is_granted('ROLE_ADMIN') %}   
-                                <a class="text-tertiary hover:font-medium hover:text-yellow-300 duration-150 text-lg" href="{{path ('app_exercice_edit', {'id': exercice.id} )}}"><i class="fa-solid fa-pen-to-square"></i></a> - 
-                                <a class="text-tertiary hover:font-medium hover:text-red-600 duration-150 text-lg"  href="{{path ('app_exercice_delete', {'id': exercice.id})}}"><i class="fa-solid fa-trash-can"></i></a>
-                            {% endif %}
+                    <li>
+                        <div class="flex justify-between items-center">
+                            <a class="font-medium hover:font-semibold hover:text-quinary"
+                                href="{{path ('app_exercice_details', {'id': exercice.id} )}}">{{exercice}}</a>
+                            <div>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <a class="text-tertiary hover:font-medium hover:text-yellow-400 duration-150 text-lg"
+                                    href="{{path ('app_exercice_edit', {'id': exercice.id} )}}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a> -
+                                <a class="text-tertiary hover:font-medium hover:text-red-600 duration-150 text-lg"
+                                    href="{{path ('app_exercice_delete', {'id': exercice.id})}}">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
                     <hr class="my-1 border-white/10">
-
                 </li>
-
             {% endfor %}
             {% if target is not null %}
-                </div> 
-            {% endif %}
-        </ul>
-        {% if is_granted('ROLE_ADMIN') %}   
-            <div class="w-full flex justify-end">
-                <a class="m px-4 py-2 rounded-2xl w-fit dark:bg-tertiary light:bg-tertiary_lightdrop-shadow-xl hover:bg-quinary duration-150" href="{{ path('app_exercice_new') }}">Create new</a>
-            </div>
-        {% endif %}
+        </div>
+    {% endif %}
+    </ul>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="w-full flex justify-end">
+            <a class="font-bold px-4 py-2 rounded-2xl w-fit dark:bg-tertiary light:bg-tertiary_light drop-shadow-xl dark:hover:bg-quinary light:hover:bg-senary duration-150"
+                href="{{ path('app_exercice_new') }}">Create new</a>
+        </div>
+    {% endif %}
     </div>
 
-   
+
 {% endblock %}

@@ -182,7 +182,8 @@ class TrainingController extends AbstractController
         $maxOccurrencesPerExercise = 5;
     
         if (isset($exerciseOccurrences[$newExerciseId]) && $exerciseOccurrences[$newExerciseId] >= $maxOccurrencesPerExercise) {
-            $this->addFlash('warning', 'You\'ve added a bit too much volume on this exercise, we recommend 2 to 3 working sets per exercise.');
+            $this->addFlash('warning', 'You\'ve added a bit too much volume on this exercise, 
+            we recommend 2 to 3 working sets per exercise.');
             return true;
         }
     
@@ -205,11 +206,12 @@ class TrainingController extends AbstractController
             }
         }
     
-        $maxOccurrencesPerMuscleGroup = 5;
+        $maxOccurrencesPerMuscleGroup = 15;
     
         foreach ($muscleGroupOccurrences as $muscleGroup => $occurrences) {
             if ($occurrences >= $maxOccurrencesPerMuscleGroup) {
-                $this->addFlash('warning', 'You\'ve added a bit too much volume on the ' . $muscleGroup . ' muscle group. We recommend 10 to 20 sets per muscle group per week.');
+                $this->addFlash('warning', 'You\'ve added a bit too much volume on the ' . $muscleGroup . '
+                 muscle group. We recommend 10 to 20 sets per muscle group per week.');
                 return true;
             }
         }

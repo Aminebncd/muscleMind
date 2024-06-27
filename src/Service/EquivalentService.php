@@ -11,19 +11,19 @@ class EquivalentService
                 "name" => "200 - 300 laptops",
                 "min_points" => 200,
                 "max_points" => 300,
-                "image" => "https://www.amazon.fr/s?k=ordinateur+portable+samsung&__mk_fr_FR=%C3%85M%C3%85%C5%BD%C3%95%C3%91"
+                "image" => "https://static.vecteezy.com/system/resources/thumbnails/025/366/622/small/laptop-with-blank-screen-isolate-on-transparent-background-ai-generated-png.png"
             ],
             [
                 "name" => "70 - 100 cats",
                 "min_points" => 300,
                 "max_points" => 400,
-                "image" => "https://example.com/images/cats.jpg"
+                "image" => "https://png.pngtree.com/png-clipart/20230511/ourmid/pngtree-isolated-cat-on-white-background-png-image_7094927.png"
             ],
             [
                 "name" => "50 - 75 bicycles",
                 "min_points" => 400,
                 "max_points" => 500,
-                "image" => "https://example.com/images/bicycles.jpg"
+                "image" => "https://parspng.com/wp-content/uploads/2022/10/Bicyclepng.parspng.com-4.png"
             ],
             [
                 "name" => "80 - 120 large suitcases",
@@ -119,7 +119,7 @@ class EquivalentService
                 "name" => "50 - 60 blue whales",
                 "min_points" => 700000,
                 "max_points" => 800000,
-                "image" => "https://example.com/images/blue_whales.jpg"
+                "image" => "https://www.freepnglogos.com/uploads/whale-png/whale-home-drawing-download-joy-studio-design-gallery-best-10.png"
             ],
             [
                 "name" => "100 - 120 passenger airplanes",
@@ -132,9 +132,32 @@ class EquivalentService
                 "min_points" => 900000,
                 "max_points" => 1000000,
                 "image" => "https://example.com/images/artificial_island.jpg"
+            ],
+            [
+                "name" => "1 space station",
+                "min_points" => 1000000,
+                "max_points" => 2000000,
+                "image" => "https://example.com/images/space_station.jpg"
+            ],
+            [
+                "name" => "1 lunar base",
+                "min_points" => 2000000,
+                "max_points" => 3000000,
+                "image" => "https://example.com/images/lunar_base.jpg"
+            ],
+            [
+                "name" => "1 Martian colony",
+                "min_points" => 3000000,
+                "max_points" => 4000000,
+                "image" => "https://example.com/images/martian_colony.jpg"
+            ],
+            [
+                "name" => "1 interstellar spaceship",
+                "min_points" => 4000000,
+                // "max_points" => 5000000,
+                "image" => "https://example.com/images/interstellar_spaceship.jpg"
             ]
         ];
-            
 
         foreach ($equivalents as $equivalent) {
             if ($score >= $equivalent['min_points'] && $score < $equivalent['max_points']) {
@@ -148,5 +171,3 @@ class EquivalentService
         return $this->getEquivalent();
     }
 }
-
-

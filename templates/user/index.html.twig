@@ -72,37 +72,41 @@
                     href="{{ path('app_user_newTrack') }}"> here</a>!
             </p>
             <div class="mt-4">
-                <p class="text-lg">
+                <p class="text-lg  font-medium">
                     Last time you tracked your shape, you were: <br><br>
                     {% if user.dateOfBirth %}
                     {{ user.age }} years old <br>
                     {% endif %}
                     {{ latestTracking.height }}cm <br>
                     {{ latestTracking.weight }}kg <br>
-                <div class="w-full flex items-center justify-around mt-4 max-md:flex-col">
-                    <a class="w-fit mx-2 text-center no-underline px-5 py-3 rounded dark:bg-tertiary light:bg-tertiary_lightdrop-shadow-xl hover:bg-quinary duration-150 max-md:w-full max-md:mt-2"
-                        href="{{ path('app_user_newTrack') }}"><i class="fa-solid fa-plus"></i></a>
-                    <a class="w-fit mx-2 text-center no-underline border-2 border-quaternary border-offset-2 text-quaternary hover:bg-quaternary hover:text-black duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2"
-                        href="{{ path('app_user_editTrack', {'id': latestTracking.id}) }}"><i
-                            class="fa-solid fa-pen-to-square"></i></a>
-                    <a class="w-fit mx-2 text-center no-underline border-2 border-red-500 border-offset-2 text-red-500 hover:bg-red-500 hover:dark:text-white light:text-black duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2"
-                        href="{{ path('app_user_deleteTrack', {'id': latestTracking.id}) }}"><i
-                            class="fa-solid fa-minus"></i></a>
-                </div>
                 </p>
+                <div class="w-full flex items-center justify-around mt-4 max-md:flex-col">
+                    <a class="w-fit mx-2 text-center no-underline px-5 py-3 rounded dark:bg-tertiary light:bg-tertiary_light drop-shadow-xl dark:hover:bg-quinary light:hover:bg-senary duration-150 max-md:w-full max-md:mt-2"
+                        href="{{ path('app_user_newTrack') }}">
+                        <i class="fa-solid fa-plus"></i>
+                    </a>
+                    <a class="w-fit mx-2 text-center no-underline border-2 dark:border-quaternary light:border-black border-offset-2 light:hover:border-transparent light:text-black dark:text-quaternary hover:bg-quaternary hover:text-black duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2"
+                        href="{{ path('app_user_editTrack', {'id': latestTracking.id}) }}">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                    <a class="w-fit mx-2 text-center no-underline border-2 border-red-500 border-offset-2 text-red-500 hover:bg-red-500 hover:dark:text-white  duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2"
+                        href="{{ path('app_user_deleteTrack', {'id': latestTracking.id}) }}">
+                        <i class="fa-solid fa-minus"></i>
+                    </a>
+                </div>
             </div>
             {% else %}
             <p class="text-lg font-medium">Wanna track your progress? add your trackings
-                <a class="text-quaternary hover:text-xl hover:font-semibold duration-150"
+                <a class="light:bg-quaternary px-1 dark:text-quaternary light:text-black hover:text-xl duration-150"
                     href="{{ path('app_user_newTrack') }}"> here</a>!
             </p>
             {% endif %}
         </div>
-        <div class="w-full max-w-[600px]">
+        <div class="w-full max-w-[600px]  font-medium">
             {% if bmr %}
             Base metabolic rate: (approx.) {{ bmr }}cal <br>
-            <a class="text-sm text-quaternary hover:text-lg hover:underline duration-150"
-                href="https://envisionfitnessmn.com/about/blog/entryid/15/basal-metabolic-rate-what-is-it-and-why-its-important#:~:text=Knowing%20your%20Basal%20Metabolic%20Rate,BMR%20(or%20maintenance%20calories).">Why
+            <a class=" light:bg-quaternary px-1 dark:text-quaternary light:text-black hover:text-xl duration-150"
+            href="https://envisionfitnessmn.com/about/blog/entryid/15/basal-metabolic-rate-what-is-it-and-why-its-important#:~:text=Knowing%20your%20Basal%20Metabolic%20Rate,BMR%20(or%20maintenance%20calories).">Why
                 is it useful?</a>
             {% endif %}
             <div class="dark:bg-tertiary/10 p-4 rounded backdrop-blur-md">
@@ -113,13 +117,13 @@
     <div class="flex flex-row justify-between mt-14 items-center max-md:flex-col">
         <div class="w-1/3 flex flex-col p-2 max-md:w-full">
             {% if user.performances|length > 0 %}
-            <p class="text-lg font-medium">Made some progress? add entries to your performances
-                <a class="text-quinary hover:text-xl hover:font-semibold duration-150"
-                    href="{{ path('app_user_newPerf') }}">here</a>!
+            <p class="font-medium light:font-bold">Made some progress? add entries to your performances
+                <a class=" light:bg-quinary px-1 dark:text-quinary light:text-black hover:text-xl duration-150"
+                href="{{ path('app_user_newPerf') }}">here</a>!
             </p>
             {% else %}
-            <p class="text-lg font-medium">Wanna track your performance? Register your performances
-                <a class="text-quinary hover:text-xl hover:font-semibold duration-150"
+            <p class="font-medium light:font-bold">Wanna track your performance? Register your performances
+                <a class=" light:bg-quinary px-1 dark:text-quinary light:text-black hover:text-xl duration-150"
                     href="{{ path('app_user_newPerf') }}">here</a>!
             </p>
             {% endif %}
@@ -132,7 +136,7 @@
     </div>
 
     <div class="w-full flex justify-center mt-6">
-        <a class="dark:text-white light:text-black underline text-lg hover:text-xl hover:font-semibold duration-150"
+        <a class="dark:text-white light:text-black underline text-lg hover:text-xl font-semibold hover:font-bold duration-150"
             href="{{ path('app_user_listEntries', {'id': user.id}) }}">List of your entries</a>
     </div>
 </div>
