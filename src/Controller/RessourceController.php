@@ -82,10 +82,6 @@ class RessourceController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        // if ($ressource->getAuthor() !== $this->getUser() 
-        //     || !in_array('ROLE_MODERATOR', $this->getUser()->getRoles())){
-        //     return $this->redirectToRoute('app_home');
-        // }
         // same logic as in my TrainingController
         $isEdit = ($ressource !== null);
 
@@ -176,6 +172,52 @@ class RessourceController extends AbstractController
 
         return $this->redirectToRoute('app_ressource');
     }
+
+
+
+
+
+    #[Route('/favorite/add/{id}/', name: 'app_ressource_fav')]
+    public function add(Ressource $ressource, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        // dd('added');
+        $user->addFavorite($ressource);
+        $em->persist($user);
+        $em->flush();
+        
+        return $this->render('ressource/detailsRessource.html.twig', [
+            'ressource' => $ressource,
+            'controller_name' => 'RessourceController',
+        ]);
+    }
+
+    
+    #[Route('/favorite/remove/{id}/', name: 'app_ressource_unfav')]
+    public function remove(Ressource $ressource, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        // dd($user->getFavorites());
+
+        // dd('removed');
+        // var_dump($user->getFavorites());
+        $user->removeFavorite($ressource);
+        $em->persist($user);
+        $em->flush();
+
+        return $this->render('ressource/detailsRessource.html.twig', [
+            'ressource' => $ressource,
+            'controller_name' => 'RessourceController',
+        ]);
+    }
+
 
     
 }

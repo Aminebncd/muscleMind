@@ -74,6 +74,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Ressource::class, mappedBy: 'Author', cascade: ['persist'])]
     private Collection $ressources;
 
+    /**
+     * @var Collection<int, Ressource>
+     */
+    #[ORM\ManyToMany(targetEntity: Ressource::class)]
+    private Collection $favorites;
+
     
 
 
@@ -89,6 +95,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->programs = new ArrayCollection();
         $this->sessions = new ArrayCollection();
         $this->ressources = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -376,15 +383,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    
-
-
-
-    public function __tostring ()
-    {
-        return $this->username;
-    }
-
     /**
      * @return Collection<int, Ressources>
      */
@@ -413,6 +411,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Ressource>
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Ressource $favorite): static
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites->add($favorite);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Ressource $favorite): static
+    {
+        $this->favorites->removeElement($favorite);
+
+        return $this;
+    }
+
+    public function isFavorite(Ressource $ressource): bool
+    {
+        return $this->favorites->contains($ressource);
+    }
+
+
+        
+
+
+
+    public function __tostring ()
+    {
+        return $this->username;
     }
 
    
