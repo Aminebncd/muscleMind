@@ -1,31 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Session{% endblock %}
-
 {% block body %}
-<div class="dark:bg-secondary/50 light:bg-secondary_light/50 p-8 rounded-lg w-5/6 mt-10 max-w-screen-lg  backdrop-blur-md">
+  {# <a href="{{ path('app_booking_new') }}">Create new booking</a> #}
 
-    <h2 class="text-2xl font-bold my-4">Your sessions</h2>
-    <table class="min-w-full dark:bg-secondary/40 light:bg-secondary_light/40 backdrop-blur-md border dark:border-primary light:border-primary_light rounded-lg shadow-lg">
-        <thead>
-            <tr class="">
-                <th class="px-4 py-2 text-start">Program</th>
-                <th class="px-4 py-2 text-start">Date</th>
-                <th class="px-4 py-2 text-end">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for session in sessions %}
-                <tr class=" even:dark:bg-tertiary/40 even:light:bg-tertiary_light/40  odd:dark:bg-secondary/40 odd:light:bg-secondary_light/40">
-                    <td class="px-4 py-2  text-start"><a class="dark:text-white light:text-black light:font-medium text-lg hover:text-quaternary hover:text-xl duration-150" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{ session.program }}</a></td>
-                    <td class="px-4 py-2 text-start dark:text-white light:text-black light:font-medium text-lg">{{ session.dateFormatted}}</td>
-                    <td class="px-4 py-2 text-end">
-                        <a class="w-fit text-center no-underline text-quaternary hover:bg-quaternary hover:text-black  duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path ('app_user_editTrack', {'id': session.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a class="w-fit text-center no-underline  text-red-500 hover:bg-red-500 hover:dark:text-white light:text-black  duration-150 ease-in-out px-4 py-2 rounded max-md:w-full max-md:mt-2" href="{{ path ('app_user_deleteTrack', {'id': session.id}) }}"><i class="fa-solid fa-minus"></i></a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+  <div
+    id="calendar-holder"
+    {# data-events-url="{{ path('fc_load_events') }}" #}
+  ></div>
 {% endblock %}
+
+{# {% block stylesheets %}
+  {{ encore_entry_link_tags('calendar') }}
+{% endblock %}
+
+{% block javascripts %}
+  {{ encore_entry_script_tags('calendar') }}
+{% endblock %} #}
