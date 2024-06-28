@@ -31,19 +31,20 @@
                     {% endfor %}
                 </ul>
             </div>
+            <a href="{{ path('app_muscle') }}" class="mx-auto font-semibold  dark:text-white light:text-black hover:underline duration-150"><i class="fa-solid fa-arrow-left"></i>  Back to index</a>
         </div>
+
     </div>
 
-    <div class=" mx-auto flex flex-col justify-center max-lg:items-center  w-full mt-24">
-        <div class="flex justify-center w-10/12">
+    <div class=" mx-auto flex flex-col justify-center items-center w-full mt-24">
+        <div class="flex justify-center w-10/12 flex-wrap">
             {% if muscleGroup.muscleGroupSvgBack %}
-            <img class="rounded-bl-lg max-sm:rounded-none w-1/2 mb-8" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgFront ) }}" alt="{{ muscleGroup.muscleGroupSvgFront()}}">
-            <img class="rounded-bl-lg max-sm:rounded-none w-1/2 mb-8" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgBack ) }}" alt="{{ muscleGroup.muscleGroupSvgBack()}}"> 
+            <img class="rounded-bl-lg max-sm:rounded-none w-2/3 max-lg:w-1/2 mb-8" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgFront ) }}" alt="{{ muscleGroup.muscleGroupSvgFront()}}">
+            <img class="rounded-bl-lg max-sm:rounded-none w-2/3 max-lg:w-1/2 mb-8" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgBack ) }}" alt="{{ muscleGroup.muscleGroupSvgBack()}}"> 
             {% else %}
             <img class="rounded-bl-lg max-sm:rounded-none w-11/12 mb-8 max-lg:w-10/12" src="{{ asset('svgs/' ~ muscleGroup.muscleGroupSvgFront ) }}" alt="{{ muscleGroup.muscleGroupSvgFront()}}">
             {% endif %}
         </div>
-        <a href="{{ path('app_muscle') }}" class="mx-auto font-semibold  dark:text-white light:text-black hover:underline duration-150"><i class="fa-solid fa-arrow-left"></i>  Back to index</a>
     </div>
     
 </div>

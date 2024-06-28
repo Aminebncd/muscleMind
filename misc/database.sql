@@ -14,7 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Listage des données de la table musclemind.doctrine_migration_versions : ~1 rows (environ)
+-- Listage des données de la table musclemind.doctrine_migration_versions : ~3 rows (environ)
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 	('DoctrineMigrations\\Version20240612062855', '2024-06-20 11:41:54', 1195),
 	('DoctrineMigrations\\Version20240626143117', '2024-06-27 06:32:17', 100),
@@ -119,7 +119,7 @@ INSERT INTO `muscle_group` (`id`, `muscle_group`, `muscle_group_image`, `muscle_
 	(7, 'LEGS', 'legs.webp', 'legs.svg', 'legs_b.svg'),
 	(8, 'FOREARMS', 'forearms.webp', 'forearms.svg', 'forearms_b.svg');
 
--- Listage des données de la table musclemind.performance : ~2 rows (environ)
+-- Listage des données de la table musclemind.performance : ~3 rows (environ)
 INSERT INTO `performance` (`id`, `user_performing_id`, `exercice_mesured_id`, `personnal_record`, `date_of_performance`) VALUES
 	(14, 1, 191, '80', '2024-06-21 06:44:56'),
 	(15, 1, 191, '95', '2024-06-21 06:45:14'),
@@ -487,10 +487,15 @@ INSERT INTO `tracking` (`id`, `user_tracked_id`, `height`, `weight`, `date_of_tr
 
 -- Listage des données de la table musclemind.user : ~2 rows (environ)
 INSERT INTO `user` (`id`, `username`, `email`, `date_of_birth`, `sex`, `roles`, `password`, `score`, `is_verified`, `last_reset_year`) VALUES
-	(1, 'AmineBncd', 'aminebncd_pro@hotmail.com', '2001-01-15 00:00:00', 'male', '{"0": "ROLE_ADMIN", "2": "ROLE_MODERATOR"}', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 795945, 1, 2024),
+	(1, 'AmineBncd', 'aminebncd_pro@hotmail.com', '2001-01-15 00:00:00', 'male', '{"0": "ROLE_ADMIN", "2": "ROLE_MODERATOR"}', '$2y$13$9w0wbfZqweUoXdaPcqRHqu4nDNyeSHbWHpL7OHS0yDaNTvdAW8an2', 798525, 1, 2024),
 	(2, 'test', 'test@test.com', NULL, NULL, '["ROLE_USER"]', '$2y$13$7oAcsERQ8D7CBYqwu5GwQu.ZQeXun9VPhtJVWbrybWbhz2VB/lvIG', 0, 0, 0);
 
--- Listage des données de la table musclemind.user_ressource : ~0 rows (environ)
+-- Listage des données de la table musclemind.user_ressource : ~3 rows (environ)
+INSERT INTO `user_ressource` (`user_id`, `ressource_id`) VALUES
+	(1, 1),
+	(1, 8),
+	(1, 17),
+	(1, 18);
 
 -- Listage des données de la table musclemind.workout_plan : ~36 rows (environ)
 INSERT INTO `workout_plan` (`id`, `exercice_id`, `program_id`, `number_of_repetitions`, `weights_used`) VALUES

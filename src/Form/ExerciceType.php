@@ -18,14 +18,16 @@ class ExerciceType extends AbstractType
     {
         $builder
             ->add('exerciceName', TextType::class, [
-                'label' => 'Exercice Name',
+                // 'label' => 'Exercice Name',
+                'label' => false,
                 'attr' => [
                     'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border dark:border-primary light:border-primary_light w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white mb-8',
                     'placeholder' => 'Exercice Name',
-                ]
-            ])
-            ->add('exerciceFunction', TextareaType::class, [
-                'label' => 'Exercice Function',
+                    ]
+                    ])
+                    ->add('exerciceFunction', TextareaType::class, [
+                // 'label' => 'Exercice Function',
+                'label' => false,
                 'attr' => [
                     'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border dark:border-primary light:border-primary_light w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white mb-8',
                     'placeholder' => 'Exercice Function',
@@ -36,10 +38,10 @@ class ExerciceType extends AbstractType
                 'choice_label' => 'muscleName',
                 'label' => 'Target Muscle',
                 'attr' => [
-                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border dark:border-primary light:border-primary_light w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white mb-8 mt-1',
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 font-medium border dark:border-primary light:border-primary_light w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white mb-8 mt-1',
                     'placeholder' => 'Target Muscle'
                 ],
-                'row_attr' => ['class' => 'flex flex-col w-full'],
+                'row_attr' => ['class' => 'flex flex-col w-full font-medium'],
             ])
             ->add('secondaryTarget', EntityType::class, [
                 'class' => Muscle::class,
@@ -48,10 +50,10 @@ class ExerciceType extends AbstractType
                 'required' => false,
                 'label' => 'Secondary Target Muscle',
                 'attr' => [
-                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border dark:border-primary light:border-primary_light w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white mb-8 mt-1',
+                    'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border font-medium dark:border-primary light:border-primary_light w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white mb-8 mt-1',
                     'placeholder' => 'Secondary Target Muscle'
                 ],
-                'row_attr' => ['class' => 'flex flex-col w-full'],
+                'row_attr' => ['class' => 'flex flex-col w-full font-medium'],
             ])
             ->add('valider', SubmitType::class, [
                 'attr' => [

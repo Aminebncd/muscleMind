@@ -12,6 +12,22 @@
     <p class="text-lg mb-2 font-semibold">Name: <span class="font-medium">{{ muscle}}</span></p>
     <p class="text-lg mb-2 font-semibold">Function: <span class="font-medium">{{muscle.muscleFunction}}</span></p>
 
+
+    {% if exercices %}
+        <div class="dark:dark:bg-primary/60 light:bg-primary_light/60 p-2 shadow-lg rounded-lg w-full max-w-screen-md flex flex-col my-4 mx-auto">
+            <p class="font-semibold text-lg mb-2">To work this muscle specifically :</p>
+            <ul class="list-disc pl-5 mb-4">
+                {% for exercice in exercices %}
+                    <li class="mb-1">
+                        <a href="{{path ('app_exercice_details', {'id': exercice.id} )}}" class="light:bg-quaternary px-1 dark:text-quaternary font-semibold light:text-black  hover:underline">{{ exercice}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% else %}
+        <p class="text-lg mt-10 mb-4 font-semibold">specifically targeting this muscle would be quite complicated, but other exercices within the muscle group will inevitabelly imply this one too</p>
+    {% endif %}
+
     <a href="{{ path('app_muscleGroup_details', {'id' : muscleGroup.id}) }}" class="mx-auto font-semibold hover:underline duration-150"><i class="fa-solid fa-arrow-left"></i>  Back to muscle group</a>
 </div>
 {% endblock %}

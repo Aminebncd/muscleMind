@@ -77,7 +77,7 @@ class MuscleController extends AbstractController
 
     // renders the muscle details page
     #[Route('/muscle/detailsMuscle/{id}', name: 'app_muscle_details')]
-    public function detailsMuscle(Muscle $muscle = null): Response
+    public function detailsMuscle(Muscle $muscle = null, ExerciceRepository $exerciceRepository): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -89,9 +89,13 @@ class MuscleController extends AbstractController
 
         $muscleGroup = $muscle->getMuscleGroup();
 
+        $exercises = $exerciceRepository->findExercisesByMuscle($muscle);
+           
+
         return $this->render('muscle/detailsMuscle.html.twig', [
             'muscle' => $muscle,
             'muscleGroup' => $muscleGroup,
+            'exercices' => $exercises,
             'controller_name' => 'MuscleController',
         ]);
     }
