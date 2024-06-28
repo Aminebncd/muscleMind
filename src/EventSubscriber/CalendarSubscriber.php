@@ -2,26 +2,14 @@
 
 namespace App\EventSubscriber;
 
-use App\Entity\Session;
+// use App\Entity\User;
 use CalendarBundle\Entity\Event;
 use CalendarBundle\Event\SetDataEvent;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\SecurityBundle\Security;
+// use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CalendarSubscriber implements EventSubscriberInterface
 {
-    private $entityManager;
-    // private $security;
-
-    public function __construct(EntityManagerInterface $entityManager,
-    //  Security $security
-     )
-     
-    {
-        $this->entityManager = $entityManager;
-        // $this->security = $security;
-    }
 
     public static function getSubscribedEvents()
     {
@@ -34,7 +22,7 @@ class CalendarSubscriber implements EventSubscriberInterface
     public function onCalendarSetData(SetDataEvent $setDataEvent)
     {
 
-        $user = $this->security->getUser();
+        $user = $this->getUser();
 
         if (!$user) {
             return;
@@ -44,7 +32,7 @@ class CalendarSubscriber implements EventSubscriberInterface
 
         foreach ($sessions as $session) {
             $event = new Event(
-                (string)$session,
+                (string)$session->getProgram(),
                 $session->getDateSession()
             );
 

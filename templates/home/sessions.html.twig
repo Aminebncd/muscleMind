@@ -1,18 +1,41 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  {# <a href="{{ path('app_booking_new') }}">Create new booking</a> #}
 
-  <div
-    id="calendar-holder"
-    {# data-events-url="{{ path('fc_load_events') }}" #}
-  ></div>
+  <div id="calendar-holder"></div>
+
 {% endblock %}
-
-{# {% block stylesheets %}
-  {{ encore_entry_link_tags('calendar') }}
-{% endblock %}
-
 {% block javascripts %}
-  {{ encore_entry_script_tags('calendar') }}
-{% endblock %} #}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const calendarEl = document.getElementById('calendar-holder');
+    
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            defaultView: 'dayGridMonth',
+            editable: true,
+            eventSources: [
+                {
+                    url: '/fc-load-events',
+                    method: 'POST',
+                    extraParams: {
+                        filters: JSON.stringify({})
+                    },
+                    failure: () => {
+                        // alert('There was an error while fetching FullCalendar!');
+                    },
+                },
+            ],
+            headerToolbar: {
+                start: 'prev,next today',
+                center: 'title',
+                end: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            timeZone: 'UTC',
+        });
+    
+        calendar.render();
+    });
+    </script>
+{% endblock %}
+
