@@ -18,10 +18,12 @@ services:
     App\:
         resource: '../src/'
         exclude:
-            - '../src/DependencyInjection/'
+            # - '../src/DependencyInjection/'
             # - '../src/Entity/'
-            - '../src/Entity/Program.php'
-            - '../src/Kernel.php'
+            # - '../src/Entity/Program.php'
+            # - '../src/Kernel.php'
+            exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
 
     App\Entity\Performance:
         autoconfigure: true
@@ -37,6 +39,10 @@ services:
 
     App\Service\ChartService:
         public: true
+
+    App\EventSubscriber\CalendarSubscriber:
+        arguments:
+            $logger: '@logger'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
