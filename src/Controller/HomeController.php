@@ -23,14 +23,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
-    private $security;
-    private $sessionRepository;
-
-    public function __construct(Security $security, SessionRepository $sessionRepository)
-    {
-        $this->security = $security;
-        $this->sessionRepository = $sessionRepository;
-    }
 
     #[Route('/', name: 'app_landing')]
     public function landing(): Response
@@ -58,7 +50,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/calendar', name: 'app_calendar')]
-    public function calendar(): JsonResponse
+    public function calendar(EntityManagerInterface $em): JsonResponse
     {
         $user = $this->getUser();
 
@@ -70,16 +62,35 @@ class HomeController extends AbstractController
 
         $events = [];
         foreach ($sessions as $session) {
+            $program = $session->getProgram();
+            
+            $program->generateAndSetRandomColor();
+            $em->persist($program);
+            $em->flush();
+            
+
+            $startDateTime = $session->getDateSession();
+            // Set time to start of day
+            $startDateTime->setTime(0, 0, 0);
+            
+            // Clone the startDateTime to get the endDateTime
+            $endDateTime = clone $startDateTime;
+            // Set time to end of day (23:59:59)
+            $endDateTime->setTime(23, 59, 59);
+            
             $events[] = [
-                'title' => (string) $session->getProgram(),
-                'start' => $session->getDateSession()->format('Y-m-d H:i:s'),
-                'backgroundColor' => 'red',
-                'borderColor' => 'red'
+                'title' => (string) $program,
+                'start' => $startDateTime->format('Y-m-d'),
+                'end' => $endDateTime->format('Y-m-d'),
+                'backgroundColor' => $program->getColor(),
+                'borderColor' => $program->getColor()
             ];
         }
 
+
         return new JsonResponse($events);
     }
+
 
 
 
@@ -228,6 +239,31 @@ class HomeController extends AbstractController
         }
 
         $em->remove($session);
+        $em->flush();
+        
+        return $this->redirectToRoute('app_home');
+    }
+
+    // deletes a batch of sessions containing the selected program
+    #[Route('/batchDelete/{id}', name: 'app_home_batchDelete')]
+    public function batchDelete(Program $program = null, 
+                                EntityManagerInterface $em,
+                                Request $request)
+    {
+
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $user = $this->getUser();
+        $sessions = $user->getSessions();
+
+        foreach ($sessions as $session) {
+            if ($session->getProgram() == $program) {
+                $em->remove($session);
+            }
+        }
+
         $em->flush();
         
         return $this->redirectToRoute('app_home');

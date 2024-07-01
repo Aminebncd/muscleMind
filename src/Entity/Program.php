@@ -17,16 +17,20 @@ class Program
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
-
+    
     #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'program', orphanRemoval: true)]
     private Collection $sessions;
-
+    
     #[ORM\OneToMany(targetEntity: WorkoutPlan::class, mappedBy: 'program', cascade: ['persist'], orphanRemoval: true)]
     private Collection $workoutPlans;
-
+    
     #[ORM\ManyToOne(inversedBy: 'programs')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $creator = null;
+    
+    #[ORM\Column(length: 10)]
+    private ?string $color = null;
+
     
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
@@ -160,6 +164,29 @@ class Program
         return $this->title
         // .' ('.$this->muscleGroupTargeted->getName().' - '.$this->secondaryMuscleGroupTargeted->getName().')'
         ;
+    }
+
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): static
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Generate a random color if none is set
+     */
+    public function generateAndSetRandomColor(): void
+    {
+        if ($this->color === null) {
+            $this->color = '#' . substr(md5(mt_rand()), 0, 6); // Generate a random hex color
+        }
     }
 
 }

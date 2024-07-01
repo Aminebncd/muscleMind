@@ -2,7 +2,9 @@
 
 {% block body %}
 
-<div id="calendar-holder"></div>
+<div id="calendar-holder"
+    class="w-10/12 my-8 p-4 rounded-lg shadow-lg dark:bg-primary light:bg-primary_light dark:text-white light:text-black">
+</div>
 
 {% endblock %}
 
@@ -39,4 +41,5 @@
         calendar.render();
     });
 </script>
+
 {% endblock %}
