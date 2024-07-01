@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Program;
 use App\Entity\Session;
 
+use App\Form\BatchDeleteType;
 use App\Form\AutoScheduleType;
 use App\Form\ManualScheduleType;
 use App\Repository\UserRepository;
@@ -13,8 +14,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -33,7 +34,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/sessions', name: 'app_home_sessions')]
-    public function sessions(): Response
+    public function sessions(Request $request, EntityManagerInterface $em): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_landing');
@@ -42,7 +43,27 @@ class HomeController extends AbstractController
         $user = $this->getUser();
         $sessions = $user->getSessions();
 
+        $form = $this->createForm(BatchDeleteType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $program = $form->get('program')->getData();
+            $user = $this->getUser();
+            $sessions = $user->getSessions();
+
+            foreach ($sessions as $session) {
+                if ($session->getProgram() === $program) {
+                    $em->remove($session);
+                }
+            }
+
+            $em->flush();
+
+            return $this->redirectToRoute('app_home');
+        }
+
         return $this->render('home/sessions.html.twig', [
+            'form' => $form->createView(),
             'user' => $user,
             'sessions' => $sessions,
             'controller_name' => 'HomeController',
@@ -245,28 +266,18 @@ class HomeController extends AbstractController
     }
 
     // deletes a batch of sessions containing the selected program
-    #[Route('/batchDelete/{id}', name: 'app_home_batchDelete')]
-    public function batchDelete(Program $program = null, 
-                                EntityManagerInterface $em,
-                                Request $request)
+    #[Route('/batchDelete', name: 'app_home_batchDelete')]
+    public function batchDelete(Request $request, EntityManagerInterface $em): Response
     {
-
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
 
-        $user = $this->getUser();
-        $sessions = $user->getSessions();
+       
 
-        foreach ($sessions as $session) {
-            if ($session->getProgram() == $program) {
-                $em->remove($session);
-            }
-        }
-
-        $em->flush();
-        
-        return $this->redirectToRoute('app_home');
+        return $this->render('program/batch_delete.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 
