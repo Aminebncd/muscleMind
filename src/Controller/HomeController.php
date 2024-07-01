@@ -4,25 +4,34 @@ namespace App\Controller;
 
 use App\Entity\Program;
 use App\Entity\Session;
-// use App\Form\SessionType;
-// use App\Form\ScheduleType;
+
 use App\Form\AutoScheduleType;
 use App\Form\ManualScheduleType;
 use App\Repository\UserRepository;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
+    private $security;
+    private $sessionRepository;
 
-    // returns the landing page of the app
+    public function __construct(Security $security, SessionRepository $sessionRepository)
+    {
+        $this->security = $security;
+        $this->sessionRepository = $sessionRepository;
+    }
+
     #[Route('/', name: 'app_landing')]
     public function landing(): Response
     {
@@ -30,6 +39,49 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+
+    #[Route('/sessions', name: 'app_home_sessions')]
+    public function sessions(): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_landing');
+        }
+
+        $user = $this->getUser();
+        $sessions = $user->getSessions();
+
+        return $this->render('home/sessions.html.twig', [
+            'user' => $user,
+            'sessions' => $sessions,
+            'controller_name' => 'HomeController',
+        ]);
+    }
+
+    #[Route('/calendar', name: 'app_calendar')]
+    public function calendar(): JsonResponse
+    {
+        $user = $this->security->getUser();
+
+        if (!$user) {
+            return new JsonResponse([]);
+        }
+
+        $sessions = $user->getSessions();
+
+        $events = [];
+        foreach ($sessions as $session) {
+            $events[] = [
+                'title' => (string) $session->getProgram(),
+                'start' => $session->getDateSession()->format('Y-m-d H:i:s'),
+                'backgroundColor' => 'red',
+                'borderColor' => 'red'
+            ];
+        }
+
+        return new JsonResponse($events);
+    }
+
+
 
 
     // lists every session and program created by the user
@@ -126,24 +178,6 @@ class HomeController extends AbstractController
             'user' => $user,
             'manualForm' => $manualForm->createView(),
             'autoForm' => $autoForm->createView(),
-        ]);
-    }
-
-    // lists every session
-    #[Route('/sessions', name: 'app_home_sessions')]
-    public function sessions(): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_landing');
-        }
-
-        $user = $this->getUser();
-        $sessions = $user->getSessions();
-
-        return $this->render('home/sessions.html.twig', [
-            'user' => $user,
-            'sessions' => $sessions,
-            'controller_name' => 'HomeController',
         ]);
     }
 
