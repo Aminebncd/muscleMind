@@ -60,7 +60,7 @@ class HomeController extends AbstractController
     #[Route('/calendar', name: 'app_calendar')]
     public function calendar(): JsonResponse
     {
-        $user = $this->security->getUser();
+        $user = $this->getUser();
 
         if (!$user) {
             return new JsonResponse([]);

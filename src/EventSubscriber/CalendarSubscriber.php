@@ -10,12 +10,11 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class CalendarSubscriber implements EventSubscriberInterface
 {
-    private $security;
+    // private $security;
     private $entityManager;
 
-    public function __construct(Security $security, EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->security = $security;
         $this->entityManager = $entityManager;
     }
 
@@ -26,28 +25,5 @@ class CalendarSubscriber implements EventSubscriberInterface
         ];
     }
 
-    // public function onCalendarSetData(SetDataEvent $setDataEvent)
-    // {
-    //     $user = $this->security->getUser();
 
-    //     if (!$user) {
-    //         return;
-    //     }
-
-    //     $sessions = $user->getSessions();
-
-    //     $events = [];
-
-    //     foreach ($sessions as $session) {
-    //         $event = new Event(
-    //             'All day event',
-    //             $session->getDateSession(), 
-    //             $session->getDateSession() 
-    //         );
-
-    //         $setDataEvent->addEvent($event);
-    //     }
-    //     return new JsonResponse($events);
-
-    // }
 }
