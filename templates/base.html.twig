@@ -40,14 +40,14 @@
 
 
             {% if app.user %}
-            <div class="dark:bg-secondary/40 light:bg-secondary_light/70 p-2 my-12 rounded-xl">
+            <div class="dark:bg-secondary/40 light:bg-secondary_light/70 p-2 my-6 rounded-xl">
                 <a href="{{ path('app_user') }}"
                     class="w-full block py-3 text-xl font-semibold px-6 rounded-lg dark:hover:bg-quinary/40 light:hover:bg-senary/60">My
                     Profile</a>
                 <a href="{{ path('app_home') }}"
                     class="w-full block py-3 text-xl font-semibold px-6 rounded-lg dark:hover:bg-quinary/40 light:hover:bg-senary/60">Home</a>
             </div>
-            <div class="dark:bg-secondary/40 light:bg-secondary_light/70 p-2 my-12 rounded-xl">
+            <div class="dark:bg-secondary/40 light:bg-secondary_light/70 p-2 my-6 rounded-xl">
                 <a href="{{ path('app_training') }}"
                     class="w-full block py-3 text-xl font-semibold px-6 rounded-lg dark:hover:bg-quinary/40 light:hover:bg-senary/60">Program</a>
                 <a href="{{ path('app_muscle') }}"
@@ -58,7 +58,7 @@
                     class="w-full block py-3 text-xl font-semibold px-6 rounded-lg dark:hover:bg-quinary/40 light:hover:bg-senary/60">Resources</a>
             </div>
             {% if is_granted('ROLE_ADMIN') %}
-            <div class="dark:bg-secondary/40 light:bg-secondary_light/70 p-2 my-12 rounded-xl">
+            <div class="dark:bg-secondary/40 light:bg-secondary_light/70 p-2 my-6 rounded-xl">
                 <a href="{{ path('app_admin_dashboard') }}"
                     class="w-full block py-3 text-xl font-semibold px-6 rounded-lg dark:hover:bg-quinary/40 light:hover:bg-senary/60">Admin</a>
                 <a href="{{ path('app_user_list') }}"
@@ -75,14 +75,14 @@
                     Ressource</a>
             </div>
             {% endif %}
-            <div class="dark:bg-secondary/40 light:bg-secondary_light/70 p-2 my-12 rounded-xl">
+            <div class="dark:bg-secondary/40 light:bg-secondary_light/70 p-2 my-6 rounded-xl">
                 <a href="{{path('app_settings')}}"
                     class="w-full block py-3 text-xl font-semibold px-6 rounded-lg dark:hover:bg-quinary/40 light:hover:bg-senary/60">Settings</a>
                 <a href="{{path('app_logout')}}"
                     class="w-full block py-3 text-xl font-semibold px-6 rounded-lg dark:hover:bg-quinary/40 light:hover:bg-senary/60">Logout</a>
             </div>
             {% else %}
-            <div class="dark:bg-secondary/40 light:bg-secondary_light/70 p-2 my-12 rounded-xl">
+            <div class="dark:bg-secondary/40 light:bg-secondary_light/70 p-2 my-6 rounded-xl">
                 <a href="{{ path('app_login') }}"
                     class="w-full block py-3 text-xl font-semibold px-6 rounded-lg dark:hover:bg-quinary/40 light:hover:bg-senary/60">Login</a>
                 <a href="{{ path('app_register') }}"
@@ -182,7 +182,7 @@
     </main>
 
     <footer
-        class="w-full fixed bottom-0 py-6 dark:bg-nav light:bg-nav_light dark:text-white light:text-black text-center">
+        class="z-20 w-full fixed bottom-0 py-6 dark:bg-nav light:bg-nav_light dark:text-white light:text-black text-center">
         <p class="light:font-bold" &copy; 2024 MuscleMind. All rights reserved.</p>
     </footer>
 
