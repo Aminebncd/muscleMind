@@ -119,6 +119,11 @@ main {
     overflow: hidden;
 }
 
+.parallax {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
 
 
 
