@@ -112,7 +112,47 @@ class HomeController extends AbstractController
         return new JsonResponse($events);
     }
 
+    #[Route('/calendar/create', name: 'app_calendar_create')]
+    public function createEvent(Request $request, EntityManagerInterface $em): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
 
+        if (!$this->getUser()) {
+            return new JsonResponse(['status' => 'Unauthorized'], JsonResponse::HTTP_UNAUTHORIZED);
+        }
+
+        $session = new Session();
+        $session->setTitle($data['title']);
+        $session->setDateSession(new \DateTime($data['start']));
+        $session->setProgram($this->getUser()->getProgram());
+
+        $em->persist($session);
+        $em->flush();
+
+        return new JsonResponse(['status' => 'Event created'], JsonResponse::HTTP_CREATED);
+    }
+
+    #[Route('/calendar/update/{id}', name: 'app_calendar_update')]
+    public function updateEvent(Request $request, Session $session, EntityManagerInterface $em): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $session->setTitle($data['title']);
+        $session->setDateSession(new \DateTime($data['start']));
+
+        $em->flush();
+
+        return new JsonResponse(['status' => 'Event updated'], JsonResponse::HTTP_OK);
+    }
+
+    #[Route('/calendar/delete/{id}', name: 'app_calendar_delete')]
+    public function deleteEvent(Session $session, EntityManagerInterface $em): JsonResponse
+    {
+        $em->remove($session);
+        $em->flush();
+
+        return new JsonResponse(['status' => 'Event deleted'], JsonResponse::HTTP_NO_CONTENT);
+    }
 
 
 
