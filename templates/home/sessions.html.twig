@@ -1,33 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
 <div id="calendar-holder"
     class="w-10/12 my-8 p-4 rounded-lg shadow-lg dark:bg-primary light:bg-primary_light dark:text-white light:text-black">
 </div>
 
 <div
-    class="dark:bg-secondary/60 light:bg-secondary_light/60 dark:text-white light:text-black p-4 rounded-lg w-5/6 mt-10 max-w-screen-lg  backdrop-blur-md">
-    <div class="mt-4 px-4 py-2 mb-8 rounded-lg dark:dark:bg-primary/60 light:bg-primary_light/60">
-        <h1 class="text-center font-bold text-2xl px-2 py-4">batch delete your sessions</h1>
+    class="dark:bg-secondary/60 light:bg-secondary_light/60 dark:text-white light:text-black p-4 rounded-lg w-5/6 mt-10 max-w-screen-lg backdrop-blur-md">
+    <div class="mt-4 px-4 py-2 mb-8 rounded-lg dark:bg-primary/60 light:bg-primary_light/60">
+        <h1 class="text-center font-bold text-2xl px-2 py-4">Batch delete your sessions</h1>
     </div>
 
     {{ form_start(form) }}
-
     {{ form_end(form) }}
 </div>
-
-
 {% endblock %}
 
 {% block javascripts %}
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 <script>
-
+    console.log('DOM loaded');
     var calendarEl = document.getElementById('calendar-holder');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        defaultView: 'dayGridMonth',
+        initialView: 'dayGridMonth', // Updated property name
         editable: true,
         headerToolbar: {
             start: 'prev,next today',
@@ -51,7 +46,5 @@
     });
 
     calendar.render();
-
 </script>
-
 {% endblock %}
