@@ -101,6 +101,7 @@ class HomeController extends AbstractController
             
             $events[] = [
                 'id' => $session->getId(),
+                'programId' => $session->getProgram()->getId(),
                 'title' => (string) $program,
                 'start' => $startDateTime->format('Y-m-d'),
                 'end' => $endDateTime->format('Y-m-d'),
@@ -127,6 +128,7 @@ class HomeController extends AbstractController
 
     //     return new JsonResponse(['status' => 'Event updated'], JsonResponse::HTTP_OK);
     // }
+
 
     #[Route('/calendar/delete/{id}', name: 'app_calendar_delete')]
     public function deleteEvent(Session $session, EntityManagerInterface $em): JsonResponse
