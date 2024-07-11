@@ -17,7 +17,7 @@ class WorkoutType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // we convert our options to arrays and merge them to make one big list
+        // i convert my options to arrays and merge them to make one big list
         $primaryExercises = $options['primaryMuscleGroupExercises']->toArray();
         $secondaryExercises = $options['secondaryMuscleGroupExercises']->toArray();
         $allExercises = array_merge($primaryExercises, $secondaryExercises);

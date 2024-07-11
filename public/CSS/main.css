@@ -204,6 +204,10 @@ main {
   .theme-switch__checkbox {
     display: none;
   }
+
+ .grecaptcha-badge {
+  z-index: 1000;
+ }
   
   .theme-switch__circle-container {
     width: var(--circle-container-diameter);

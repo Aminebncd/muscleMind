@@ -101,7 +101,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'attr' => ['class' => 'w-full max-w-xl mx-auto flex flex-col space-y-4 dark:bg-primary px-4 pt-4 pb-8 rounded-lg shadow-lg'],
+            'attr' => ['class' => 'z-30 w-full max-w-xl mx-auto flex flex-col space-y-4 dark:bg-primary px-4 pt-4 pb-8 rounded-lg shadow-lg'],
         ]);
     }
 }
