@@ -31,6 +31,9 @@ class ResetPasswordRequestFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
+            // just for show
+            // symfony already has a csrf_protection enabled by default
+            // with a hidden input field named _token
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             'csrf_token_id'   => 'my_form_item',

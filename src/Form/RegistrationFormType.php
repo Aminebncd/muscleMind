@@ -56,8 +56,10 @@ class RegistrationFormType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank(),
-                    // Uncomment for stricter password rules
-                    // new Regex([
+                // je laisse la regex pour plus tard le temps de faire mes tests, 
+                // une fois activée elle necessitera des 12 caracteres minimum,
+                // 1 minuscule, 1 majuscule, 1 chiffre et 1 caractere special comme le recommande la CNIL                    
+                // new Regex([
                     //     'match' => true,
                     //     'pattern' => '/^(?=.+[$&+,:;=?@#|<>.-^*()%!])(?=.+[0-9])(?=.+[a-z])(?=.+[A-Z]).{12,}$/',
                     // ]),

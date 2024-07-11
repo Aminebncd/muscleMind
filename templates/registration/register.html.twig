@@ -12,7 +12,6 @@
     {{app.flashes('error') | last}}
     {{ form_row(registrationForm.username) }}
     {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.plainPassword) }}
     <p>Your passorwd should include :</p>
     <ul>
         <li>At least 12 characters</li>
@@ -20,6 +19,7 @@
         <li>At least one number</li>
         <li>At least one special character</li>
     </ul>
+    {{ form_row(registrationForm.plainPassword) }}
     {# {{ form_row(registrationForm.captcha)}} #}
     {{ form_row(registrationForm.agreeTerms) }}
     

@@ -18,20 +18,24 @@
 
 {% block javascripts %}
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 
-    var calendarEl = document.getElementById('calendar-holder');
+var calendarEl = document.getElementById('calendar-holder');
 
 var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
+    themeSystem: 'bootstrap5',
     editable: true,
     headerToolbar: {
         start: 'prev,next today',
         center: 'title',
-        end: 'dayGridMonth,timeGridWeek,timeGridDay'
+        end: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
     },
     timeZone: 'UTC',
+    weekNumbers: true,
+    dayMaxEvents: true,
     events: function (fetchInfo, successCallback, failureCallback) {
         console.log('Fetching events...');
         fetch('/calendar')
@@ -48,22 +52,28 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
     eventClick: function (info) {
         var programId = info.event.extendedProps.programId;
         
-        // Confirmation personnalisée
-        var confirmed = showCustomConfirm();
-        
-        if (confirmed) {
-            deleteEvent(info.event.id);
-            info.event.remove();
-        } else {
-            redirectToEditEvent(programId);
-        }
+        // Confirmation personnalisée avec SweetAlert2
+        showCustomConfirm(info.event.id, programId);
     }
 });
 
 calendar.render();
 
-function showCustomConfirm() {
-    return confirm('Voulez-vous : \n\n - Voir le contenu\n - Supprimer la session');
+function showCustomConfirm(eventId, programId) {
+    Swal.fire({
+        title: 'Que voulez-vous faire ?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Consulter',
+        denyButtonText: 'Supprimer',
+        cancelButtonText: 'Annuler'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            redirectToEditEvent(programId);
+        } else if (result.isDenied) {
+            deleteEvent(eventId);
+        }
+    });
 }
 
 function redirectToEditEvent(programId) {
