@@ -52,7 +52,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
     eventClick: function (info) {
         var programId = info.event.extendedProps.programId;
         
-        // Confirmation personnalisée avec SweetAlert2
+        // custom confirm dialog with SweetAlert2
         showCustomConfirm(info.event.id, programId);
     }
 });
@@ -61,12 +61,12 @@ calendar.render();
 
 function showCustomConfirm(eventId, programId) {
     Swal.fire({
-        title: 'Que voulez-vous faire ?',
+        title: 'Do you want to :',
         showDenyButton: true,
         showCancelButton: true,
-        confirmButtonText: 'Consulter',
-        denyButtonText: 'Supprimer',
-        cancelButtonText: 'Annuler'
+        confirmButtonText: 'Check content',
+        denyButtonText: 'Delete event',
+        cancelButtonText: 'Cancel'
     }).then((result) => {
         if (result.isConfirmed) {
             redirectToEditEvent(programId);
@@ -77,7 +77,7 @@ function showCustomConfirm(eventId, programId) {
 }
 
 function redirectToEditEvent(programId) {
-    // Redirection vers la page d'édition du programme
+    // Redirect to the edit page
     window.location.href = '/training/edit/' + programId;
 }
 
