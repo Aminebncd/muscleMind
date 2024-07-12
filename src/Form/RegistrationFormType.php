@@ -80,7 +80,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
                 'attr' => ['class' => 'form-checkbox mx-2 h-4 w-4 text-blue-600'],
-                'row_attr' => ['class' => 'my-4 flex items-center justify-center w-full'],
+                'row_attr' => ['class' => 'my-4 flex items-center justify-end w-full'],
             ])
 
 
@@ -101,7 +101,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'attr' => ['class' => 'z-30 w-full max-w-xl mx-auto flex flex-col space-y-4 dark:bg-primary px-4 pt-4 pb-8 rounded-lg shadow-lg'],
+            'attr' => ['class' => 'space-y-4 px-4 pt-4 pb-8'],
         ]);
     }
 }

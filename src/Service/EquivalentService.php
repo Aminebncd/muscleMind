@@ -125,7 +125,7 @@ class EquivalentService
                 "name" => "100 - 120 passenger airplanes",
                 "min_points" => 800000,
                 "max_points" => 900000,
-                "image" => "https://example.com/images/passenger_airplanes.jpg"
+                "image" => "https://i.pinimg.com/originals/8d/d9/74/8dd974be9c3274346c87f1f3c01ca192.png"
             ],
             [
                 "name" => "1 artificial island",

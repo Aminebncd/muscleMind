@@ -3,21 +3,28 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post" class="light:text-black dark:text-white font-medium w-full mt-24 max-w-xl mx-auto flex flex-col justify-center space-y-4 dark:bg-primary light:bg-primary_light px-4 pt-4 pb-8 rounded-lg shadow-lg">
+<form method="post"
+    class="light:text-black dark:text-white font-medium w-full mt-24 max-w-xl mx-auto flex flex-col justify-center space-y-4 dark:bg-primary light:bg-primary_light px-4 pt-4 pb-8 rounded-lg shadow-lg">
     {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
     {# {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
+    <div class="mb-3">
+        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+    </div>
     {% endif %} #}
 
-    <h1 class="text-xl mb-3 font-weight-normal text-center">Welcome back!</h1>
+    <h1 class="text-2xl mb-3 pt-4 font-bold text-center">Welcome back!</h1>
 
-    <input class="text-black w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-quinary mb-8" type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" placeholder="email" required autofocus>
-    <input class="text-black w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-quaternary mb-8" type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="password" required>
+    <input
+        class="text-black w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-quinary mb-8"
+        type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email"
+        placeholder="email" required autofocus>
+    <input
+        class="text-black w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-quaternary mb-8"
+        type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password"
+        placeholder="password" required>
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
     <div class="flex justify-center items-center mb-8">
@@ -28,16 +35,21 @@
     </div>
 
     <div class="flex justify-center">
-        <button class="w-3/5 px-4 py-2 mb-8 dark:bg-tertiary light:bg-tertiary_light drop-shadow-xl hover:bg-quinary duration-150 dark:text-white light:text-black rounded-lg" type="submit">
+        <button
+            class="w-3/5 px-4 py-2 mb-8 dark:bg-tertiary light:bg-tertiary_light drop-shadow-xl hover:bg-quinary duration-150 dark:text-white light:text-black rounded-lg"
+            type="submit">
             Log in!
         </button>
     </div>
-    
-    <p class="text-center">First time here? 
-        <a class="text-quinary hover:dark:text-white hover:light:text-black " href="{{path('app_register')}}">Sign up!</a>
+
+    <p class="text-center">First time here?
+        <a class="dark:text-quinary light:text-black light:bg-quinary light:px-2 hover:font-bold duration-150  "
+            href="{{path('app_register')}}">Sign
+            up!</a>
     </p>
     <p class="text-center">Forgot your password?
-        <a class="text-quaternary hover:dark:text-white hover:light:text-black " href="{{path('app_forgot_password_request')}}">Let's change it!</a>
+        <a class="dark:text-quaternary light:text-black light:bg-quaternary light:px-2 hover:font-bold duration-150"
+            href="{{path('app_forgot_password_request')}}">Let's change it!</a>
     </p>
 </form>
 {% endblock %}
