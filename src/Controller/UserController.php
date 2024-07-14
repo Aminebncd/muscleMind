@@ -32,6 +32,7 @@ class UserController extends AbstractController
         $this->chartService = $chartService;
     }
 
+    
     // gathers all the connected user's data to display them
     #[Route('/user/myProfile', name: 'app_user')]
     public function index(Request $request, 
@@ -47,18 +48,11 @@ class UserController extends AbstractController
 
         $user = $this->getUser();
         $oldScore = $user->getScore();
-        // $user->setSex(null);
-        
-        // dd($user->getSex());
 
         $this->updateScore($user, $em);
 
         $newScore = $user->getScore(); 
         $scoreDifference = $newScore - $oldScore;  
-
-         // Log des scores pour le débogage
-        // error_log("Old Score: $oldScore, New Score: $newScore, Score Difference: $scoreDifference");
-
 
         $equiv = $this->displayEquivalent($user);
         $activity = $this->getActivity($user, $sr, 365);
@@ -69,16 +63,23 @@ class UserController extends AbstractController
 
         $response = new Response();
         if ($user->getSex() === null || $user->getDateOfBirth() === null) {
+            
             $lastReminder = $request->cookies->get('profile_reminder');
             $currentDate = new \DateTime();
-
+            
+            // If no reminder cookie exists or last reminder was more than 7 days ago
             if (!$lastReminder || new \DateTime($lastReminder) <= $currentDate->modify('-7 days')) {
-                $this->addFlash('message', 'In order to get your BMR, you need to fill in your profile first and add your sex and age. The data will only be used to give you numerical insights on your progress and metabolical needs.');
-
+                // Add a flash message to remind the user to fill in their profile
+                $this->addFlash(
+                    'message',
+                    'In order to get your BMR, you need to fill in your profile first and add your sex and age. The data will only be used to give you numerical insights on your progress and metabolical needs.'
+                );
+                
                 $cookie = new Cookie('profile_reminder', (new \DateTime())->format('Y-m-d'), strtotime('+7 days'));
                 $response->headers->setCookie($cookie);
             }
         }
+        $response->send();
 
         if ($tr->getLatest($user) !== null) {
             $latestTracking = $tr->getLatest($user);
@@ -90,6 +91,7 @@ class UserController extends AbstractController
 
         return $this->render('user/index.html.twig', [
             'user' => $user,
+            'response' => $response,
             'equiv' => $equiv, 
             'activity' => $activity,
             'bmr' => $bmr,
@@ -110,49 +112,49 @@ class UserController extends AbstractController
     // factorized it for better readability
     // updates the user's score based on the sessions he has done
     private function updateScore(User $user, EntityManagerInterface $em)
-{
-    $sessions = $user->getSessions();
-    $totalScore = 0;
-    $now = new \DateTime;
-    $currentYear = (int) $now->format('Y');
-
-    // Check if we need to reset the score and remove old sessions
-    if ($user->getLastResetYear() !== $currentYear) {
-        // Reset the score
-        $user->setScore(0);
-        $user->setLastResetYear($currentYear);
-
-        // Remove sessions from the previous years
-        foreach ($sessions as $session) {
-            $sessionYear = (int) $session->getDateSession()->format('Y');
-            if ($sessionYear < $currentYear) {
-                $em->remove($session);
-            }
-        }
-
-        // Flush the removal of old sessions
-        $em->flush();
-        
-        // Refresh the user's sessions to exclude the removed ones
-        $em->refresh($user);
+    {
         $sessions = $user->getSessions();
-    }
+        $totalScore = 0;
+        $now = new \DateTime;
+        $currentYear = (int) $now->format('Y');
 
-    // Calculate the new total score based on the remaining sessions
-    foreach ($sessions as $session) {
-        if ($session->getDateSession() <= $now) {
-            $program = $session->getProgram();
-            $workoutPlans = $program->getWorkoutPlans();
-            foreach ($workoutPlans as $workoutPlan) {
-                $totalScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
+        // Check if we need to reset the score and remove old sessions
+        if ($user->getLastResetYear() !== $currentYear) {
+            // Reset the score
+            $user->setScore(0);
+            $user->setLastResetYear($currentYear);
+
+            // Remove sessions from the previous years
+            foreach ($sessions as $session) {
+                $sessionYear = (int) $session->getDateSession()->format('Y');
+                if ($sessionYear < $currentYear) {
+                    $em->remove($session);
+                }
+            }
+
+            // Flush the removal of old sessions
+            $em->flush();
+            
+            // Refresh the user's sessions to exclude the removed ones
+            $em->refresh($user);
+            $sessions = $user->getSessions();
+        }
+
+        // Calculate the new total score based on the remaining sessions
+        foreach ($sessions as $session) {
+            if ($session->getDateSession() <= $now) {
+                $program = $session->getProgram();
+                $workoutPlans = $program->getWorkoutPlans();
+                foreach ($workoutPlans as $workoutPlan) {
+                    $totalScore += ($workoutPlan->getWeightsUsed() * $workoutPlan->getNumberOfRepetitions());
+                }
             }
         }
-    }
 
-    $user->setScore($totalScore);
-    $em->persist($user);
-    $em->flush();
-}
+        $user->setScore($totalScore);
+        $em->persist($user);
+        $em->flush();
+    }
 
 
 
@@ -422,15 +424,15 @@ class UserController extends AbstractController
 
     // this function will calculate the user's BMI
     // and return it
-    private function calculateBMI(User $user, TrackingRepository $tr,
-    )
-    {
-        $height = ($tr->getLatest($user)->getHeight()/100);
-        $weight = $tr->getLatest($user)->getWeight();
-        $bmi = round(($weight / ($height * $height)), 1);
-        // $bmi = ($weight / ($height * $height));
-        return $bmi;
-    }
+    // private function calculateBMI(User $user, TrackingRepository $tr,
+    // )
+    // {
+    //     $height = ($tr->getLatest($user)->getHeight()/100);
+    //     $weight = $tr->getLatest($user)->getWeight();
+    //     $bmi = round(($weight / ($height * $height)), 1);
+    //     // $bmi = ($weight / ($height * $height));
+    //     return $bmi;
+    // }
 
 
     // this function will calculate the user's BMR

@@ -32,6 +32,25 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+    
+    // lists every session and program created by the user
+    // also my default route
+    #[Route('/home', name: 'app_home')]
+    public function index(Request $request): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_landing');
+        }
+
+        $user = $this->getUser();
+        $sessions = $user->getSessions();
+
+        return $this->render('home/index.html.twig', [
+            'user' => $user,
+            'sessions' => $sessions,
+            'controller_name' => 'HomeController',
+        ]);
+    }
 
     #[Route('/sessions', name: 'app_home_sessions')]
     public function sessions(Request $request, EntityManagerInterface $em): Response
@@ -115,21 +134,6 @@ class HomeController extends AbstractController
         return new JsonResponse($events);
     }
 
-
-    // #[Route('/calendar/update/{id}', name: 'app_calendar_update')]
-    // public function updateEvent(Request $request, Session $session, EntityManagerInterface $em): JsonResponse
-    // {
-    //     $data = json_decode($request->getContent(), true);
-
-    //     $session->setTitle($data['title']);
-    //     $session->setDateSession(new \DateTime($data['start']));
-
-    //     $em->flush();
-
-    //     return new JsonResponse(['status' => 'Event updated'], JsonResponse::HTTP_OK);
-    // }
-
-
     #[Route('/calendar/delete/{id}', name: 'app_calendar_delete')]
     public function deleteEvent(Session $session, EntityManagerInterface $em): JsonResponse
     {
@@ -140,29 +144,6 @@ class HomeController extends AbstractController
     }
 
 
-
-    // lists every session and program created by the user
-    // also my default route
-    #[Route('/home', name: 'app_home')]
-    public function index(Request $request): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_landing');
-        }
-
-
-        $user = $this->getUser();
-        // $programs = $user->getPrograms();
-        $sessions = $user->getSessions();
-
-        return $this->render('home/index.html.twig', [
-            'user' => $user,
-            'sessions' => $sessions,
-            // 'programs' => $programs,
-            // 'totalScore' => $totalScore,
-            'controller_name' => 'HomeController',
-        ]);
-    }
 
     #[Route('/newSession', name: 'app_home_newSession')]
     public function newSession(Request $request, 
@@ -268,10 +249,6 @@ class HomeController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-
-
-
     
     // deletes a Session, pretty straightforward
     #[Route('/delete/{id}', name: 'app_home_deleteSession')]
@@ -298,7 +275,7 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-       
+
 
         return $this->render('program/batch_delete.html.twig', [
             'form' => $form->createView(),

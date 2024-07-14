@@ -89,8 +89,8 @@ class ChartService
                 ],
             ],
             'y' => [
-                'suggestedMin' => (min($trackingWeights) - 30),
-                'suggestedMax' => (max($trackingWeights) + 20),
+                'suggestedMin' => (min($trackingWeights) - 10),
+                'suggestedMax' => (max($trackingWeights) + 10),
                 'grid' => [
                     'color' => 'rgba(100, 100, 100, 0.3)', 
                 ],

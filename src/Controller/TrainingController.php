@@ -105,6 +105,8 @@ class TrainingController extends AbstractController
     private function handleProgramForm(Request $request, 
                                         Program $program, 
                                         EntityManagerInterface $em) {
+    
+        // we create the program form
         $formAddProgram = $this->createForm(ProgramType::class, $program);
         $formAddProgram->handleRequest($request);
 
@@ -163,6 +165,43 @@ class TrainingController extends AbstractController
 
         return [$exercisesForPrimaryMuscleGroup, $exercisesForSecondaryMuscleGroup];
     }
+    
+
+
+    // here we handle the workout form
+    private function handleWorkoutForm(Request $request, 
+                                    ArrayCollection $exercisesForPrimaryMuscleGroup, 
+                                    ArrayCollection $exercisesForSecondaryMuscleGroup, 
+                                    Program $program, 
+                                    EntityManagerInterface $em) {
+
+        // we create the workout form with the pre established options
+        $formAddWorkout = $this->createForm(WorkoutType::class, new WorkoutPlan(), [
+            'primaryMuscleGroupExercises' => $exercisesForPrimaryMuscleGroup,
+            'secondaryMuscleGroupExercises' => $exercisesForSecondaryMuscleGroup,
+        ]);
+        $formAddWorkout->handleRequest($request);
+
+        // after adding a workoutPlan we stay in edit mode to add more
+        if ($formAddWorkout->isSubmitted() && $formAddWorkout->isValid()) {
+            $workoutPlan = $formAddWorkout->getData();
+            $workoutPlan->setProgram($program);
+
+            // Get the new exercise id
+            $newExerciseId = $workoutPlan->getExercice()->getId();
+            
+                    $em->persist($workoutPlan);
+                    $em->flush();
+
+            // Check if the exercise or muscle group occurrences exceeds the limit
+            if ($this->checkExerciseOccurrences($program, $newExerciseId) || $this->checkMuscleGroupOccurrences($program, $newExerciseId)) {
+                return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
+            }
+            return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
+        }
+
+        return $formAddWorkout;
+    }
 
 
 
@@ -211,7 +250,7 @@ class TrainingController extends AbstractController
         foreach ($muscleGroupOccurrences as $muscleGroup => $occurrences) {
             if ($occurrences >= $maxOccurrencesPerMuscleGroup) {
                 $this->addFlash('warning', 'You\'ve added a bit too much volume on the ' . $muscleGroup . '
-                 muscle group. We recommend 10 to 20 sets per muscle group per week.');
+                muscle group. We recommend 10 to 20 sets per muscle group per week.');
                 return true;
             }
         }
@@ -221,50 +260,9 @@ class TrainingController extends AbstractController
 
 
 
-    // here we handle the workout form
-    private function handleWorkoutForm(Request $request, 
-                                    ArrayCollection $exercisesForPrimaryMuscleGroup, 
-                                    ArrayCollection $exercisesForSecondaryMuscleGroup, 
-                                    Program $program, 
-                                    EntityManagerInterface $em) {
-
-    // we create the workout form with the pre established options
-    $formAddWorkout = $this->createForm(WorkoutType::class, new WorkoutPlan(), [
-        'primaryMuscleGroupExercises' => $exercisesForPrimaryMuscleGroup,
-        'secondaryMuscleGroupExercises' => $exercisesForSecondaryMuscleGroup,
-    ]);
-    $formAddWorkout->handleRequest($request);
-
-    // after adding a workoutPlan we stay in edit mode to add more
-    if ($formAddWorkout->isSubmitted() && $formAddWorkout->isValid()) {
-        $workoutPlan = $formAddWorkout->getData();
-        $workoutPlan->setProgram($program);
-
-        // Get the new exercise id
-        $newExerciseId = $workoutPlan->getExercice()->getId();
-        
-                $em->persist($workoutPlan);
-                $em->flush();
-
-        // Check if the exercise or muscle group occurrences exceed the limit
-        if ($this->checkExerciseOccurrences($program, $newExerciseId) || $this->checkMuscleGroupOccurrences($program, $newExerciseId)) {
-            return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
-        }
-        return $this->redirectToRoute('app_training_edit', ['id' => $program->getId()]);
-    }
-
-    return $formAddWorkout;
-}
-
-
-// the last function of my former createEditProgram function
-// it's used to render the view
-// it's separated to make the code more readable and easier to maintain
-// it's not meant to be used outside of the createEditProgram function,, that's why it's private
-
-    // this function renders the view
+    // the last function of my former createEditProgram function
+    // it's used to render the view
     // the FormInterface type hinting is necessary for the render() method
-
     private function renderTrainingView(FormInterface $formAddProgram, 
                                             FormInterface $formAddWorkout, 
                                             Program $program, bool $isEdit) {

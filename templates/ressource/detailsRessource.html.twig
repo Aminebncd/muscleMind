@@ -4,34 +4,44 @@
 
 {% block body %}
 
-{% if is_granted('ROLE_ADMIN') %}   
-    <div class="flex justify-end mb-4">
-        <a class="px-4 py-2 dark:bg-tertiary light:bg-tertiary_light font-bold dark:text-white light:text-black rounded-lg hover:scale-105 dark:light:hover:bg-yellow-500 duration-150" href="{{path ('app_ressource_edit', {'id' : ressource.id} )}}">Modify ressource</a>
-        <a class="px-4 py-2 dark:bg-tertiary light:bg-tertiary_light font-bold dark:text-white light:text-black rounded-lg hover:scale-105 dark:light:hover:bg-red-600 duration-150 ml-2" href="{{path ('app_ressource_delete', {'id' : ressource.id} )}}">Delete ressource</a>
-    </div>
+{% if is_granted('ROLE_ADMIN') %}
+<div class="flex justify-end mb-4">
+    <a class="px-4 py-2 dark:bg-tertiary light:bg-tertiary_light font-bold dark:text-white light:text-black rounded-lg hover:scale-105 dark:light:hover:bg-yellow-500 duration-150"
+        href="{{path ('app_ressource_edit', {'id' : ressource.id} )}}">Modify ressource</a>
+    <a class="px-4 py-2 dark:bg-tertiary light:bg-tertiary_light font-bold dark:text-white light:text-black rounded-lg hover:scale-105 dark:light:hover:bg-red-600 duration-150 ml-2"
+        href="{{path ('app_ressource_delete', {'id' : ressource.id} )}}">Delete ressource</a>
+</div>
 {% endif %}
 
 {% if ressource %}
-    <div class="dark:bg-secondary/60 light:bg-secondary_light/60 rounded-lg p-8 backdrop-blur-md drop-shadow-xl w-10/12">
-        <div class="flex justify-between mb-2">
-            <h1 class="text-2xl dark:text-white light:text-black font-bold mb-4">{{ ressource.title }}</h1>
-            {% if app.user.isFavorite(ressource) %}
-                <a href="{{ path('app_ressource_unfav', {'id': ressource.id}) }}" class="text-nowrap h-fit w-fit px-4 py-2 font-semibold dark:text-white light:text-black dark:bg-tertiary light:bg-tertiary_light rounded-full group"><i class="stroke text-senary mr-2 group-hover:scale-125 duration-100 fa-solid fa-star"></i>Remove from Favorites</a>
-            {% else %}
-                <a href="{{ path('app_ressource_fav', {'id': ressource.id}) }}" class="text-nowrap h-fit w-fit  px-4 py-2 font-semibold dark:text-white light:text-black dark:bg-tertiary light:bg-tertiary_light rounded-full group"><i class="stroke text-senary/50 mr-2 group-hover:scale-125 duration-100 fa-solid fa-star"></i>Add to Favorites</a>
-            {% endif %}
-        </div>
-        <div class="rounded-lg dark:text-white light:text-black dark:bg-primary light:bg-primary_light p-4">
-                {{ ressource.content | raw }}
-            {% if ressource.link %}
-                <a class="text-blue-500 hover:underline" href="{{ ressource.link }}" target="_blank">Show source</a>
-            {% endif %}
-        </div>
+<div class="dark:bg-secondary/60 light:bg-secondary_light/60 rounded-lg p-8 backdrop-blur-md drop-shadow-xl w-10/12">
+    <div class="flex justify-between mb-2">
+        <h1 class="text-2xl dark:text-white light:text-black font-bold mb-4">{{ ressource.title }}</h1>
+        {% if app.user.isFavorite(ressource) %}
+        <a href="{{ path('app_ressource_unfav', {'id': ressource.id}) }}"
+            class="text-nowrap h-fit w-fit px-4 py-2 font-semibold dark:text-white light:text-black dark:bg-tertiary light:bg-tertiary_light rounded-full group"><i
+                class="stroke text-senary mr-2 group-hover:scale-125 duration-100 fa-solid fa-star"></i>Remove from
+            Favorites</a>
+        {% else %}
+        <a href="{{ path('app_ressource_fav', {'id': ressource.id}) }}"
+            class="text-nowrap h-fit w-fit  px-4 py-2 font-semibold dark:text-white light:text-black dark:bg-tertiary light:bg-tertiary_light rounded-full group"><i
+                class="stroke text-senary/50 mr-2 group-hover:scale-125 duration-100 fa-solid fa-star"></i>Add to
+            Favorites</a>
+        {% endif %}
     </div>
+    <div class="rounded-lg dark:text-white light:text-black dark:bg-primary light:bg-primary_light p-4">
+        {{ ressource.content | raw }}
+        {% if ressource.link %}
+        <a class="text-blue-500 hover:underline" href="{{ ressource.link }}" target="_blank">Show source</a>
+        {% endif %}
+    </div>
+</div>
 
 {% else %}
-    <p>Ressource non trouvée</p>
-{% endif %}    
-<a href="{{ path ('app_ressource')}}" class="dark:text-white light:text-black mt-4 font-semibold hover:underline duration-150"><i class="fa-solid fa-arrow-left"></i>  back to index</a>
+<p>Ressource non trouvée</p>
+{% endif %}
+<a href="{{ path ('app_ressource')}}"
+    class="dark:text-white light:text-black mt-4 font-semibold hover:underline duration-150"><i
+        class="fa-solid fa-arrow-left"></i> back to index</a>
 
 {% endblock %}
