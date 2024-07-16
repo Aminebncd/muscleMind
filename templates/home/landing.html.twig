@@ -5,13 +5,15 @@
 {% block body %}
 {# Header Section #}
 <header
-    class="w-full -mt-16 dark:bg-tertiary light:bg-primary_light backdrop-blur-md py-12 dark:text-white light:text-black text-center flex flex-col justify-between shadow-xl">
-    <div class="flex flex-row">
-        <div class="w-2/3 max-md:hidden">
-            <img class="w-full h-full object-cover" src="{{ asset('img/landing/landing.webp') }}" alt="MuscleMind">
+    class="w-full -mt-16 dark:bg-tertiary light:bg-primary_light backdrop-blur-md py-12 dark:text-white light:text-black text-center flex flex-col justify-between shadow-xl sm:h-[700px] sm:justify-center">
+    <div class="flex flex-row mt-16">
+        <div class="max-md:hidden z-30">
+            <img class="w-full h-full object-cover drop-shadow-xl" src="{{ asset('img/landing/landing.webp') }}"
+                alt="MuscleMind">
         </div>
         <div class="flex flex-col justify-center py-4 px-8 mr-10 max-sm:w-full">
-            <h1 class="text-5xl min-[1280px]:text-8xl font-bold text-right pt-8 duration-150">MuscleMind</h1>
+            <h1 class="text-5xl min-[1280px]:text-8xl font-bold text-right pt-8 duration-150">
+                MuscleMind</h1>
             <p class="light:font-bold mt-2 text-lg min-[1280px]:text-xl text-right">Your personalized fitness companion
             </p>
             <h2 class="text-right text-4xl min-[1280px]:text-6xl font-bold my-6">Transform Your Fitness Journey</h2>
@@ -24,7 +26,7 @@
         </div>
     </div>
 </header>
-<div class="w-full dark:bg-primary light:bg-secondary_light py-12 shadow-xl"></div>
+<div class="w-full dark:bg-primary light:bg-secondary_light py-16 shadow-xl"></div>
 
 {# Features Section #}
 <section
