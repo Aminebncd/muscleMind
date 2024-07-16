@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Program;
 use App\Entity\Session;
 
+use App\Form\ContactType;
 use App\Form\BatchDeleteType;
 use App\Form\AutoScheduleType;
 use App\Form\ManualScheduleType;
@@ -13,8 +14,8 @@ use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -305,6 +306,33 @@ class HomeController extends AbstractController
     {
         return $this->render('legal/legalMentions.html.twig', [
             'controller_name' => 'HomeController',
+        ]);
+    }
+
+    // link to my terms page
+    #[Route('/terms', name: 'app_terms')]
+    public function termsOfUse(): Response
+    {
+        return $this->render('legal/terms.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
+
+    // this is where i manage the contact form
+    #[Route('/contact', name: 'app_contact')]
+    public function contact(Request $request): Response
+    {
+        $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contactFormData = $form->getData();
+
+
+        }
+
+        return $this->render('legal/contact.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 

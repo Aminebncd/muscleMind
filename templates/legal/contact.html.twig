@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div
+    class="light:text-black dark:text-white dark:bg-secondary/50 light:bg-secondary_light/50 px-8 py-4 rounded-lg w-5/6 mt-10 max-w-screen-lg  backdrop-blur-md shadow-lg">
+
+    <h1 class="text-center font-bold text-2xl px-2 py-4">Any inquiries ? Contact Us !</h1>
+
+    <div class="mb-8 dark:bg-primary/50 light:bg-primary_light/50 p-4 font-medium text-lg rounded-lg mt-4 shadow-lg">
+        {{ form_start(form) }}
+        {{ form_end(form)}}
+    </div>
+
+</div>
+{% endblock %}
