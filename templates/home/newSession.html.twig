@@ -1,28 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="dark:bg-secondary/50 light:bg-secondary_light/50 p-8 rounded-lg w-5/6 mt-10 max-w-screen-lg  backdrop-blur-md">
+<div
+    class="light:text-black dark:text-white dark:bg-secondary/50 light:bg-secondary_light/50 p-8 rounded-lg w-5/6 mt-10 max-w-screen-lg  backdrop-blur-md">
 
-        <h1 class="text-center font-bold text-2xl px-2 py-4">Schedule your training sessions !</h1>
+    <h1 class="text-center font-bold text-2xl px-2 py-4">Schedule your training sessions !</h1>
 
-        {% set lastWarningMessage = app.flashes('error') | last %}
-        {% if lastWarningMessage is not empty %}
-            <div class="alert alert-warning bg-violet-500 text-center dark:text-white light:text-black rounded-lg px-8 py-4 mt-8">
-                {{ lastWarningMessage }}
-            </div>
-        {% endif %}
-
-        <div class="mb-8 dark:bg-primary/50 p-4 rounded-lg mt-4">
-            <h2 class=" font-bold text-xl px-2 py-4" >Manual planning</h2>
-            {{ form_start(manualForm) }}
-            {# {{ form_widget(manualForm) }} #}
-            {{ form_end(manualForm)}}
-        </div>
-
-        <div class="mb-8 dark:bg-primary/50 p-4 rounded-lg mt-4">
-            <h2 class=" font-bold text-xl px-2 py-4">Batch planning</h2>
-            {{ form_start(autoForm) }}
-            {{ form_end(autoForm) }}
-        </div>
+    {% set lastWarningMessage = app.flashes('error') | last %}
+    {% if lastWarningMessage is not empty %}
+    <div
+        class="alert alert-warning bg-violet-500 text-center dark:text-white light:text-black rounded-lg px-8 py-4 mt-8">
+        {{ lastWarningMessage }}
     </div>
+    {% endif %}
+
+    <div class="mb-8 dark:bg-primary/50 light:bg-primary_light/50  p-4 rounded-lg mt-4">
+        <h2 class=" font-bold text-xl px-2 py-4">Manual planning</h2>
+        {{ form_start(manualForm) }}
+        {# {{ form_widget(manualForm) }} #}
+        {{ form_end(manualForm)}}
+    </div>
+
+    <div class="mb-8 dark:bg-primary/50 light:bg-primary_light/50  p-4 rounded-lg mt-4">
+        <h2 class=" font-bold text-xl px-2 py-4">Batch planning</h2>
+        {{ form_start(autoForm) }}
+        {{ form_end(autoForm) }}
+    </div>
+</div>
 {% endblock %}
