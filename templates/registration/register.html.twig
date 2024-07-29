@@ -24,7 +24,9 @@
     </ul>
     {{ form_row(registrationForm.plainPassword) }}
     {{ form_row(registrationForm.captcha)}}
+    <a href="{{path('app_terms')}}" class="w-full flex justify-end text-lg hover:text-quinary">Terms of use</a>
     {{ form_row(registrationForm.agreeTerms) }}
+
 
 
     <div class="flex justify-end">
