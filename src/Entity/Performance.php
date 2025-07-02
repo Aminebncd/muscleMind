@@ -71,17 +71,17 @@ class Performance
     
     public function getDateOfPerformance(): ?string
     {
-        return $this->dateOfPerformance->format('d.m.Y') ;
+        return $this->dateOfPerformance?->format('d.m.Y');
     }
-        
-    public function setDateOfPerformance($dateOfPerformance): static
+
+    public function setDateOfPerformance(\DateTimeInterface $dateOfPerformance): static
     {
         $this->dateOfPerformance = $dateOfPerformance;
-        
+
         return $this;
     }
         
-    public function __tostring()
+    public function __toString()
     {
         return $this->personnalRecord."kg : ".$this->exerciceMesured;
     }

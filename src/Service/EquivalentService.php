@@ -166,8 +166,8 @@ class EquivalentService
         }
     }
 
-    public function __tostring()
+    public function __toString()
     {
-        return $this->getEquivalent();
+        return json_encode(self::getEquivalent(0));
     }
 }

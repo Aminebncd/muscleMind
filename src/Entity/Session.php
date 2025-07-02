@@ -72,7 +72,7 @@ class Session
         return $this;
     }
     
-    public function __tostring()
+    public function __toString()
     {
         return $this->program.' - '.$this->dateSession->format('d.m.Y');
     }
