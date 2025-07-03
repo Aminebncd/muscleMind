@@ -38,6 +38,24 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    /**
+     * Returns users ordered by score in descending order.
+     *
+     * @param int|null $limit Maximum number of results or null for all users.
+     * @return User[]
+     */
+    public function findLeaderboard(?int $limit = null): array
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->orderBy('u.score', 'DESC');
+
+        if ($limit !== null) {
+            $qb->setMaxResults($limit);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */
