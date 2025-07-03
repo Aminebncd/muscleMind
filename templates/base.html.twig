@@ -59,6 +59,8 @@
                     class="w-full block py-2 text-2xl font-semibold px-6 min-[1280px]:text-lg  min-[1280px]:py-1 min-[1280px]:px-2 rounded-lg dark:hover:bg-quinary/40 light:hover:bg-senary/60">Exercises</a>
                 <a href="{{ path('app_ressource') }}"
                     class="w-full block py-2 text-2xl font-semibold px-6 min-[1280px]:text-lg  min-[1280px]:py-1 min-[1280px]:px-2 rounded-lg dark:hover:bg-quinary/40 light:hover:bg-senary/60">Resources</a>
+                <a href="{{ path('app_user_leaderboard') }}"
+                    class="w-full block py-2 text-2xl font-semibold px-6 min-[1280px]:text-lg  min-[1280px]:py-1 min-[1280px]:px-2 rounded-lg dark:hover:bg-quinary/40 light:hover:bg-senary/60">Leaderboard</a>
             </div>
             {% if is_granted('ROLE_ADMIN') %}
             <div

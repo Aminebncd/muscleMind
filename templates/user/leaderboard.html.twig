@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Leaderboard{% endblock %}
+
+{% block body %}
+<div class="w-5/6 mx-auto my-8">
+    <div class="dark:bg-secondary/60 light:bg-secondary_light/60 rounded-lg p-9 backdrop-blur-md drop-shadow-xl">
+        <h1 class="text-2xl font-bold mb-6">Leaderboard</h1>
+        <table class="min-w-full text-left">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2">Rank</th>
+                    <th class="px-4 py-2">User</th>
+                    <th class="px-4 py-2">Score</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr class="{{ loop.index is odd ? 'dark:bg-secondary/40 light:bg-secondary_light/40' : 'dark:bg-tertiary/40 light:bg-tertiary_light/40' }}">
+                    <td class="px-4 py-2">{{ loop.index }}</td>
+                    <td class="px-4 py-2">{{ user.username }}</td>
+                    <td class="px-4 py-2">{{ user.score }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if position %}
+        <p class="mt-4 font-medium">You are {{ position }}{% if position == 1 %}st{% elseif position == 2 %}nd{% elseif position == 3 %}rd{% else %}th{% endif %} on the leaderboard.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
