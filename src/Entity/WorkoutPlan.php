@@ -19,6 +19,9 @@ class WorkoutPlan
     #[ORM\Column]
     private ?int $weightsUsed = null;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $intensificationMethod = null;
+
     #[ORM\ManyToOne(inversedBy: 'workoutPlans')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Exercice $exercice = null;
@@ -51,6 +54,18 @@ class WorkoutPlan
     public function setWeightsUsed(int $weightsUsed): static
     {
         $this->weightsUsed = $weightsUsed;
+
+        return $this;
+    }
+
+    public function getIntensificationMethod(): ?string
+    {
+        return $this->intensificationMethod;
+    }
+
+    public function setIntensificationMethod(?string $intensificationMethod): static
+    {
+        $this->intensificationMethod = $intensificationMethod;
 
         return $this;
     }
