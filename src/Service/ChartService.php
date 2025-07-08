@@ -188,6 +188,86 @@ class ChartService
         return $chart;
     }
 
+    public function getWeeklyMuscleHeatmap(User $user = null): Chart
+    {
+        if ($user === null) {
+            throw new \InvalidArgumentException('User cannot be null');
+        }
+
+        $now = new \DateTime();
+        $start = (clone $now)->modify('-6 days');
+
+        $days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        $heatmap = [];
+        $muscleNames = [];
+
+        foreach ($user->getSessions() as $session) {
+            $date = $session->getDateSession();
+            if ($date < $start || $date > $now) {
+                continue;
+            }
+
+            $dayIndex = ((int) $date->format('N')) - 1;
+            $program = $session->getProgram();
+            $primary = $program->getMuscleGroupTargeted()->getName();
+            $secondaryGroup = $program->getSecondaryMuscleGroupTargeted();
+
+            foreach ([$primary, $secondaryGroup?->getName()] as $muscle) {
+                if (!$muscle) {
+                    continue;
+                }
+                $muscleNames[$muscle] = true;
+                $heatmap[$muscle][$dayIndex] = ($heatmap[$muscle][$dayIndex] ?? 0) + 1;
+            }
+        }
+
+        $muscles = array_keys($muscleNames);
+        sort($muscles);
+
+        $matrixData = [];
+        $max = 0;
+        foreach ($muscles as $y => $muscle) {
+            for ($x = 0; $x < 7; $x++) {
+                $value = $heatmap[$muscle][$x] ?? 0;
+                $matrixData[] = ['x' => $x, 'y' => $y, 'v' => $value];
+                $max = max($max, $value);
+            }
+        }
+
+        $max = $max ?: 1;
+
+        $chart = $this->chartBuilder->createChart('matrix');
+        $chart->setData([
+            'labels' => $days,
+            'datasets' => [[
+                'label' => 'Weekly muscle heatmap',
+                'data' => $matrixData,
+                'backgroundColor' => "ctx => { const v = ctx.dataset.data[ctx.dataIndex].v; const a = v / $max; return `rgba(255,99,132,${a})`; }",
+                'width' => 'ctx.chart.chartArea ? (ctx.chart.chartArea.width / 7) - 1 : 0',
+                'height' => 'ctx.chart.chartArea ? (ctx.chart.chartArea.height / '.count($muscles).') - 1 : 0',
+            ]],
+        ]);
+
+        $chart->setOptions([
+            'responsive' => true,
+            'scales' => [
+                'x' => [
+                    'type' => 'category',
+                    'labels' => $days,
+                ],
+                'y' => [
+                    'type' => 'category',
+                    'labels' => $muscles,
+                ],
+            ],
+            'plugins' => [
+                'legend' => ['display' => false],
+            ],
+        ]);
+
+        return $chart;
+    }
+
     private function generateRandomColor(): string
     {
         // generate a random color
