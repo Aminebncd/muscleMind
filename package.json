@@ -30,6 +30,7 @@
     "dependencies": {
         "@symfony/stimulus-bridge": "^3.2.2",
         "chart.js": "^4.4.3",
+        "chartjs-chart-matrix": "^3.0.0",
         "stimulus": "^3.2.2"
     }
 }

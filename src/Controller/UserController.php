@@ -60,6 +60,7 @@ class UserController extends AbstractController
 
         $trackingChart = $this->chartService->getTrackingChart($user);
         $performanceChart = $this->chartService->getPerformanceChart($user);
+        $heatmapChart = $this->chartService->getWeeklyMuscleHeatmap($user);
 
         $response = new Response();
         if ($user->getSex() === null || $user->getDateOfBirth() === null) {
@@ -98,8 +99,9 @@ class UserController extends AbstractController
             'latestTracking' => $latestTracking, 
             'trackingChart' => $trackingChart,
             'performanceChart' => $performanceChart,
-            'oldScore' => $oldScore, 
-            'newScore' => $newScore,   
+            'heatmapChart' => $heatmapChart,
+            'oldScore' => $oldScore,
+            'newScore' => $newScore,
             'scoreDifference' => $scoreDifference
         ]);
     }
