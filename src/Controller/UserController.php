@@ -60,6 +60,7 @@ class UserController extends AbstractController
 
         $trackingChart = $this->chartService->getTrackingChart($user);
         $performanceChart = $this->chartService->getPerformanceChart($user);
+        $heatmapChart = $this->chartService->getWeeklyMuscleHeatmap($user);
 
         $response = new Response();
         if ($user->getSex() === null || $user->getDateOfBirth() === null) {
@@ -98,8 +99,9 @@ class UserController extends AbstractController
             'latestTracking' => $latestTracking, 
             'trackingChart' => $trackingChart,
             'performanceChart' => $performanceChart,
-            'oldScore' => $oldScore, 
-            'newScore' => $newScore,   
+            'heatmapChart' => $heatmapChart,
+            'oldScore' => $oldScore,
+            'newScore' => $newScore,
             'scoreDifference' => $scoreDifference
         ]);
     }
@@ -626,7 +628,7 @@ class UserController extends AbstractController
 
     // this function deletes every program of the user
     #[Route('/user/deleteAllPrograms/{id}', name: 'app_user_deleteAllPrograms')]
-    public function deleteAllPrograms(Request $request, 
+    public function deleteAllPrograms(Request $request,
                             EntityManagerInterface $em,
                             User $user = null): Response
     {
@@ -645,6 +647,30 @@ class UserController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('app_user');
+    }
+
+    #[Route('/leaderboard', name: 'app_user_leaderboard')]
+    public function leaderboard(UserRepository $ur): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $topUsers = $ur->findLeaderboard(10);
+        $allUsers = $ur->findLeaderboard();
+        $position = null;
+
+        foreach ($allUsers as $index => $user) {
+            if ($user === $this->getUser()) {
+                $position = $index + 1;
+                break;
+            }
+        }
+
+        return $this->render('user/leaderboard.html.twig', [
+            'users' => $topUsers,
+            'position' => $position,
+        ]);
     }
     
 }

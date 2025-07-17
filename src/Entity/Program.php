@@ -159,11 +159,10 @@ class Program
         return $this;
     }
 
-    public function __tostring()
+    public function __toString()
     {
-        return $this->title
+        return $this->title;
         // .' ('.$this->muscleGroupTargeted->getName().' - '.$this->secondaryMuscleGroupTargeted->getName().')'
-        ;
     }
 
 

@@ -70,7 +70,7 @@ class Tracking
 
     public function getDateOfTracking(): ?string
     {
-        return $this->dateOfTracking->format('d.m.Y');
+        return $this->dateOfTracking?->format('d.m.Y');
     }
 
     public function setDateOfTracking(\DateTimeInterface $dateOfTracking): static

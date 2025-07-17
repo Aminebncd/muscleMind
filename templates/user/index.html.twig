@@ -136,6 +136,14 @@
     </div>
 
     <div class="w-full flex justify-center mt-6">
+        <div class="w-full max-w-[600px] max-lg:max-w-[1200px]">
+            <div class="dark:bg-tertiary/10 p-4 rounded backdrop-blur-md">
+                {{ render_chart(heatmapChart) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full flex justify-center mt-6">
         <a class="dark:text-white light:text-black underline text-lg hover:text-xl font-semibold hover:font-bold duration-150"
             href="{{ path('app_user_listEntries', {'id': user.id}) }}">List of your entries</a>
     </div>

@@ -67,6 +67,12 @@
                                 <span>
                                     <a href="{{ path('app_exercice_details', {'id': workout.exercice.id}) }}" class="dark:text-quinary light:text-black light:bg-quinary light:px-2 hover:underline">{{ workout.exercice.exerciceName }}</a> 
                                     : {{ workout.numberOfRepetitions }} reps of {{ workout.weightsUsed }}kgs
+                                    {% if workout.intensificationMethod %}
+                                        ({{ workout.intensificationMethod|replace({'drop_set':'Drop set','bi_set':'Bi-set','super_set':'Super set'}) }})
+                                    {% endif %}
+                                    {% if workout.intensificationMethod %}
+                                        ({{ workout.intensificationMethod|replace({'drop_set':'Drop set','bi_set':'Bi-set','super_set':'Super set'}) }})
+                                    {% endif %}
                                 </span>
                                 <a href="{{ path('removeWP_Program', {'program': program.id, 'workoutPlan': workout.id}) }}" class="text-red-500 hover:scale-110 duration-100"><i class="fa-regular fa-square-minus"></i></a>
                             </p>

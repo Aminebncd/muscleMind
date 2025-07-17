@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Doctrine\Common\Collections\Collection;
 
 class WorkoutType extends AbstractType
@@ -36,6 +37,20 @@ class WorkoutType extends AbstractType
             'attr' => [
                 'placeholder' => 'Weights used',
                 'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border dark:border-primary light:border-primary_light w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white mb-8'
+            ],
+            'row_attr' => ['class' => 'flex flex-col w-full'],
+        ])
+        ->add('intensificationMethod', ChoiceType::class, [
+            'label' => 'Intensification',
+            'required' => false,
+            'choices' => [
+                'None' => null,
+                'Drop set' => 'drop_set',
+                'Bi-set' => 'bi_set',
+                'Super set' => 'super_set',
+            ],
+            'attr' => [
+                'class' => 'dark:text-white light:text-black dark:bg-primary/80 light:bg-primary_light/80 border dark:border-primary light:border-primary_light w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 dark:focus:ring-blue-600 light:focus:ring-white mb-8',
             ],
             'row_attr' => ['class' => 'flex flex-col w-full'],
         ])
