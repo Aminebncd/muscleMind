@@ -88,7 +88,7 @@
                     <a class="w-fit mx-2 text-center no-underline border-2 dark:border-quaternary  border-offset-2 light:border-transparent light:hover:shadow-lg light:hover:border-fuchsia-200 light:text-black dark:text-quaternary hover:bg-quaternary hover:text-black duration-150 ease-in-out px-4 py-2 rounded max-lg:w-full max-lg:mt-2"
                         href="{{ path('app_user_editTrack', {'id': latestTracking.id}) }}">
                         <i class="mx-2 fa-solid fa-pen-to-square"></i> Edit
-                    </a> 
+                    </a>
                     <a class="w-fit mx-2 text-center no-underline border-2 border-red-500 light:border-transparent border-offset-2 dark:text-red-500 light:text-black hover:bg-red-500 hover:dark:text-white light:hover:shadow-lg duration-150 ease-in-out px-4 py-2 rounded max-lg:w-full max-lg:mt-2"
                         href="{{ path('app_user_deleteTrack', {'id': latestTracking.id}) }}">
                         <i class="mx-2 fa-solid fa-minus"></i> Delete
@@ -106,7 +106,7 @@
             {% if bmr %}
             Base metabolic rate: (approx.) {{ bmr }}cal <br>
             <a class=" light:bg-quaternary px-1 dark:text-quaternary light:text-black hover:text-xl duration-150"
-            href="https://envisionfitnessmn.com/about/blog/entryid/15/basal-metabolic-rate-what-is-it-and-why-its-important#:~:text=Knowing%20your%20Basal%20Metabolic%20Rate,BMR%20(or%20maintenance%20calories).">Why
+                href="https://envisionfitnessmn.com/about/blog/entryid/15/basal-metabolic-rate-what-is-it-and-why-its-important#:~:text=Knowing%20your%20Basal%20Metabolic%20Rate,BMR%20(or%20maintenance%20calories).">Why
                 is it useful?</a>
             {% endif %}
             <div class="dark:bg-tertiary/10 p-4 rounded backdrop-blur-md">
@@ -119,7 +119,7 @@
             {% if user.performances|length > 0 %}
             <p class="font-medium light:font-bold">Made some progress? add entries to your performances
                 <a class=" light:bg-quinary px-1 dark:text-quinary light:text-black hover:text-xl duration-150"
-                href="{{ path('app_user_newPerf') }}">here</a>!
+                    href="{{ path('app_user_newPerf') }}">here</a>!
             </p>
             {% else %}
             <p class="font-medium light:font-bold">Wanna track your performance? Register your performances

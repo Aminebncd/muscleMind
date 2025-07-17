@@ -224,44 +224,158 @@ class ChartService
         $muscles = array_keys($muscleNames);
         sort($muscles);
 
-        $matrixData = [];
+        // Create scatter plot data instead of matrix
+        $scatterData = [];
         $max = 0;
         foreach ($muscles as $y => $muscle) {
             for ($x = 0; $x < 7; $x++) {
                 $value = $heatmap[$muscle][$x] ?? 0;
-                $matrixData[] = ['x' => $x, 'y' => $y, 'v' => $value];
+                if ($value > 0) {
+                    $scatterData[] = [
+                        'x' => $x,
+                        'y' => $y,
+                        'r' => $value * 10 + 5, // radius based on value
+                    ];
+                }
                 $max = max($max, $value);
             }
         }
 
-        $max = $max ?: 1;
+        // If no data, return a simple message chart
+        if (empty($scatterData)) {
+            $chart = $this->chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
+            $chart->setData([
+                'labels' => ['No training sessions in the last 7 days'],
+                'datasets' => [[
+                    'data' => [1],
+                    'backgroundColor' => ['rgba(200,200,200,0.3)'],
+                    'borderColor' => ['rgba(200,200,200,0.5)'],
+                ]],
+            ]);
+            $chart->setOptions([
+                'responsive' => true,
+                'plugins' => [
+                    'legend' => ['display' => true],
+                ],
+            ]);
+            return $chart;
+        }
 
-        $chart = $this->chartBuilder->createChart('matrix');
+        $chart = $this->chartBuilder->createChart(Chart::TYPE_BUBBLE);
         $chart->setData([
-            'labels' => $days,
             'datasets' => [[
-                'label' => 'Weekly muscle heatmap',
-                'data' => $matrixData,
-                'backgroundColor' => "ctx => { const v = ctx.dataset.data[ctx.dataIndex].v; const a = v / $max; return `rgba(255,99,132,${a})`; }",
-                'width' => 'ctx.chart.chartArea ? (ctx.chart.chartArea.width / 7) - 1 : 0',
-                'height' => 'ctx.chart.chartArea ? (ctx.chart.chartArea.height / '.count($muscles).') - 1 : 0',
+                'label' => 'Training sessions per muscle group',
+                'data' => $scatterData,
+                'backgroundColor' => 'rgba(255,99,132,0.7)',
+                'borderColor' => 'rgba(255,99,132,1)',
+                'borderWidth' => 2,
             ]],
         ]);
 
         $chart->setOptions([
             'responsive' => true,
+            'maintainAspectRatio' => false,
             'scales' => [
                 'x' => [
-                    'type' => 'category',
-                    'labels' => $days,
+                    'type' => 'linear',
+                    'position' => 'bottom',
+                    'min' => -0.5,
+                    'max' => 6.5,
+                    'title' => [
+                        'display' => true,
+                        'text' => 'Days of the Week',
+                        'color' => 'rgba(255, 255, 255, 0.8)',
+                        'font' => [
+                            'size' => 14,
+                            'weight' => 'bold',
+                        ],
+                    ],
+                    'ticks' => [
+                        'stepSize' => 1,
+                        'color' => 'rgba(255, 255, 255, 0.7)',
+                        'callback' => 'function(value) { 
+                            const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+                            return days[Math.round(value)] || ""; 
+                        }',
+                    ],
+                    'grid' => [
+                        'color' => 'rgba(100, 100, 100, 0.3)',
+                    ],
                 ],
                 'y' => [
-                    'type' => 'category',
-                    'labels' => $muscles,
+                    'type' => 'linear',
+                    'min' => -0.5,
+                    'max' => count($muscles) - 0.5,
+                    'title' => [
+                        'display' => true,
+                        'text' => 'Muscle Groups',
+                        'color' => 'rgba(255, 255, 255, 0.8)',
+                        'font' => [
+                            'size' => 14,
+                            'weight' => 'bold',
+                        ],
+                    ],
+                    'ticks' => [
+                        'stepSize' => 1,
+                        'color' => 'rgba(255, 255, 255, 0.7)',
+                        'callback' => 'function(value) { 
+                            const muscles = ' . json_encode($muscles) . ';
+                            return muscles[Math.round(value)] || ""; 
+                        }',
+                    ],
+                    'grid' => [
+                        'color' => 'rgba(100, 100, 100, 0.3)',
+                    ],
                 ],
             ],
             'plugins' => [
-                'legend' => ['display' => false],
+                'title' => [
+                    'display' => true,
+                    'text' => 'Weekly Muscle Training Heatmap (Last 7 Days)',
+                    'color' => 'rgba(255, 255, 255, 0.9)',
+                    'font' => [
+                        'size' => 16,
+                        'weight' => 'bold',
+                    ],
+                    'padding' => 20,
+                ],
+                'legend' => [
+                    'display' => true,
+                    'labels' => [
+                        'color' => 'rgba(255, 255, 255, 0.8)',
+                        'usePointStyle' => true,
+                        'generateLabels' => 'function(chart) {
+                            return [{
+                                text: "Bubble size = number of sessions",
+                                fillStyle: "rgba(255,99,132,0.7)",
+                                strokeStyle: "rgba(255,99,132,1)",
+                                pointStyle: "circle"
+                            }];
+                        }',
+                    ],
+                ],
+                'tooltip' => [
+                    'backgroundColor' => 'rgba(0, 0, 0, 0.8)',
+                    'titleColor' => 'rgba(255, 255, 255, 1)',
+                    'bodyColor' => 'rgba(255, 255, 255, 0.9)',
+                    'borderColor' => 'rgba(255, 99, 132, 1)',
+                    'borderWidth' => 1,
+                    'callbacks' => [
+                        'title' => 'function(context) { 
+                            const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+                            const muscles = ' . json_encode($muscles) . ';
+                            const point = context[0];
+                            return days[Math.round(point.parsed.x)] + " - " + muscles[Math.round(point.parsed.y)];
+                        }',
+                        'label' => 'function(context) { 
+                            const sessions = Math.round((context.parsed.r - 5) / 10);
+                            return "Training sessions: " + sessions; 
+                        }',
+                        'afterLabel' => 'function(context) {
+                            return "Larger bubble = more sessions";
+                        }',
+                    ],
+                ],
             ],
         ]);
 

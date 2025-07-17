@@ -6,13 +6,13 @@ import '@symfony/ux-chartjs';
 
 // assets/app.js
 import zoomPlugin from 'chartjs-plugin-zoom';
-import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
+import 'chartjs-chart-matrix';
 
 // register globally for all charts
 document.addEventListener('chartjs:init', function (event) {
     const Chart = event.detail.Chart;
     Chart.register(zoomPlugin);
-    Chart.register(MatrixController, MatrixElement);
+    // Matrix chart is auto-registered when imported
 });
 
 // ...
