@@ -1,6 +1,5 @@
 
-// just to ensure that the dom is fully loaded before running the script
-// document.addEventListener('DOMContentLoaded', (event) => {
+
     console.log("ici");
     
     // open and close my nav bar
