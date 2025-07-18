@@ -115,7 +115,7 @@ body::before {
 .btn-secondary {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    color: inherit;
+    /* color: inherit; */
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
     font-weight: 500;
@@ -167,6 +167,7 @@ body::before {
 
 .card-content {
     margin-bottom: 1rem;
+    
 }
 
 .card-actions {

@@ -44,7 +44,8 @@
                 </p>
             </div>
             <div class="card-actions">
-                <a href="{{ path('app_home_newSession') }}" class="btn-primary w-full justify-center">
+                <a href="{{ path('app_home_newSession') }}"
+                    class="dark:text-white text-gray-800 btn-primary w-full justify-center">
                     <i class="fas fa-plus mr-2"></i>
                     Schedule Training
                 </a>
@@ -78,7 +79,8 @@
                 </div>
             </div>
             <div class="card-actions">
-                <a href="{{ path('app_user_leaderboard') }}" class="btn-secondary w-full justify-center">
+                <a href="{{ path('app_user_leaderboard') }}"
+                    class="dark:text-white text-gray-800 btn-secondary w-full justify-center">
                     <i class="fas fa-trophy mr-2"></i>
                     View Leaderboard
                 </a>
@@ -105,25 +107,25 @@
                         class="flex items-center justify-between p-2 rounded-lg hover:bg-white/10 transition-colors">
                         <span class="flex items-center space-x-2">
                             <i class="fas fa-dumbbell text-quinary"></i>
-                            <span>Programs</span>
+                            <span class="dark:text-white text-gray-800">Programs</span>
                         </span>
-                        <i class="fas fa-arrow-right text-xs opacity-50"></i>
+                        <i class="fas fa-arrow-right text-xs opacity-50 dark:text-white text-gray-800"></i>
                     </a>
                     <a href="{{ path('app_exercice') }}"
                         class="flex items-center justify-between p-2 rounded-lg hover:bg-white/10 transition-colors">
                         <span class="flex items-center space-x-2">
                             <i class="fas fa-running text-quaternary"></i>
-                            <span>Exercises</span>
+                            <span class="dark:text-white text-gray-800">Exercises</span>
                         </span>
-                        <i class="fas fa-arrow-right text-xs opacity-50"></i>
+                        <i class="fas fa-arrow-right text-xs opacity-50 dark:text-white text-gray-800"></i>
                     </a>
                     <a href="{{ path('app_muscle') }}"
                         class="flex items-center justify-between p-2 rounded-lg hover:bg-white/10 transition-colors">
                         <span class="flex items-center space-x-2">
                             <i class="fas fa-user-md text-senary"></i>
-                            <span>Anatomy</span>
+                            <span class="dark:text-white text-gray-800">Anatomy</span>
                         </span>
-                        <i class="fas fa-arrow-right text-xs opacity-50"></i>
+                        <i class="fas fa-arrow-right text-xs opacity-50 dark:text-white text-gray-800"></i>
                     </a>
                 </div>
             </div>
@@ -222,7 +224,7 @@
 
                 <div class="card-actions">
                     <a href="{{ path('app_training_edit', {'id': session.program.id}) }}"
-                        class="btn-primary flex-1 justify-center">
+                        class="dark:text-white text-gray-800 btn-primary flex-1 justify-center">
                         <i class="fas fa-play mr-2"></i>
                         Start Workout
                     </a>

@@ -1,110 +1,292 @@
-# MuscleMind
+# 💪 MuscleMind - Intelligent Fitness Tracking Platform
 
-MuscleMind is a fitness tracking web application built with Symfony. It allows users to track their workout sessions, monitor their performance, and manage their fitness goals. The application includes features for creating and managing sessions, tracking performance metrics, and visualizing progress through charts.
+> **Une application web moderne de suivi fitness développée avec Symfony 7, offrant une expérience utilisateur exceptionnelle et des fonctionnalités avancées de tracking sportif.**
 
-## Features
+[![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![Symfony](https://img.shields.io/badge/Symfony-7.0-000000?style=for-the-badge&logo=symfony&logoColor=white)](https://symfony.com)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 
-- User Authentication and Authorization
-- Create and Manage Workout Sessions
-- Track Performance Metrics
-- Visualize Progress with Charts
-- Manage User Roles (Admin, Moderator, User)
-- Responsive UI built with Twig templates
+## 🚀 Présentation du Projet
 
-## Getting Started
+**MuscleMind** est une plateforme complète de suivi fitness développée avec **Symfony 7** et une architecture moderne. Cette application web permet aux utilisateurs de créer, planifier et suivre leurs programmes d'entraînement avec une interface utilisateur intuitive et des fonctionnalités avancées de visualisation des données.
 
-### Prerequisites
+### 🎯 Objectifs du Projet
 
-Before you begin, ensure you have met the following requirements:
+- **Démonstration de compétences** : Showcase complet des technologies web modernes
+- **Architecture robuste** : Implémentation des meilleures pratiques de développement
+- **Expérience utilisateur** : Interface moderne avec design system cohérent
+- **Scalabilité** : Code maintenable et extensible
 
-- PHP 8.1 or higher
-- Composer
-- Symfony CLI
-- A web server like Laragon or Nginx
-- A database system like MySQL
+## 🛠️ Stack Technique
 
-###  Installation
+### Backend
+- **Framework** : Symfony 7.0 (PHP 8.2+)
+- **ORM** : Doctrine ORM 3.1
+- **Base de données** : MySQL 8.0
+- **Sécurité** : Symfony Security Bundle avec authentification complète
+- **Tests** : PHPUnit 9.5
 
-**Clone the repository**
+### Frontend
+- **Template Engine** : Twig 3.0
+- **CSS Framework** : TailwindCSS 3.4
+- **JavaScript** : Vanilla JS + Stimulus
+- **Charts** : Chart.js 4.4 avec plugins avancés
+- **Build Tools** : Webpack Encore
 
+### DevOps & Outils
+- **Bundler** : Composer (PHP) + NPM (JavaScript)
+- **Migration** : Doctrine Migrations
+- **Admin Panel** : EasyAdmin 4.10
+- **Email** : Symfony Mailer
+- **Validation** : Symfony Validator
+
+## 🏗️ Architecture & Patterns
+
+### Architecture MVC
+```
+src/
+├── Controller/          # Contrôleurs (17 controllers)
+├── Entity/             # Entités Doctrine (12 entités)
+├── Repository/         # Repositories (12 repositories)
+├── Service/            # Services métier (3 services)
+├── Form/               # Formulaires Symfony (5 types)
+├── Security/           # Sécurité et authentification
+└── EventSubscriber/    # Événements personnalisés
+```
+
+### Entités Principales
+- **User** : Gestion des utilisateurs avec rôles (Admin, Moderator, User)
+- **Program** : Programmes d'entraînement personnalisés
+- **Session** : Sessions planifiées avec calendrier
+- **WorkoutPlan** : Plans d'exercices détaillés
+- **Performance** : Suivi des performances utilisateur
+- **Exercice** : Base de données d'exercices (58 exercices pour l'instant)
+- **Muscle/MuscleGroup** : Anatomie et ciblage musculaire
+- **Ressource** : Système de ressources partagées
+
+## ✨ Fonctionnalités Principales
+
+### 🔐 Système d'Authentification
+- Inscription/Connexion sécurisée
+- Gestion des rôles et permissions
+- Reset de mot de passe
+- Validation d'email
+
+### 📊 Gestion des Programmes
+- Création de programmes d'entraînement personnalisés
+- Planification automatique et manuelle
+- Gestion des séries, répétitions et charges
+- Méthodes d'intensification avancées
+
+### 📈 Suivi des Performances
+- Tracking détaillé des performances
+- Graphiques interactifs avec Chart.js
+- Zoom et navigation dans les données
+- Matrices de progression
+
+### 🎨 Interface Utilisateur
+- Design system complet avec Glassmorphism
+- Mode sombre/clair avec transition automatique
+- Responsive design (mobile-first)
+- Animations et micro-interactions
+
+### 👥 Administration
+- Panel d'administration avec EasyAdmin
+- Gestion des utilisateurs et contenus
+- Système de ressources partagées
+- Modération et validation
+
+## 🎨 Design System & Architecture CSS
+
+### Structure CSS Modulaire
+```
+public/css/
+├── main-components.css     # Point d'entrée principal
+├── layout.css             # Structure et mise en page
+├── components.css         # Composants réutilisables
+├── mobile-menu.css        # Navigation mobile
+├── theme-toggle.css       # Gestion des thèmes
+├── utilities.css          # Classes utilitaires
+└── animations.css         # Animations et keyframes
+```
+
+### Composants Twig Modulaires
+```
+templates/_components/
+├── header.html.twig       # Navigation principale
+├── sidebar.html.twig      # Menu mobile
+├── footer.html.twig       # Footer avec liens sociaux
+├── mobile-menu-script.html.twig    # Scripts menu mobile
+└── theme-toggle-script.html.twig   # Scripts thème
+```
+
+## 🔧 Installation & Configuration
+
+### Prérequis
+- PHP 8.2 ou supérieur
+- Composer 2.0+
+- Node.js 16+ & NPM
+- MySQL 8.0
+- Symfony CLI (optionnel)
+
+### Installation Rapide
 ```bash
+# Cloner le repository
 git clone https://github.com/Aminebncd/muscleMind.git
 cd muscleMind
-```
 
-**Install dependencies**
-
-```bash
+# Installer les dépendances PHP
 composer install
-```
 
-**Set up environment variables**
+# Installer les dépendances JavaScript
+npm install
 
-Copy the `.env` file and adjust the configuration for your database and other settings.
-
-```bash
+# Configuration environnement
 cp .env .env.local
-```
+# Éditer .env.local avec vos paramètres de base de données
 
-**Run database migrations**
+# Créer la base de données
+php bin/console doctrine:database:create
 
-```bash
+# Exécuter les migrations
 php bin/console doctrine:migrations:migrate
-```
 
-**Load initial data (optional)**
+# Charger les données initiales (optionnel)
+# Utiliser les requêtes INSERT dans misc/database.sql
 
-```bash
-use the insert requests in my database.sql file
-```
+# Compiler les assets
+npm run build
 
-**Start the Symfony server**
-
-```bash
+# Démarrer le serveur
 symfony server:start
+# ou
+php -S localhost:8000 -t public
 ```
 
-**Access the application**
+## 🎯 Fonctionnalités Avancées
 
-Open your web browser and navigate to http://localhost:8000.
+### Système de Graphiques
+- **Chart.js 4.4** avec plugins de zoom
+- **Matrices de progression** avec chartjs-chart-matrix
+- **Graphiques interactifs** avec navigation temporelle
+- **Responsive charts** adaptatifs
 
-## Usage
+### Sécurité
+- **CSRF Protection** sur tous les formulaires
+- **Validation côté serveur** avec Symfony Validator
+- **Hashage sécurisé** des mots de passe
+- **Gestion des permissions** par rôles
 
-### User Roles
+### Performance
+- **Lazy Loading** des relations Doctrine
+- **Optimisation des requêtes** avec repositories personnalisés
+- **Mise en cache** des données fréquemment utilisées
+- **Pagination** avec KnpPaginatorBundle
 
-- **Admin**: Can manage users, assign roles, and perform all actions available to moderators and regular users.
-- **Moderator**: Can create, edit, and delete resources.
-- **User**: Can create and manage their own sessions and track performance.
+## 📱 Responsive Design
 
-### Tracking Performance
+### Mobile-First Approach
+- Interface adaptée aux écrans mobiles
+- Navigation hamburger avec animations
+- Gestures touch optimisées
+- Performance mobile optimisée
 
-1. Log In
-2. Create a New Program: Navigate to the program creation page and fill in the required details.
-3. Schedule those programs in Sessions
-4. Track Your Performance: Use the performance tracking forms to log your workout metrics.
-5. View Progress: Access your profile to see charts and statistics of your tracked performance.
+### Breakpoints
+- Mobile : < 768px
+- Tablet : 768px - 1023px
+- Desktop : 1024px+
 
-### Managing Users
+## 🧪 Tests & Qualité
 
-Admins can manage user roles and view user details through the admin panel.
+### Tests Unitaires
+- PHPUnit 9.5 pour les tests backend
+- Coverage des entités et services
+- Tests d'intégration des controllers
 
-### Visualizing Data
+### Standards de Code
+- PSR-12 pour le code PHP
+- ESLint pour JavaScript
+- Symfony Best Practices
 
-The application uses chart.js to visualize user performance and activity data. These charts help users understand their progress over time.
+## 🚀 Déploiement
 
-## Contributing
+### Environnements
+- **Development** : Symfony server local
+- **Production** : Compatible Apache/Nginx
 
-Contributions are welcome! Please follow these steps:
+### Optimisations Production
+```bash
+# Optimiser l'autoloader
+composer dump-autoload --optimize
 
-1. Fork the repository.
-2. Create a new feature branch (`git checkout -b feature/your-feature`).
-3. Commit your changes (`git commit -m 'Add some feature'`).
-4. Push to the branch (`git push origin feature/your-feature`).
-5. Create a new Pull Request.
+# Compiler les assets en production
+npm run build
 
-## Acknowledgements
+# Vider les caches
+php bin/console cache:clear --env=prod
 
-- Symfony Framework
-- Doctrine ORM
-- KnpPaginatorBundle
-- Chart.js
+# Optimiser Doctrine
+php bin/console doctrine:cache:clear-metadata
+```
+
+## 🔮 Évolutions Futures
+
+### Fonctionnalités Prévues
+- [ ] API REST pour application mobile
+- [ ] Système de notifications push
+- [ ] Intégration avec wearables
+- [ ] IA pour recommandations personnalisées
+- [ ] Système de gamification
+- [ ] Partage social des performances
+
+### Améliorations Techniques
+- [ ] Migration vers Symfony 8
+- [ ] Implémentation d'un cache Redis
+- [ ] Tests end-to-end avec Panther
+- [ ] CI/CD avec GitHub Actions
+- [ ] Monitoring avec Sentry
+
+## 🤝 Contribution
+
+Les contributions sont les bienvenues ! Processus de contribution :
+
+1. **Fork** le repository
+2. **Créer** une branche feature (`git checkout -b feature/amazing-feature`)
+3. **Commit** les changements (`git commit -m 'Add amazing feature'`)
+4. **Push** vers la branche (`git push origin feature/amazing-feature`)
+5. **Ouvrir** une Pull Request
+
+## 🏆 Compétences Démontrées
+
+### Backend
+- **Symfony 7** : Framework moderne PHP
+- **Doctrine ORM** : Mapping objet-relationnel
+- **Architecture MVC** : Séparation des responsabilités
+- **Sécurité** : Authentification et autorisations
+- **Tests** : Tests unitaires et d'intégration
+
+### Frontend
+- **Twig** : Template engine avancé
+- **TailwindCSS** : Framework CSS utilitaire
+- **JavaScript** : Vanilla JS et Stimulus
+- **Chart.js** : Visualisation de données
+- **Responsive Design** : Mobile-first
+
+### DevOps
+- **Composer** : Gestionnaire de dépendances PHP
+- **NPM/Webpack** : Build tools JavaScript
+- **Doctrine Migrations** : Gestion de schéma BDD
+- **Git** : Contrôle de version
+
+## 📞 Contact
+
+**Mohamed Amine Bounachada**
+- **Email** : aminebncd_pro@hotmail.com
+- **GitHub** : [@Aminebncd](https://github.com/Aminebncd)
+- **LinkedIn** : [Mohamed Amine Bounachada](https://www.linkedin.com/in/amine-bounachada/)
+
+---
+
+*Développé avec ❤️ par [Mohamed Amine Bounachada](https://github.com/Aminebncd)*

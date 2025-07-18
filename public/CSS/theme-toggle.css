@@ -1,0 +1,31 @@
+/* =================================
+   THEME TOGGLE CSS
+   Styles for theme switching component
+   ================================= */
+
+/* Theme toggle modern styling */
+.theme-toggle-container {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+/* Social links modern styling */
+.social-links-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+}
+
+.social-links-container .social-link {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.social-links-container .social-link:hover {
+    background: rgba(255, 255, 255, 0.25);
+}

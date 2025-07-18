@@ -1,0 +1,38 @@
+{# Theme Toggle JavaScript #}
+<script>
+    // Theme toggle functionality
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkbox = document.querySelector('.theme-switch__checkbox');
+        const root = document.documentElement;
+
+        function applyTheme(isDark) {
+            if (isDark) {
+                root.classList.remove('light-theme');
+                root.classList.add('dark-theme');
+                document.body.setAttribute('data-theme', 'dark');
+            } else {
+                root.classList.remove('dark-theme');
+                root.classList.add('light-theme');
+                document.body.setAttribute('data-theme', 'light');
+            }
+        }
+
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        applyTheme(isDarkMode);
+        if (checkbox) checkbox.checked = isDarkMode;
+
+        checkbox?.addEventListener('change', function () {
+            const isChecked = checkbox.checked;
+            applyTheme(isChecked);
+            localStorage.setItem('darkMode', isChecked);
+        });
+    });
+
+    // Legacy function for backward compatibility
+    function toggleLightMode() {
+        const checkbox = document.querySelector('.theme-switch__checkbox');
+        if (checkbox) {
+            checkbox.click();
+        }
+    }
+</script>
