@@ -1,33 +1,182 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Training Programs | MuscleMind{% endblock %}
 
 {% block body %}
 
-    {% if programs| length > 0 %}
-
-    <div class=" mt-10 mb-8 hover:scale-105 duration-150">
-        <a class="px-4 py-2 rounded-2xl dark:bg-tertiary light:bg-tertiary_light drop-shadow-xl hover:dark:bg-quinary hover:light:bg-quinary duration-150" href="{{ path('app_training_new')}}">NEW PROGRAM </a> <br><br>
+<!-- Header Section -->
+<section class="text-center mb-12">
+    <div
+        class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mb-6">
+        <i class="fas fa-dumbbell text-white text-xl"></i>
     </div>
-        {% for program in programs %}
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        <span class="text-gradient">Training Programs</span>
+    </h1>
+    <p class="text-lg md:text-xl dark:text-gray-300 light:text-gray-600 mb-8 max-w-2xl mx-auto">
+        Customize your fitness journey with our comprehensive training programs designed to help you reach your goals.
+    </p>
+</section>
 
-        <div class="rounded-xl m-5 max-w-3xl max-h-3/5 drop-shadow-xl relative hover:ease-out hover:scale-105 duration-200 ">
-            <div class="absolute h-full w-full bg-gradient-to-t from-black rounded-xl hover:ease-out hover:bg-black/50 duration-200"></div>
-            <a class="text-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-semibold" href="{{ path('app_training_edit', {'id': program.id}) }}">{{program}}</a>
-            <div class="flex items-center">
-                <a class="h-auto w-1/2 object-cover"  href="{{ path('app_muscleGroup_details', {'id': program.muscleGroupTargeted.id })}}">
-                    <img class="rounded-l-xl" src="{{ asset('img/muscleGroups/' ~ program.muscleGroupTargeted.muscleGroupImage ) }}" alt="{{program.muscleGroupTargeted()}}">
-                </a>
-                <a class="h-auto w-1/2 object-cover"  href="{{ path('app_muscleGroup_details', {'id': program.secondaryMuscleGroupTargeted.id })}}">
-                    <img class="rounded-r-xl" src="{{ asset('img/muscleGroups/' ~ program.secondaryMuscleGroupTargeted.muscleGroupImage ) }}" alt="{{program.secondaryMuscleGroupTargeted}}">
+{% if programs|length > 0 %}
+
+<!-- Create New Program Button -->
+<section class="text-center mb-12">
+    <a href="{{ path('app_training_new') }}" class="btn-primary">
+        <i class="fas fa-plus mr-2"></i>
+        Create New Program
+    </a>
+</section>
+
+<!-- Programs Grid -->
+<section class="mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for program in programs %}
+        <div class="card hover-lift group">
+            <div class="card-header">
+                <div class="flex items-center justify-between w-full">
+                    <div>
+                        <h3 class="card-title dark:text-white light:text-gray-800">{{ program.name ?? program }}</h3>
+                        <p class="text-sm dark:text-gray-400 light:text-gray-600">
+                            <i class="fas fa-target mr-1"></i>
+                            Training Program
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <a href="{{ path('app_training_edit', {'id': program.id}) }}"
+                            class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 flex items-center justify-center transition-colors"
+                            title="Edit Program">
+                            <i class="fas fa-edit text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-content">
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <!-- Primary Muscle Group -->
+                    <a href="{{ path('app_muscleGroup_details', {'id': program.muscleGroupTargeted.id }) }}"
+                        class="relative overflow-hidden rounded-lg group/muscle">
+                        <div class="aspect-square relative">
+                            <img class="w-full h-full object-cover transition-transform duration-300 group-hover/muscle:scale-110"
+                                src="{{ asset('img/muscleGroups/' ~ program.muscleGroupTargeted.muscleGroupImage ) }}"
+                                alt="{{ program.muscleGroupTargeted }}">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent">
+                            </div>
+                            <div class="absolute bottom-2 left-2 right-2">
+                                <p class="text-white font-semibold text-xs truncate">
+                                    {{ program.muscleGroupTargeted }}
+                                </p>
+                                <p class="text-white/70 text-xs">Primary</p>
+                            </div>
+                            <div class="absolute top-2 right-2">
+                                <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                                    <span class="text-white text-xs font-bold">1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Secondary Muscle Group -->
+                    <a href="{{ path('app_muscleGroup_details', {'id': program.secondaryMuscleGroupTargeted.id }) }}"
+                        class="relative overflow-hidden rounded-lg group/muscle">
+                        <div class="aspect-square relative">
+                            <img class="w-full h-full object-cover transition-transform duration-300 group-hover/muscle:scale-110"
+                                src="{{ asset('img/muscleGroups/' ~ program.secondaryMuscleGroupTargeted.muscleGroupImage ) }}"
+                                alt="{{ program.secondaryMuscleGroupTargeted }}">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent">
+                            </div>
+                            <div class="absolute bottom-2 left-2 right-2">
+                                <p class="text-white font-semibold text-xs truncate">
+                                    {{ program.secondaryMuscleGroupTargeted }}
+                                </p>
+                                <p class="text-white/70 text-xs">Secondary</p>
+                            </div>
+                            <div class="absolute top-2 right-2">
+                                <div class="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
+                                    <span class="text-white text-xs font-bold">2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Program Info -->
+                {% if program.description is defined and program.description %}
+                <p class="dark:text-gray-300 light:text-gray-600 text-sm mb-4">
+                    {{ program.description|slice(0, 100) }}{% if program.description|length > 100 %}...{% endif %}
+                </p>
+                {% endif %}
+
+                <!-- Program Stats -->
+                <div class="flex items-center justify-between text-sm dark:text-gray-400 light:text-gray-600 mb-4">
+                    {% if program.exercises is defined %}
+                    <span class="flex items-center">
+                        <i class="fas fa-list mr-1"></i>
+                        {{ program.exercises|length }} exercises
+                    </span>
+                    {% endif %}
+                    {% if program.difficulty is defined %}
+                    <span class="flex items-center">
+                        <i class="fas fa-chart-bar mr-1"></i>
+                        {{ program.difficulty|title }}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card-actions">
+                <a href="{{ path('app_training_edit', {'id': program.id}) }}" class="btn-primary flex-1 justify-center">
+                    <i class="fas fa-play mr-2"></i>
+                    Start Workout
                 </a>
             </div>
         </div>
-
         {% endfor %}
+    </div>
+</section>
 
-    {% else %}
-        <p>it seems that you don't have any Workout planned. <br><a href="{{ path ('app_training_new')}}">let's change that !</a></p>
-    {% endif %}
+<!-- Additional Actions -->
+<section class="text-center">
+    <div class="card max-w-lg mx-auto border-gradient">
+        <div class="text-center">
+            <div
+                class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-plus text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold dark:text-white light:text-gray-800 mb-2">Need More Programs?</h3>
+            <p class="dark:text-gray-300 light:text-gray-600 mb-4">
+                Create custom training programs tailored to your specific fitness goals and preferences.
+            </p>
+            <a href="{{ path('app_training_new') }}" class="btn-primary">
+                <i class="fas fa-magic mr-2"></i>
+                Create Custom Program
+            </a>
+        </div>
+    </div>
+</section>
+
+{% else %}
+
+<!-- Empty State -->
+<section class="text-center py-16">
+    <div class="max-w-md mx-auto">
+        <div
+            class="w-24 h-24 bg-gradient-to-br from-gray-400/20 to-gray-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-dumbbell text-4xl dark:text-gray-400 light:text-gray-500"></i>
+        </div>
+        <h3 class="text-2xl font-bold dark:text-white light:text-gray-800 mb-4">No Training Programs Yet</h3>
+        <p class="dark:text-gray-400 light:text-gray-600 mb-8">
+            It looks like you haven't created any workout programs yet. Let's get started and build your first training
+            routine!
+        </p>
+        <a href="{{ path('app_training_new') }}" class="btn-primary inline-flex">
+            <i class="fas fa-plus mr-2"></i>
+            Create Your First Program
+        </a>
+    </div>
+</section>
+
+{% endif %}
 
 {% endblock %}

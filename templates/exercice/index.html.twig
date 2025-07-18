@@ -1,63 +1,214 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ExerciceController!{% endblock %}
+{% block title %}Exercise Library | MuscleMind{% endblock %}
 
 {% block body %}
 
-
+<!-- Header Section -->
+<section class="text-center mb-12">
     <div
-        class="container dark:bg-secondary/60 light:bg-secondary_light/60 p-8 rounded-lg w-10/12 flex flex-col mx-auto backdrop-blur-md shadow-lgdark:text-white light:text-black">
-        <h1 class="text-3xl text-center font-bold">Exercice list</h1>
-        <h2 class="text-lg text-center font-semibold mt-3 mb-12">looking for a specific exercice ? Find every one of them here
-            grouped by target muscle !</h2>
-        <ul>
-            {# here i'll separate them into divs to group the ones with the same target muscle #}
-            {% set target = null %}
-            {% for exercice in exercices %}
-                {% if loop.first %}
-                    <a href="{{path ('app_muscle_details', {'id' : exercice.target.id } )}}" class="hover:underline text-xl font-semibold">{{ exercice.target }}</a>
-                {% endif %}
-                {% if target is not same as(exercice.target) %}
-                    {% if not loop.first %}
-                        </div>
-                        <a href="{{path ('app_muscle_details', {'id' : exercice.target.id } )}}" class="hover:underline text-xl font-semibold">{{ exercice.target }}</a>
-                    {% endif %}
-
-                    <div class="mb-8 mt-2 px-8 py-4 rounded-lg dark:dark:bg-primary/60 light:bg-primary_light/60">
-                    {% set target = exercice.target %}
-                {% endif %}
-                <hr class="my-1 border-white/10">
-                    <li>
-                        <div class="flex justify-between items-center">
-                            <a class="font-medium hover:font-semibold hover:text-quinary"
-                                href="{{path ('app_exercice_details', {'id': exercice.id} )}}">{{exercice}}</a>
-                            <div>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                <a class="text-tertiary hover:font-medium hover:text-yellow-400 duration-150 text-lg"
-                                    href="{{path ('app_exercice_edit', {'id': exercice.id} )}}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a> -
-                                <a class="text-tertiary hover:font-medium hover:text-red-600 duration-150 text-lg"
-                                    href="{{path ('app_exercice_delete', {'id': exercice.id})}}">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                                {% endif %}
-                            </div>
-                        </div>
-                    <hr class="my-1 border-white/10">
-                </li>
-            {% endfor %}
-            {% if target is not null %}
-        </div>
-    {% endif %}
-    </ul>
-    {% if is_granted('ROLE_ADMIN') %}
-        <div class="w-full flex justify-end">
-            <a class="font-bold px-4 py-2 rounded-2xl w-fit dark:bg-tertiary light:bg-tertiary_light drop-shadow-xl dark:hover:bg-quinary light:hover:bg-senary duration-150"
-                href="{{ path('app_exercice_new') }}">Create new</a>
-        </div>
-    {% endif %}
+        class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-full mb-6">
+        <i class="fas fa-running text-white text-xl"></i>
     </div>
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        <span class="text-gradient">Exercise Library</span>
+    </h1>
+    <p class="text-lg md:text-xl dark:text-gray-300 text-gray-600 mb-8 max-w-2xl mx-auto">
+        Discover our comprehensive collection of exercises, organized by target muscle groups to help you build the
+        perfect workout routine.
+    </p>
+</section>
 
+<!-- Quick Stats -->
+<section class="mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="card text-center">
+            <div
+                class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-dumbbell text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gradient">{{ exercices|length }}</h3>
+            <p class="dark:text-gray-400 text-gray-600">Total Exercises</p>
+        </div>
+
+        <div class="card text-center">
+            <div
+                class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-bullseye text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{{ exercices|map(e => e.target)|length }}</h3>
+            <p class="dark:text-gray-400 text-gray-600">Muscle Groups</p>
+        </div>
+
+        <div class="card text-center">
+            <div
+                class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-chart-line text-white"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gradient">All Levels</h3>
+            <p class="dark:text-gray-400 text-gray-600">Difficulty Range</p>
+        </div>
+    </div>
+</section>
+
+<!-- Exercise List by Muscle Group -->
+<section class="mb-12">
+    {% set currentTarget = null %}
+    {% set exerciseCount = 0 %}
+
+    {% for exercice in exercices %}
+    {% if currentTarget != exercice.target %}
+    {% if currentTarget is not null %}
+    </div>
+    </div>
+    {% endif %}
+
+    {% set currentTarget = exercice.target %}
+    {% set exerciseCount = 0 %}
+
+    <!-- Muscle Group Header -->
+    <div class="mb-8">
+        <div class="card">
+            <div class="card-header border-b border-white/10 pb-4 mb-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-quinary to-quaternary rounded-lg flex items-center justify-center">
+                            <i class="fas fa-crosshairs text-white"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold dark:text-white text-gray-800">{{ exercice.target }}
+                            </h2>
+                            <p class="dark:text-gray-400 text-gray-600">Target Muscle Group</p>
+                        </div>
+                    </div>
+                    <a href="{{ path('app_muscle_details', {'id': exercice.target.id }) }}" class="btn-secondary ml-4">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Learn More
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% endif %}
+
+                {% set exerciseCount = exerciseCount + 1 %}
+
+                <!-- Exercise Card -->
+                <div class="glass-effect rounded-lg p-4 hover-lift group">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3
+                            class="font-semibold dark:text-white text-gray-800 group-hover:text-quinary transition-colors">
+                            <a href="{{ path('app_exercice_details', {'id': exercice.id }) }}" class="stretched-link">
+                                {{ exercice }}
+                            </a>
+                        </h3>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <div class="flex items-center space-x-2 relative z-10">
+                            <a href="{{ path('app_exercice_edit', {'id': exercice.id }) }}"
+                                class="w-8 h-8 rounded-lg bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/30 flex items-center justify-center transition-colors"
+                                title="Edit Exercise">
+                                <i class="fas fa-edit text-xs"></i>
+                            </a>
+                            <a href="{{ path('app_exercice_delete', {'id': exercice.id }) }}"
+                                class="w-8 h-8 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 flex items-center justify-center transition-colors"
+                                title="Delete Exercise">
+                                <i class="fas fa-trash text-xs"></i>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="flex items-center justify-between text-sm dark:text-gray-400 text-gray-600">
+                        <span class="flex items-center">
+                            <i class="fas fa-bullseye mr-1"></i>
+                            {{ exercice.target }}
+                        </span>
+                        {% if exercice.difficulty is defined %}
+                        <span class="badge badge-primary">
+                            {{ exercice.difficulty|title }}
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    {% if exercice.description is defined and exercice.description %}
+                    <p class="text-sm dark:text-gray-300 text-gray-600 mt-2 line-clamp-2">
+                        {{ exercice.description|slice(0, 80) }}{% if exercice.description|length > 80 %}...{% endif %}
+                    </p>
+                    {% endif %}
+                </div>
+
+                {% if loop.last %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</section>
+
+<!-- Admin Actions -->
+{% if is_granted('ROLE_ADMIN') %}
+<section class="text-center">
+    <div class="card max-w-lg mx-auto border-gradient">
+        <div class="text-center">
+            <div
+                class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-plus text-white"></i>
+            </div>
+            <h3 class="text-xl font-bold dark:text-white text-gray-800 mb-2">Add New Exercise</h3>
+            <p class="dark:text-gray-300 text-gray-600 mb-4">
+                Expand the exercise library by adding new movements and variations.
+            </p>
+            <a href="{{ path('app_exercice_new') }}" class="btn-primary">
+                <i class="fas fa-plus mr-2"></i>
+                Create New Exercise
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Empty State (if no exercises) -->
+{% if exercices|length == 0 %}
+<section class="text-center py-16">
+    <div class="max-w-md mx-auto">
+        <div
+            class="w-24 h-24 bg-gradient-to-br from-gray-400/20 to-gray-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-dumbbell text-4xl dark:text-gray-400 text-gray-500"></i>
+        </div>
+        <h3 class="text-2xl font-bold dark:text-white text-gray-800 mb-4">No Exercises Available</h3>
+        <p class="dark:text-gray-400 text-gray-600 mb-8">
+            The exercise library is currently empty. Add some exercises to get started!
+        </p>
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_exercice_new') }}" class="btn-primary inline-flex">
+            <i class="fas fa-plus mr-2"></i>
+            Add First Exercise
+        </a>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+
+<style>
+    .stretched-link::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        content: "";
+    }
+
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
 
 {% endblock %}

@@ -1,55 +1,70 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Log in - MuscleMind{% endblock %}
 
 {% block body %}
-<form method="post"
-    class="light:text-black dark:text-white font-medium w-full mt-24 max-w-xl mx-auto flex flex-col justify-center space-y-4 dark:bg-primary light:bg-primary_light px-4 pt-4 pb-8 rounded-lg shadow-lg">
-    {% if error %}
-    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="auth-logo">
+                <i class="fas fa-dumbbell text-quinary text-3xl mb-2"></i>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Welcome back!</h1>
+                <p class="text-gray-600 dark:text-gray-300 mt-2">Sign in to your MuscleMind account</p>
+            </div>
+        </div>
 
-    {# {% if app.user %}
-    <div class="mb-3">
-        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        {% if error %}
+        <div class="alert alert-error mb-6">
+            <i class="fas fa-exclamation-triangle mr-2"></i>
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+        {% endif %}
+
+        <form method="post" class="auth-form">
+            <div class="form-group">
+                <label for="inputEmail" class="form-label">
+                    <i class="fas fa-envelope mr-2"></i>Email address
+                </label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-input"
+                    autocomplete="email" placeholder="Enter your email address" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword" class="form-label">
+                    <i class="fas fa-lock mr-2"></i>Password
+                </label>
+                <input type="password" name="password" id="inputPassword" class="form-input"
+                    autocomplete="current-password" placeholder="Enter your password" required>
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div class="flex items-center justify-between mb-6">
+                <label class="flex items-center">
+                    <input type="checkbox" name="_remember_me" class="form-checkbox">
+                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-300">Remember me</span>
+                </label>
+                <a href="{{ path('app_forgot_password_request') }}"
+                    class="text-sm text-quinary hover:text-quaternary transition-colors">
+                    Forgot password?
+                </a>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full mb-6">
+                <i class="fas fa-sign-in-alt mr-2"></i>
+                Sign In
+            </button>
+
+            <div class="text-center">
+                <p class="text-gray-600 dark:text-gray-300">
+                    Don't have an account?
+                    <a href="{{ path('app_register') }}"
+                        class="text-quinary hover:text-quaternary font-medium transition-colors">
+                        Sign up for free
+                    </a>
+                </p>
+            </div>
+        </form>
     </div>
-    {% endif %} #}
-
-    <h1 class="text-2xl mb-3 pt-4 font-bold text-center">Welcome back!</h1>
-
-    <input
-        class="text-black w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-quinary mb-8"
-        type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email"
-        placeholder="email" required autofocus>
-    <input
-        class="text-black w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-quaternary mb-8"
-        type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password"
-        placeholder="password" required>
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-    <div class="flex justify-center items-center mb-8">
-        <label class="flex items-center space-x-2">
-            <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600">
-            <span>Remember me</span>
-        </label>
-    </div>
-
-    <div class="flex justify-center">
-        <button
-            class="w-3/5 px-4 py-2 mb-8 dark:bg-tertiary light:bg-tertiary_light drop-shadow-xl hover:bg-quinary duration-150 dark:text-white light:text-black rounded-lg"
-            type="submit">
-            Log in!
-        </button>
-    </div>
-
-    <p class="text-center">First time here?
-        <a class="dark:text-quinary light:text-black light:bg-quinary light:px-2 hover:font-bold duration-150  "
-            href="{{path('app_register')}}">Sign
-            up!</a>
-    </p>
-    <p class="text-center">Forgot your password?
-        <a class="dark:text-quaternary light:text-black light:bg-quaternary light:px-2 hover:font-bold duration-150"
-            href="{{path('app_forgot_password_request')}}">Let's change it!</a>
-    </p>
-</form>
+</div>
 {% endblock %}

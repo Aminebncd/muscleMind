@@ -1,0 +1,25 @@
+{# Reusable Stats Card Component #}
+{% set title = title ?? 'Stat' %}
+{% set value = value ?? '0' %}
+{% set description = description ?? '' %}
+{% set icon = icon ?? 'fas fa-chart-bar' %}
+{% set iconColor = iconColor ?? 'from-blue-500 to-purple-600' %}
+{% set url = url ?? null %}
+
+{% set cardContent %}
+<div class="w-12 h-12 bg-gradient-to-br {{ iconColor }} rounded-lg flex items-center justify-center mx-auto mb-4">
+    <i class="{{ icon }} text-white" aria-hidden="true"></i>
+</div>
+<h3 class="text-2xl font-bold text-gradient">{{ value }}</h3>
+<p class="dark:text-gray-400 light:text-gray-600">{{ description }}</p>
+{% endset %}
+
+{% if url %}
+<a href="{{ url }}" class="card text-center hover-lift block focus:ring-2 focus:ring-quinary">
+    {{ cardContent|raw }}
+</a>
+{% else %}
+<div class="card text-center">
+    {{ cardContent|raw }}
+</div>
+{% endif %}

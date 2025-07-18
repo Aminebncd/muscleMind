@@ -1,51 +1,290 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome, {{ user.username }}!{% endblock %}
+{% block title %}Dashboard - {{ app.user.username }} | MuscleMind{% endblock %}
 
 {% block body %}
 
-    <h1 class="text-center text-2xl font-bold my-8 dark:text-white light:text-black">Welcome <br>{{ user.username }} !</h1>
-    {# <p class="">Your score: <strong>{{ user.score }}</strong></p> #}
+<!-- Hero Section with Welcome Message -->
+<section class="relative mb-12">
+    <div class="text-center">
+        <div
+            class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-quinary to-quaternary rounded-full mb-6 animate-pulse">
+            <i class="fas fa-dumbbell text-white text-2xl"></i>
+        </div>
+        <h1 class="text-4xl dark:text-white text-gray-800 md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in-up">
+            Welcome back,
+            <span class="text-gradient">{{ app.user.username }}</span>!
+        </h1>
+        <p class="text-lg md:text-xl dark:text-gray-300 text-gray-600 mb-8 max-w-2xl mx-auto">
+            Ready to crush your fitness goals? Let's make today count with your personalized training sessions.
+        </p>
+    </div>
+</section>
 
-    <div class=" mb-8 hover:scale-105 duration-150 ">
-        <a href="{{ path('app_home_newSession') }}" class="no-underline px-4 py-2 text-xl font-medium rounded-2xl dark:bg-tertiary light:bg-tertiary_light drop-shadow-xl hover:bg-quinary duration-100">
-            Schedule your training sessions
+<!-- Quick Action Section -->
+<section class="mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Schedule Training Card -->
+        <div class="card hover-lift">
+            <div class="card-header">
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-calendar-plus text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="card-title dark:text-white text-gray-800">Schedule Session</h3>
+                        <p class="text-sm dark:text-gray-400 text-gray-600">Plan your next workout</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-content">
+                <p class="dark:text-gray-300 text-gray-600 mb-4">
+                    Create and schedule new training sessions tailored to your fitness goals.
+                </p>
+            </div>
+            <div class="card-actions">
+                <a href="{{ path('app_home_newSession') }}" class="btn-primary w-full justify-center">
+                    <i class="fas fa-plus mr-2"></i>
+                    Schedule Training
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Stats Card -->
+        <div class="card hover-lift">
+            <div class="card-header">
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-chart-line text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="card-title dark:text-white text-gray-800">Your Progress</h3>
+                        <p class="text-sm dark:text-gray-400 text-gray-600">Training overview</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-gradient">{{ sessions|length }}</div>
+                        <div class="text-sm dark:text-gray-400 text-gray-600">Sessions</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-gradient">{{ app.user.score ?? 0 }}</div>
+                        <div class="text-sm dark:text-gray-400 text-gray-600">Score</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-actions">
+                <a href="{{ path('app_user_leaderboard') }}" class="btn-secondary w-full justify-center">
+                    <i class="fas fa-trophy mr-2"></i>
+                    View Leaderboard
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Access Card -->
+        <div class="card hover-lift">
+            <div class="card-header">
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-bolt text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="card-title dark:text-white text-gray-800">Quick Access</h3>
+                        <p class="text-sm dark:text-gray-400 text-gray-600">Jump to training</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="space-y-2">
+                    <a href="{{ path('app_training') }}"
+                        class="flex items-center justify-between p-2 rounded-lg hover:bg-white/10 transition-colors">
+                        <span class="flex items-center space-x-2">
+                            <i class="fas fa-dumbbell text-quinary"></i>
+                            <span>Programs</span>
+                        </span>
+                        <i class="fas fa-arrow-right text-xs opacity-50"></i>
+                    </a>
+                    <a href="{{ path('app_exercice') }}"
+                        class="flex items-center justify-between p-2 rounded-lg hover:bg-white/10 transition-colors">
+                        <span class="flex items-center space-x-2">
+                            <i class="fas fa-running text-quaternary"></i>
+                            <span>Exercises</span>
+                        </span>
+                        <i class="fas fa-arrow-right text-xs opacity-50"></i>
+                    </a>
+                    <a href="{{ path('app_muscle') }}"
+                        class="flex items-center justify-between p-2 rounded-lg hover:bg-white/10 transition-colors">
+                        <span class="flex items-center space-x-2">
+                            <i class="fas fa-user-md text-senary"></i>
+                            <span>Anatomy</span>
+                        </span>
+                        <i class="fas fa-arrow-right text-xs opacity-50"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Upcoming Sessions Section -->
+{% if sessions|length > 0 %}
+<section class="mb-12">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h2 class="text-3xl font-bold dark:text-white text-gray-800 mb-2">Upcoming Sessions</h2>
+            <p class="dark:text-gray-400 text-gray-600">Your next {{ sessions|length > 5 ? '5' : sessions|length
+                }} training sessions</p>
+        </div>
+        {% if sessions|length > 5 %}
+        <a href="{{ path('app_home_sessions') }}" class="btn-secondary">
+            <span>View All</span>
+            <i class="fas fa-arrow-right ml-2"></i>
         </a>
+        {% endif %}
     </div>
 
-
-    {% if sessions|length > 0 %}
-        <p class="dark:text-white light:text-black font-bold text-lg" >your next sessions : </p>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {% for session in sessions|sort((a, b) => a.dateSession <=> b.dateSession)|slice(0, 5) %}
-        <div class="dark:bg-nav light:bg-nav_light backdrop-blur-lg rounded-lg m-5 max-w-3xl max-h-3/5 max-sm:w-4/5 drop-shadow-xl relative">
-            <div class="p-2 flex justify-between w-full">
-                <a class="text-white font-semibold text-lg hover:text-quaternary hover:text-xl duration-150" href="{{ path('app_training_edit', {'id': session.program.id}) }}">{{session}}</a>
-                <a class="text-end hover:text-red-700 duration-150" href="{{ path('app_home_deleteSession', {'id': session.id}) }}"><i class="fa-solid fa-trash"></i></a>
-            </div>
-            <div class="flex items-center overflow-hidden max-sm:flex-col">
-                <a class="relative h-auto w-1/2 object-cover hover:ease-out hover:scale-105 duration-100 max-sm:w-full max-sm:h-1/6 group" href="{{ path('app_muscleGroup_details', {'id': session.program.muscleGroupTargeted.id })}}">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-bl-lg hover:opacity-80 transition-opacity duration-300"></div>
-                    <span class="text-white  font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:block ">{{session.program.muscleGroupTargeted}}</span>
-                    <img class="rounded-bl-lg max-sm:rounded-none" src="{{ asset('img/muscleGroups/' ~ session.program.muscleGroupTargeted.muscleGroupImage ) }}" alt="{{session.program.muscleGroupTargeted.muscleGroupImage()}}">
-                </a>
-        
-                <a class="relative h-auto w-1/2 object-cover hover:ease-out hover:scale-105 duration-100 max-sm:w-full max-sm:h-1/6 group" href="{{ path('app_muscleGroup_details', {'id': session.program.secondaryMuscleGroupTargeted.id })}}">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-br-lg hover:opacity-80 transition-opacity duration-300"></div>
-                    <span class="text-white  font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden group-hover:block">{{session.program.secondaryMuscleGroupTargeted}}</span>
-                    <img class="rounded-br-lg max-sm:rounded-b-lg" src="{{ asset('img/muscleGroups/' ~ session.program.secondaryMuscleGroupTargeted.muscleGroupImage ) }}" alt="{{session.program.secondaryMuscleGroupTargeted.muscleGroupImage()}}">
-                </a>
-            </div>
-        </div>
-        
-        {% endfor %}
-        <div class="w-full flex justify-center mt-6">
-            <a class="dark:text-white light:text-black underline text-lg hover:text-xl font-semibold hover:font-bold duration-150" href="{{ path('app_home_sessions') }}">List of your sessions</a>
-        </div>
-        {% else %}
-        <p class="text-xl text-center font-medium dark:text-white light:text-black">you have no scheduled sessions</p>
-        {% endif %}
-        
+            <div class="card hover-lift group">
+                <div class="card-header">
+                    <div class="flex items-center justify-between w-full">
+                        <div>
+                            <h3 class="card-title dark:text-white text-gray-800">{{ session.program.name ??
+                                session }}</h3>
+                            <p class="text-sm dark:text-gray-400 text-gray-600">
+                                <i class="fas fa-calendar mr-1"></i>
+                                {{ session.dateSession|date('M d, Y') }}
+                                <i class="fas fa-clock ml-3 mr-1"></i>
+                                {{ session.dateSession|date('g:i A') }}
+                            </p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <a href="{{ path('app_training_edit', {'id': session.program.id}) }}"
+                                class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 flex items-center justify-center transition-colors"
+                                title="Edit Program">
+                                <i class="fas fa-edit text-xs"></i>
+                            </a>
+                            <a href="{{ path('app_home_deleteSession', {'id': session.id}) }}"
+                                class="w-8 h-8 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 flex items-center justify-center transition-colors"
+                                title="Delete Session">
+                                <i class="fas fa-trash text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="card-content">
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Primary Muscle Group -->
+                        <a href="{{ path('app_muscleGroup_details', {'id': session.program.muscleGroupTargeted.id }) }}"
+                            class="relative overflow-hidden rounded-lg group/muscle">
+                            <div class="aspect-video relative">
+                                <img class="w-full h-full object-cover transition-transform duration-300 group-hover/muscle:scale-110"
+                                    src="{{ asset('img/muscleGroups/' ~ session.program.muscleGroupTargeted.muscleGroupImage ) }}"
+                                    alt="{{ session.program.muscleGroupTargeted }}">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+                                </div>
+                                <div class="absolute bottom-2 left-2 right-2">
+                                    <p class="text-white font-semibold text-sm truncate">
+                                        {{ session.program.muscleGroupTargeted }}
+                                    </p>
+                                    <p class="text-white/70 text-xs">Primary</p>
+                                </div>
+                            </div>
+                        </a>
 
+                        <!-- Secondary Muscle Group -->
+                        <a href="{{ path('app_muscleGroup_details', {'id': session.program.secondaryMuscleGroupTargeted.id }) }}"
+                            class="relative overflow-hidden rounded-lg group/muscle">
+                            <div class="aspect-video relative">
+                                <img class="w-full h-full object-cover transition-transform duration-300 group-hover/muscle:scale-110"
+                                    src="{{ asset('img/muscleGroups/' ~ session.program.secondaryMuscleGroupTargeted.muscleGroupImage ) }}"
+                                    alt="{{ session.program.secondaryMuscleGroupTargeted }}">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+                                </div>
+                                <div class="absolute bottom-2 left-2 right-2">
+                                    <p class="text-white font-semibold text-sm truncate">
+                                        {{ session.program.secondaryMuscleGroupTargeted }}
+                                    </p>
+                                    <p class="text-white/70 text-xs">Secondary</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <a href="{{ path('app_training_edit', {'id': session.program.id}) }}"
+                        class="btn-primary flex-1 justify-center">
+                        <i class="fas fa-play mr-2"></i>
+                        Start Workout
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+
+    {% if sessions|length > 5 %}
+    <div class="text-center mt-8">
+        <a href="{{ path('app_home_sessions') }}" class="btn-secondary">
+            <i class="fas fa-list mr-2"></i>
+            View All {{ sessions|length }} Sessions
+        </a>
+    </div>
+    {% endif %}
+</section>
+
+{% else %}
+
+<!-- Empty State -->
+<section class="text-center py-16">
+    <div class="max-w-md mx-auto">
+        <div
+            class="w-24 h-24 bg-gradient-to-br from-gray-400/20 to-gray-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-calendar-plus text-4xl dark:text-gray-400 text-gray-500"></i>
+        </div>
+        <h3 class="text-2xl font-bold dark:text-white text-gray-800 mb-4">No Sessions Scheduled</h3>
+        <p class="dark:text-gray-400 text-gray-600 mb-8">
+            You haven't scheduled any training sessions yet. Let's get started and create your first workout plan!
+        </p>
+        <a href="{{ path('app_home_newSession') }}" class="btn-primary inline-flex">
+            <i class="fas fa-plus mr-2"></i>
+            Schedule Your First Session
+        </a>
+    </div>
+</section>
+
+{% endif %}
+
+<!-- Motivational Section -->
+<section class="card text-center border-gradient">
+    <div class="max-w-2xl mx-auto">
+        <div
+            class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-fire text-white text-xl"></i>
+        </div>
+        <h3 class="text-2xl font-bold dark:text-white text-gray-800 mb-4">Stay Motivated</h3>
+        <p class="dark:text-gray-300 text-gray-600 mb-6 text-lg">
+            "The groundwork for all happiness is good health." - Leigh Hunt
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{{ path('app_training') }}" class="btn-primary">
+                <i class="fas fa-dumbbell mr-2"></i>
+                Explore Programs
+            </a>
+            <a href="{{ path('app_ressource') }}" class="btn-secondary">
+                <i class="fas fa-book mr-2"></i>
+                Learn More
+            </a>
+        </div>
+    </div>
+</section>
 
 {% endblock %}

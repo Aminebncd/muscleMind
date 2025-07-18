@@ -1,6 +1,5 @@
 
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
     --nav-color: #07080d;
@@ -15,15 +14,30 @@
     --primary-light-color: #f0ead6;
     --secondary-light-color: #f4d35e;
     --tertiary-light-color: #ee964b;
-  }
+}
   
-  .dark-theme {
+.dark-theme {
     --secondary-color: var(--tertiary-color);
-  }
+}
 
-  .light-theme {
+.light-theme {
     --secondary-color: var(--tertiary-light-color);
-  }
+}
+
+/* Enhanced Global Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
 body::before {
     content: "";
@@ -33,69 +47,413 @@ body::before {
     right: 0;
     bottom: 0;
     background: url(/img/pattern.svg) repeat;
+    opacity: 0.4;
     z-index: -1; 
 }
 
-body {
-    color: aliceblue;
-    font-family: "Montserrat", sans-serif;
-    position: relative; 
-    margin: 0; 
-}
-
-main {
-    margin-left: auto;
-    margin-right: auto;
+/* Enhanced Navigation Styles */
+.mobile-nav-item {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    color: inherit;
+    gap: 0.75rem;
 }
 
+.mobile-nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(4px);
+}
 
+.nav-link {
+    position: relative;
+    padding: 0.5rem 0;
+    text-decoration: none;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, var(--quinary-color), var(--quaternary-color));
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Enhanced Button Styles */
+.btn-primary {
+    background: linear-gradient(135deg, #00a6fb 0%, #003566 100%);
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 166, 251, 0.2);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0095e8 0%, #002445 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 166, 251, 0.3);
+    color: white;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: inherit;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced Card Styles */
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.card-content {
+    margin-bottom: 1rem;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+}
+
+/* Enhanced Footer Styles */
+.footer-link {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+}
+
+.footer-link:hover {
+    opacity: 1;
+    color: var(--quinary-color);
+    transform: translateX(4px);
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.social-link:hover {
+    transform: translateY(-2px) scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Enhanced Menu Animations */
 .menu {
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(0);
-}
-    
-.menu-open {
-    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* .stroke {
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: rgb(39, 39, 39);
-  paint-order: stroke fill;
-} */
-
-#PROGRESS {
-    display: none;
+/* Enhanced Loading States */
+.page-loading {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
 }
 
+.page-loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Enhanced Pagination */
 .pagination {
     display: flex;
     list-style: none;
     padding: 0;
     margin: 0;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
 }
 
 .pagination a, .pagination span {
-    padding: 10px 15px;
+    padding: 0.75rem 1rem;
     text-decoration: none;
-    font-weight: 700;
-    transition: ease-in-out background-color 0.2s, color 0.2s ;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-radius: 0.5rem;
+    min-width: 2.5rem;
+    text-align: center;
+    color: inherit;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.pagination .current, .pagination a:hover {
-    background-color: var(--secondary-color);
+.pagination .current {
+    background: linear-gradient(135deg, var(--quinary-color), var(--quaternary-color));
     color: white;
-    border-radius: 25px;
-    overflow: hidden;
+    border-color: transparent;
 }
 
+.pagination a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Enhanced Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: inherit;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--quinary-color);
+    box-shadow: 0 0 0 3px rgba(0, 166, 251, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.form-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Enhanced Utility Classes */
+.text-gradient {
+    background: linear-gradient(135deg, var(--quinary-color), var(--quaternary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.border-gradient {
+    border: 2px solid transparent;
+    background: linear-gradient(var(--primary-color), var(--primary-color)) padding-box,
+                linear-gradient(135deg, var(--quinary-color), var(--quaternary-color)) border-box;
+}
+
+/* Parallax Effects */
 .parallax {
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 768px) {
+    .card {
+        padding: 1rem;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.875rem;
+    }
+    
+    .mobile-nav-item {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}
+
+/* Progress Indicator */
+#PROGRESS {
+    display: none;
+}
+
+/* Dark/Light Theme Specific Adjustments */
+.dark-theme .form-input {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.light-theme .form-input {
+    background: rgba(0, 0, 0, 0.05);
+    color: #1a1a1a;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.light-theme .form-input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.light-theme .card {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #1a1a1a;
+}
+
+.light-theme .mobile-nav-item:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Accessibility Improvements */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Skip to main content link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--quinary-color);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 1000;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+/* Focus management */
+*:focus {
+    outline: 2px solid var(--quinary-color);
+    outline-offset: 2px;
+}
+
+.focus-visible:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .card {
+        border-width: 2px;
+        border-color: currentColor;
+    }
+    
+    .btn {
+        border-width: 2px;
+        border-color: currentColor;
+    }
+    
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: currentColor;
+    }
+    
+    .dark-theme .glass-effect {
+        background: rgba(0, 0, 0, 0.9);
+    }
+}
+
+/* Enhanced Animation Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-pulse {
+    animation: pulse 2s infinite;
 }
 
 

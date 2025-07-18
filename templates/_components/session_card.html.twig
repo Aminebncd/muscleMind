@@ -1,0 +1,89 @@
+{# Reusable Session Card Component #}
+{% set session = session ?? null %}
+{% set showActions = showActions ?? true %}
+{% set compact = compact ?? false %}
+
+{% if session %}
+<div class="card hover-lift group {{ compact ? 'card-compact' : '' }}">
+    <div class="card-header">
+        <div class="flex items-center justify-between w-full">
+            <div>
+                <h3 class="card-title dark:text-white light:text-gray-800">
+                    {{ session.program.name ?? session }}
+                </h3>
+                <p class="text-sm dark:text-gray-400 light:text-gray-600">
+                    <i class="fas fa-calendar mr-1" aria-hidden="true"></i>
+                    <time datetime="{{ session.dateSession|date('Y-m-d H:i') }}">
+                        {{ session.dateSession|date('M d, Y') }}
+                    </time>
+                    <i class="fas fa-clock ml-3 mr-1" aria-hidden="true"></i>
+                    {{ session.dateSession|date('g:i A') }}
+                </p>
+            </div>
+            {% if showActions %}
+            <div class="flex items-center space-x-2">
+                <a href="{{ path('app_training_edit', {'id': session.program.id}) }}"
+                    class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 flex items-center justify-center transition-colors focus:ring-2 focus:ring-blue-400"
+                    title="Edit Program" aria-label="Edit {{ session.program.name ?? session }}">
+                    <i class="fas fa-edit text-xs" aria-hidden="true"></i>
+                </a>
+                <a href="{{ path('app_home_deleteSession', {'id': session.id}) }}"
+                    class="w-8 h-8 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 flex items-center justify-center transition-colors focus:ring-2 focus:ring-red-400"
+                    title="Delete Session" aria-label="Delete session for {{ session.program.name ?? session }}"
+                    onclick="return confirm('Are you sure you want to delete this session?')">
+                    <i class="fas fa-trash text-xs" aria-hidden="true"></i>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if not compact %}
+    <div class="card-content">
+        <div class="grid grid-cols-2 gap-4">
+            <!-- Primary Muscle Group -->
+            <a href="{{ path('app_muscleGroup_details', {'id': session.program.muscleGroupTargeted.id }) }}"
+                class="relative overflow-hidden rounded-lg group/muscle focus:ring-2 focus:ring-quinary">
+                <div class="aspect-video relative">
+                    <img class="w-full h-full object-cover transition-transform duration-300 group-hover/muscle:scale-110"
+                        src="{{ asset('img/muscleGroups/' ~ session.program.muscleGroupTargeted.muscleGroupImage ) }}"
+                        alt="{{ session.program.muscleGroupTargeted }}" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-2 left-2 right-2">
+                        <p class="text-white font-semibold text-sm truncate">
+                            {{ session.program.muscleGroupTargeted }}
+                        </p>
+                        <p class="text-white/70 text-xs">Primary</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Secondary Muscle Group -->
+            <a href="{{ path('app_muscleGroup_details', {'id': session.program.secondaryMuscleGroupTargeted.id }) }}"
+                class="relative overflow-hidden rounded-lg group/muscle focus:ring-2 focus:ring-quinary">
+                <div class="aspect-video relative">
+                    <img class="w-full h-full object-cover transition-transform duration-300 group-hover/muscle:scale-110"
+                        src="{{ asset('img/muscleGroups/' ~ session.program.secondaryMuscleGroupTargeted.muscleGroupImage ) }}"
+                        alt="{{ session.program.secondaryMuscleGroupTargeted }}" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-2 left-2 right-2">
+                        <p class="text-white font-semibold text-sm truncate">
+                            {{ session.program.secondaryMuscleGroupTargeted }}
+                        </p>
+                        <p class="text-white/70 text-xs">Secondary</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="card-actions">
+        <a href="{{ path('app_training_edit', {'id': session.program.id}) }}"
+            class="btn-primary flex-1 justify-center focus:ring-2 focus:ring-quinary">
+            <i class="fas fa-play mr-2" aria-hidden="true"></i>
+            Start Workout
+        </a>
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,80 @@
+{% macro render_table(headers, rows, actions = false, searchable = false) %}
+<div class="card">
+    {% if searchable %}
+    <div class="card-header">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <h3 class="card-title">Data Table</h3>
+            <div class="relative">
+                <input type="text" placeholder="Search..." class="form-input pl-10 w-full sm:w-64" id="table-search">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="fas fa-search text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="overflow-x-auto">
+        <table class="table">
+            <thead class="table-header">
+                <tr>
+                    {% for header in headers %}
+                    <th class="table-header-cell">{{ header }}</th>
+                    {% endfor %}
+                    {% if actions %}
+                    <th class="table-header-cell">Actions</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr class="table-row" data-searchable="{{ row|join(' ')|lower }}">
+                    {% for cell in row %}
+                    <td class="table-cell">{{ cell }}</td>
+                    {% endfor %}
+                    {% if actions %}
+                    <td class="table-cell">
+                        <div class="flex space-x-2">
+                            <button class="btn btn-sm btn-secondary">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if searchable %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('table-search');
+        const tableRows = document.querySelectorAll('[data-searchable]');
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+
+                tableRows.forEach(row => {
+                    const searchableText = row.getAttribute('data-searchable');
+                    if (searchableText.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        }
+    });
+</script>
+{% endif %}
+{% endmacro %}
