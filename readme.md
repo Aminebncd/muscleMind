@@ -290,3 +290,35 @@ Les contributions sont les bienvenues ! Processus de contribution :
 ---
 
 *Développé avec ❤️ par [Mohamed Amine Bounachada](https://github.com/Aminebncd)*
+
+## 🐳 Docker Quick Start
+
+The repository ships with a production-grade Docker setup and a dev-friendly `docker-compose.yml`.
+
+```bash
+cp .env.docker .env.local
+make build
+make up
+# first-time: install deps & init db
+docker compose exec php composer install
+docker compose exec node npm ci
+docker compose exec node npm run build  # or npm run dev
+make migrate
+```
+
+Then open [http://localhost:${APP_PORT:-8080}](http://localhost:${APP_PORT:-8080}) (and Vite's dev server on port 5173 when running `npm run dev`).
+
+- `php`, `nginx`, `db`, and `redis` start by default; enable `mailhog` with `--profile mail` for email testing and `node` with `--profile node` for the Vite dev server or when running `make assets`.
+- Symfony Messenger can point workers at Redis via `REDIS_URL`; Mailer can target Mailhog at `smtp://mailhog:1025` in development.
+
+For production builds use `docker build --target runtime .` and inject secrets via environment variables (never commit them). A minimal `.env.prod` example:
+
+```env
+APP_ENV=prod
+APP_DEBUG=0
+APP_SECRET=change_me_in_prod
+DATABASE_URL="mysql://app:app@db:3306/app?serverVersion=8.0"
+REDIS_URL="redis://redis:6379"
+```
+
+Provision databases/queues only after the containers report healthy status (see `scripts/wait-for-db.sh`).
