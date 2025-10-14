@@ -1,0 +1,7 @@
+.git
+node_modules
+vendor
+var/*
+docker/
+.env*
+!.env.docker
