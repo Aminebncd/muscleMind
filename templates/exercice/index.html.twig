@@ -36,7 +36,7 @@
                 class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <i class="fas fa-bullseye text-white"></i>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{{ exercices|map(e => e.target)|length }}</h3>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">{{ exercices|map(e => e.target)|length}}</h3>
             <p class="dark:text-gray-400 text-gray-600">Muscle Groups</p>
         </div>
 
@@ -47,6 +47,70 @@
             </div>
             <h3 class="text-2xl font-bold text-gradient">All Levels</h3>
             <p class="dark:text-gray-400 text-gray-600">Difficulty Range</p>
+        </div>
+    </div>
+</section>
+
+{# search bar #}
+<section class="mb-8">
+    <div class="card">
+        <div class="card-header border-b border-white/10 pb-4 mb-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-br rounded-lg flex items-center justify-center">
+                    <i class="fas fa-search text-white text-sm"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold dark:text-white text-gray-800">Search & Filter</h3>
+                    <p class="text-sm dark:text-gray-400 text-gray-600">Find the perfect exercise for your workout</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="flex-1">
+                <label for="exerciseSearch" class="block text-sm font-medium dark:text-gray-300 text-gray-700 mb-2">
+                    <i class="fas fa-search mr-2"></i>Search exercises
+                </label>
+                <input type="text" id="exerciseSearch" placeholder="Type exercise name..." class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                            dark:bg-gray-800 bg-white dark:text-white text-gray-900 
+                            focus:ring-2 focus:ring-quinary focus:border-transparent 
+                            transition-all duration-200 placeholder-gray-400">
+            </div>
+            <div class="flex-1">
+                <label for="muscleFilter" class="block text-sm font-medium dark:text-gray-300 text-gray-700 mb-2">
+                    <i class="fas fa-filter mr-2"></i>Filter by muscle group
+                </label>
+                <select id="muscleFilter" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                            dark:bg-gray-800 bg-white dark:text-white text-gray-900 
+                            focus:ring-2 focus:ring-quinary focus:border-transparent 
+                            transition-all duration-200 cursor-pointer">
+                    <option value="">All Muscle Groups</option>
+                    {% set uniqueMuscles = [] %}
+                    {% for exercice in exercices %}
+                    {% if exercice.target %}
+                    {% set muscleName = exercice.target.muscleName ?? exercice.target %}
+                    {% if muscleName not in uniqueMuscles %}
+                    {% set uniqueMuscles = uniqueMuscles|merge([muscleName]) %}
+                    <option value="{{ muscleName }}">{{ muscleName }}</option>
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <!-- Results counter -->
+        <div class="mt-4 pt-4 border-t border-white/10">
+            <div class="flex items-center justify-between">
+                <span id="resultsCounter" class="text-sm dark:text-gray-400 text-gray-600">
+                    <i class="fas fa-list mr-2"></i>
+                    Showing <span class="font-semibold text-quinary">{{ exercices|length }}</span> exercises
+                </span>
+                <button id="clearFilters"
+                    class="text-sm text-quinary hover:text-quaternary transition-colors duration-200 hidden">
+                    <i class="fas fa-times mr-1"></i>Clear filters
+                </button>
+            </div>
         </div>
     </div>
 </section>
@@ -68,7 +132,7 @@
 
     <!-- Muscle Group Header -->
     <div class="mb-8">
-        <div class="card">
+        <div class="card my-3">
             <div class="card-header border-b border-white/10 pb-4 mb-6">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
@@ -77,7 +141,8 @@
                             <i class="fas fa-crosshairs text-white"></i>
                         </div>
                         <div>
-                            <h2 class="text-2xl font-bold dark:text-white text-gray-800">{{ exercice.target }}
+                            <h2 class="text-2xl font-bold dark:text-white text-gray-800">
+                                {{ exercice.target.muscleName ?? exercice.target }}
                             </h2>
                             <p class="dark:text-gray-400 text-gray-600">Target Muscle Group</p>
                         </div>
@@ -96,6 +161,15 @@
 
                 <!-- Exercise Card -->
                 <div class="glass-effect rounded-lg p-4 hover-lift group">
+                    {% if app.user and bestPerformances[exercice.id] is defined %}
+                    {% set bestPerformance = bestPerformances[exercice.id] %}
+                    <div class="mt-2 text-xs">
+                        <span class="badge badge-success">
+                            <i class="fas fa-trophy mr-1"></i>
+                            PR: {{ bestPerformance.personnalRecord }}kg
+                        </span>
+                    </div>
+                    {% endif %}
                     <div class="flex items-center justify-between mb-3">
                         <h3
                             class="font-semibold dark:text-white text-gray-800 group-hover:text-quinary transition-colors">
@@ -123,7 +197,7 @@
                     <div class="flex items-center justify-between text-sm dark:text-gray-400 text-gray-600">
                         <span class="flex items-center">
                             <i class="fas fa-bullseye mr-1"></i>
-                            {{ exercice.target }}
+                            {{ exercice.target.muscleName ?? exercice.target }}
                         </span>
                         {% if exercice.difficulty is defined %}
                         <span class="badge badge-primary">
@@ -210,5 +284,206 @@
         overflow: hidden;
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('exerciseSearch');
+        const muscleFilter = document.getElementById('muscleFilter');
+        const exerciseCards = document.querySelectorAll('.glass-effect');
+        const muscleGroups = document.querySelectorAll('.card .card-header');
+        const resultsCounter = document.getElementById('resultsCounter');
+        const clearFiltersBtn = document.getElementById('clearFilters');
+
+        let totalExercises = exerciseCards.length;
+
+        function updateResultsCounter(visibleCount) {
+            const counterSpan = resultsCounter.querySelector('.font-semibold');
+            counterSpan.textContent = visibleCount;
+
+            // show/hide clear filters button
+            const hasFilters = searchInput.value.trim() !== '' || muscleFilter.value !== '';
+            clearFiltersBtn.classList.toggle('hidden', !hasFilters);
+        }
+
+        function showNoResultsMessage(show) {
+            let noResultsDiv = document.getElementById('noResultsMessage');
+
+            if (show && !noResultsDiv) {
+                noResultsDiv = document.createElement('div');
+                noResultsDiv.id = 'noResultsMessage';
+                noResultsDiv.className = 'text-center py-12';
+                noResultsDiv.innerHTML = `
+                <div class="max-w-md mx-auto">
+                    <div class="w-16 h-16 bg-gradient-to-br from-gray-400/20 to-gray-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-search text-2xl dark:text-gray-400 text-gray-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold dark:text-white text-gray-800 mb-2">No exercises found</h3>
+                    <p class="dark:text-gray-400 text-gray-600 mb-4">
+                        Try adjusting your search criteria or clear the filters.
+                    </p>
+                    <button onclick="clearAllFilters()" class="btn-secondary">
+                        <i class="fas fa-times mr-2"></i>Clear filters
+                    </button>
+                </div>
+            `;
+
+                const exerciseSection = document.querySelector('section.mb-12:has(.glass-effect)');
+                if (exerciseSection) {
+                    exerciseSection.appendChild(noResultsDiv);
+                }
+            } else if (!show && noResultsDiv) {
+                noResultsDiv.remove();
+            }
+        }
+
+        function filterExercises() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const selectedMuscle = muscleFilter.value;
+            let visibleCount = 0;
+            let visibleMuscleGroups = new Set();
+
+            // first pass: determine which exercises are visible
+            exerciseCards.forEach(card => {
+                const exerciseName = card.querySelector('h3 a').textContent.toLowerCase();
+                const muscleElement = card.querySelector('.fas.fa-bullseye').parentElement;
+                const muscleGroup = muscleElement.textContent.trim();
+
+                const matchesSearch = !searchTerm || exerciseName.includes(searchTerm);
+                const matchesMuscle = !selectedMuscle || muscleGroup.includes(selectedMuscle);
+
+                const isVisible = matchesSearch && matchesMuscle;
+
+                // smooth transition for exercise cards
+                if (isVisible) {
+                    card.style.display = 'block';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(10px)';
+
+                    setTimeout(() => {
+                        card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+
+                    visibleCount++;
+                    visibleMuscleGroups.add(muscleGroup);
+                } else {
+                    card.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(-10px)';
+
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 200);
+                }
+            });
+
+            // second pass: hide/show muscle group sections based on visible exercises
+            const muscleGroupSections = document.querySelectorAll('.mb-8:has(.card-header h2)');
+            muscleGroupSections.forEach(section => {
+                const header = section.querySelector('h2');
+                if (header) {
+                    const muscleGroupName = header.textContent.trim();
+                    const hasVisibleExercises = visibleMuscleGroups.has(muscleGroupName);
+
+                    // smooth transition for muscle group sections
+                    if (hasVisibleExercises) {
+                        section.style.display = 'block';
+                        section.style.opacity = '0';
+                        section.style.transform = 'translateY(20px)';
+
+                        setTimeout(() => {
+                            section.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                            section.style.opacity = '1';
+                            section.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        section.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                        section.style.opacity = '0';
+                        section.style.transform = 'translateY(-20px)';
+
+                        setTimeout(() => {
+                            section.style.display = 'none';
+                        }, 300);
+                    }
+                }
+            });
+
+            updateResultsCounter(visibleCount);
+            showNoResultsMessage(visibleCount === 0 && (searchTerm || selectedMuscle));
+
+            // update muscle group counter in stats if needed
+            updateMuscleGroupStats(visibleMuscleGroups.size);
+        }
+
+        function updateMuscleGroupStats(visibleGroupsCount) {
+            const muscleGroupStat = document.querySelector('.card:nth-child(2) h3');
+            if (muscleGroupStat) {
+                // add a subtle animation when the count changes
+                muscleGroupStat.style.transition = 'transform 0.2s ease';
+                muscleGroupStat.style.transform = 'scale(1.1)';
+                muscleGroupStat.textContent = visibleGroupsCount;
+
+                setTimeout(() => {
+                    muscleGroupStat.style.transform = 'scale(1)';
+                }, 200);
+            }
+        }
+
+        function clearAllFilters() {
+            searchInput.value = '';
+            muscleFilter.value = '';
+
+            // reset all sections and cards to visible state
+            const muscleGroupSections = document.querySelectorAll('.mb-8:has(.card-header h2)');
+            muscleGroupSections.forEach(section => {
+                section.style.display = 'block';
+                section.style.opacity = '1';
+                section.style.transform = 'translateY(0)';
+                section.style.transition = '';
+            });
+
+            exerciseCards.forEach(card => {
+                card.style.display = 'block';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+                card.style.transition = '';
+            });
+
+            updateResultsCounter(totalExercises);
+            showNoResultsMessage(false);
+
+            // reset muscle group stats
+            const totalMuscleGroups = new Set();
+            exerciseCards.forEach(card => {
+                const muscleElement = card.querySelector('.fas.fa-bullseye').parentElement;
+                const muscleGroup = muscleElement.textContent.trim();
+                totalMuscleGroups.add(muscleGroup);
+            });
+            updateMuscleGroupStats(totalMuscleGroups.size);
+
+            searchInput.focus();
+        }
+
+        // event listeners
+        searchInput.addEventListener('input', filterExercises);
+        muscleFilter.addEventListener('change', filterExercises);
+        clearFiltersBtn.addEventListener('click', clearAllFilters);
+
+        // make clearAllFilters globally available
+        window.clearAllFilters = clearAllFilters;
+
+        // add loading state for search input
+        let searchTimeout;
+        searchInput.addEventListener('input', function () {
+            clearTimeout(searchTimeout);
+            searchInput.style.background = 'linear-gradient(90deg, transparent 0%, rgba(99, 102, 241, 0.1) 50%, transparent 100%)';
+
+            searchTimeout = setTimeout(() => {
+                searchInput.style.background = '';
+            }, 300);
+        });
+    });
+</script>
 
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Exercice;
 use App\Form\ExerciceType;
 use App\Repository\ExerciceRepository;
+use App\Repository\PerformanceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,19 +17,34 @@ class ExerciceController extends AbstractController
     // for now, this function will be used to display the exercice page
     // listing all the exercices in the database
     #[Route('/exercice', name: 'app_exercice')]
-    public function index(ExerciceRepository $er): Response
+    public function index(ExerciceRepository $exerciceRepository, PerformanceRepository $performanceRepository): Response
     {
-
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
+        // gathers all exercices with their muscles
+        $exercices = $exerciceRepository->findAllWithMuscles();
+        
+        // calculates the number of muscle groups
+        $muscleGroups = [];
+        foreach ($exercices as $exercice) {
+            if ($exercice->getTarget()) {
+                $muscleGroups[$exercice->getTarget()->getId()] = $exercice->getTarget();
+            }
         }
 
-        // i'll gather the exercices and order them by target muscle
-        $exercices = $er->findBy([], ['target' => 'ASC']);
+        // if you want best performances for all exercises, you need to loop through them
+        $bestPerformances = [];
+        if ($this->getUser()) {
+            foreach ($exercices as $exercice) {
+                $bestPerformance = $performanceRepository->getBestPerformanceForExercise($exercice, $this->getUser());
+                if ($bestPerformance) {
+                    $bestPerformances[$exercice->getId()] = $bestPerformance;
+                }
+            }
+        }
 
         return $this->render('exercice/index.html.twig', [
-            'controller_name' => 'ExerciceController',
             'exercices' => $exercices,
+            'muscleGroupsCount' => count($muscleGroups),
+            'bestPerformances' => $bestPerformances
         ]);
     }
 
@@ -69,7 +85,7 @@ class ExerciceController extends AbstractController
 
     // this function will be used to display a single exercice
     #[Route('exercice/details/{id}', name: 'app_exercice_details')]
-    public function detailsExercice(Exercice $exercice = null): Response
+    public function detailsExercice(Exercice $exercice = null, PerformanceRepository $performanceRepository): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -79,10 +95,13 @@ class ExerciceController extends AbstractController
             return $this->redirectToRoute('app_exercice');
         }
 
+        // get the best performance for this exercise and current user
+        $bestPerformance = $performanceRepository->getBestPerformanceForExercise($exercice, $this->getUser());
 
         return $this->render('exercice/details.html.twig', [
             'controller_name' => 'ExerciceController',
             'exercice' => $exercice,
+            'bestPerformance' => $bestPerformance,
         ]);
     }
     

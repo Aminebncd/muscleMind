@@ -40,6 +40,27 @@ class ExerciceRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllWithMuscles(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.target', 'm')
+            ->addSelect('m')
+            ->orderBy('m.muscleName', 'ASC')
+            ->addOrderBy('e.exerciceName', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getExerciceStatistics(): array
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->select('COUNT(e.id) as totalExercices')
+            ->leftJoin('e.target', 'm')
+            ->addSelect('COUNT(DISTINCT m.id) as uniqueMuscles');
+        
+        return $qb->getQuery()->getSingleResult();
+    }
+
     //    /**
     //     * @return Exercice[] Returns an array of Exercice objects
     //     */

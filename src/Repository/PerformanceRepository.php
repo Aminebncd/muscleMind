@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Performance;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Exercice; 
+use App\Entity\User;
 
 /**
  * @extends ServiceEntityRepository<Performance>
@@ -19,6 +21,19 @@ class PerformanceRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Performance::class);
+    }
+
+    public function getBestPerformanceForExercise(Exercice $exercice, User $user): ?Performance
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.exerciceMesured = :exercice')
+            ->andWhere('p.userPerforming = :user')
+            ->setParameter('exercice', $exercice)
+            ->setParameter('user', $user)
+            ->orderBy('p.personnalRecord', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     //    /**
