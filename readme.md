@@ -35,6 +35,11 @@
 - **Charts** : Chart.js 4.4 avec plugins avancés
 - **Build Tools** : Webpack Encore
 
+### Nouveau squelette full-stack
+- **API Platform** : voir `backend/` pour un exemple prêt à l'emploi avec JWT, pagination, filtres et une structure Symfony complète (`bin/console`, `public/index.php`, tests ApiTestCase).
+- **React + Vite** : voir `frontend/` pour l'UI moderne (Material UI, React Query, routing).
+- **Documentation** : les flux API/Front sont décrits dans `docs/fullstack-skeleton.md` (avec un guide de démarrage).
+
 ### DevOps & Outils
 - **Bundler** : Composer (PHP) + NPM (JavaScript)
 - **Migration** : Doctrine Migrations

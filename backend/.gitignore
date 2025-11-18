@@ -1,0 +1,10 @@
+/vendor/
+/var/*
+!/var/
+!/var/.gitignore
+/.env.local
+/.env.*.local
+/public/bundles/
+/node_modules/
+.DS_Store
+phpunit.xml
