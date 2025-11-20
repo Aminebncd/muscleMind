@@ -8,21 +8,25 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Delete;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity]
-#[ORM\Table(name: 'app_user')]
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: '`user`')]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 #[ApiResource(
     operations: [
-        new Get(security: "is_granted('ROLE_ADMIN') or object == user"),
         new GetCollection(security: "is_granted('ROLE_ADMIN')"),
-        new Post(denormalizationContext: ['groups' => ['user:write']], security: "is_granted('ROLE_ADMIN')"),
+        new Get(security: "is_granted('ROLE_ADMIN') or object == user"),
+        new Post(security: "is_granted('PUBLIC_ACCESS')", validationContext: ['groups' => ['Default', 'user:create']]),
         new Patch(security: "is_granted('ROLE_ADMIN') or object == user"),
         new Delete(security: "is_granted('ROLE_ADMIN')")
     ],
@@ -33,30 +37,90 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    #[Groups(['user:read', 'program:read'])]
+    #[ORM\Column]
+    #[Groups(['user:read'])]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
-    #[Assert\Email]
+    #[ORM\Column(length: 30)]
     #[Groups(['user:read', 'user:write'])]
-    private string $email = '';
+    private ?string $username = null;
 
-    #[ORM\Column(type: 'json')]
+    #[ORM\Column(length: 180)]
     #[Groups(['user:read', 'user:write'])]
-    private array $roles = ['ROLE_USER'];
+    private ?string $email = null;
+    
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups(['user:read', 'user:write'])]
+    private ?\DateTimeInterface $dateOfBirth = null;
 
-    #[ORM\Column(type: 'string')]
-    #[Groups(['user:write'])]
-    private string $password = '';
+    #[ORM\Column(length: 20, nullable: true)]
+    #[Groups(['user:read', 'user:write'])]
+    private ?string $sex = null;
 
-    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: TrainingProgram::class, cascade: ['persist'], orphanRemoval: true)]
+    /**
+     * @var list<string> The user roles
+     */
+    #[ORM\Column]
     #[Groups(['user:read'])]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
+
+    #[ORM\Column]
+    #[Groups(['user:read', 'user:write'])]
+    private ?int $score = null;
+
+    #[ORM\Column]
+    #[Groups(['user:read'])]
+    private ?bool $isVerified = null;
+
+    #[ORM\Column]
+    private ?int $lastResetYear = null;
+
+
+
+
+    #[ORM\OneToMany(targetEntity: Tracking::class, mappedBy: 'userTracked', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    private Collection $trackings;
+
+    #[ORM\OneToMany(targetEntity: Performance::class, mappedBy: 'userPerforming', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    private Collection $performances;
+
+    #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'user', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    private Collection $sessions;
+
+    #[ORM\OneToMany(targetEntity: Program::class, mappedBy: 'creator', orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $programs;
 
+    #[ORM\OneToMany(targetEntity: Ressource::class, mappedBy: 'Author', cascade: ['persist'])]
+    private Collection $ressources;
+
+    /**
+     * @var Collection<int, Ressource>
+     */
+    #[ORM\ManyToMany(targetEntity: Ressource::class)]
+    private Collection $favorites;
+
+    
+
+
+
+
+
+
     public function __construct()
+
     {
+        $this->performances = new ArrayCollection();
+        $this->trackings = new ArrayCollection();
         $this->programs = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
+        $this->ressources = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -64,72 +128,354 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getEmail(): string
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(string $email): static
     {
         $this->email = $email;
+
         return $this;
     }
 
+    public function getDateOfBirth(): ?\DateTimeInterface
+    {
+        return $this->dateOfBirth;
+    }
+
+    public function setDateOfBirth($dateOfBirth): static
+    {
+        $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        $now = new \DateTime();
+        $interval = $this->dateOfBirth->diff($now);
+        return $interval->y;
+    }
+
+    public function getSex(): ?string
+    {
+        return $this->sex;
+    }
+
+    public function setSex(?string $sex): static
+    {
+        $this->sex = $sex;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
     public function getUserIdentifier(): string
     {
-        return $this->email;
+        return (string) $this->email;
     }
 
+    /**
+     * @see UserInterface
+     *
+     * @return list<string>
+     */
     public function getRoles(): array
     {
-        return array_unique(array_merge($this->roles, ['ROLE_USER']));
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
+    /**
+     * @param list<string> $roles
+     */
+    public function setRoles(array $roles): static
     {
         $this->roles = $roles;
+
         return $this;
     }
 
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
     public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password): static
     {
         $this->password = $password;
+
         return $this;
     }
 
+    /**
+     * @see UserInterface
+     */
     public function eraseCredentials(): void
     {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getScore(): ?int
+    {
+        return $this->score;
+    }
+
+    public function setScore(int $score): static
+    {
+        $this->score = $score;
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getLastResetYear(): ?int
+    {
+        return $this->lastResetYear;
+    }
+
+    public function setLastResetYear(int $lastResetYear): static
+    {
+        $this->lastResetYear = $lastResetYear;
+
+        return $this;
+    }
+
+
+
+
+
+
+
+    // TRAINING RELATED PROPERTIES //
+    /**
+     * @return Collection<int, Tracking>
+     */
+    public function getTrackings(): Collection
+    {
+        return $this->trackings;
+    }
+
+    public function addTracking(Tracking $tracking): static
+    {
+        // set the owning side of the relation if necessary
+        if (!$this->trackings->contains($tracking)) {
+            $this->trackings->add($tracking);
+            $tracking->setUserTracked($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTracking(Tracking $tracking): static
+    {
+        if ($this->trackings->removeElement($tracking)) {
+            // set the owning side to null (unless already changed)
+            if ($tracking->getUserTracked() === $this) {
+                $tracking->setUserTracked(null);
+            }
+        }
+
+        return $this;
     }
 
     /**
-     * @return Collection<int, TrainingProgram>
+     * @return Collection<int, Performance>
+     */
+    public function getPerformances(): Collection
+    {
+        return $this->performances;
+    }
+
+    public function addPerformance(Performance $performance): static
+    {
+        if (!$this->performances->contains($performance)) {
+            $this->performances->add($performance);
+            $performance->setUserPerforming($this);
+        }
+
+        return $this;
+    }
+
+    public function removePerformance(Performance $performance): static
+    {
+        if ($this->performances->removeElement($performance)) {
+            // set the owning side to null (unless already changed)
+            if ($performance->getUserPerforming() === $this) {
+                $performance->setUserPerforming(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection<int, Session>
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    public function addSession(Session $session): static
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions[] = $session;
+            $session->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Session $session): static
+    {
+        if ($this->sessions->removeElement($session)) {
+            // set the owning side to null (unless already changed)
+            if ($session->getUser() === $this) {
+                $session->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+    /**
+     * @return Collection<int, Session>
      */
     public function getPrograms(): Collection
     {
         return $this->programs;
     }
 
-    public function addProgram(TrainingProgram $program): self
+    public function addProgram(program $program): static
     {
         if (!$this->programs->contains($program)) {
-            $this->programs[] = $program;
-            $program->setOwner($this);
+            $this->programs->add($program);
+            $program->setCreator($this);
         }
 
         return $this;
     }
 
-    public function removeProgram(TrainingProgram $program): self
+    public function removeprogram(program $program): static
     {
-        if ($this->programs->removeElement($program) && $program->getOwner() === $this) {
-            $program->setOwner(null);
+        if ($this->programs->removeElement($program)) {
+            // set the owning side to null (unless already changed)
+            if ($program->getCreator() === $this) {
+                $program->setCreator(null);
+            }
         }
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Ressources>
+     */
+    public function getRessources(): Collection
+    {
+        return $this->ressources;
+    }
+
+    public function addRessource(Ressource $ressource): static
+    {
+        if (!$this->ressources->contains($ressource)) {
+            $this->ressources->add($ressource);
+            $ressource->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRessource(Ressource $ressource): static
+    {
+        if ($this->ressources->removeElement($ressource)) {
+            // set the owning side to null (unless already changed)
+            if ($ressource->getAuthor() === $this) {
+                $ressource->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ressource>
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Ressource $favorite): static
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites->add($favorite);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Ressource $favorite): static
+    {
+        $this->favorites->removeElement($favorite);
+
+        return $this;
+    }
+
+    public function isFavorite(Ressource $ressource): bool
+    {
+        return $this->favorites->contains($ressource);
+    }
+
+
+        
+
+
+
+    public function __toString ()
+    {
+        return $this->username;
+    }
+
+   
 }

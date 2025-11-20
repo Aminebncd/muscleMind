@@ -1,29 +1,7 @@
 api_platform:
-  title: 'MuscleMind API'
-  description: 'REST and GraphQL endpoints for programs and sessions.'
-  show_webby: false
-  formats:
-    jsonld: [ 'application/ld+json' ]
-    json: [ 'application/json' ]
-    html: [ 'text/html' ]
-  graphql:
-    enabled: true
-  defaults:
-    pagination_items_per_page: 10
-    pagination_client_enabled: true
-    pagination_client_items_per_page: true
-    pagination_maximum_items_per_page: 50
-    normalization_context:
-      groups: ['read:collection']
-    denormalization_context:
-      groups: ['write:collection']
-  swagger:
-    versions: [3]
-    api_keys:
-      JWT:
-        name: Authorization
-        type: header
-  mapping:
-    paths: ['%kernel.project_dir%/src/Entity']
-  patch_formats:
-    json: [ 'application/merge-patch+json' ]
+    title: Hello API Platform
+    version: 1.0.0
+    defaults:
+        stateless: true
+        cache_headers:
+            vary: ['Content-Type', 'Authorization', 'Origin']

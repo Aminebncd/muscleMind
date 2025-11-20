@@ -1,0 +1,33 @@
+api_platform:
+  title: "MuscleMind API"
+  version: "1.0.0"
+  description: "API Platform backend for MuscleMind fitness tracking application"
+
+  # Docs
+  swagger:
+    api_keys:
+      JWT:
+        name: Authorization
+        type: header
+
+  # Formats
+  formats:
+    jsonld: ["application/ld+json"]
+    json: ["application/json"]
+    html: ["text/html"]
+
+  # Pagination
+  defaults:
+    pagination_enabled: true
+    pagination_items_per_page: 30
+    pagination_client_enabled: true
+    pagination_client_items_per_page: true
+
+  # Error handling
+  show_webby: false
+
+  # CORS is handled by nelmio_cors_bundle
+
+  # Enable GraphQL if needed
+  graphql:
+    enabled: true

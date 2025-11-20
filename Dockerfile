@@ -50,10 +50,12 @@ COPY php/conf/php.ini /usr/local/etc/php/conf.d/zz-musclemind.ini
 
 RUN set -eux; \
     { \
-        echo "log_limit = 8192"; \
+        echo "[global]"; \
         echo "emergency_restart_threshold = 10"; \
         echo "emergency_restart_interval = 1m"; \
         echo "process_control_timeout = 10s"; \
+        echo ""; \
+        echo "[www]"; \
         echo "pm.status_path = /fpm-status"; \
         echo "ping.path = /fpm-ping"; \
         echo "ping.response = pong"; \
@@ -78,20 +80,43 @@ RUN --mount=type=cache,target=/tmp/cache/composer \
         --prefer-dist \
         --no-progress \
         --no-interaction \
-        --classmap-authoritative
+        --no-scripts \
+        --no-autoloader
+
+COPY . ./
+
+RUN composer dump-autoload --classmap-authoritative
 
 ##############################################
 # Node build for front assets                 #
 ##############################################
-FROM node:20-alpine AS node
+FROM base-php AS node-build
 
 WORKDIR /app
 
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
+
+# Copy PHP files and install PHP dependencies first
+COPY composer.json composer.lock symfony.lock* ./
+RUN --mount=type=cache,target=/tmp/cache/composer \
+    composer install \
+        --no-dev \
+        --prefer-dist \
+        --no-progress \
+        --no-interaction \
+        --no-scripts \
+        --no-autoloader
+
+COPY . ./
+
+RUN composer dump-autoload --classmap-authoritative
+
+# Install Node.js dependencies
+RUN apk add --no-cache nodejs npm
 COPY package.json package-lock.json* ./
 RUN --mount=type=cache,target=/root/.npm \
     npm ci
-
-COPY . ./
 
 ENV NODE_ENV=production
 RUN npm run build
@@ -107,7 +132,7 @@ ENV APP_ENV=prod \
 # Copy application source (excluding files from .dockerignore)
 COPY --chown=www-data:www-data . ./
 COPY --chown=www-data:www-data --from=composer /app/vendor ./vendor
-COPY --chown=www-data:www-data --from=node /app/public/build ./public/build
+COPY --chown=www-data:www-data --from=node-build /app/public/build ./public/build
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
 RUN set -eux; \
