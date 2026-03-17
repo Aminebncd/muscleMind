@@ -35,6 +35,7 @@ class Muscle
     public function __construct()
     {
         $this->exercices = new ArrayCollection();
+        $this->subExercices = new ArrayCollection();
     }
 
     public function getId(): ?int

@@ -26,7 +26,7 @@ class Exercice
     #[ORM\JoinColumn(nullable: false)]
     private ?Muscle $target = null;
     
-    #[ORM\ManyToOne(inversedBy: 'exercices')]
+    #[ORM\ManyToOne(inversedBy: 'subExercices')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Muscle $secondaryTarget = null;
 
