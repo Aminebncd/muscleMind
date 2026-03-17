@@ -2,25 +2,47 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\RessourceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RessourceRepository::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(),
+        new Get(),
+        new Post(security: "is_granted('ROLE_USER')"),
+        new Patch(security: "is_granted('ROLE_USER') and object.getAuthor() == user"),
+        new Delete(security: "is_granted('ROLE_USER') and object.getAuthor() == user")
+    ],
+    normalizationContext: ['groups' => ['ressource:read']],
+    denormalizationContext: ['groups' => ['ressource:write']]
+)]
 class Ressource
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['ressource:read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['ressource:read', 'ressource:write'])]
     private ?string $content = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['ressource:read', 'ressource:write'])]
     private ?string $link = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['ressource:read', 'ressource:write'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -30,14 +52,17 @@ class Ressource
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\Column]
+    #[Groups(['ressource:read', 'ressource:write'])]
     private ?bool $isPublished = null;
 
     #[ORM\ManyToOne(inversedBy: 'ressources')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['ressource:read'])]
     private ?User $Author = null;
 
     #[ORM\ManyToOne(inversedBy: 'Ressources')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['ressource:read', 'ressource:write'])]
     private ?Tag $tag = null;
 
     #[ORM\PrePersist]

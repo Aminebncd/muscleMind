@@ -2,41 +2,67 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\ProgramRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProgramRepository::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(),
+        new Get(),
+        new Post(security: "is_granted('ROLE_USER')"),
+        new Patch(security: "is_granted('ROLE_USER') and object.getCreator() == user"),
+        new Delete(security: "is_granted('ROLE_USER') and object.getCreator() == user")
+    ],
+    normalizationContext: ['groups' => ['program:read']],
+    denormalizationContext: ['groups' => ['program:write']]
+)]
 class Program
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['program:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['program:read', 'program:write', 'session:read'])]
     private ?string $title = null;
     
     #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'program', orphanRemoval: true)]
+    #[Groups(['program:read'])]
     private Collection $sessions;
     
     #[ORM\OneToMany(targetEntity: WorkoutPlan::class, mappedBy: 'program', cascade: ['persist'], orphanRemoval: true)]
+    #[Groups(['program:read', 'program:write'])]
     private Collection $workoutPlans;
     
     #[ORM\ManyToOne(inversedBy: 'programs')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['program:read'])]
     private ?User $creator = null;
     
     #[ORM\Column(length: 10)]
+    #[Groups(['program:read', 'program:write'])]
     private ?string $color = null;
 
     
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['program:read', 'program:write'])]
     private ?MuscleGroup $muscleGroupTargeted;
 
     #[ORM\ManyToOne]
+    #[Groups(['program:read', 'program:write'])]
     private ?MuscleGroup $secondaryMuscleGroupTargeted = null;
 
 

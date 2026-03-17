@@ -1,16 +1,140 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html class="light-theme dark-theme" lang="en">
 
-        {% block javascripts %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MuscleMind - Transform Your Fitness Journey{% endblock %}</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>💪</text></svg>">
+    <meta name="turbo-prefetch" content="false">
+    <meta name="description"
+        content="{% block meta_description %}MuscleMind is your intelligent fitness companion that helps you achieve your health and fitness goals with personalized workouts and expert guidance.{% endblock %}">
+    <meta name="theme-color" content="#003566">
+
+    {% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main-components.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {% endblock %}
+
+    {{ encore_entry_script_tags('app') }}
+    <script src="https://kit.fontawesome.com/a99d4df9ac.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body class="relative min-h-screen bg-primary_light dark:bg-primary page-loading" data-theme="auto">
+
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header Component -->
+    {{ include('_components/header.html.twig') }}
+
+    <!-- Sidebar Component -->
+    {{ include('_components/sidebar.html.twig') }}
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="pt-20 min-h-screen" role="main">
+        <div class="container mx-auto px-4 py-8">
+            {% block body %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer Component -->
+    {{ include('_components/footer.html.twig') }}
+
+    {% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+
+    <!-- Enhanced JavaScript for improved UX -->
+    <script>
+        // Page loading animation - Immediate execution
+        (function () {
+            // Remove loading state immediately if page is already loaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function () {
+                    setTimeout(() => {
+                        document.body.classList.add('page-loaded');
+                    }, 100);
+                });
+            } else {
+                // Page already loaded
+                document.body.classList.add('page-loaded');
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Ensure page is visible
+            document.body.classList.add('page-loaded');
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Component Scripts -->
+    {{ include('_components/mobile-menu-script.html.twig') }}
+    {{ include('_components/theme-toggle-script.html.twig') }}
+    {% endblock %}
+
+    <!-- Cookie Consent -->
+    <script type="text/javascript" src="{{ asset('tarteaucitron/tarteaucitron.js') }}"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            tarteaucitron.init({
+                "privacyUrl": "",
+                "bodyPosition": "bottom",
+                "hashtag": "#tarteaucitron",
+                "cookieName": "tarteaucitron",
+                "orientation": "middle",
+                "groupServices": false,
+                "showDetailsOnClick": true,
+                "serviceDefaultState": "wait",
+                "showAlertSmall": false,
+                "cookieslist": false,
+                "closePopup": false,
+                "showIcon": true,
+                "iconPosition": "BottomLeft",
+                "adblocker": false,
+                "DenyAllCta": true,
+                "AcceptAllCta": true,
+                "highPrivacy": true,
+                "alwaysNeedConsent": true,
+                "handleBrowserDNTRequest": false,
+                "removeCredit": false,
+                "moreInfoLink": true,
+                "useExternalCss": false,
+                "useExternalJs": false,
+                "readmoreLink": "",
+                "mandatory": true,
+                "mandatoryCta": true,
+                "googleConsentMode": true,
+                "partnersList": false,
+                "lang": "en"
+            });
+
+            tarteaucitron.user.analyticsUa = 'UA-XXXXXXXX-X';
+            tarteaucitron.user.analyticsMore = function () { };
+            tarteaucitron.user.analyticsUaCreate = {};
+            tarteaucitron.user.analyticsAnonymizeIp = true;
+            tarteaucitron.user.analyticsPageView = {};
+            (tarteaucitron.job = tarteaucitron.job || []).push('analytics');
+        });
+
+        (tarteaucitron.job = tarteaucitron.job || []).push('gcmanalyticsstorage');
+    </script>
+</body>
+
 </html>

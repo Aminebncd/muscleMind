@@ -2,31 +2,55 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\WorkoutPlanRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WorkoutPlanRepository::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(),
+        new Get(),
+        new Post(security: "is_granted('ROLE_USER')"),
+        new Patch(security: "is_granted('ROLE_USER')"),
+        new Delete(security: "is_granted('ROLE_USER')")
+    ],
+    normalizationContext: ['groups' => ['workout_plan:read']],
+    denormalizationContext: ['groups' => ['workout_plan:write']]
+)]
 class WorkoutPlan
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['workout_plan:read', 'program:read'])]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['workout_plan:read', 'workout_plan:write', 'program:read'])]
     private ?int $numberOfRepetitions = null;
 
     #[ORM\Column]
+    #[Groups(['workout_plan:read', 'workout_plan:write', 'program:read'])]
     private ?int $weightsUsed = null;
 
     #[ORM\Column(length: 20, nullable: true)]
+    #[Groups(['workout_plan:read', 'workout_plan:write', 'program:read'])]
     private ?string $intensificationMethod = null;
 
     #[ORM\ManyToOne(inversedBy: 'workoutPlans')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['workout_plan:read', 'workout_plan:write', 'program:read'])]
     private ?Exercice $exercice = null;
 
     #[ORM\ManyToOne(inversedBy: 'workoutPlans')]
+    #[Groups(['workout_plan:read'])]
     private ?Program $program = null;
 
     public function getId(): ?int

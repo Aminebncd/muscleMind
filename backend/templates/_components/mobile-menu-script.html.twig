@@ -1,0 +1,74 @@
+{# Mobile Menu JavaScript #}
+<script>
+    // Mobile menu functionality - Immediate execution
+    (function initMobileMenu() {
+        function setupMenuEvents() {
+            const burgerMenu = document.getElementById('burger-menu');
+            const menu = document.getElementById('menu');
+            const closeMenu = document.getElementById('close-menu');
+            const menuBackdrop = document.getElementById('menu-backdrop');
+
+            if (!burgerMenu || !menu || !closeMenu || !menuBackdrop) {
+                // Elements not ready yet, try again in 50ms
+                setTimeout(setupMenuEvents, 50);
+                return;
+            }
+
+            function openMenu() {
+                menu.style.visibility = 'visible';
+                menu.style.pointerEvents = 'auto';
+                menu.classList.remove('translate-x-full');
+                menu.classList.add('menu-open');
+                menuBackdrop.classList.remove('opacity-0', 'pointer-events-none', 'hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMenuFunc() {
+                menu.classList.add('translate-x-full');
+                menu.classList.remove('menu-open');
+                menuBackdrop.classList.add('opacity-0', 'pointer-events-none', 'hidden');
+                document.body.style.overflow = 'auto';
+                // Hide menu after transition completes
+                setTimeout(() => {
+                    if (menu.classList.contains('translate-x-full')) {
+                        menu.style.visibility = 'hidden';
+                        menu.style.pointerEvents = 'none';
+                    }
+                }, 500);
+            }
+
+            // Remove any existing event listeners first
+            burgerMenu.removeEventListener('click', openMenu);
+            closeMenu.removeEventListener('click', closeMenuFunc);
+            menuBackdrop.removeEventListener('click', closeMenuFunc);
+
+            // Add event listeners
+            burgerMenu.addEventListener('click', openMenu);
+            closeMenu.addEventListener('click', closeMenuFunc);
+            menuBackdrop.addEventListener('click', closeMenuFunc);
+
+            // Close menu when clicking outside
+            menu.addEventListener('click', (e) => {
+                if (e.target === menu) {
+                    closeMenuFunc();
+                }
+            });
+
+            // Close menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !menu.classList.contains('translate-x-full')) {
+                    closeMenuFunc();
+                }
+            });
+
+            // Close menu when clicking navigation links
+            const navLinks = menu.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', closeMenuFunc);
+            });
+        }
+
+        // Try to set up menu immediately
+        setupMenuEvents();
+    })();
+</script>

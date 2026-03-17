@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MuscleController!{% endblock %}
+
+{% block body %}
+<div class="container dark:dark:bg-primary/60 light:bg-primary_light/60 dark:text-white light:text-black p-8 rounded-lg w-full max-w-screen-md flex flex-col mx-auto backdrop-blur-md">
+    <h1 class="text-4xl font-bold mb-4">Muscle details 
+        <a class="text-tertiary hover:font-medium hover:text-yellow-500 duration-150 text-xl hover:text-2xl" href="{{path ('app_muscle_edit', {'id': muscle.id} )}}"><i class="fa-solid fa-pen-to-square"></i></a> 
+        <a class="text-tertiary hover:font-medium hover:text-red-600 duration-150 text-xl hover:text-2xl"  href="{{path ('app_muscle_delete', {'id': muscle.id})}}"><i class="fa-solid fa-trash-can"></i></a>
+    </h1>
+
+    <p class="text-lg mb-2 font-semibold">Name: <span class="font-medium">{{ muscle}}</span></p>
+    <p class="text-lg mb-2 font-semibold">Function: <span class="font-medium">{{muscle.muscleFunction}}</span></p>
+
+
+    {% if exercices %}
+        <div class="dark:dark:bg-primary/60 light:bg-primary_light/60 p-2 shadow-lg rounded-lg w-full max-w-screen-md flex flex-col my-4 mx-auto">
+            <p class="font-semibold text-lg mb-2">To work this muscle specifically :</p>
+            <ul class="list-disc pl-5 mb-4">
+                {% for exercice in exercices %}
+                    <li class="mb-1">
+                        <a href="{{path ('app_exercice_details', {'id': exercice.id} )}}" class="light:bg-quaternary px-1 dark:text-quaternary font-semibold light:text-black  hover:underline">{{ exercice}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% else %}
+        <p class="text-lg mt-10 mb-4 font-semibold">specifically targeting this muscle would be quite complicated, but other exercices within the muscle group will inevitabelly imply this one too</p>
+    {% endif %}
+
+    <a href="{{ path('app_muscleGroup_details', {'id' : muscleGroup.id}) }}" class="mx-auto font-semibold hover:underline duration-150"><i class="fa-solid fa-arrow-left"></i>  Back to muscle group</a>
+</div>
+{% endblock %}

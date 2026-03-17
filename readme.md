@@ -1,329 +1,485 @@
-# 💪 MuscleMind - Intelligent Fitness Tracking Platform
+# 💪 MuscleMind
 
-> **Une application web moderne de suivi fitness développée avec Symfony 7, offrant une expérience utilisateur exceptionnelle et des fonctionnalités avancées de tracking sportif.**
+**Plateforme complète de gestion d'entraînement et de suivi de progression physique**
 
-[![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
-[![Symfony](https://img.shields.io/badge/Symfony-7.0-000000?style=for-the-badge&logo=symfony&logoColor=white)](https://symfony.com)
-[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
-[![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+MuscleMind est une application web moderne permettant aux utilisateurs de créer des programmes d'entraînement personnalisés, suivre leurs performances, gérer leurs sessions, et analyser leur progression au fil du temps.
 
-## 🚀 Présentation du Projet
+---
 
-**MuscleMind** est une plateforme complète de suivi fitness développée avec **Symfony 7** et une architecture moderne. Cette application web permet aux utilisateurs de créer, planifier et suivre leurs programmes d'entraînement avec une interface utilisateur intuitive et des fonctionnalités avancées de visualisation des données.
+## 🚀 Architecture
 
-### 🎯 Objectifs du Projet
+### Stack Technique
 
-- **Démonstration de compétences** : Showcase complet des technologies web modernes
-- **Architecture robuste** : Implémentation des meilleures pratiques de développement
-- **Expérience utilisateur** : Interface moderne avec design system cohérent
-- **Scalabilité** : Code maintenable et extensible
+#### Backend - API Platform
 
-## 🛠️ Stack Technique
+- **Framework**: Symfony 7.0
+- **API**: API Platform 4.0 (REST + GraphQL)
+- **Base de données**: MySQL 8.0
+- **ORM**: Doctrine ORM 3.5
+- **Authentification**: JWT (LexikJWTAuthenticationBundle)
+- **Email**: Symfony Mailer + SendGrid
+- **Cache**: Redis
+- **Sécurité**:
+  - reCAPTCHA v3 (anti-spam)
+  - Email verification
+  - Password reset
+  - Role-based access control (Admin, Moderator, User)
 
-### Backend
-- **Framework** : Symfony 7.0 (PHP 8.2+)
-- **ORM** : Doctrine ORM 3.1
-- **Base de données** : MySQL 8.0
-- **Sécurité** : Symfony Security Bundle avec authentification complète
-- **Tests** : PHPUnit 9.5
+#### Frontend - React
 
-### Frontend
-- **Template Engine** : Twig 3.0
-- **CSS Framework** : TailwindCSS 3.4
-- **JavaScript** : Vanilla JS + Stimulus
-- **Charts** : Chart.js 4.4 avec plugins avancés
-- **Build Tools** : Webpack Encore
+- **Framework**: React 18
+- **Build**: Vite
+- **UI Library**: Material-UI (MUI)
+- **Routing**: React Router DOM
+- **State Management**: React Query + Context API
+- **HTTP Client**: Axios
+- **Testing**: Vitest
 
-### Nouveau squelette full-stack
-- **API Platform** : voir `backend/` pour un exemple prêt à l'emploi avec JWT, pagination, filtres et une structure Symfony complète (`bin/console`, `public/index.php`, tests ApiTestCase).
-- **React + Vite** : voir `frontend/` pour l'UI moderne (Material UI, React Query, routing).
-- **Documentation** : les flux API/Front sont décrits dans `docs/fullstack-skeleton.md` (avec un guide de démarrage).
+#### DevOps
 
-### DevOps & Outils
-- **Bundler** : Composer (PHP) + NPM (JavaScript)
-- **Migration** : Doctrine Migrations
-- **Admin Panel** : EasyAdmin 4.10
-- **Email** : Symfony Mailer
-- **Validation** : Symfony Validator
+- **Containerisation**: Docker + Docker Compose
+- **Serveur Web**: Nginx
+- **PHP**: PHP 8.2-FPM
+- **Node.js**: Node 20 Alpine
 
-## 🏗️ Architecture & Patterns
+---
 
-### Architecture MVC
-```
-src/
-├── Controller/          # Contrôleurs (17 controllers)
-├── Entity/             # Entités Doctrine (12 entités)
-├── Repository/         # Repositories (12 repositories)
-├── Service/            # Services métier (3 services)
-├── Form/               # Formulaires Symfony (5 types)
-├── Security/           # Sécurité et authentification
-└── EventSubscriber/    # Événements personnalisés
-```
+## 📋 Prérequis
 
-### Entités Principales
-- **User** : Gestion des utilisateurs avec rôles (Admin, Moderator, User)
-- **Program** : Programmes d'entraînement personnalisés
-- **Session** : Sessions planifiées avec calendrier
-- **WorkoutPlan** : Plans d'exercices détaillés
-- **Performance** : Suivi des performances utilisateur
-- **Exercice** : Base de données d'exercices (58 exercices pour l'instant)
-- **Muscle/MuscleGroup** : Anatomie et ciblage musculaire
-- **Ressource** : Système de ressources partagées
+### Option 1: Docker (Recommandé)
 
-## ✨ Fonctionnalités Principales
+- Docker Desktop (Windows/Mac) ou Docker Engine (Linux)
+- Docker Compose v2+
 
-### 🔐 Système d'Authentification
-- Inscription/Connexion sécurisée
-- Gestion des rôles et permissions
-- Reset de mot de passe
-- Validation d'email
+### Option 2: Installation Locale
 
-### 📊 Gestion des Programmes
-- Création de programmes d'entraînement personnalisés
-- Planification automatique et manuelle
-- Gestion des séries, répétitions et charges
-- Méthodes d'intensification avancées
+- PHP 8.2+ avec extensions: `pdo_mysql`, `intl`, `opcache`, `apcu`
+- Composer 2.x
+- Node.js 20+ et npm
+- MySQL 8.0+
+- Redis (optionnel mais recommandé)
 
-### 📈 Suivi des Performances
-- Tracking détaillé des performances
-- Graphiques interactifs avec Chart.js
-- Zoom et navigation dans les données
-- Matrices de progression
+---
 
-### 🎨 Interface Utilisateur
-- Design system complet avec Glassmorphism
-- Mode sombre/clair avec transition automatique
-- Responsive design (mobile-first)
-- Animations et micro-interactions
+## 🛠️ Installation
 
-### 👥 Administration
-- Panel d'administration avec EasyAdmin
-- Gestion des utilisateurs et contenus
-- Système de ressources partagées
-- Modération et validation
+### Avec Docker (Méthode Rapide)
 
-## 🎨 Design System & Architecture CSS
-
-### Structure CSS Modulaire
-```
-public/css/
-├── main-components.css     # Point d'entrée principal
-├── layout.css             # Structure et mise en page
-├── components.css         # Composants réutilisables
-├── mobile-menu.css        # Navigation mobile
-├── theme-toggle.css       # Gestion des thèmes
-├── utilities.css          # Classes utilitaires
-└── animations.css         # Animations et keyframes
-```
-
-### Composants Twig Modulaires
-```
-templates/_components/
-├── header.html.twig       # Navigation principale
-├── sidebar.html.twig      # Menu mobile
-├── footer.html.twig       # Footer avec liens sociaux
-├── mobile-menu-script.html.twig    # Scripts menu mobile
-└── theme-toggle-script.html.twig   # Scripts thème
-```
-
-## 🔧 Installation & Configuration
-
-### Prérequis
-- PHP 8.2 ou supérieur
-- Composer 2.0+
-- Node.js 16+ & NPM
-- MySQL 8.0
-- Symfony CLI (optionnel)
-
-### Installation Rapide
 ```bash
-# Cloner le repository
-git clone https://github.com/Aminebncd/muscleMind.git
+# 1. Cloner le projet
+git clone https://github.com/votre-repo/muscleMind.git
 cd muscleMind
 
-# Installer les dépendances PHP
+# 2. Copier les fichiers d'environnement
+cp .env.example .env
+cp backend/.env.example backend/.env.local
+cp frontend/.env.example frontend/.env.local
+
+# 3. Configurer les variables d'environnement
+# Éditer .env, backend/.env.local et frontend/.env.local
+
+# 4. Lancer les conteneurs
+docker compose up -d
+
+# 5. Installer les dépendances PHP
+docker compose exec web composer install
+
+# 6. Créer la base de données et exécuter les migrations
+docker compose exec web php bin/console doctrine:database:create --if-not-exists
+docker compose exec web php bin/console doctrine:migrations:migrate --no-interaction
+
+# 7. Générer les clés JWT
+docker compose exec web php bin/console lexik:jwt:generate-keypair
+
+# 8. Installer les dépendances frontend
+docker compose exec frontend npm install
+
+# 9. Accéder à l'application
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:8000/api
+# API Docs: http://localhost:8000/api/docs
+# Mailpit: http://localhost:8025
+```
+
+### Sans Docker (Installation Locale)
+
+#### Backend
+
+```bash
+# 1. Installer les dépendances
+cd backend
 composer install
 
-# Installer les dépendances JavaScript
-npm install
+# 2. Configurer la base de données
+# Éditer .env.local avec vos credentials MySQL
+DATABASE_URL="mysql://root:password@127.0.0.1:3306/musclemind"
 
-# Configuration environnement
-cp .env .env.local
-# Éditer .env.local avec vos paramètres de base de données
-
-# Créer la base de données
+# 3. Créer la base et migrer
 php bin/console doctrine:database:create
-
-# Exécuter les migrations
 php bin/console doctrine:migrations:migrate
 
-# Charger les données initiales (optionnel)
-# Utiliser les requêtes INSERT dans misc/database.sql
+# 4. Générer les clés JWT
+php bin/console lexik:jwt:generate-keypair
 
-# Compiler les assets
-npm run build
-
-# Démarrer le serveur
-symfony server:start
+# 5. Lancer le serveur de développement
+symfony serve -d
 # ou
 php -S localhost:8000 -t public
 ```
 
-## 🎯 Fonctionnalités Avancées
+#### Frontend
 
-### Système de Graphiques
-- **Chart.js 4.4** avec plugins de zoom
-- **Matrices de progression** avec chartjs-chart-matrix
-- **Graphiques interactifs** avec navigation temporelle
-- **Responsive charts** adaptatifs
-
-### Sécurité
-- **CSRF Protection** sur tous les formulaires
-- **Validation côté serveur** avec Symfony Validator
-- **Hashage sécurisé** des mots de passe
-- **Gestion des permissions** par rôles
-
-### Performance
-- **Lazy Loading** des relations Doctrine
-- **Optimisation des requêtes** avec repositories personnalisés
-- **Mise en cache** des données fréquemment utilisées
-- **Pagination** avec KnpPaginatorBundle
-
-## 📱 Responsive Design
-
-### Mobile-First Approach
-- Interface adaptée aux écrans mobiles
-- Navigation hamburger avec animations
-- Gestures touch optimisées
-- Performance mobile optimisée
-
-### Breakpoints
-- Mobile : < 768px
-- Tablet : 768px - 1023px
-- Desktop : 1024px+
-
-## 🧪 Tests & Qualité
-
-### Tests Unitaires
-- PHPUnit 9.5 pour les tests backend
-- Coverage des entités et services
-- Tests d'intégration des controllers
-
-### Standards de Code
-- PSR-12 pour le code PHP
-- ESLint pour JavaScript
-- Symfony Best Practices
-
-## 🚀 Déploiement
-
-### Environnements
-- **Development** : Symfony server local
-- **Production** : Compatible Apache/Nginx
-
-### Optimisations Production
 ```bash
-# Optimiser l'autoloader
-composer dump-autoload --optimize
+# 1. Installer les dépendances
+cd frontend
+npm install
 
-# Compiler les assets en production
-npm run build
+# 2. Configurer l'URL de l'API
+# Éditer .env.local
+VITE_API_URL=http://localhost:8000
 
-# Vider les caches
-php bin/console cache:clear --env=prod
-
-# Optimiser Doctrine
-php bin/console doctrine:cache:clear-metadata
+# 3. Lancer le serveur de développement
+npm run dev
 ```
-
-## 🔮 Évolutions Futures
-
-### Fonctionnalités Prévues
-- [ ] API REST pour application mobile
-- [ ] Système de notifications push
-- [ ] Intégration avec wearables
-- [ ] IA pour recommandations personnalisées
-- [ ] Système de gamification
-- [ ] Partage social des performances
-
-### Améliorations Techniques
-- [ ] Migration vers Symfony 8
-- [ ] Implémentation d'un cache Redis
-- [ ] Tests end-to-end avec Panther
-- [ ] CI/CD avec GitHub Actions
-- [ ] Monitoring avec Sentry
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues ! Processus de contribution :
-
-1. **Fork** le repository
-2. **Créer** une branche feature (`git checkout -b feature/amazing-feature`)
-3. **Commit** les changements (`git commit -m 'Add amazing feature'`)
-4. **Push** vers la branche (`git push origin feature/amazing-feature`)
-5. **Ouvrir** une Pull Request
-
-## 🏆 Compétences Démontrées
-
-### Backend
-- **Symfony 7** : Framework moderne PHP
-- **Doctrine ORM** : Mapping objet-relationnel
-- **Architecture MVC** : Séparation des responsabilités
-- **Sécurité** : Authentification et autorisations
-- **Tests** : Tests unitaires et d'intégration
-
-### Frontend
-- **Twig** : Template engine avancé
-- **TailwindCSS** : Framework CSS utilitaire
-- **JavaScript** : Vanilla JS et Stimulus
-- **Chart.js** : Visualisation de données
-- **Responsive Design** : Mobile-first
-
-### DevOps
-- **Composer** : Gestionnaire de dépendances PHP
-- **NPM/Webpack** : Build tools JavaScript
-- **Doctrine Migrations** : Gestion de schéma BDD
-- **Git** : Contrôle de version
-
-## 📞 Contact
-
-**Mohamed Amine Bounachada**
-- **Email** : aminebncd_pro@hotmail.com
-- **GitHub** : [@Aminebncd](https://github.com/Aminebncd)
-- **LinkedIn** : [Mohamed Amine Bounachada](https://www.linkedin.com/in/amine-bounachada/)
 
 ---
 
-*Développé avec ❤️ par [Mohamed Amine Bounachada](https://github.com/Aminebncd)*
+## 🎯 Utilisation
 
-## 🐳 Docker Quick Start
+### Accès à l'Application
 
-The repository ships with a production-grade Docker setup and a dev-friendly `docker-compose.yml`.
+| Service           | URL                               | Description           |
+| ----------------- | --------------------------------- | --------------------- |
+| Frontend React    | http://localhost:3000             | Interface utilisateur |
+| API Backend       | http://localhost:8000/api         | API REST/GraphQL      |
+| API Documentation | http://localhost:8000/api/docs    | Swagger UI            |
+| GraphiQL          | http://localhost:8000/api/graphql | GraphQL Playground    |
+| Admin Panel       | http://localhost:8000/admin       | EasyAdmin (legacy)    |
+| Mailpit           | http://localhost:8025             | Emails de test        |
+
+### Créer un Compte Administrateur
 
 ```bash
-cp .env.docker .env.local
-make build
-make up
-# first-time: install deps & init db
-docker compose exec php composer install
-docker compose exec node npm ci
-docker compose exec node npm run build  # or npm run dev
-make migrate
+# Avec Docker
+docker compose exec web php bin/console app:create-admin
+
+# Sans Docker
+php bin/console app:create-admin
 ```
 
-Then open [http://localhost:${APP_PORT:-8080}](http://localhost:${APP_PORT:-8080}) (and Vite's dev server on port 5173 when running `npm run dev`).
+### Commandes Utiles
 
-- `php`, `nginx`, `db`, and `redis` start by default; enable `mailhog` with `--profile mail` for email testing and `node` with `--profile node` for the Vite dev server or when running `make assets`.
-- Symfony Messenger can point workers at Redis via `REDIS_URL`; Mailer can target Mailhog at `smtp://mailhog:1025` in development.
+#### Docker
 
-For production builds use `docker build --target runtime .` and inject secrets via environment variables (never commit them). A minimal `.env.prod` example:
+```bash
+# Voir les logs
+docker compose logs -f [service]
+
+# Arrêter les conteneurs
+docker compose down
+
+# Reconstruire les images
+docker compose build --no-cache
+
+# Accéder à un conteneur
+docker compose exec web bash
+docker compose exec frontend sh
+
+# Nettoyer le cache Symfony
+docker compose exec web php bin/console cache:clear
+```
+
+#### Symfony (Backend)
+
+```bash
+# Cache
+php bin/console cache:clear
+php bin/console cache:warmup
+
+# Base de données
+php bin/console doctrine:schema:update --force
+php bin/console doctrine:fixtures:load
+
+# Tests
+php bin/phpunit
+
+# Debug
+php bin/console debug:router
+php bin/console debug:config
+```
+
+#### React (Frontend)
+
+```bash
+# Build de production
+npm run build
+
+# Preview du build
+npm run preview
+
+# Tests
+npm run test
+
+# Linter
+npm run lint
+```
+
+---
+
+## 📚 Documentation API
+
+### Endpoints d'Authentification
+
+#### Inscription
+
+```http
+POST /api/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "username": "username",
+  "password": "Password123!",
+  "dateOfBirth": "1990-01-01",
+  "sex": "M"
+}
+```
+
+#### Connexion
+
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "username": "username",
+  "password": "Password123!"
+}
+
+Response:
+{
+  "token": "eyJ0eXAiOiJKV1QiLCJhbG..."
+}
+```
+
+#### Profil Utilisateur
+
+```http
+GET /api/auth/me
+Authorization: Bearer {token}
+```
+
+### Endpoints Principaux
+
+| Resource      | GET (List)           | GET (Item)                | POST  | PATCH | DELETE |
+| ------------- | -------------------- | ------------------------- | ----- | ----- | ------ |
+| Programs      | `/api/programs`      | `/api/programs/{id}`      | ✅    | ✅    | ✅     |
+| Sessions      | `/api/sessions`      | `/api/sessions/{id}`      | ✅    | ✅    | ✅     |
+| Exercises     | `/api/exercices`     | `/api/exercices/{id}`     | Admin | Admin | Admin  |
+| Performances  | `/api/performances`  | `/api/performances/{id}`  | ✅    | ✅    | ✅     |
+| Tracking      | `/api/trackings`     | `/api/trackings/{id}`     | ✅    | ✅    | ✅     |
+| Muscle Groups | `/api/muscle_groups` | `/api/muscle_groups/{id}` | Admin | Admin | Admin  |
+| Resources     | `/api/ressources`    | `/api/ressources/{id}`    | ✅    | ✅    | ✅     |
+
+**Légende:**
+
+- ✅ : Accessible par l'utilisateur authentifié (propriétaire)
+- Admin : Réservé aux administrateurs
+- Vide : Accessible publiquement
+
+---
+
+## 📁 Structure du Projet
+
+```
+muscleMind/
+├── backend/                    # API Symfony + API Platform
+│   ├── config/                 # Configuration Symfony
+│   ├── migrations/             # Migrations Doctrine
+│   ├── public/                 # Point d'entrée web
+│   ├── src/
+│   │   ├── Controller/         # Controllers API
+│   │   ├── Entity/             # Entités Doctrine
+│   │   ├── Repository/         # Repositories
+│   │   └── Security/           # Services de sécurité
+│   ├── templates/              # Templates Twig (emails)
+│   └── composer.json
+│
+├── frontend/                   # Application React
+│   ├── public/                 # Assets statiques
+│   ├── src/
+│   │   ├── components/         # Composants React
+│   │   ├── pages/              # Pages principales
+│   │   ├── context/            # Context API (Auth, Theme)
+│   │   ├── services/           # Services API
+│   │   └── App.jsx
+│   ├── package.json
+│   └── vite.config.js
+│
+├── src/                        # Code legacy (monolithe Symfony)
+├── templates/                  # Templates Twig legacy
+├── docker-compose.yml          # Configuration Docker
+├── Dockerfile                  # Image Docker backend
+├── Dockerfile.frontend         # Image Docker frontend
+└── README.md
+```
+
+---
+
+## ✨ Fonctionnalités
+
+### Gestion d'Entraînement
+
+- ✅ Création de programmes personnalisés
+- ✅ Planification de sessions (manuelle + auto)
+- ✅ Bibliothèque d'exercices avec instructions
+- ✅ Ciblage musculaire (principal + secondaire)
+- ✅ Suivi des poids et répétitions
+
+### Suivi de Performance
+
+- ✅ Enregistrement des records personnels
+- ✅ Historique des performances
+- ✅ Graphiques de progression
+- ✅ Suivi du poids corporel
+- ✅ Calendrier d'entraînement
+
+### Communauté
+
+- ✅ Partage de ressources éducatives
+- ✅ Système de tags
+- ✅ Classement (Leaderboard)
+- ✅ Système de points
+
+### Anatomie
+
+- ✅ Catalogue de groupes musculaires
+- ✅ Détails anatomiques des muscles
+- ✅ Visualisation SVG (avant/arrière)
+- ✅ Exercices par muscle ciblé
+
+---
+
+## 🔒 Sécurité
+
+### Authentification
+
+- Tokens JWT avec expiration
+- Refresh tokens
+- Email verification obligatoire
+- reCAPTCHA v3 anti-spam
+
+### Autorisation
+
+- Role-based access control (RBAC)
+- Owner-based access (ressources utilisateur)
+- API rate limiting (à configurer)
+
+### Données
+
+- Passwords hashés (bcrypt)
+- HTTPS obligatoire en production
+- CORS configuré
+- SQL injection protection (Doctrine ORM)
+- XSS protection (React)
+
+---
+
+## 🧪 Tests
+
+### Backend
+
+```bash
+# Tests unitaires et fonctionnels
+php bin/phpunit
+
+# Coverage
+php bin/phpunit --coverage-html var/coverage
+```
+
+### Frontend
+
+```bash
+# Tests unitaires
+npm run test
+
+# Tests avec coverage
+npm run test:coverage
+```
+
+---
+
+## 🚢 Déploiement
+
+### Production avec Docker
+
+```bash
+# 1. Build des images de production
+docker compose -f docker-compose.prod.yml build
+
+# 2. Lancer en production
+docker compose -f docker-compose.prod.yml up -d
+
+# 3. Migrations
+docker compose exec web php bin/console doctrine:migrations:migrate --no-interaction
+
+# 4. Optimisation
+docker compose exec web php bin/console cache:clear --env=prod
+docker compose exec frontend npm run build
+```
+
+### Variables d'Environnement Importantes
 
 ```env
+# Backend (.env.local)
 APP_ENV=prod
-APP_DEBUG=0
-APP_SECRET=change_me_in_prod
-DATABASE_URL="mysql://app:app@db:3306/app?serverVersion=8.0"
-REDIS_URL="redis://redis:6379"
+APP_SECRET=your-secret-key
+DATABASE_URL=mysql://user:pass@db:3306/musclemind
+JWT_PASSPHRASE=your-jwt-passphrase
+MAILER_DSN=smtp://user:pass@smtp.sendgrid.net:587
+RECAPTCHA_SITE_KEY=your-recaptcha-key
+
+# Frontend (.env.local)
+VITE_API_URL=https://api.musclemind.com
+VITE_RECAPTCHA_SITE_KEY=your-recaptcha-key
 ```
 
-Provision databases/queues only after the containers report healthy status (see `scripts/wait-for-db.sh`).
+---
+
+## 🤝 Contribution
+
+1. Fork le projet
+2. Créer une branche (`git checkout -b feature/AmazingFeature`)
+3. Commit les changements (`git commit -m 'Add AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
+
+---
+
+## 📝 License
+
+Ce projet est sous license MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+---
+
+## 👨‍💻 Auteur
+
+**Amine** - [GitHub](https://github.com/Aminebncd)
+
+---
+
+## 🙏 Remerciements
+
+- Symfony & API Platform communities
+- React & Material-UI teams
+- Tous les contributeurs open-source
+
+---
+
+## 📞 Support
+
+Pour toute question ou problème:
+
+- 📧 Email: support@musclemind.com
+- 🐛 Issues: [GitHub Issues](https://github.com/votre-repo/muscleMind/issues)
+- 📖 Documentation: [Wiki](https://github.com/votre-repo/muscleMind/wiki)

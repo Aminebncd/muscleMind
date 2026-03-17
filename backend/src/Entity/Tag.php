@@ -2,20 +2,40 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(),
+        new Get(),
+        new Post(security: "is_granted('ROLE_ADMIN')"),
+        new Patch(security: "is_granted('ROLE_ADMIN')"),
+        new Delete(security: "is_granted('ROLE_ADMIN')")
+    ],
+    normalizationContext: ['groups' => ['tag:read']],
+    denormalizationContext: ['groups' => ['tag:write']]
+)]
 class Tag
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['tag:read', 'ressource:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Groups(['tag:read', 'tag:write', 'ressource:read'])]
     private ?string $label = null;
 
     #[ORM\OneToMany(targetEntity: Ressource::class, mappedBy: 'tag', orphanRemoval: true)]
@@ -89,8 +109,8 @@ class Tag
 
     public function addRessource(Ressource $ressource): static
     {
-        if (!$this->Ressource->contains($ressource)) {
-            $this->Ressource->add($ressource);
+        if (!$this->Ressources->contains($ressource)) {
+            $this->Ressources->add($ressource);
             $ressource->setTag($this);
         }
 
@@ -99,7 +119,7 @@ class Tag
 
     public function removeRessource(Ressource $ressource): static
     {
-        if ($this->Ressource->removeElement($ressource)) {
+        if ($this->Ressources->removeElement($ressource)) {
             // set the owning side to null (unless already changed)
             if ($ressource->getTag() === $this) {
                 $ressource->setTag(null);

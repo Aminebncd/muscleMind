@@ -1,0 +1,71 @@
+{# Enhanced Footer #}
+<footer class="mt-20 bg-gray-900 dark:bg-gray-900 border-t border-gray-800">
+    <div class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center space-x-2 mb-4">
+                    <div
+                        class="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-dumbbell text-white text-sm"></i>
+                    </div>
+                    <span class="font-bold text-xl text-white">MuscleMind</span>
+                </div>
+                <p class="text-gray-400 mb-4 max-w-md">
+                    Transform your fitness journey with intelligent workout planning, comprehensive anatomy guides,
+                    and personalized training programs.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="https://facebook.com" class="social-link text-blue-500 hover:text-blue-400" target="_blank"
+                        aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com" class="social-link text-cyan-400 hover:text-cyan-300" target="_blank"
+                        aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com" class="social-link text-pink-500 hover:text-pink-400"
+                        target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://linkedin.com" class="social-link text-blue-600 hover:text-blue-500" target="_blank"
+                        aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-semibold text-white mb-4">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="{{ path('app_training') }}"
+                            class="text-gray-400 hover:text-white transition-colors">Training Programs</a></li>
+                    <li><a href="{{ path('app_exercice') }}"
+                            class="text-gray-400 hover:text-white transition-colors">Exercise Library</a></li>
+                    <li><a href="{{ path('app_muscle') }}"
+                            class="text-gray-400 hover:text-white transition-colors">Anatomy Guide</a></li>
+                    <li><a href="{{ path('app_user_leaderboard') }}"
+                            class="text-gray-400 hover:text-white transition-colors">Leaderboard</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="font-semibold text-white mb-4">Support</h3>
+                <ul class="space-y-2">
+                    <li><a href="{{ path('app_contact') }}"
+                            class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                    <li><a href="{{ path('app_legal') }}"
+                            class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="{{ path('app_terms') }}" class="text-gray-400 hover:text-white transition-colors">Terms
+                            of Service</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+            <p class="text-gray-400">
+                © {{ "now"|date("Y") }} MuscleMind. All rights reserved. Made with ❤️ for fitness enthusiasts.
+            </p>
+        </div>
+    </div>
+</footer>

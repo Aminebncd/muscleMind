@@ -2,27 +2,49 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\SessionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SessionRepository::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(security: "is_granted('ROLE_USER') and object.getUser() == user"),
+        new Get(security: "is_granted('ROLE_USER') and object.getUser() == user"),
+        new Post(security: "is_granted('ROLE_USER')"),
+        new Patch(security: "is_granted('ROLE_USER') and object.getUser() == user"),
+        new Delete(security: "is_granted('ROLE_USER') and object.getUser() == user")
+    ],
+    normalizationContext: ['groups' => ['session:read']],
+    denormalizationContext: ['groups' => ['session:write']]
+)]
 class Session
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['session:read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['session:read', 'session:write'])]
     private ?\DateTimeInterface $dateSession = null;
 
     #[ORM\ManyToOne(inversedBy: 'sessions')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['session:read', 'session:write'])]
     private ?Program $program = null;
 
     #[ORM\ManyToOne(inversedBy: 'sessions')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['session:read'])]
     private ?User $user = null;
 
     

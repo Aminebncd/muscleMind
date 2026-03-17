@@ -1,0 +1,40 @@
+FROM php:8.2-fpm-alpine
+
+# Install system dependencies
+RUN apk add --no-cache \
+    git \
+    icu-dev \
+    libzip-dev \
+    oniguruma-dev \
+    libsodium-dev \
+    fcgi \
+    && docker-php-ext-install \
+    pdo_mysql \
+    intl \
+    opcache \
+    zip \
+    sodium
+
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Configure PHP
+RUN echo "memory_limit=256M" > /usr/local/etc/php/conf.d/memory-limit.ini \
+    && echo "upload_max_filesize=20M" > /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size=20M" >> /usr/local/etc/php/conf.d/uploads.ini
+
+# Set working directory
+WORKDIR /app
+
+# Copy backend files
+COPY backend/ .
+
+# Install dependencies
+RUN composer install --no-scripts --prefer-dist --no-interaction --no-cache \
+    && composer dump-autoload --optimize \
+    && mkdir -p var/cache var/log config/jwt \
+    && chown -R www-data:www-data var config/jwt
+
+EXPOSE 9000
+
+CMD ["php-fpm"]
