@@ -19,7 +19,13 @@ class Exercice
     #[ORM\Column(length: 255)]
     private ?string $exerciceName = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $apiId = null;
+
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $gifUrl = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $exerciceFunction = null;
     
     #[ORM\ManyToOne(inversedBy: 'exercices')]
@@ -68,12 +74,36 @@ class Exercice
         return $this;
     }
 
+    public function getApiId(): ?string
+    {
+        return $this->apiId;
+    }
+
+    public function setApiId(?string $apiId): static
+    {
+        $this->apiId = $apiId;
+
+        return $this;
+    }
+
+    public function getGifUrl(): ?string
+    {
+        return $this->gifUrl;
+    }
+
+    public function setGifUrl(?string $gifUrl): static
+    {
+        $this->gifUrl = $gifUrl;
+
+        return $this;
+    }
+
     public function getExerciceFunction(): ?string
     {
         return $this->exerciceFunction;
     }
 
-    public function setExerciceFunction(string $exerciceFunction): static
+    public function setExerciceFunction(?string $exerciceFunction): static
     {
         $this->exerciceFunction = $exerciceFunction;
 
@@ -83,12 +113,10 @@ class Exercice
     public function isIsolationExercice(): bool
     {
         if ($this->secondaryTarget === null) {
-            $this->isolationExercice = true;
+            return true;
         } else {
-            $this->isolationExercice = false;
+            return false;
         }
-        
-        return $this->isolationExercice;
     }
 
     
