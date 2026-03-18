@@ -96,6 +96,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->sessions = new ArrayCollection();
         $this->ressources = new ArrayCollection();
         $this->favorites = new ArrayCollection();
+        
+        // Defaults to avoid Integrity constraint violation on NOT NULL columns
+        $this->lastResetYear = (int) date('Y');
+        $this->score = 0;
+        $this->isVerified = false;
     }
 
     public function getId(): ?int

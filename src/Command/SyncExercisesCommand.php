@@ -58,13 +58,23 @@ class SyncExercisesCommand extends Command
         $flushCounter = 0;
 
         foreach ($exercisesData as $data) {
+            // Installer Default MuscleGroup if it doesn't exist
+            $muscleGroupRepo = $this->entityManager->getRepository(\App\Entity\MuscleGroup::class);
+            $defaultGroup = $muscleGroupRepo->findOneBy(['muscleGroup' => 'Uncategorized']);
+            if (!$defaultGroup) {
+                $defaultGroup = new \App\Entity\MuscleGroup();
+                $defaultGroup->setMuscleGroup('Uncategorized');
+                $this->entityManager->persist($defaultGroup);
+                $this->entityManager->flush(); // Force Id generation for the FK constraint
+            }
+
             // Identifier ou créer le muscle principal (target)
             $targetName = strtolower(trim($data['target'] ?? 'Unknown'));
             if (!isset($musclesMap[$targetName])) {
                 $muscle = new Muscle();
                 $muscle->setMuscleName(ucfirst($targetName));
                 $muscle->setMuscleFunction('Managed by ExerciseDB');
-                // Note : il faudrait relier au MuscleGroup, on bypass temporairement pour la sécu/stabilité
+                $muscle->setMuscleGroup($defaultGroup);
                 
                 $this->entityManager->persist($muscle);
                 $musclesMap[$targetName] = $muscle;
